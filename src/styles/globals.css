@@ -1,3 +1,36 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: var(--main-bg-color);
+  -ms-overflow-style: none;
+}
+
+button {
+  outline: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+text {
+  line-height: 150%;
+  letter-spacing: -2.5%;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
 :root {
   --main-bg-color: #17171b;
   --tab-bar-color: #62646c;
@@ -13,33 +46,12 @@
   --error-color: #ff5e5e;
 }
 
-* {
-  box-sizing: border-box;
+@font-face {
+  font-family: 'Regular';
+  src: url(../assets/fonts/Pretendard-Regular.otf);
 }
 
-html,
-body {
-  padding: 0;
-  margin: 0;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  -ms-overflow-style: none;
-}
-
-button {
-  outline: none;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-}
-
-text {
-  line-height: 150%;
-}
-
-::-webkit-scrollbar {
-  display: none;
+@font-face {
+  font-family: 'SemiBold';
+  src: url(../assets//fonts/Pretendard-SemiBold.otf);
 }
