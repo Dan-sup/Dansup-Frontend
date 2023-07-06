@@ -1,6 +1,7 @@
-import { useState, useRef, useMemo } from 'react';
+import { useRef, useMemo } from 'react';
 import styles from '../../styles/UploadPage.module.css';
 import { uploadFile } from '../../types/upload';
+import Plus from '../../assets/icons/plus.svg';
 
 interface uploadVideoProps {
   video: uploadFile | null;
@@ -30,7 +31,10 @@ export default function UploadVideo({ video, setVideo }: uploadVideoProps) {
     if (!video && video == null) {
       return (
         <div className={styles.blankVideo} onClick={handleClickFileInput}>
-          영상 업로드하기
+          <div className={styles.videoButton}>
+            <Plus />
+            영상 업로드하기
+          </div>
         </div>
       );
     }

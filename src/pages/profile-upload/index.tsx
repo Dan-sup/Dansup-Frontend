@@ -1,7 +1,7 @@
 import { useRef, useState, useMemo } from 'react';
 import Image from 'next/image';
 import styles from '../../styles/UploadPage.module.css';
-import BlankImage from '../../assets/images/BlankImage.svg';
+import BlankImage from '../../assets/icons/blank-image.svg';
 import UploadVideo from '../../components/video/UploadVideo';
 import { uploadFile } from '../../types/upload';
 
