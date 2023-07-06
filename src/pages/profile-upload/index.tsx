@@ -39,7 +39,14 @@ export default function ProfileUpload() {
 
   const showImage = useMemo(() => {
     if (!image && image == null) {
-      return <Image src={BlankImage} alt="blank" width={100} height={100} />;
+      return (
+        <BlankImage
+          className={styles.image}
+          alt="blank"
+          width={100}
+          height={100}
+        />
+      );
     }
     return (
       <Image
@@ -57,18 +64,16 @@ export default function ProfileUpload() {
     <div className={styles.container}>
       <div className={styles.imgBox}>
         {showImage}
-        <div>
-          <input
-            className={styles.inputImg}
-            type="file"
-            accept="image/*"
-            ref={fileInputRef}
-            onChange={onUpload}
-          />
-          <button className={styles.imgButton} onClick={handleClickFileInput}>
-            이미지 업로드
-          </button>
-        </div>
+        <input
+          className={styles.inputImg}
+          type="file"
+          accept="image/*"
+          ref={fileInputRef}
+          onChange={onUpload}
+        />
+        <button className={styles.imgButton} onClick={handleClickFileInput}>
+          이미지 업로드
+        </button>
       </div>
       <div className={styles.box}>
         <div className={styles.text}>사용자 계정</div>
