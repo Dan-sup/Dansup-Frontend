@@ -7,7 +7,36 @@
   margin-bottom: 60px;
 }
 
+.imgBox {
+  width: 375px;
+  height: 188px;
+  margin-bottom: 31px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .text {
   font-size: 16px;
+  font-family: 'SemiBold';
+}
+
+.image {
+  border-radius: 100%;
+  margin-bottom: 14px;
+}
+
+.inputImg {
+  display: none;
+}
+
+.imgButton {
+  width: 110px;
+  height: 33px;
+  border: 1px solid var(--tab-bar-color);
+  border-radius: 30px;
+  font-size: 14px;
+  color: var(--text-color-first);
   font-family: 'SemiBold';
 }

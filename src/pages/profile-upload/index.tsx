@@ -1,8 +1,16 @@
-import { useState } from 'react';
+import { useRef, useState, useMemo } from 'react';
+import Image from 'next/image';
 import styles from '../../styles/UploadPage.module.css';
+import BlankImage from '../../assets/images/BlankImage.svg';
+
+type uploadImg = {
+  file: File;
+  thumnail: string;
+  type: string;
+};
 
 export default function ProfileUpload() {
-  const [image, setImage] = useState<any>();
+  const [image, setImage] = useState<uploadImg | null>(null);
   const [userId, setUserId] = useState<string>('');
   const [dancerName, setDancerName] = useState<string>('');
   const [intro, setIntro] = useState<string>('');
@@ -11,29 +19,56 @@ export default function ProfileUpload() {
   const [date, setDate] = useState<string>('');
   const [award, setAward] = useState<string>('');
 
-  const onUpload = (e: any) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-    return new Promise<void>(resolve => {
-      reader.onload = () => {
-        setImage(reader.result || null);
-        resolve();
-      };
-    });
+  const handleClickFileInput = () => {
+    fileInputRef.current?.click();
   };
+
+  const onUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const fileList = e.target.files;
+    if (fileList && fileList[0]) {
+      const url = URL.createObjectURL(fileList[0]);
+      setImage({
+        file: fileList[0],
+        thumnail: url,
+        type: fileList[0].type.slice(0, 5),
+      });
+    }
+  };
+
+  const showImage = useMemo(() => {
+    if (!image && image == null) {
+      return <Image src={BlankImage} alt="blank" width={100} height={100} />;
+    }
+    return (
+      <Image
+        className={styles.image}
+        src={image.thumnail}
+        onClick={handleClickFileInput}
+        alt={image.type}
+        width={100}
+        height={100}
+      />
+    );
+  }, [image]);
 
   return (
     <div className={styles.container}>
-      <div className={styles.image}>
-        <input
-          accept="image/*"
-          multiple
-          type="file"
-          onChange={e => onUpload(e)}
-        />
-        <img src={image} />
+      <div className={styles.imgBox}>
+        {showImage}
+        <div>
+          <input
+            className={styles.inputImg}
+            type="file"
+            accept="image/*"
+            ref={fileInputRef}
+            onChange={onUpload}
+          />
+          <button className={styles.imgButton} onClick={handleClickFileInput}>
+            이미지 업로드
+          </button>
+        </div>
       </div>
       <div className={styles.box}>
         <div className={styles.text}>사용자 계정</div>
