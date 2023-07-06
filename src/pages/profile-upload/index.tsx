@@ -52,7 +52,6 @@ export default function ProfileUpload() {
       <Image
         className={styles.image}
         src={image.thumnail}
-        onClick={handleClickFileInput}
         alt={image.type}
         width={100}
         height={100}
@@ -78,7 +77,7 @@ export default function ProfileUpload() {
       <div className={styles.box}>
         <div className={styles.text}>사용자 계정</div>
         <input
-          className={styles.input}
+          className={`${styles.input} ${styles.long}`}
           placeholder="영문, 숫자, 밑줄 및 마침표만 입력 가능합니다"
           type="text"
           value={userId}
@@ -87,7 +86,7 @@ export default function ProfileUpload() {
       <div className={styles.box}>
         <div className={styles.text}>댄서 활동명</div>
         <input
-          className={styles.input}
+          className={`${styles.input} ${styles.long}`}
           placeholder="한글, 영문, 숫자, 특수기호 입력 가능합니다 (1-14자)"
           type="text"
           value={dancerName}
@@ -99,7 +98,7 @@ export default function ProfileUpload() {
       <div className={styles.box}>
         <div className={styles.text}>한줄 소개</div>
         <input
-          className={styles.input}
+          className={`${styles.input} ${styles.long}`}
           placeholder="ex.저는 댄서경력 10년차 프로댄서입니다"
           type="text"
           value={intro}
@@ -111,7 +110,7 @@ export default function ProfileUpload() {
       <div className={styles.box}>
         <div className={styles.text}>나를 소개하는 해시태그</div>
         <input
-          className={styles.input}
+          className={`${styles.input} ${styles.long}`}
           placeholder="# 빠른템포의, 허니제이같은 등의 키워드를 작성해보세요!"
           type="text"
           value={hashTag}
@@ -121,13 +120,13 @@ export default function ProfileUpload() {
         <div className={styles.text}>공연 및 활동경력</div>
         <div className={styles.inputs}>
           <input
-            className={styles.input}
+            className={`${styles.input} ${styles.short}`}
             placeholder="2023.01.01"
             type="text"
             value={date}
           />
           <input
-            className={styles.input}
+            className={`${styles.input} ${styles.mid}`}
             placeholder="ex.OO댄스대회 최우수상"
             type="text"
             value={award}
