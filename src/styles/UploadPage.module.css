@@ -20,6 +20,34 @@
   align-items: center;
 }
 
+.clickedBox {
+  width: 338px;
+  height: 296px;
+  font-size: 14px;
+  font-family: 'Regular';
+  color: var(--text-color-second);
+}
+
+.smallGenreBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 41px;
+  width: 77px;
+  border: 1px solid var(--tab-bar-color);
+  border-radius: 5px;
+}
+
+.bigGenreBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 41px;
+  width: 106px;
+  border: 1px solid var(--tab-bar-color);
+  border-radius: 5px;
+}
+
 .text {
   font-size: 16px;
   font-family: 'SemiBold';
@@ -58,6 +86,15 @@
 
 .short {
   width: 83px;
+}
+
+.genre {
+  width: 339px;
+  font-size: 14px;
+  font-family: 'Regular';
+  color: var(--text-color-fourth);
+  appearance: none;
+  background: url('../assets/icons/arrow.svg') no-repeat right center;
 }
 
 .image {

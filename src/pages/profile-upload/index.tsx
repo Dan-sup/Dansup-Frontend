@@ -16,6 +16,7 @@ export default function ProfileUpload() {
   const [date, setDate] = useState<string>('');
   const [award, setAward] = useState<string>('');
 
+  //image 미리보기
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleClickFileInput = () => {
@@ -55,6 +56,45 @@ export default function ProfileUpload() {
       />
     );
   }, [image]);
+
+  //genre 선택
+  const genreList = [
+    { name: '락킹', length: 2 },
+    { name: '왁킹', length: 2 },
+    { name: '팝핑', length: 2 },
+    { name: '재즈', length: 2 },
+    { name: '걸스 힙합', length: 5 },
+    { name: '힙합', length: 2 },
+    { name: '텃팅', length: 2 },
+    { name: '디짓', length: 2 },
+    { name: '트월크', length: 3 },
+    { name: '힐댄스', length: 3 },
+    { name: '브레이킹', length: 4 },
+    { name: '크럼프', length: 3 },
+    { name: '하우스', length: 3 },
+    { name: '코레오', length: 3 },
+    { name: '컨템', length: 2 },
+    { name: '보깅', length: 2 },
+    { name: '소울', length: 2 },
+    { name: '프리스타일', length: 5 },
+    { name: '기타', length: 2 },
+  ];
+
+  const clickedBox = genreList.map((data, idx) => {
+    if (data.length == 2) {
+      return (
+        <div className={styles.smallGenreBox} key={idx}>
+          {data.name}
+        </div>
+      );
+    } else {
+      return (
+        <div className={styles.bigGenreBox} key={idx}>
+          {data.name}
+        </div>
+      );
+    }
+  });
 
   return (
     <div className={styles.container}>
@@ -104,6 +144,15 @@ export default function ProfileUpload() {
       </div>
       <div className={styles.box}>
         <div className={styles.text}>나의 장르</div>
+        <input
+          className={`${styles.input} ${styles.genre}`}
+          placeholder="나의 댄스 장르를 선택해주세요"
+          onChange={(e: any) => {
+            setGenre(e.target.value);
+            console.log(genre);
+          }}
+        />
+        <div className={styles.clickedBox}>{clickedBox}</div>
       </div>
       <div className={styles.box}>
         <div className={styles.text}>나를 소개하는 해시태그</div>
