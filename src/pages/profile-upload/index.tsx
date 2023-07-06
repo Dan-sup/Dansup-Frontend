@@ -2,17 +2,14 @@ import { useRef, useState, useMemo } from 'react';
 import Image from 'next/image';
 import styles from '../../styles/UploadPage.module.css';
 import BlankImage from '../../assets/images/BlankImage.svg';
-
-type uploadImg = {
-  file: File;
-  thumnail: string;
-  type: string;
-};
+import UploadVideo from '../../components/video/UploadVideo';
+import { uploadFile } from '../../types/upload';
 
 export default function ProfileUpload() {
-  const [image, setImage] = useState<uploadImg | null>(null);
+  const [image, setImage] = useState<uploadFile | null>(null);
   const [userId, setUserId] = useState<string>('');
   const [dancerName, setDancerName] = useState<string>('');
+  const [video, setVideo] = useState<uploadFile | null>(null);
   const [intro, setIntro] = useState<string>('');
   const [genre, setGenre] = useState<string>('');
   const [hashTag, setHashTag] = useState<string>('');
@@ -25,7 +22,7 @@ export default function ProfileUpload() {
     fileInputRef.current?.click();
   };
 
-  const onUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onUploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileList = e.target.files;
     if (fileList && fileList[0]) {
       const url = URL.createObjectURL(fileList[0]);
@@ -64,11 +61,11 @@ export default function ProfileUpload() {
       <div className={styles.imgBox}>
         {showImage}
         <input
-          className={styles.inputImg}
+          className={styles.inputFile}
           type="file"
           accept="image/*"
           ref={fileInputRef}
-          onChange={onUpload}
+          onChange={onUploadImage}
         />
         <button className={styles.imgButton} onClick={handleClickFileInput}>
           이미지 업로드
@@ -94,6 +91,7 @@ export default function ProfileUpload() {
       </div>
       <div className={styles.box}>
         <div className={styles.text}>대표 영상 업로드</div>
+        <UploadVideo video={video} setVideo={setVideo} />
       </div>
       <div className={styles.box}>
         <div className={styles.text}>한줄 소개</div>
