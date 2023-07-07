@@ -80,7 +80,10 @@ export default function ProfileUpload() {
         </button>
       </div>
       <div className={styles.box}>
-        <div className={styles.text}>사용자 계정</div>
+        <div className={styles.required}>
+          <div className={styles.text}>사용자 계정</div>
+          <div className={`${styles.text} ${styles.pointText}`}>*</div>
+        </div>
         <input
           className={`${styles.input} ${styles.long}`}
           placeholder="영문, 숫자, 밑줄 및 마침표만 입력 가능합니다"
@@ -89,7 +92,10 @@ export default function ProfileUpload() {
         />
       </div>
       <div className={styles.box}>
-        <div className={styles.text}>댄서 활동명</div>
+        <div className={styles.required}>
+          <div className={styles.text}>댄서 활동명</div>
+          <div className={styles.pointText}>*</div>
+        </div>
         <input
           className={`${styles.input} ${styles.long}`}
           placeholder="한글, 영문, 숫자, 특수기호 입력 가능합니다 (1-14자)"
@@ -111,7 +117,14 @@ export default function ProfileUpload() {
         />
       </div>
       <div className={styles.box}>
-        <div className={styles.text}>나의 장르</div>
+        <div className={styles.maximum}>
+          <div className={styles.text}>나의 장르</div>
+          <div className={styles.smallTexts}>
+            <div className={`${styles.smallText} ${styles.spacing}`}>최대</div>
+            <div className={`${styles.smallText} ${styles.pointText}`}>3</div>
+            <div className={styles.smallText}>개</div>
+          </div>
+        </div>
         {clicked ? (
           <>
             <input
@@ -132,7 +145,14 @@ export default function ProfileUpload() {
         )}
       </div>
       <div className={styles.box}>
-        <div className={styles.text}>나를 소개하는 해시태그</div>
+        <div className={styles.maximum}>
+          <div className={styles.text}>나를 소개하는 해시태그</div>
+          <div className={styles.smallTexts}>
+            <div className={`${styles.smallText} ${styles.spacing}`}>최대</div>
+            <div className={`${styles.smallText} ${styles.pointText}`}>3</div>
+            <div className={styles.smallText}>개</div>
+          </div>
+        </div>
         <input
           className={`${styles.input} ${styles.long}`}
           placeholder="# 빠른템포의, 허니제이같은 등의 키워드를 작성해보세요!"

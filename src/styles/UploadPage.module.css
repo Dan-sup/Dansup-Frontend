@@ -61,10 +61,42 @@
   margin-right: 10px;
 }
 
+.required {
+  display: flex;
+  flex-direction: row;
+}
+
+.maximum {
+  display: flex;
+  flex-direction: row;
+  width: 339px;
+  justify-content: space-between;
+}
+
 .text {
   font-size: 16px;
   font-family: 'SemiBold';
   margin-bottom: 14px;
+}
+
+.smallTexts {
+  display: flex;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.smallText {
+  font-size: 12px;
+  font-family: 'Regular';
+  color: var(--text-color-second);
+}
+
+.pointText {
+  color: var(--main-color);
+}
+
+.spacing {
+  margin-right: 2px;
 }
 
 .inputs {
