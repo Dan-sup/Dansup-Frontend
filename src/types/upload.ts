@@ -5,7 +5,7 @@ export type uploadFile = {
 };
 
 export interface IList {
+  id: number;
   name: string;
-  length: number;
-  line: number;
+  isShort: boolean;
 }

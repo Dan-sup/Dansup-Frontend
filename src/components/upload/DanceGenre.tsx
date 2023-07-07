@@ -7,15 +7,15 @@ interface boxProps {
 
 function Box({ list }: boxProps) {
   const clickedBox = list.map((data, idx) => {
-    if (data.length == 2) {
+    if (data.isShort) {
       return (
-        <div className={styles.smallGenreBox} key={idx}>
+        <div className={styles.shortGenreBox} key={idx}>
           {data.name}
         </div>
       );
     } else {
       return (
-        <div className={styles.bigGenreBox} key={idx}>
+        <div className={styles.longGenreBox} key={idx}>
           {data.name}
         </div>
       );
@@ -28,33 +28,33 @@ function Box({ list }: boxProps) {
 export default function DanceGenre() {
   //genre 선택
   const genreList = [
-    { name: '락킹', length: 2, line: 1 },
-    { name: '왁킹', length: 2, line: 1 },
-    { name: '팝핑', length: 2, line: 1 },
-    { name: '재즈', length: 2, line: 1 },
-    { name: '걸스 힙합', length: 5, line: 2 },
-    { name: '힙합', length: 2, line: 2 },
-    { name: '텃팅', length: 2, line: 2 },
-    { name: '디짓', length: 2, line: 3 },
-    { name: '트월크', length: 3, line: 3 },
-    { name: '힐댄스', length: 3, line: 3 },
-    { name: '브레이킹', length: 4, line: 4 },
-    { name: '크럼프', length: 3, line: 4 },
-    { name: '하우스', length: 3, line: 4 },
-    { name: '코레오', length: 3, line: 5 },
-    { name: '컨템', length: 2, line: 5 },
-    { name: '보깅', length: 2, line: 5 },
-    { name: '소울', length: 2, line: 6 },
-    { name: '프리스타일', length: 5, line: 6 },
-    { name: '기타', length: 2, line: 6 },
+    { id: 0, name: '락킹', isShort: true },
+    { id: 1, name: '왁킹', isShort: true },
+    { id: 2, name: '팝핑', isShort: true },
+    { id: 3, name: '재즈', isShort: true },
+    { id: 4, name: '걸스 힙합', isShort: false },
+    { id: 5, name: '힙합', isShort: true },
+    { id: 6, name: '텃팅', isShort: true },
+    { id: 7, name: '디짓', isShort: true },
+    { id: 8, name: '트월크', isShort: false },
+    { id: 9, name: '힐댄스', isShort: false },
+    { id: 10, name: '브레이킹', isShort: false },
+    { id: 11, name: '크럼프', isShort: false },
+    { id: 12, name: '하우스', isShort: false },
+    { id: 13, name: '코레오', isShort: false },
+    { id: 14, name: '컨템', isShort: true },
+    { id: 15, name: '보깅', isShort: true },
+    { id: 16, name: '소울', isShort: true },
+    { id: 17, name: '프리스타일', isShort: false },
+    { id: 18, name: '기타', isShort: true },
   ];
 
-  const firstList = genreList.filter(data => data.line == 1);
-  const secondList = genreList.filter(data => data.line == 2);
-  const thirdList = genreList.filter(data => data.line == 3);
-  const fourthList = genreList.filter(data => data.line == 4);
-  const fifthList = genreList.filter(data => data.line == 5);
-  const sixthList = genreList.filter(data => data.line == 6);
+  const firstList = genreList.filter(data => data.id < 4);
+  const secondList = genreList.filter(data => data.id < 7 && data.id > 3);
+  const thirdList = genreList.filter(data => data.id < 10 && data.id > 6);
+  const fourthList = genreList.filter(data => data.id < 13 && data.id > 9);
+  const fifthList = genreList.filter(data => data.id < 16 && data.id > 12);
+  const sixthList = genreList.filter(data => data.id < 19 && data.id > 15);
 
   return (
     <div className={styles.clickedBoxs}>
