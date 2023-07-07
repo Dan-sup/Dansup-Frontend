@@ -39,13 +39,7 @@ export default function UploadVideo({ video, setVideo }: uploadVideoProps) {
       );
     }
     return (
-      <video
-        className={styles.video}
-        src={video.thumnail}
-        loop
-        autoPlay
-        muted
-      />
+      <video className={styles.video} src={video.thumnail} loop autoPlay />
     );
   }, [video]);
 

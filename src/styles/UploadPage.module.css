@@ -21,11 +21,15 @@
 }
 
 .clickedBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
   width: 338px;
   height: 296px;
   font-size: 14px;
   font-family: 'Regular';
   color: var(--text-color-second);
+  margin-bottom: 10px;
 }
 
 .smallGenreBox {
@@ -36,6 +40,7 @@
   width: 77px;
   border: 1px solid var(--tab-bar-color);
   border-radius: 5px;
+  margin-right: 10px;
 }
 
 .bigGenreBox {
@@ -46,6 +51,7 @@
   width: 106px;
   border: 1px solid var(--tab-bar-color);
   border-radius: 5px;
+  margin-right: 10px;
 }
 
 .text {
@@ -94,7 +100,14 @@
   font-family: 'Regular';
   color: var(--text-color-fourth);
   appearance: none;
+}
+
+.before {
   background: url('../assets/icons/arrow.svg') no-repeat right center;
+}
+
+.after {
+  background: url('../assets/icons/after-arrow.svg') no-repeat right center;
 }
 
 .image {
