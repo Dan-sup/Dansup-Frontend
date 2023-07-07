@@ -20,15 +20,22 @@
   align-items: center;
 }
 
-.clickedBox {
+.clickedBoxs {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: left;
   width: 338px;
   height: 296px;
   font-size: 14px;
   font-family: 'Regular';
   color: var(--text-color-second);
+  margin-top: 14px;
+}
+
+.clickedBox {
+  display: flex;
+  flex-direction: row;
+  height: 41px;
   margin-bottom: 10px;
 }
 
