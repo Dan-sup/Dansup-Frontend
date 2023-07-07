@@ -121,6 +121,10 @@
   border-bottom: 1px solid var(--white-color);
 }
 
+.textarea {
+  resize: none;
+}
+
 .long {
   width: 339px;
 }

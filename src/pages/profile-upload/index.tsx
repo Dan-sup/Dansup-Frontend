@@ -1,5 +1,6 @@
 import { useRef, useState, useMemo } from 'react';
 import Image from 'next/image';
+import Textarea from 'react-textarea-autosize';
 import styles from '../../styles/UploadPage.module.css';
 import BlankImage from '../../assets/icons/blank-image.svg';
 import { uploadFile } from '../../types/upload';
@@ -11,6 +12,7 @@ export default function ProfileUpload() {
   const [userId, setUserId] = useState<string>('');
   const [dancerName, setDancerName] = useState<string>('');
   const [video, setVideo] = useState<uploadFile | null>(null);
+  const [introCount, setIntroCount] = useState<number>(0);
   const [intro, setIntro] = useState<string>('');
   const [genre, setGenre] = useState<string>('');
   const [hashTag, setHashTag] = useState<string>('');
@@ -98,6 +100,12 @@ export default function ProfileUpload() {
     }
   };
 
+  const handleChangeIntro = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const currentIntro = e.target.value;
+    setIntro(currentIntro);
+    setIntroCount(e.target.value.length);
+  };
+
   //Genre
   const onClickOpenBox = () => {
     setIsClicked(!isClicked);
@@ -151,12 +159,22 @@ export default function ProfileUpload() {
         <UploadVideo video={video} setVideo={setVideo} />
       </div>
       <div className={styles.box}>
-        <div className={styles.text}>한줄 소개</div>
-        <input
-          className={`${styles.input} ${styles.long}`}
+        <div className={styles.maximum}>
+          <div className={styles.text}>한줄 소개</div>
+          <div className={styles.smallTexts}>
+            <div className={`${styles.smallText} ${styles.pointText}`}>
+              {introCount}
+            </div>
+            <div className={styles.smallText}>/80</div>
+          </div>
+        </div>
+        <Textarea
+          className={`${styles.input} ${styles.textarea} ${styles.long}`}
           placeholder="ex.저는 댄서경력 10년차 프로댄서입니다"
-          type="text"
           value={intro}
+          onChange={handleChangeIntro}
+          maxLength={80}
+          cacheMeasurements
         />
       </div>
       <div className={styles.box}>
