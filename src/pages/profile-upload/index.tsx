@@ -16,16 +16,26 @@ export default function ProfileUpload() {
   const [hashTag, setHashTag] = useState<string>('');
   const [date, setDate] = useState<string>('');
   const [award, setAward] = useState<string>('');
-  const [clicked, isClicked] = useState<boolean>(false);
+  const [isClicked, setIsClicked] = useState<boolean>(false);
+
+  //에러 메시지, 확인 메시지 state
+  const [userIdMsg, setUserIdMsg] = useState<string>('');
+  const [dancerNameMsg, setDancerNameMsg] = useState<string>('');
+
+  //우효성 검사 state (Checked => 형식, Valid => 중복)
+  const [isUserIdChecked, setIsUserIdChecked] = useState<boolean>(false);
+  const [isdancerNameChecked, setIsDancerNameChecked] =
+    useState<boolean>(false);
+  const [isUserIdValid, setIsUserIdValid] = useState<boolean>(false);
 
   //image 미리보기
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleClickFileInput = () => {
+  const onClickFileInput = () => {
     fileInputRef.current?.click();
   };
 
-  const onUploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileList = e.target.files;
     if (fileList && fileList[0]) {
       const url = URL.createObjectURL(fileList[0]);
@@ -59,9 +69,38 @@ export default function ProfileUpload() {
     );
   }, [image]);
 
-  //Genre 선택
-  const handleOpenBox = () => {
-    isClicked(!clicked);
+  const handleChangeUserId = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const currentUserId = e.target.value;
+    setUserId(currentUserId);
+    const userIdRegex = /^[a-zA-Z0-9_.]{1,14}$/;
+
+    if (!userIdRegex.test(currentUserId)) {
+      setUserIdMsg('영문, 숫자, 밑줄 및 마침표만 입력 가능합니다.');
+      setIsUserIdChecked(false);
+    } else {
+      setUserIdMsg('');
+      setIsUserIdChecked(true);
+    }
+  };
+
+  const handleChangeDancerName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const currentDancerName = e.target.value;
+    setDancerName(currentDancerName);
+    const dancerNameRegex =
+      /^[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]{1,14}$/;
+
+    if (!dancerNameRegex.test(currentDancerName)) {
+      setDancerNameMsg('한글, 영문, 숫자, 특수기호 입력 가능합니다.(1-14자)');
+      setIsDancerNameChecked(false);
+    } else {
+      setDancerNameMsg('');
+      setIsDancerNameChecked(true);
+    }
+  };
+
+  //Genre
+  const onClickOpenBox = () => {
+    setIsClicked(!isClicked);
   };
 
   return (
@@ -73,23 +112,25 @@ export default function ProfileUpload() {
           type="file"
           accept="image/*"
           ref={fileInputRef}
-          onChange={onUploadImage}
+          onChange={handleUploadImage}
         />
-        <button className={styles.imgButton} onClick={handleClickFileInput}>
+        <button className={styles.imgButton} onClick={onClickFileInput}>
           이미지 업로드
         </button>
       </div>
       <div className={styles.box}>
         <div className={styles.required}>
           <div className={styles.text}>사용자 계정</div>
-          <div className={`${styles.text} ${styles.pointText}`}>*</div>
+          <div className={`${styles.pointText}`}>*</div>
         </div>
         <input
           className={`${styles.input} ${styles.long}`}
-          placeholder="영문, 숫자, 밑줄 및 마침표만 입력 가능합니다"
+          placeholder="영문, 숫자, 밑줄 및 마침표만 입력 가능합니다."
           type="text"
           value={userId}
+          onChange={handleChangeUserId}
         />
+        <div className={styles.errorMsg}>{userIdMsg}</div>
       </div>
       <div className={styles.box}>
         <div className={styles.required}>
@@ -98,10 +139,12 @@ export default function ProfileUpload() {
         </div>
         <input
           className={`${styles.input} ${styles.long}`}
-          placeholder="한글, 영문, 숫자, 특수기호 입력 가능합니다 (1-14자)"
+          placeholder="한글, 영문, 숫자, 특수기호 입력 가능합니다.(1-14자)"
           type="text"
           value={dancerName}
+          onChange={handleChangeDancerName}
         />
+        <div className={styles.errorMsg}>{dancerNameMsg}</div>
       </div>
       <div className={styles.box}>
         <div className={styles.text}>대표 영상 업로드</div>
@@ -125,12 +168,12 @@ export default function ProfileUpload() {
             <div className={styles.smallText}>개</div>
           </div>
         </div>
-        {clicked ? (
+        {isClicked ? (
           <>
             <input
               className={`${styles.input} ${styles.genre} ${styles.after}`}
               placeholder="나의 댄스 장르를 선택해주세요"
-              onClick={handleOpenBox}
+              onClick={onClickOpenBox}
             />
             <DanceGenre />
           </>
@@ -139,7 +182,7 @@ export default function ProfileUpload() {
             <input
               className={`${styles.input} ${styles.genre} ${styles.before}`}
               placeholder="나의 댄스 장르를 선택해주세요"
-              onClick={handleOpenBox}
+              onClick={onClickOpenBox}
             />
           </>
         )}

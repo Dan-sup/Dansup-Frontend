@@ -11,11 +11,11 @@ interface uploadVideoProps {
 export default function UploadVideo({ video, setVideo }: uploadVideoProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleClickFileInput = () => {
+  const onClickFileInput = () => {
     fileInputRef.current?.click();
   };
 
-  const onUploadVideo = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUploadVideo = (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileList = e.target.files;
     if (fileList && fileList[0]) {
       const url = URL.createObjectURL(fileList[0]);
@@ -30,7 +30,7 @@ export default function UploadVideo({ video, setVideo }: uploadVideoProps) {
   const showVideo = useMemo(() => {
     if (!video && video == null) {
       return (
-        <div className={styles.blankVideo} onClick={handleClickFileInput}>
+        <div className={styles.blankVideo} onClick={onClickFileInput}>
           <div className={styles.videoButton}>
             <Plus />
             영상 업로드하기
@@ -51,7 +51,7 @@ export default function UploadVideo({ video, setVideo }: uploadVideoProps) {
         type="file"
         accept="video/*"
         ref={fileInputRef}
-        onChange={onUploadVideo}
+        onChange={handleUploadVideo}
       />
     </div>
   );

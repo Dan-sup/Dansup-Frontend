@@ -133,6 +133,13 @@
   width: 83px;
 }
 
+.errorMsg {
+  font-size: 12px;
+  font-family: 'Regular';
+  color: var(--error-color);
+  margin-top: 8px;
+}
+
 .genre {
   width: 339px;
   font-size: 14px;
