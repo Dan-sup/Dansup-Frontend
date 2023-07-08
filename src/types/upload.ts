@@ -9,3 +9,9 @@ export interface IList {
   name: string;
   isShort: boolean;
 }
+
+export interface IAwardList {
+  id: number;
+  date: string;
+  award: string;
+}

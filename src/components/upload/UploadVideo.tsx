@@ -30,7 +30,10 @@ export default function UploadVideo({ video, setVideo }: uploadVideoProps) {
   const showVideo = useMemo(() => {
     if (!video && video == null) {
       return (
-        <div className={styles.blankVideo} onClick={onClickFileInput}>
+        <div
+          className={`${styles.blank} ${styles.video}`}
+          onClick={onClickFileInput}
+        >
           <div className={styles.videoButton}>
             <Plus />
             영상 업로드하기

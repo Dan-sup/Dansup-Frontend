@@ -3,9 +3,11 @@ import Image from 'next/image';
 import Textarea from 'react-textarea-autosize';
 import styles from '../../styles/UploadPage.module.css';
 import BlankImage from '../../assets/icons/blank-image.svg';
+import Plus from '../../assets/icons/plus.svg';
 import { uploadFile } from '../../types/upload';
 import UploadVideo from '../../components/upload/UploadVideo';
 import DanceGenre from '@/components/upload/DanceGenre';
+import { IAwardList } from '../../types/upload';
 
 export default function ProfileUpload() {
   const [image, setImage] = useState<uploadFile | null>(null);
@@ -16,8 +18,9 @@ export default function ProfileUpload() {
   const [intro, setIntro] = useState<string>('');
   const [genre, setGenre] = useState<string>('');
   const [hashTag, setHashTag] = useState<string>('');
-  const [date, setDate] = useState<string>('');
-  const [award, setAward] = useState<string>('');
+  const [awardList, setAwardList] = useState<IAwardList[]>([
+    { id: 0, date: '', award: '' },
+  ]);
   const [isClicked, setIsClicked] = useState<boolean>(false);
 
   //에러 메시지, 확인 메시지 state
@@ -71,6 +74,7 @@ export default function ProfileUpload() {
     );
   }, [image]);
 
+  //userId
   const handleChangeUserId = (e: React.ChangeEvent<HTMLInputElement>) => {
     const currentUserId = e.target.value;
     setUserId(currentUserId);
@@ -85,6 +89,7 @@ export default function ProfileUpload() {
     }
   };
 
+  //DancerName
   const handleChangeDancerName = (e: React.ChangeEvent<HTMLInputElement>) => {
     const currentDancerName = e.target.value;
     setDancerName(currentDancerName);
@@ -100,15 +105,48 @@ export default function ProfileUpload() {
     }
   };
 
+  //한 줄 소개
   const handleChangeIntro = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const currentIntro = e.target.value;
     setIntro(currentIntro);
     setIntroCount(e.target.value.length);
   };
 
-  //Genre
+  //Genre 박스 열기
   const onClickOpenBox = () => {
     setIsClicked(!isClicked);
+  };
+
+  //Award,Date
+  const nextId = useRef<number>(1);
+
+  function plusAward() {
+    const awardItem = {
+      id: nextId.current,
+      date: '',
+      award: '',
+    };
+
+    setAwardList([...awardList, awardItem]);
+    nextId.current += 1;
+  }
+
+  const handleChangeDate = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number,
+  ) => {
+    const awardListsCopy: IAwardList[] = JSON.parse(JSON.stringify(awardList));
+    awardListsCopy[index].date = e.target.value;
+    setAwardList(awardListsCopy);
+  };
+
+  const handleChangeAward = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number,
+  ) => {
+    const awardListsCopy: IAwardList[] = JSON.parse(JSON.stringify(awardList));
+    awardListsCopy[index].award = e.target.value;
+    setAwardList(awardListsCopy);
   };
 
   return (
@@ -170,7 +208,7 @@ export default function ProfileUpload() {
         </div>
         <Textarea
           className={`${styles.input} ${styles.textarea} ${styles.long}`}
-          placeholder="ex.저는 댄서경력 10년차 프로댄서입니다"
+          placeholder="ex.저는 댄서경력 10년차 프로댄서입니다."
           value={intro}
           onChange={handleChangeIntro}
           maxLength={80}
@@ -190,7 +228,7 @@ export default function ProfileUpload() {
           <>
             <input
               className={`${styles.input} ${styles.genre} ${styles.after}`}
-              placeholder="나의 댄스 장르를 선택해주세요"
+              placeholder="나의 댄스 장르를 선택해주세요."
               onClick={onClickOpenBox}
             />
             <DanceGenre />
@@ -199,7 +237,7 @@ export default function ProfileUpload() {
           <>
             <input
               className={`${styles.input} ${styles.genre} ${styles.before}`}
-              placeholder="나의 댄스 장르를 선택해주세요"
+              placeholder="나의 댄스 장르를 선택해주세요."
               onClick={onClickOpenBox}
             />
           </>
@@ -223,19 +261,32 @@ export default function ProfileUpload() {
       </div>
       <div className={styles.box}>
         <div className={styles.text}>공연 및 활동경력</div>
-        <div className={styles.inputs}>
-          <input
-            className={`${styles.input} ${styles.short}`}
-            placeholder="2023.01.01"
-            type="text"
-            value={date}
-          />
-          <input
-            className={`${styles.input} ${styles.mid}`}
-            placeholder="ex.OO댄스대회 최우수상"
-            type="text"
-            value={award}
-          />
+        {awardList.map((item, idx) => (
+          <div className={styles.inputs} key={idx}>
+            <input
+              className={`${styles.input} ${styles.short}`}
+              placeholder="2023.01.01"
+              type="text"
+              value={item.date}
+              onChange={e => handleChangeDate(e, idx)}
+            />
+            <input
+              className={`${styles.input} ${styles.mid}`}
+              placeholder="ex.OO댄스대회 최우수상"
+              type="text"
+              value={item.award}
+              onChange={e => handleChangeAward(e, idx)}
+            />
+          </div>
+        ))}
+        <div
+          className={`${styles.blank} ${styles.plusAward}`}
+          onClick={plusAward}
+        >
+          <div className={styles.awardButton}>
+            <Plus />
+            경력 추가하기
+          </div>
         </div>
       </div>
     </div>
