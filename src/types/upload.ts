@@ -1,4 +1,4 @@
-export type uploadFile = {
+export type IUploadFile = {
   file: File;
   thumnail: string;
   type: string;

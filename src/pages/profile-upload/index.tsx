@@ -4,16 +4,16 @@ import Textarea from 'react-textarea-autosize';
 import styles from '../../styles/UploadPage.module.css';
 import BlankImage from '../../assets/icons/blank-image.svg';
 import Plus from '../../assets/icons/plus.svg';
-import { IHashTagList, uploadFile } from '../../types/upload';
+import Delete from '../../assets/icons/delete.svg';
+import { IAwardList, IHashTagList, IUploadFile } from '../../types/upload';
 import UploadVideo from '../../components/upload/UploadVideo';
 import DanceGenre from '@/components/upload/DanceGenre';
-import { IAwardList } from '../../types/upload';
 
 export default function ProfileUpload() {
-  const [image, setImage] = useState<uploadFile | null>(null);
+  const [image, setImage] = useState<IUploadFile | null>(null);
   const [userId, setUserId] = useState<string>('');
   const [dancerName, setDancerName] = useState<string>('');
-  const [video, setVideo] = useState<uploadFile | null>(null);
+  const [video, setVideo] = useState<IUploadFile | null>(null);
   const [introCount, setIntroCount] = useState<number>(0);
   const [intro, setIntro] = useState<string>('');
   const [genre, setGenre] = useState<string>('');
@@ -142,6 +142,10 @@ export default function ProfileUpload() {
         setHashTag('');
       }
     }
+  };
+
+  const deleteHashTag = (id: number) => {
+    setHashTagList(hashTagList.filter(item => item.id !== id));
   };
 
   const KeyDownHadler = (e: React.KeyboardEvent) => {
@@ -302,6 +306,9 @@ export default function ProfileUpload() {
             hashTagList.slice(1, 4).map((item, idx) => (
               <div key={idx} className={styles.hashTag}>
                 {'#' + item.hashTag}
+                <div onClick={() => deleteHashTag(item.id)}>
+                  <Delete />
+                </div>
               </div>
             ))}
         </div>
