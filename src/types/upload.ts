@@ -15,3 +15,8 @@ export interface IAwardList {
   date: string;
   award: string;
 }
+
+export interface IHashTagList {
+  id: number;
+  hashTag: string;
+}

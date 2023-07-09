@@ -4,7 +4,7 @@ import Textarea from 'react-textarea-autosize';
 import styles from '../../styles/UploadPage.module.css';
 import BlankImage from '../../assets/icons/blank-image.svg';
 import Plus from '../../assets/icons/plus.svg';
-import { uploadFile } from '../../types/upload';
+import { IHashTagList, uploadFile } from '../../types/upload';
 import UploadVideo from '../../components/upload/UploadVideo';
 import DanceGenre from '@/components/upload/DanceGenre';
 import { IAwardList } from '../../types/upload';
@@ -18,6 +18,9 @@ export default function ProfileUpload() {
   const [intro, setIntro] = useState<string>('');
   const [genre, setGenre] = useState<string>('');
   const [hashTag, setHashTag] = useState<string>('');
+  const [hashTagList, setHashTagList] = useState<IHashTagList[]>([
+    { id: 0, hashTag: '' },
+  ]);
   const [awardList, setAwardList] = useState<IAwardList[]>([
     { id: 0, date: '', award: '' },
   ]);
@@ -117,10 +120,43 @@ export default function ProfileUpload() {
     setIsClicked(!isClicked);
   };
 
+  //hashTag
+  const addHashTag = (e: any) => {
+    const hashTagItem = {
+      id: nextId.current,
+      hashTag: e.target.value.trim(),
+    };
+
+    const allowedCommand = ['Enter', 'NumpadEnter'];
+    if (!allowedCommand.includes(e.code)) return;
+
+    if (hashTagItem.hashTag == '') {
+      return;
+    } else {
+      if (hashTagList.length < 4) {
+        setHashTagList([...hashTagList, hashTagItem]);
+        setHashTag('');
+        nextId.current += 1;
+        console.log({ hashTagList });
+      } else {
+        setHashTag('');
+      }
+    }
+  };
+
+  const KeyDownHadler = (e: React.KeyboardEvent) => {
+    if (e.code != 'Enter' && e.code != 'NumpadEnter') return;
+    e.preventDefault();
+  };
+
+  const handleChangeHashTag = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setHashTag(e.target.value);
+  };
+
   //Award,Date
   const nextId = useRef<number>(1);
 
-  function plusAward() {
+  const addAward = () => {
     const awardItem = {
       id: nextId.current,
       date: '',
@@ -129,7 +165,7 @@ export default function ProfileUpload() {
 
     setAwardList([...awardList, awardItem]);
     nextId.current += 1;
-  }
+  };
 
   const handleChangeDate = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -257,7 +293,18 @@ export default function ProfileUpload() {
           placeholder="# 빠른템포의, 허니제이같은 등의 키워드를 작성해보세요!"
           type="text"
           value={hashTag}
+          onChange={handleChangeHashTag}
+          onKeyUp={addHashTag}
+          onKeyDown={KeyDownHadler}
         />
+        <div className={styles.hashTags}>
+          {hashTagList.length > 1 &&
+            hashTagList.slice(1, 4).map((item, idx) => (
+              <div key={idx} className={styles.hashTag}>
+                {'#' + item.hashTag}
+              </div>
+            ))}
+        </div>
       </div>
       <div className={styles.box}>
         <div className={styles.text}>공연 및 활동경력</div>
@@ -280,8 +327,8 @@ export default function ProfileUpload() {
           </div>
         ))}
         <div
-          className={`${styles.blank} ${styles.plusAward}`}
-          onClick={plusAward}
+          className={`${styles.blank} ${styles.addAward}`}
+          onClick={addAward}
         >
           <div className={styles.awardButton}>
             <Plus />

@@ -215,7 +215,26 @@
   width: 117px;
 }
 
-.plusAward {
+.hashTags {
+  display: flex;
+  flex-direction: row;
+}
+
+.hashTag {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 95px;
+  height: 29px;
+  border-radius: 51px;
+  border: 1px solid var(--tab-bar-color);
+  background: var(--card-color);
+  font-family: 'Regular';
+  font-size: 14px;
+  color: var(--text-color-first);
+}
+
+.addAward {
   height: 50px;
   margin-top: 20px;
 }
