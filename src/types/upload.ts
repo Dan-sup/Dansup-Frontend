@@ -4,12 +4,6 @@ export type IUploadFile = {
   type: string;
 };
 
-export interface IList {
-  id: number;
-  name: string;
-  isShort: boolean;
-}
-
 export interface IAwardList {
   id: number;
   date: string;

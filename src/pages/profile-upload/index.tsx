@@ -301,18 +301,24 @@ export default function ProfileUpload() {
           onKeyUp={addHashTag}
           onKeyDown={KeyDownHadler}
         />
-        <div className={styles.hashTags}>
-          {hashTagList.length > 1 &&
-            hashTagList.slice(1, 4).map((item, idx) => (
+      </div>
+      <div className={styles.hashTags}>
+        {hashTagList.length > 1 &&
+          hashTagList.slice(1, 4).map((item, idx) => (
+            <div key={idx} className={styles.hashTagBox}>
               <div key={idx} className={styles.hashTag}>
                 {'#' + item.hashTag}
-                <div onClick={() => deleteHashTag(item.id)}>
-                  <Delete />
-                </div>
               </div>
-            ))}
-        </div>
+              <div
+                onClick={() => deleteHashTag(item.id)}
+                className={styles.delete}
+              >
+                <Delete />
+              </div>
+            </div>
+          ))}
       </div>
+
       <div className={styles.box}>
         <div className={styles.text}>공연 및 활동경력</div>
         {awardList.map((item, idx) => (
