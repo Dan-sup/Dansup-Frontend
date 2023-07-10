@@ -233,8 +233,11 @@ export default function ProfileUpload() {
         <div className={styles.errorMsg}>{dancerNameMsg}</div>
       </div>
       <div className={styles.box}>
-        <div className={styles.text}>대표 영상 업로드</div>
-        <UploadVideo video={video} setVideo={setVideo} />
+        <UploadVideo
+          video={video}
+          setVideo={setVideo}
+          title="대표 영상 업로드"
+        />
       </div>
       <div className={styles.box}>
         <div className={styles.maximum}>

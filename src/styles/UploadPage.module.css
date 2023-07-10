@@ -209,6 +209,10 @@
   width: 117px;
 }
 
+.dot {
+  cursor: pointer;
+}
+
 .hashTags {
   display: flex;
   flex-direction: row;
