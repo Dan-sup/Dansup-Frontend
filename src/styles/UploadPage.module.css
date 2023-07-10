@@ -192,10 +192,6 @@
 }
 
 .video {
-  height: 164px;
-}
-
-.video {
   width: 339px;
   height: 164px;
   border: none;
@@ -210,6 +206,23 @@
 }
 
 .dot {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.deleteVideo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 84px;
+  height: 37px;
+  border-radius: 4px;
+  background: var(--card-color);
+  color: var(--text-color-first);
+  font-family: 'SemiBold';
+  font-size: 14px;
   cursor: pointer;
 }
 
@@ -240,7 +253,7 @@
   margin-left: 10px;
 }
 
-.delete {
+.deleteHashTag {
   display: flex;
   justify-content: center;
   align-items: center;
