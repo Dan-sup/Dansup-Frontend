@@ -10,6 +10,11 @@ export interface IAwardList {
   award: string;
 }
 
+export interface IGenreList {
+  id: number;
+  genre: string;
+}
+
 export interface IHashTagList {
   id: number;
   hashTag: string;

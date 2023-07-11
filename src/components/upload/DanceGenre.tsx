@@ -1,4 +1,6 @@
+import { useState, useRef } from 'react';
 import styles from '../../styles/UploadPage.module.css';
+import { IGenreList } from '@/types/upload';
 
 export default function DanceGenre() {
   //genre 선택
@@ -24,20 +26,59 @@ export default function DanceGenre() {
     { id: 18, name: '기타', isShort: true },
   ];
 
+  const [list, setList] = useState<IGenreList[]>([{ id: 0, genre: '' }]);
+  const nextId = useRef<number>(1);
+  const deleteId = useRef<number>(1);
+
+  const handleChangeGenre = (e: any) => {
+    const newItem = {
+      id: nextId.current,
+      genre: e.target.value,
+    };
+
+    if (list.filter(item => item.genre == e.target.value).length !== 0) {
+      setList(list.filter(item => item.genre !== e.target.value));
+    } else {
+      if (list.length < 4) {
+        setList([...list, newItem]);
+        nextId.current += 1;
+      } else {
+        setList([
+          ...list.filter(item => item.id !== deleteId.current),
+          newItem,
+        ]);
+        nextId.current += 1;
+        deleteId.current += 1;
+      }
+    }
+
+    console.log(list);
+  };
+
   return (
     <div className={styles.clickedBox}>
-      {genreList.map((data, idx) => {
+      {genreList.map(data => {
         if (data.isShort) {
           return (
-            <div className={styles.shortGenreBox} key={idx}>
+            <button
+              className={`${styles.GenreBox} ${styles.shortBox}`}
+              key={data.id}
+              onClick={handleChangeGenre}
+              value={data.name}
+            >
               {data.name}
-            </div>
+            </button>
           );
         } else {
           return (
-            <div className={styles.longGenreBox} key={idx}>
+            <button
+              className={`${styles.GenreBox} ${styles.longBox}`}
+              key={data.id}
+              onClick={handleChangeGenre}
+              value={data.name}
+            >
               {data.name}
-            </div>
+            </button>
           );
         }
       })}

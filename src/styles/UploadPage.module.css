@@ -29,30 +29,32 @@
   height: 296px;
   font-size: 14px;
   font-family: 'Regular';
-  color: var(--text-color-second);
   margin-top: 4px;
 }
 
-.shortGenreBox {
+.GenreBox {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 41px;
-  width: 77px;
   border: 1px solid var(--tab-bar-color);
   border-radius: 5px;
+  color: var(--text-color-second);
   margin: 10px 10px 0 0;
+  cursor: pointer;
 }
 
-.longGenreBox {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 41px;
+.GenreBox:hover {
+  border: 1px solid var(--white-color);
+  color: var(--white-color);
+}
+
+.shortBox {
+  width: 77px;
+}
+
+.longBox {
   width: 106px;
-  border: 1px solid var(--tab-bar-color);
-  border-radius: 5px;
-  margin: 10px 10px 0 0;
 }
 
 .required {

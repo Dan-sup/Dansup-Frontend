@@ -5,7 +5,12 @@ import styles from '../../styles/UploadPage.module.css';
 import BlankImage from '../../assets/icons/blank-image.svg';
 import Plus from '../../assets/icons/plus.svg';
 import Delete from '../../assets/icons/delete.svg';
-import { IAwardList, IHashTagList, IUploadFile } from '../../types/upload';
+import {
+  IUploadFile,
+  IAwardList,
+  IGenreList,
+  IHashTagList,
+} from '../../types/upload';
 import UploadVideo from '../../components/upload/UploadVideo';
 import DanceGenre from '@/components/upload/DanceGenre';
 
@@ -17,6 +22,7 @@ export default function ProfileUpload() {
   const [introCount, setIntroCount] = useState<number>(0);
   const [intro, setIntro] = useState<string>('');
   const [genre, setGenre] = useState<string>('');
+  const [genreList, setGenreList] = useState<IGenreList>({ id: 0, genre: '' });
   const [hashTag, setHashTag] = useState<string>('');
   const [hashTagList, setHashTagList] = useState<IHashTagList[]>([
     { id: 0, hashTag: '' },
@@ -120,6 +126,8 @@ export default function ProfileUpload() {
     setIsClicked(!isClicked);
   };
 
+  const nextId = useRef<number>(1);
+
   //hashTag
   const addHashTag = (e: any) => {
     const hashTagItem = {
@@ -158,8 +166,6 @@ export default function ProfileUpload() {
   };
 
   //Award,Date
-  const nextId = useRef<number>(1);
-
   const addAward = () => {
     const awardItem = {
       id: nextId.current,
@@ -297,7 +303,7 @@ export default function ProfileUpload() {
         </div>
         <input
           className={`${styles.input} ${styles.long}`}
-          placeholder="# 빠른템포의, 허니제이같은 등의 키워드를 작성해보세요!"
+          placeholder="빠른템포의, 허니제이같은 등의 키워드를 작성해보세요!"
           type="text"
           value={hashTag}
           onChange={handleChangeHashTag}
@@ -314,7 +320,7 @@ export default function ProfileUpload() {
               </div>
               <div
                 onClick={() => deleteHashTag(item.id)}
-                className={styles.delete}
+                className={styles.deleteHashTag}
               >
                 <Delete />
               </div>
