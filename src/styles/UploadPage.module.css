@@ -37,11 +37,19 @@
   justify-content: center;
   align-items: center;
   height: 41px;
-  border: 1px solid var(--tab-bar-color);
   border-radius: 5px;
-  color: var(--text-color-second);
   margin: 10px 10px 0 0;
   cursor: pointer;
+}
+
+.clickedBeforeBox {
+  color: var(--text-color-second);
+  border: 1px solid var(--tab-bar-color);
+}
+
+.clickedAfterBox {
+  color: var(--white-color);
+  border: 1px solid var(--white-color);
 }
 
 .GenreBox:hover {

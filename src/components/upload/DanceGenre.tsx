@@ -58,27 +58,53 @@ export default function DanceGenre() {
   return (
     <div className={styles.clickedBox}>
       {genreList.map(data => {
-        if (data.isShort) {
+        if (list.filter(item => item.genre == data.name).length == 1) {
           return (
-            <button
-              className={`${styles.GenreBox} ${styles.shortBox}`}
-              key={data.id}
-              onClick={handleChangeGenre}
-              value={data.name}
-            >
-              {data.name}
-            </button>
+            <>
+              {data.isShort ? (
+                <button
+                  className={`${styles.GenreBox} ${styles.clickedAfterBox} ${styles.shortBox}`}
+                  key={data.id}
+                  onClick={handleChangeGenre}
+                  value={data.name}
+                >
+                  {data.name}
+                </button>
+              ) : (
+                <button
+                  className={`${styles.GenreBox} ${styles.clickedAfterBox} ${styles.longBox}`}
+                  key={data.id}
+                  onClick={handleChangeGenre}
+                  value={data.name}
+                >
+                  {data.name}
+                </button>
+              )}
+            </>
           );
         } else {
           return (
-            <button
-              className={`${styles.GenreBox} ${styles.longBox}`}
-              key={data.id}
-              onClick={handleChangeGenre}
-              value={data.name}
-            >
-              {data.name}
-            </button>
+            <>
+              {data.isShort ? (
+                <button
+                  className={`${styles.GenreBox} ${styles.clickedBeforeBox} ${styles.shortBox}`}
+                  key={data.id}
+                  onClick={handleChangeGenre}
+                  value={data.name}
+                >
+                  {data.name}
+                </button>
+              ) : (
+                <button
+                  className={`${styles.GenreBox} ${styles.clickedBeforeBox} ${styles.longBox}`}
+                  key={data.id}
+                  onClick={handleChangeGenre}
+                  value={data.name}
+                >
+                  {data.name}
+                </button>
+              )}
+            </>
           );
         }
       })}
