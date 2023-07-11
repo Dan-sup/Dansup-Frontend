@@ -21,8 +21,6 @@ export default function ProfileUpload() {
   const [video, setVideo] = useState<IUploadFile | null>(null);
   const [introCount, setIntroCount] = useState<number>(0);
   const [intro, setIntro] = useState<string>('');
-  const [genre, setGenre] = useState<string>('');
-  const [genreList, setGenreList] = useState<IGenreList>({ id: 0, genre: '' });
   const [hashTag, setHashTag] = useState<string>('');
   const [hashTagList, setHashTagList] = useState<IHashTagList[]>([
     { id: 0, hashTag: '' },
@@ -275,20 +273,22 @@ export default function ProfileUpload() {
         </div>
         {isClicked ? (
           <>
-            <input
+            <button
               className={`${styles.input} ${styles.genre} ${styles.after}`}
-              placeholder="나의 댄스 장르를 선택해주세요."
               onClick={onClickOpenBox}
-            />
+            >
+              나의 댄스 장르를 선택해주세요.
+            </button>
             <DanceGenre />
           </>
         ) : (
           <>
-            <input
+            <button
               className={`${styles.input} ${styles.genre} ${styles.before}`}
-              placeholder="나의 댄스 장르를 선택해주세요."
               onClick={onClickOpenBox}
-            />
+            >
+              나의 댄스 장르를 선택해주세요.
+            </button>
           </>
         )}
       </div>

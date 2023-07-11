@@ -39,7 +39,6 @@
   height: 41px;
   border-radius: 5px;
   margin: 10px 10px 0 0;
-  cursor: pointer;
 }
 
 .clickedBeforeBox {
@@ -111,6 +110,9 @@
 }
 
 .input {
+  display: flex;
+  justify-content: left;
+  align-items: center;
   height: 30px;
   font-size: 14px;
   font-family: 'Regular';
