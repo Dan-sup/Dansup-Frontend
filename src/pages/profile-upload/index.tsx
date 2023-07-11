@@ -2,15 +2,10 @@ import { useRef, useState, useMemo } from 'react';
 import Image from 'next/image';
 import Textarea from 'react-textarea-autosize';
 import styles from '../../styles/UploadPage.module.css';
-import BlankImage from '../../assets/icons/blank-image.svg';
-import Plus from '../../assets/icons/plus.svg';
-import Delete from '../../assets/icons/delete.svg';
-import {
-  IUploadFile,
-  IAwardList,
-  IGenreList,
-  IHashTagList,
-} from '../../types/upload';
+import BlankImage from '../../../public/assets/icons/blank-image.svg';
+import Plus from '../../../public/assets/icons/plus.svg';
+import Delete from '../../../public/assets/icons/delete.svg';
+import { IUploadFile, IAwardList, IHashTagList } from '../../types/upload';
 import UploadVideo from '../../components/upload/UploadVideo';
 import DanceGenre from '@/components/upload/DanceGenre';
 

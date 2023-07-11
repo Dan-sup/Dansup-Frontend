@@ -164,11 +164,12 @@
 }
 
 .before {
-  background: url('../assets/icons/arrow.svg') no-repeat right center;
+  background: url('../../public/assets/icons/arrow.svg') no-repeat right center;
 }
 
 .after {
-  background: url('../assets/icons/after-arrow.svg') no-repeat right center;
+  background: url('../../public/assets/icons/after-arrow.svg') no-repeat right
+    center;
 }
 
 .image {
