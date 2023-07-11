@@ -2,6 +2,7 @@ import { useRef, useState, useMemo } from 'react';
 import Image from 'next/image';
 import Textarea from 'react-textarea-autosize';
 import styles from '../../styles/UploadPage.module.css';
+import styleButton from '../../styles/Button.module.css';
 import BlankImage from '../../../public/assets/icons/blank-image.svg';
 import Plus from '../../../public/assets/icons/plus.svg';
 import Delete from '../../../public/assets/icons/delete.svg';
@@ -203,154 +204,178 @@ export default function ProfileUpload() {
           이미지 업로드
         </button>
       </div>
-      <div className={styles.box}>
-        <div className={styles.required}>
-          <div className={styles.text}>사용자 계정</div>
-          <div className={`${styles.pointText}`}>*</div>
+      <div className={styles.inputList}>
+        <div className={styles.box}>
+          <div className={styles.required}>
+            <div className={styles.text}>사용자 계정</div>
+            <div className={`${styles.pointText}`}>*</div>
+          </div>
+          <input
+            className={`${styles.input} ${styles.long}`}
+            placeholder="영문, 숫자, 밑줄 및 마침표만 입력 가능합니다."
+            type="text"
+            value={userId}
+            onChange={handleChangeUserId}
+          />
+          <div className={styles.errorMsg}>{userIdMsg}</div>
         </div>
-        <input
-          className={`${styles.input} ${styles.long}`}
-          placeholder="영문, 숫자, 밑줄 및 마침표만 입력 가능합니다."
-          type="text"
-          value={userId}
-          onChange={handleChangeUserId}
-        />
-        <div className={styles.errorMsg}>{userIdMsg}</div>
-      </div>
-      <div className={styles.box}>
-        <div className={styles.required}>
-          <div className={styles.text}>댄서 활동명</div>
-          <div className={styles.pointText}>*</div>
+        <div className={styles.box}>
+          <div className={styles.required}>
+            <div className={styles.text}>댄서 활동명</div>
+            <div className={styles.pointText}>*</div>
+          </div>
+          <input
+            className={`${styles.input} ${styles.long}`}
+            placeholder="한글, 영문, 숫자, 특수기호 입력 가능합니다.(1-14자)"
+            type="text"
+            value={dancerName}
+            onChange={handleChangeDancerName}
+          />
+          <div className={styles.errorMsg}>{dancerNameMsg}</div>
         </div>
-        <input
-          className={`${styles.input} ${styles.long}`}
-          placeholder="한글, 영문, 숫자, 특수기호 입력 가능합니다.(1-14자)"
-          type="text"
-          value={dancerName}
-          onChange={handleChangeDancerName}
-        />
-        <div className={styles.errorMsg}>{dancerNameMsg}</div>
-      </div>
-      <div className={styles.box}>
-        <UploadVideo
-          video={video}
-          setVideo={setVideo}
-          title="대표 영상 업로드"
-        />
-      </div>
-      <div className={styles.box}>
-        <div className={styles.maximum}>
-          <div className={styles.text}>한줄 소개</div>
-          <div className={styles.smallTexts}>
-            <div className={`${styles.smallText} ${styles.pointText}`}>
-              {introCount}
+        <div className={styles.box}>
+          <UploadVideo
+            video={video}
+            setVideo={setVideo}
+            title="대표 영상 업로드"
+          />
+        </div>
+        <div className={styles.box}>
+          <div className={styles.maximum}>
+            <div className={styles.text}>한줄 소개</div>
+            <div className={styles.smallTexts}>
+              <div className={`${styles.smallText} ${styles.pointText}`}>
+                {introCount}
+              </div>
+              <div className={styles.smallText}>/80</div>
             </div>
-            <div className={styles.smallText}>/80</div>
           </div>
+          <Textarea
+            className={`${styles.input} ${styles.textarea} ${styles.long}`}
+            placeholder="ex.저는 댄서경력 10년차 프로댄서입니다."
+            value={intro}
+            onChange={handleChangeIntro}
+            maxLength={80}
+            cacheMeasurements
+          />
         </div>
-        <Textarea
-          className={`${styles.input} ${styles.textarea} ${styles.long}`}
-          placeholder="ex.저는 댄서경력 10년차 프로댄서입니다."
-          value={intro}
-          onChange={handleChangeIntro}
-          maxLength={80}
-          cacheMeasurements
-        />
-      </div>
-      <div className={styles.box}>
-        <div className={styles.maximum}>
-          <div className={styles.text}>나의 장르</div>
-          <div className={styles.smallTexts}>
-            <div className={`${styles.smallText} ${styles.spacing}`}>최대</div>
-            <div className={`${styles.smallText} ${styles.pointText}`}>3</div>
-            <div className={styles.smallText}>개</div>
-          </div>
-        </div>
-        {isClicked ? (
-          <>
-            <button
-              className={`${styles.input} ${styles.genre} ${styles.after}`}
-              onClick={onClickOpenBox}
-            >
-              나의 댄스 장르를 선택해주세요.
-            </button>
-            <DanceGenre />
-          </>
-        ) : (
-          <>
-            <button
-              className={`${styles.input} ${styles.genre} ${styles.before}`}
-              onClick={onClickOpenBox}
-            >
-              나의 댄스 장르를 선택해주세요.
-            </button>
-          </>
-        )}
-      </div>
-      <div className={styles.box}>
-        <div className={styles.maximum}>
-          <div className={styles.text}>나를 소개하는 해시태그</div>
-          <div className={styles.smallTexts}>
-            <div className={`${styles.smallText} ${styles.spacing}`}>최대</div>
-            <div className={`${styles.smallText} ${styles.pointText}`}>3</div>
-            <div className={styles.smallText}>개</div>
-          </div>
-        </div>
-        <input
-          className={`${styles.input} ${styles.long}`}
-          placeholder="빠른템포의, 허니제이같은 등의 키워드를 작성해보세요!"
-          type="text"
-          value={hashTag}
-          onChange={handleChangeHashTag}
-          onKeyUp={addHashTag}
-          onKeyDown={KeyDownHadler}
-        />
-      </div>
-      <div className={styles.hashTags}>
-        {hashTagList.length > 1 &&
-          hashTagList.slice(1, 4).map((item, idx) => (
-            <div key={idx} className={styles.hashTagBox}>
-              <div key={idx} className={styles.hashTag}>
-                {'#' + item.hashTag}
+        <div className={styles.box}>
+          <div className={styles.maximum}>
+            <div className={styles.text}>나의 장르</div>
+            <div className={styles.smallTexts}>
+              <div className={`${styles.smallText} ${styles.spacing}`}>
+                최대
               </div>
-              <div
-                onClick={() => deleteHashTag(item.id)}
-                className={styles.deleteHashTag}
+              <div className={`${styles.smallText} ${styles.pointText}`}>3</div>
+              <div className={styles.smallText}>개</div>
+            </div>
+          </div>
+          {isClicked ? (
+            <>
+              <button
+                className={`${styles.input} ${styles.genre} ${styles.after}`}
+                onClick={onClickOpenBox}
               >
-                <Delete />
+                나의 댄스 장르를 선택해주세요.
+              </button>
+              <DanceGenre />
+            </>
+          ) : (
+            <>
+              <button
+                className={`${styles.input} ${styles.genre} ${styles.before}`}
+                onClick={onClickOpenBox}
+              >
+                나의 댄스 장르를 선택해주세요.
+              </button>
+            </>
+          )}
+        </div>
+        <div className={styles.box}>
+          <div className={styles.maximum}>
+            <div className={styles.text}>나를 소개하는 해시태그</div>
+            <div className={styles.smallTexts}>
+              <div className={`${styles.smallText} ${styles.spacing}`}>
+                최대
               </div>
+              <div className={`${styles.smallText} ${styles.pointText}`}>3</div>
+              <div className={styles.smallText}>개</div>
+            </div>
+          </div>
+          <input
+            className={`${styles.input} ${styles.long}`}
+            placeholder="빠른템포의, 허니제이같은 등의 키워드를 작성해보세요!"
+            type="text"
+            value={hashTag}
+            onChange={handleChangeHashTag}
+            onKeyUp={addHashTag}
+            onKeyDown={KeyDownHadler}
+          />
+        </div>
+        <div className={styles.hashTags}>
+          {hashTagList.length > 1 &&
+            hashTagList.slice(1, 4).map((item, idx) => (
+              <div key={idx} className={styles.hashTagBox}>
+                <div key={idx} className={styles.hashTag}>
+                  {'#' + item.hashTag}
+                </div>
+                <div
+                  onClick={() => deleteHashTag(item.id)}
+                  className={styles.deleteHashTag}
+                >
+                  <Delete />
+                </div>
+              </div>
+            ))}
+        </div>
+
+        <div className={styles.box}>
+          <div className={styles.text}>공연 및 활동경력</div>
+          {awardList.map((item, idx) => (
+            <div className={styles.inputs} key={idx}>
+              <input
+                className={`${styles.input} ${styles.short}`}
+                placeholder="2023.01.01"
+                type="text"
+                value={item.date}
+                onChange={e => handleChangeDate(e, idx)}
+              />
+              <input
+                className={`${styles.input} ${styles.mid}`}
+                placeholder="ex.OO댄스대회 최우수상"
+                type="text"
+                value={item.award}
+                onChange={e => handleChangeAward(e, idx)}
+              />
             </div>
           ))}
+          <div
+            className={`${styles.blank} ${styles.addAward}`}
+            onClick={addAward}
+          >
+            <div className={styles.awardButton}>
+              <Plus />
+              경력 추가하기
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className={styles.box}>
-        <div className={styles.text}>공연 및 활동경력</div>
-        {awardList.map((item, idx) => (
-          <div className={styles.inputs} key={idx}>
-            <input
-              className={`${styles.input} ${styles.short}`}
-              placeholder="2023.01.01"
-              type="text"
-              value={item.date}
-              onChange={e => handleChangeDate(e, idx)}
-            />
-            <input
-              className={`${styles.input} ${styles.mid}`}
-              placeholder="ex.OO댄스대회 최우수상"
-              type="text"
-              value={item.award}
-              onChange={e => handleChangeAward(e, idx)}
-            />
-          </div>
-        ))}
-        <div
-          className={`${styles.blank} ${styles.addAward}`}
-          onClick={addAward}
-        >
-          <div className={styles.awardButton}>
-            <Plus />
-            경력 추가하기
-          </div>
+      <div className={styles.bottom}>
+        <div className={styleButton.buttonSpace}>
+          {isUserIdChecked && isdancerNameChecked ? (
+            <button
+              className={`${styleButton.CTALarge} ${styleButton.beforeCTA}`}
+            >
+              시작하기
+            </button>
+          ) : (
+            <button
+              className={`${styleButton.CTALarge} ${styleButton.afterCTA}`}
+            >
+              시작하기
+            </button>
+          )}
         </div>
       </div>
     </div>
