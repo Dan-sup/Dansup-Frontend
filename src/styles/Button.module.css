@@ -7,20 +7,20 @@
 }
 
 .CTALarge {
-  width: 335px;
+  width: 100%;
   height: 50px;
-  font-family: 'SemiBold';
+  font-family: 'Pretendard-SemiBold';
   font-size: 16px;
   border-radius: 5px;
   border: none;
 }
 
 .beforeCTA {
-  background: var(--main-color);
-  color: var(--main-bg-color);
+  background: var(--color-main-100);
+  color: var(--color-gray-700-bg);
 }
 
 .afterCTA {
-  background: var(--card-color);
-  color: var(--tab-bar-color);
+  background: var(--color-gray-500-card);
+  color: var(--color-gray-300);
 }

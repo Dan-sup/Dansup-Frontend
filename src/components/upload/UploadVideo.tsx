@@ -74,9 +74,9 @@ export default function UploadVideo({
             </div>
           </div>
           {isClicked ? (
-            <div onClick={deleteVideo} className={styles.deleteVideo}>
+            <button onClick={deleteVideo} className={styles.deleteVideo}>
               삭제하기
-            </div>
+            </button>
           ) : (
             <></>
           )}

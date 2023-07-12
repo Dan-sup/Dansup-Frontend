@@ -28,7 +28,6 @@ export default function DanceGenre() {
 
   const [list, setList] = useState<IGenreList[]>([{ id: 0, genre: '' }]);
   const nextId = useRef<number>(1);
-  const deleteId = useRef<number>(1);
 
   const handleChangeGenre = (e: any) => {
     const newItem = {
@@ -43,12 +42,7 @@ export default function DanceGenre() {
         setList([...list, newItem]);
         nextId.current += 1;
       } else {
-        setList([
-          ...list.filter(item => item.id !== deleteId.current),
-          newItem,
-        ]);
-        nextId.current += 1;
-        deleteId.current += 1;
+        return;
       }
     }
 
