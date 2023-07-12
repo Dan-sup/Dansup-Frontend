@@ -1,8 +1,8 @@
 import { useRef, useMemo, useState } from 'react';
 import styles from '../../styles/UploadPage.module.css';
 import { IUploadFile } from '../../types/upload';
-import Plus from '../../../public/assets/icons/plus.svg';
-import Dot from '../../../public/assets/icons/dot.svg';
+import Plus from '../../../public/icons/plus.svg';
+import Dot from '../../../public/icons/dot.svg';
 
 interface uploadVideoProps {
   video: IUploadFile | null;

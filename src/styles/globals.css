@@ -16,7 +16,6 @@ body {
 }
 
 button {
-  padding: 0;
   outline: none;
   border: none;
   background: transparent;
@@ -50,10 +49,10 @@ text {
 
 @font-face {
   font-family: 'Regular';
-  src: url(../../public/assets/fonts/Pretendard-Regular.otf);
+  src: url(../../public/fonts/Pretendard-Regular.otf);
 }
 
 @font-face {
   font-family: 'SemiBold';
-  src: url(../../public/assets/fonts/Pretendard-SemiBold.otf);
+  src: url(../../public/fonts/Pretendard-SemiBold.otf);
 }
