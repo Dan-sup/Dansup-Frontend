@@ -1,4 +1,4 @@
-import Modal from '@/components/Modal';
+import Modal from '@/components/modal/ClassUpload';
 import { useState } from 'react';
 import styles from '../../../styles/UploadPage.module.css';
 

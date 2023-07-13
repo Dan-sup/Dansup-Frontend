@@ -24,13 +24,13 @@ export default function ProfileUpload() {
   const [introCount, setIntroCount] = useState<number>(0);
   const [intro, setIntro] = useState<string>('');
   const [hashTag, setHashTag] = useState<string>('');
+  const [hashTagList, setHashTagList] = useState<IHashTagList[]>([
+    { id: 0, hashTag: '' },
+  ]);
   const [genreList, setGenreList] = useState<IGenreList[]>([
     { id: 0, genre: '' },
   ]);
   const [isFull, setIsFull] = useState<boolean>(false);
-  const [hashTagList, setHashTagList] = useState<IHashTagList[]>([
-    { id: 0, hashTag: '' },
-  ]);
   const [awardList, setAwardList] = useState<IAwardList[]>([
     { id: 0, date: '', award: '' },
   ]);
