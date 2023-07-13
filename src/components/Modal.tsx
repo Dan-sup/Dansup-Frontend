@@ -10,7 +10,7 @@ export default function Modal({ isOpen, closeModal }: modalProps) {
   return (
     <div style={{ display: isOpen ? 'block' : 'none' }}>
       <div className={styles.container}>
-        <button onClick={closeModal}>
+        <button onClick={closeModal} className={styles.modalClose}>
           <Close />
         </button>
         <p>Modal</p>
