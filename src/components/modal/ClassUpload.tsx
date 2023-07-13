@@ -24,6 +24,9 @@ export default function ClassUpload({ isOpen, closeModal }: modalProps) {
   const [hashTagList, setHashTagList] = useState<IHashTagList[]>([
     { id: 0, hashTag: '' },
   ]);
+  const [classContent, setClassContent] = useState<string>('');
+  const [classUser, setClassUser] = useState<string>('');
+  const [classIntro, setClassIntro] = useState<string>('');
 
   //수업 제목
   const handleChangeTitle = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -74,6 +77,22 @@ export default function ClassUpload({ isOpen, closeModal }: modalProps) {
 
   const handleChangeHashTag = (e: React.ChangeEvent<HTMLInputElement>) => {
     setHashTag(e.target.value);
+  };
+
+  //수업 추가 설명
+  const handleChangeClassContent = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const currentClassContent = e.target.value;
+    setClassContent(currentClassContent);
+  };
+
+  const handleChangeClassUser = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const currentClassUser = e.target.value;
+    setClassUser(currentClassUser);
+  };
+
+  const handleChangeClassIntro = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const currentClassIntro = e.target.value;
+    setClassIntro(currentClassIntro);
   };
 
   return (
@@ -187,6 +206,32 @@ export default function ClassUpload({ isOpen, closeModal }: modalProps) {
                   </div>
                 </div>
               ))}
+          </div>
+          <div className={styles.box}>
+            <div className={styles.text}>수업 추가 설명</div>
+            <div>
+              <input
+                className={`${styles.input} ${styles.long}`}
+                placeholder="이런 것들을 배울 거예요."
+                type="text"
+                value={classContent}
+                onChange={handleChangeClassContent}
+              />
+              <input
+                className={`${styles.input} ${styles.long}`}
+                placeholder="이런 분들을 위한 레슨이에요."
+                type="text"
+                value={classUser}
+                onChange={handleChangeClassUser}
+              />
+              <input
+                className={`${styles.input} ${styles.long}`}
+                placeholder="드리는 인사말"
+                type="text"
+                value={classIntro}
+                onChange={handleChangeClassIntro}
+              />
+            </div>
           </div>
         </div>
       </div>
