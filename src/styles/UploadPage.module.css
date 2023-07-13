@@ -303,6 +303,37 @@
   height: 124px;
 }
 
+.toastMessageBox {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  background: var(--color-gray-500-card);
+}
+
+.toastMessage {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-family: 'Pretendard-Regular';
+  font-size: 14px;
+  color: var(--color-gray-100);
+  margin-left: 10px;
+}
+
+.Ect {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+
+.message {
+  margin-left: 4px;
+}
+
 .modal {
   color: var(--color-main-100);
 }

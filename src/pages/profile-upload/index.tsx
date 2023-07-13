@@ -6,7 +6,13 @@ import styleButton from '../../styles/Button.module.css';
 import BlankImage from '../../../public/icons/blank-image.svg';
 import Plus from '../../../public/icons/plus.svg';
 import Delete from '../../../public/icons/delete.svg';
-import { IUploadFile, IAwardList, IHashTagList } from '../../types/upload';
+import Ect from '../../../public/icons/ETC.svg';
+import {
+  IUploadFile,
+  IAwardList,
+  IHashTagList,
+  IGenreList,
+} from '../../types/upload';
 import UploadVideo from '../../components/upload/UploadVideo';
 import DanceGenre from '@/components/upload/DanceGenre';
 
@@ -18,6 +24,10 @@ export default function ProfileUpload() {
   const [introCount, setIntroCount] = useState<number>(0);
   const [intro, setIntro] = useState<string>('');
   const [hashTag, setHashTag] = useState<string>('');
+  const [genreList, setGenreList] = useState<IGenreList[]>([
+    { id: 0, genre: '' },
+  ]);
+  const [isFull, setIsFull] = useState<boolean>(false);
   const [hashTagList, setHashTagList] = useState<IHashTagList[]>([
     { id: 0, hashTag: '' },
   ]);
@@ -278,7 +288,12 @@ export default function ProfileUpload() {
               >
                 나의 댄스 장르를 선택해주세요.
               </button>
-              <DanceGenre />
+              <DanceGenre
+                list={genreList}
+                setList={setGenreList}
+                isFull={isFull}
+                setIsFull={setIsFull}
+              />
             </>
           ) : (
             <>
@@ -360,6 +375,19 @@ export default function ProfileUpload() {
           </div>
         </div>
       </div>
+
+      {isFull ? (
+        <div className={styles.toastMessageBox}>
+          <div className={styles.toastMessage}>
+            <Ect />
+            <div className={styles.message}>
+              나의 장르는 최대 3개까지 선택 가능합니다.
+            </div>
+          </div>
+        </div>
+      ) : (
+        <></>
+      )}
 
       <div className={styles.bottom}>
         <div className={styleButton.buttonSpace}>

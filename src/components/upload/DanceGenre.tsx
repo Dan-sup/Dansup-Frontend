@@ -2,7 +2,19 @@ import { useState, useRef } from 'react';
 import styles from '../../styles/UploadPage.module.css';
 import { IGenreList } from '@/types/upload';
 
-export default function DanceGenre() {
+interface danceGenreProps {
+  list: IGenreList[];
+  setList: React.Dispatch<React.SetStateAction<IGenreList[]>>;
+  isFull: boolean;
+  setIsFull: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function DanceGenre({
+  list,
+  setList,
+  isFull,
+  setIsFull,
+}: danceGenreProps) {
   //genre 선택
   const genreList = [
     { id: 0, name: '락킹', isShort: true },
@@ -26,7 +38,6 @@ export default function DanceGenre() {
     { id: 18, name: '기타', isShort: true },
   ];
 
-  const [list, setList] = useState<IGenreList[]>([{ id: 0, genre: '' }]);
   const nextId = useRef<number>(1);
 
   const handleChangeGenre = (e: any) => {
@@ -37,16 +48,16 @@ export default function DanceGenre() {
 
     if (list.filter(item => item.genre == e.target.value).length !== 0) {
       setList(list.filter(item => item.genre !== e.target.value));
+      setIsFull(false);
     } else {
       if (list.length < 4) {
         setList([...list, newItem]);
+        setIsFull(false);
         nextId.current += 1;
       } else {
-        return;
+        setIsFull(true);
       }
     }
-
-    console.log(list);
   };
 
   return (
