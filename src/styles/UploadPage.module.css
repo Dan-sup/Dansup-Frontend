@@ -346,6 +346,21 @@
   margin-top: 16px;
 }
 
+.selectBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 37px;
+  width: 106px;
+  border-radius: 5px;
+  margin: 10px 10px 0 0;
+}
+
+.selectBox:hover {
+  border: 1px solid var(--color-white);
+  color: var(--color-white);
+}
+
 .modal {
   color: var(--color-main-100);
 }

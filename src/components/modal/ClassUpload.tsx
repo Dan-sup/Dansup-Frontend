@@ -7,6 +7,8 @@ import { IGenreList, IHashTagList, ILocation } from '@/types/upload';
 import DanceGenre from '../upload/DanceGenre';
 import DaumPostcode, { Address } from 'react-daum-postcode';
 import HashTag from '../upload/HashTag';
+import Select from '../upload/Select';
+import { levelList } from '@/data/class-data';
 
 interface classUploadProps {
   isOpen: boolean;
@@ -30,6 +32,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const [classIntro, setClassIntro] = useState<string>('');
   const [location, setLocation] = useState<ILocation>({ address: '' });
   const [isOpenLocation, setIsOpenLocation] = useState<boolean>(false);
+  const [classLevel, setClassLevel] = useState<string>('');
 
   //수업 제목
   const handleChangeTitle = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -76,6 +79,17 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
     }
     setLocation({ ...location, address: fullAddress });
     setIsOpenLocation(false);
+    document.body.style.overflow = 'unset';
+  };
+
+  const openLocationModal = () => {
+    setIsOpenLocation(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeLocationModal = () => {
+    setIsOpenLocation(false);
+    document.body.style.overflow = 'unset';
   };
 
   return (
@@ -195,7 +209,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                   <div className={styleModal.modalCloseBox}>
                     <button
                       className={styleModal.modalClose}
-                      onClick={() => setIsOpenLocation(false)}
+                      onClick={closeLocationModal}
                     >
                       <Close />
                     </button>
@@ -213,8 +227,19 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               className={`${styles.input} ${styles.long} ${styles.clickLocation}`}
               placeholder="수업 장소를 입력해주세요."
               type="text"
-              onClick={() => setIsOpenLocation(true)}
+              onClick={openLocationModal}
               defaultValue={location.address}
+            />
+          </div>
+          <div className={styles.box}>
+            <div className={styles.required}>
+              <div className={styles.text}>수업 난이도</div>
+              <div className={styles.pointText}>*</div>
+            </div>
+            <Select
+              list={levelList}
+              votedItem={classLevel}
+              setVotedItem={setClassLevel}
             />
           </div>
         </div>

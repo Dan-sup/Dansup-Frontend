@@ -23,3 +23,8 @@ export interface IHashTagList {
 export interface ILocation {
   address: string;
 }
+
+export interface IList {
+  id: number;
+  name: string;
+}
