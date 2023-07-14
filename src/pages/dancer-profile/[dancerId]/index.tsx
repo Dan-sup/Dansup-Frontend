@@ -1,4 +1,3 @@
-import Modal from '@/components/modal/ClassUpload';
 import { useState } from 'react';
 import styles from '../../../styles/UploadPage.module.css';
 import ClassUpload from '@/components/modal/ClassUpload';
@@ -19,7 +18,7 @@ export default function DancerProfile() {
       <button onClick={openModal} className={styles.modal}>
         모달열기
       </button>
-      <Modal isOpen={isOpen} closeModal={closeModal} />
+      <ClassUpload isOpen={isOpen} closeModal={closeModal} />
     </div>
   );
 }

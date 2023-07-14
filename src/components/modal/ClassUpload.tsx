@@ -1,12 +1,12 @@
 import { useState, useRef } from 'react';
 import Textarea from 'react-textarea-autosize';
 import Close from '../../../public/icons/close.svg';
-import Delete from '../../../public/icons/delete.svg';
 import styleModal from '../../styles/Modal.module.css';
 import styles from '../../styles/UploadPage.module.css';
 import { IGenreList, IHashTagList, ILocation } from '@/types/upload';
 import DanceGenre from '../upload/DanceGenre';
 import DaumPostcode, { Address } from 'react-daum-postcode';
+import HashTag from '../upload/HashTag';
 
 interface classUploadProps {
   isOpen: boolean;
@@ -41,45 +41,6 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   //Genre 박스 열기
   const onClickOpenBox = () => {
     setIsClicked(!isClicked);
-  };
-
-  const nextId = useRef<number>(1);
-
-  //hashTag
-  const addHashTag = (e: any) => {
-    const hashTagItem = {
-      id: nextId.current,
-      hashTag: e.target.value.trim(),
-    };
-
-    const allowedCommand = ['Enter', 'NumpadEnter'];
-    if (!allowedCommand.includes(e.code)) return;
-
-    if (hashTagItem.hashTag == '') {
-      return;
-    } else {
-      if (hashTagList.length < 4) {
-        setHashTagList([...hashTagList, hashTagItem]);
-        setHashTag('');
-        nextId.current += 1;
-        console.log({ hashTagList });
-      } else {
-        setHashTag('');
-      }
-    }
-  };
-
-  const deleteHashTag = (id: number) => {
-    setHashTagList(hashTagList.filter(item => item.id !== id));
-  };
-
-  const KeyDownHadler = (e: React.KeyboardEvent) => {
-    if (e.code != 'Enter' && e.code != 'NumpadEnter') return;
-    e.preventDefault();
-  };
-
-  const handleChangeHashTag = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setHashTag(e.target.value);
   };
 
   //수업 추가 설명
@@ -190,45 +151,13 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               </>
             )}
           </div>
-          <div className={styles.box}>
-            <div className={styles.maximum}>
-              <div className={styles.text}>수업을 소개하는 해시태그</div>
-              <div className={styles.smallTexts}>
-                <div className={`${styles.smallText} ${styles.spacing}`}>
-                  최대
-                </div>
-                <div className={`${styles.smallText} ${styles.pointText}`}>
-                  3
-                </div>
-                <div className={styles.smallText}>개</div>
-              </div>
-            </div>
-            <input
-              className={`${styles.input} ${styles.long}`}
-              placeholder="빠른템포의, 허니제이같은 등의 키워드를 작성해보세요!"
-              type="text"
-              value={hashTag}
-              onChange={handleChangeHashTag}
-              onKeyUp={addHashTag}
-              onKeyDown={KeyDownHadler}
-            />
-          </div>
-          <div className={styles.hashTags}>
-            {hashTagList.length > 1 &&
-              hashTagList.slice(1, 4).map((item, idx) => (
-                <div key={idx} className={styles.hashTagBox}>
-                  <div key={idx} className={styles.hashTag}>
-                    {'#' + item.hashTag}
-                  </div>
-                  <div
-                    onClick={() => deleteHashTag(item.id)}
-                    className={styles.deleteHashTag}
-                  >
-                    <Delete />
-                  </div>
-                </div>
-              ))}
-          </div>
+          <HashTag
+            hashTag={hashTag}
+            setHashTag={setHashTag}
+            hashTagList={hashTagList}
+            setHashTagList={setHashTagList}
+            title="수업을 소개하는 해시태그"
+          />
           <div className={styles.box}>
             <div className={styles.text}>수업 추가 설명</div>
             <div>

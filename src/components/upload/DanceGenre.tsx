@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 import styles from '../../styles/UploadPage.module.css';
 import { IGenreList } from '@/types/upload';
 
