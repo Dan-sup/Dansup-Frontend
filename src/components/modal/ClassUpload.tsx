@@ -271,7 +271,12 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                       <Close />
                     </button>
                   </div>
-                  <DaumPostcode onComplete={handleChangeLocation} />
+                  <div className={styles.postCode}>
+                    <DaumPostcode
+                      onComplete={handleChangeLocation}
+                      style={{ width: '100%', height: '100%' }}
+                    />
+                  </div>
                 </div>
               </div>
             )}
