@@ -19,3 +19,7 @@ export interface IHashTagList {
   id: number;
   hashTag: string;
 }
+
+export interface ILocation {
+  address: string;
+}

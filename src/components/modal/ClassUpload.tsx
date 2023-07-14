@@ -4,15 +4,16 @@ import Close from '../../../public/icons/close.svg';
 import Delete from '../../../public/icons/delete.svg';
 import styleModal from '../../styles/Modal.module.css';
 import styles from '../../styles/UploadPage.module.css';
-import { IGenreList, IHashTagList } from '@/types/upload';
+import { IGenreList, IHashTagList, ILocation } from '@/types/upload';
 import DanceGenre from '../upload/DanceGenre';
+import DaumPostcode, { Address } from 'react-daum-postcode';
 
-interface modalProps {
+interface classUploadProps {
   isOpen: boolean;
   closeModal: () => void;
 }
 
-export default function ClassUpload({ isOpen, closeModal }: modalProps) {
+export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const [titleCount, setTitleCount] = useState<number>(0);
   const [title, setTitle] = useState<string>('');
   const [genreList, setGenreList] = useState<IGenreList[]>([
@@ -27,6 +28,8 @@ export default function ClassUpload({ isOpen, closeModal }: modalProps) {
   const [classContent, setClassContent] = useState<string>('');
   const [classUser, setClassUser] = useState<string>('');
   const [classIntro, setClassIntro] = useState<string>('');
+  const [location, setLocation] = useState<ILocation>({ address: '' });
+  const [isOpenLocation, setIsOpenLocation] = useState<boolean>(false);
 
   //수업 제목
   const handleChangeTitle = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -95,9 +98,28 @@ export default function ClassUpload({ isOpen, closeModal }: modalProps) {
     setClassIntro(currentClassIntro);
   };
 
+  //수업 장소 찾기
+  const handleChangeLocation = (data: Address) => {
+    let fullAddress = data.address;
+    let extraAddress = '';
+
+    if (data.addressType === 'R') {
+      if (data.bname !== '') {
+        extraAddress += data.bname;
+      }
+      if (data.buildingName !== '') {
+        extraAddress +=
+          extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
+      }
+      fullAddress += extraAddress !== '' ? `${extraAddress}` : '';
+    }
+    setLocation({ ...location, address: fullAddress });
+    setIsOpenLocation(false);
+  };
+
   return (
     <div style={{ display: isOpen ? 'block' : 'none' }}>
-      <div className={styleModal.container}>
+      <div className={`${styleModal.container} ${styleModal.black}`}>
         <div className={styleModal.modalCloseBox}>
           <button onClick={closeModal} className={styleModal.modalClose}>
             <Close />
@@ -232,6 +254,34 @@ export default function ClassUpload({ isOpen, closeModal }: modalProps) {
                 onChange={handleChangeClassIntro}
               />
             </div>
+          </div>
+          <div className={styles.box}>
+            <div className={styles.required}>
+              <div className={styles.text}>수업 장소</div>
+              <div className={styles.pointText}>*</div>
+            </div>
+            {isOpenLocation && (
+              <div style={{ display: isOpenLocation ? 'block' : 'none' }}>
+                <div className={`${styleModal.container} ${styleModal.white}`}>
+                  <div className={styleModal.modalCloseBox}>
+                    <button
+                      className={styleModal.modalClose}
+                      onClick={() => setIsOpenLocation(false)}
+                    >
+                      <Close />
+                    </button>
+                  </div>
+                  <DaumPostcode onComplete={handleChangeLocation} />
+                </div>
+              </div>
+            )}
+            <input
+              className={`${styles.input} ${styles.long} ${styles.clickLocation}`}
+              placeholder="수업 장소를 입력해주세요."
+              type="text"
+              onClick={() => setIsOpenLocation(true)}
+              defaultValue={location.address}
+            />
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import Modal from '@/components/modal/ClassUpload';
 import { useState } from 'react';
 import styles from '../../../styles/UploadPage.module.css';
+import ClassUpload from '@/components/modal/ClassUpload';
 
 export default function DancerProfile() {
   const [isOpen, setIsOpen] = useState<boolean>(false);

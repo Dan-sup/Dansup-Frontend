@@ -9,8 +9,15 @@
   right: 0;
   z-index: 9999;
   width: 100%;
-  background: var(--color-gray-700-bg);
   padding: 0 18px;
+}
+
+.black {
+  background: var(--color-gray-700-bg);
+}
+
+.white {
+  background: var(--color-white);
 }
 
 .modalCloseBox {

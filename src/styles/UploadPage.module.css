@@ -337,3 +337,8 @@
 .modal {
   color: var(--color-main-100);
 }
+
+.clickLocation {
+  background: url('../../public/icons/location-arrow.svg') no-repeat right
+    center;
+}
