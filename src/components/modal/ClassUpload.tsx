@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import Textarea from 'react-textarea-autosize';
 import Close from '../../../public/icons/close.svg';
 import IndicatorFirst from '../../../public/icons/indicator-first.svg';
@@ -6,12 +6,18 @@ import IndicatorSecond from '../../../public/icons/indicator-second.svg';
 import IndicatorThird from '../../../public/icons/indicator-third.svg';
 import styleModal from '../../styles/Modal.module.css';
 import styles from '../../styles/UploadPage.module.css';
-import { IGenreList, IHashTagList, ILocation } from '@/types/upload';
+import {
+  IGenreList,
+  IHashTagList,
+  ILocation,
+  IUploadFile,
+} from '@/types/upload';
 import DanceGenre from '../upload/DanceGenre';
 import DaumPostcode, { Address } from 'react-daum-postcode';
 import HashTag from '../upload/HashTag';
 import Select from '../upload/Select';
-import { levelList } from '@/data/class-data';
+import UploadVideo from '../upload/UploadVideo';
+import { levelList, wayList } from '@/data/class-data';
 
 interface classUploadProps {
   isOpen: boolean;
@@ -39,6 +45,9 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const [classFee, setClassFee] = useState<string>();
   const [classAdmit, setClassAdmit] = useState<string>();
   const [classSong, setClassSong] = useState<string>('');
+  const [classWay, setClassWay] = useState<string>('');
+  const [video, setVideo] = useState<IUploadFile | null>(null);
+  const [classLink, setClassLink] = useState<string>('');
 
   //수업 제목
   const handleChangeTitle = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -114,6 +123,12 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const handleChangeClassSong = (e: React.ChangeEvent<HTMLInputElement>) => {
     const currentClassSong = e.target.value;
     setClassSong(currentClassSong);
+  };
+
+  //수업 링크
+  const handleChangeClassLink = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const currentClassLink = e.target.value;
+    setClassLink(currentClassLink);
   };
 
   return (
@@ -272,11 +287,11 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               />
             </div>
             <div className={styles.box}>
+              <div className={styles.required}>
+                <div className={styles.text}>수강료</div>
+                <div className={styles.pointText}>*</div>
+              </div>
               <div className={styles.detail}>
-                <div className={styles.required}>
-                  <div className={styles.text}>수강료</div>
-                  <div className={styles.pointText}>*</div>
-                </div>
                 클래스 1회 당 수강료를 입력해주세요.
               </div>
               <div className={styles.required}>
@@ -314,6 +329,46 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                 type="text"
                 value={classSong}
                 onChange={handleChangeClassSong}
+              />
+            </div>
+          </div>
+          <div className={styles.section}>
+            <IndicatorSecond />
+            <div className={styles.sectionText}>
+              수업방식 & 수업날짜를 선택해주세요
+            </div>
+            <div className={styles.box}>
+              <div className={styles.text}>수업 방식</div>
+              <Select
+                list={wayList}
+                votedItem={classWay}
+                setVotedItem={setClassWay}
+              />
+            </div>
+          </div>
+          <div className={styles.section}>
+            <IndicatorThird />
+            <div className={`${styles.sectionText} ${styles.sectionTextWidth}`}>
+              수업 소개 영상 & 예약 링크를 업로드해주세요
+            </div>
+            <div className={styles.box}>
+              <div className={styles.text}>예약 링크</div>
+              <div className={styles.detail}>
+                구글폼, 네이버 예약 등 수업 예약 URL을 첨부해주세요
+              </div>
+              <Textarea
+                className={`${styles.input} ${styles.textarea} ${styles.long}`}
+                placeholder="https://"
+                value={classLink}
+                onChange={handleChangeClassLink}
+                cacheMeasurements
+              />
+            </div>
+            <div className={styles.box}>
+              <UploadVideo
+                video={video}
+                setVideo={setVideo}
+                title="소개 영상 업로드"
               />
             </div>
           </div>

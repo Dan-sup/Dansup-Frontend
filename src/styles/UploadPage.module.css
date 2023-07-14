@@ -345,6 +345,10 @@
   margin: 4px 0 18px 0;
 }
 
+.sectionTextWidth {
+  width: 230px;
+}
+
 .clickLocation {
   background: url('../../public/icons/location-arrow.svg') no-repeat right
     center;
@@ -376,6 +380,7 @@
 .detail {
   font-family: 'Pretendard-Regular';
   font-size: 14px;
+  color: var(--color-gray-100);
   margin-bottom: 14px;
 }
 
