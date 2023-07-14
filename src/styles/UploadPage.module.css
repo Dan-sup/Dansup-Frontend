@@ -55,6 +55,7 @@
 .GenreBox:hover {
   border: 1px solid var(--color-white);
   color: var(--color-white);
+  transition: all ease 0.5s 0s;
 }
 
 .shortBox {
@@ -334,6 +335,16 @@
   margin-left: 4px;
 }
 
+.section {
+  margin-bottom: 60px;
+}
+
+.sectionText {
+  font-family: 'Pretendard-SemiBold';
+  font-size: 20px;
+  margin: 4px 0 18px 0;
+}
+
 .clickLocation {
   background: url('../../public/icons/location-arrow.svg') no-repeat right
     center;
@@ -359,6 +370,18 @@
 .selectBox:hover {
   border: 1px solid var(--color-white);
   color: var(--color-white);
+  transition: all ease 0.5s 0s;
+}
+
+.detail {
+  font-family: 'Pretendard-Regular';
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+
+.unitText {
+  font-family: 'Pretendard-Regular';
+  font-size: 14px;
 }
 
 .modal {

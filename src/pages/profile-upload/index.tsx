@@ -185,7 +185,7 @@ export default function ProfileUpload() {
           </div>
           <input
             className={`${styles.input} ${styles.long}`}
-            placeholder="영문, 숫자, 밑줄 및 마침표만 입력 가능합니다."
+            placeholder="영문, 숫자, 밑줄 및 마침표만 입력 가능합니다"
             type="text"
             value={userId}
             onChange={handleChangeUserId}
@@ -199,7 +199,7 @@ export default function ProfileUpload() {
           </div>
           <input
             className={`${styles.input} ${styles.long}`}
-            placeholder="한글, 영문, 숫자, 특수기호 입력 가능합니다.(1-14자)"
+            placeholder="한글, 영문, 숫자, 특수기호 입력 가능합니다 (1-14자)"
             type="text"
             value={dancerName}
             onChange={handleChangeDancerName}
@@ -225,7 +225,7 @@ export default function ProfileUpload() {
           </div>
           <Textarea
             className={`${styles.input} ${styles.textarea} ${styles.long}`}
-            placeholder="ex.저는 댄서경력 10년차 프로댄서입니다."
+            placeholder="ex.저는 댄서경력 10년차 프로댄서입니다"
             value={intro}
             onChange={handleChangeIntro}
             maxLength={80}
@@ -249,7 +249,7 @@ export default function ProfileUpload() {
                 className={`${styles.input} ${styles.genre} ${styles.after}`}
                 onClick={onClickOpenBox}
               >
-                나의 댄스 장르를 선택해주세요.
+                나의 댄스 장르를 선택해주세요
               </button>
               <DanceGenre
                 list={genreList}
@@ -264,7 +264,7 @@ export default function ProfileUpload() {
                 className={`${styles.input} ${styles.genre} ${styles.before}`}
                 onClick={onClickOpenBox}
               >
-                나의 댄스 장르를 선택해주세요.
+                나의 댄스 장르를 선택해주세요
               </button>
             </>
           )}
