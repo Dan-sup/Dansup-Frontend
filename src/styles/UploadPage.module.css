@@ -389,6 +389,19 @@
   font-size: 14px;
 }
 
+.uploadMsg {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'Pretendard-Regular';
+  font-size: 14px;
+  color: var(--color-gray-100);
+  width: 175px;
+  height: 21px;
+  margin-top: 28px;
+  margin-bottom: 57px;
+}
+
 .modal {
   color: var(--color-main-100);
 }
