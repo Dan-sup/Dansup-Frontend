@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Textarea from 'react-textarea-autosize';
 import Close from '../../../public/icons/close.svg';
 import IndicatorFirst from '../../../public/icons/indicator-first.svg';
@@ -65,7 +65,11 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
     const currentIntro = e.target.value;
     setTitle(currentIntro);
     setTitleCount(e.target.value.length);
-    setIsTitleChecked(true);
+    if (currentIntro !== '') {
+      setIsTitleChecked(true);
+    } else {
+      setIsTitleChecked(false);
+    }
   };
 
   //Genre 박스 열기
@@ -124,14 +128,22 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const handleChangeClassFee = (e: React.ChangeEvent<HTMLInputElement>) => {
     const currentClassFee = e.target.value;
     setClassFee(currentClassFee);
-    setIsClassFeeChecked(true);
+    if (currentClassFee !== '') {
+      setIsClassFeeChecked(true);
+    } else {
+      setIsClassFeeChecked(false);
+    }
   };
 
   //수용 인원
   const handleChangeClassAdmit = (e: React.ChangeEvent<HTMLInputElement>) => {
     const currentClassAdmit = e.target.value;
     setClassAdmit(currentClassAdmit);
-    setIsClassAdmitChecked(true);
+    if (currentClassAdmit !== '') {
+      setIsClassAdmitChecked(true);
+    } else {
+      setIsClassAdmitChecked(false);
+    }
   };
 
   //수업 노래
@@ -146,23 +158,20 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
     setClassLink(currentClassLink);
   };
 
-  const checkGenreList = () => {
-    if (genreList.length !== 0) {
+  //GenreList & ClassLevel check
+  useEffect(() => {
+    if (genreList.length !== 1) {
       setIsGenreListChecked(true);
-      console.log(genreList);
     } else {
       setIsGenreListChecked(false);
     }
-  };
 
-  const checkClassLevel = () => {
     if (classLevel !== '') {
       setIsClassLevelChecked(true);
-      console.log(classLevel);
     } else {
       setIsClassLevelChecked(false);
     }
-  };
+  }, [genreList, classLevel]);
 
   return (
     <div style={{ display: isOpen ? 'block' : 'none' }}>
@@ -222,15 +231,14 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                   >
                     댄스 장르를 선택해주세요
                   </button>
-                  <div onClick={checkGenreList}>
-                    <DanceGenre
-                      list={genreList}
-                      setList={setGenreList}
-                      isFull={isFull}
-                      setIsFull={setIsFull}
-                      limit={6}
-                    />
-                  </div>
+
+                  <DanceGenre
+                    list={genreList}
+                    setList={setGenreList}
+                    isFull={isFull}
+                    setIsFull={setIsFull}
+                    limit={6}
+                  />
                 </>
               ) : (
                 <>
@@ -284,7 +292,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               {isOpenLocation && (
                 <div style={{ display: isOpenLocation ? 'block' : 'none' }}>
                   <div
-                    className={`${styleModal.container} ${styleModal.white}`}
+                    className={`${styleModal.locationContainer} ${styleModal.white}`}
                   >
                     <div className={styleModal.modalCloseBox}>
                       <button
@@ -316,13 +324,11 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                 <div className={styles.text}>수업 난이도</div>
                 <div className={styles.pointText}>*</div>
               </div>
-              <div onClick={checkClassLevel}>
-                <Select
-                  list={levelList}
-                  votedItem={classLevel}
-                  setVotedItem={setClassLevel}
-                />
-              </div>
+              <Select
+                list={levelList}
+                votedItem={classLevel}
+                setVotedItem={setClassLevel}
+              />
             </div>
             <div className={styles.box}>
               <div className={styles.required}>
