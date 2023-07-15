@@ -7,6 +7,7 @@ interface danceGenreProps {
   setList: React.Dispatch<React.SetStateAction<IGenreList[]>>;
   isFull: boolean;
   setIsFull: React.Dispatch<React.SetStateAction<boolean>>;
+  limit: number;
 }
 
 export default function DanceGenre({
@@ -14,6 +15,7 @@ export default function DanceGenre({
   setList,
   isFull,
   setIsFull,
+  limit,
 }: danceGenreProps) {
   //genre 선택
   const genreList = [
@@ -50,7 +52,7 @@ export default function DanceGenre({
       setList(list.filter(item => item.genre !== e.target.value));
       setIsFull(false);
     } else {
-      if (list.length < 4) {
+      if (list.length < limit) {
         setList([...list, newItem]);
         setIsFull(false);
         nextId.current += 1;

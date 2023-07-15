@@ -4,6 +4,7 @@ import Close from '../../../public/icons/close.svg';
 import IndicatorFirst from '../../../public/icons/indicator-first.svg';
 import IndicatorSecond from '../../../public/icons/indicator-second.svg';
 import IndicatorThird from '../../../public/icons/indicator-third.svg';
+import styleButton from '../../styles/Button.module.css';
 import styleModal from '../../styles/Modal.module.css';
 import styles from '../../styles/UploadPage.module.css';
 import {
@@ -49,11 +50,22 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const [video, setVideo] = useState<IUploadFile | null>(null);
   const [classLink, setClassLink] = useState<string>('');
 
+  //우효성 검사 state (Checked => 형식)
+  const [isTitleChecked, setIsTitleChecked] = useState<boolean>(false);
+  const [isGenreListChecked, setIsGenreListChecked] = useState<boolean>(false);
+  const [isLocationChecked, setIsLocationChecked] = useState<boolean>(false);
+  const [isClassLevelChecked, setIsClassLevelChecked] =
+    useState<boolean>(false);
+  const [isClassFeeChecked, setIsClassFeeChecked] = useState<boolean>(false);
+  const [isClassAdmitChecked, setIsClassAdmitChecked] =
+    useState<boolean>(false);
+
   //수업 제목
   const handleChangeTitle = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const currentIntro = e.target.value;
     setTitle(currentIntro);
     setTitleCount(e.target.value.length);
+    setIsTitleChecked(true);
   };
 
   //Genre 박스 열기
@@ -93,6 +105,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
       fullAddress += extraAddress !== '' ? `${extraAddress}` : '';
     }
     setLocation({ ...location, address: fullAddress });
+    setIsLocationChecked(true);
     setIsOpenLocation(false);
     document.body.style.overflow = 'unset';
   };
@@ -111,12 +124,14 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const handleChangeClassFee = (e: React.ChangeEvent<HTMLInputElement>) => {
     const currentClassFee = e.target.value;
     setClassFee(currentClassFee);
+    setIsClassFeeChecked(true);
   };
 
   //수용 인원
   const handleChangeClassAdmit = (e: React.ChangeEvent<HTMLInputElement>) => {
     const currentClassAdmit = e.target.value;
     setClassAdmit(currentClassAdmit);
+    setIsClassAdmitChecked(true);
   };
 
   //수업 노래
@@ -131,11 +146,29 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
     setClassLink(currentClassLink);
   };
 
+  const checkGenreList = () => {
+    if (genreList.length !== 0) {
+      setIsGenreListChecked(true);
+      console.log(genreList);
+    } else {
+      setIsGenreListChecked(false);
+    }
+  };
+
+  const checkClassLevel = () => {
+    if (classLevel !== '') {
+      setIsClassLevelChecked(true);
+      console.log(classLevel);
+    } else {
+      setIsClassLevelChecked(false);
+    }
+  };
+
   return (
     <div style={{ display: isOpen ? 'block' : 'none' }}>
       <div className={`${styleModal.container} ${styleModal.black}`}>
         <div className={styleModal.modalCloseBox}>
-          <button onClick={closeModal} className={styleModal.modalClose}>
+          <button className={styleModal.modalClose} onClick={closeModal}>
             <Close />
           </button>
         </div>
@@ -189,12 +222,15 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                   >
                     댄스 장르를 선택해주세요
                   </button>
-                  <DanceGenre
-                    list={genreList}
-                    setList={setGenreList}
-                    isFull={isFull}
-                    setIsFull={setIsFull}
-                  />
+                  <div onClick={checkGenreList}>
+                    <DanceGenre
+                      list={genreList}
+                      setList={setGenreList}
+                      isFull={isFull}
+                      setIsFull={setIsFull}
+                      limit={6}
+                    />
+                  </div>
                 </>
               ) : (
                 <>
@@ -280,11 +316,13 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                 <div className={styles.text}>수업 난이도</div>
                 <div className={styles.pointText}>*</div>
               </div>
-              <Select
-                list={levelList}
-                votedItem={classLevel}
-                setVotedItem={setClassLevel}
-              />
+              <div onClick={checkClassLevel}>
+                <Select
+                  list={levelList}
+                  votedItem={classLevel}
+                  setVotedItem={setClassLevel}
+                />
+              </div>
             </div>
             <div className={styles.box}>
               <div className={styles.required}>
@@ -371,6 +409,29 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                 title="소개 영상 업로드"
               />
             </div>
+          </div>
+        </div>
+
+        <div className={styles.bottom}>
+          <div className={styleButton.buttonSpace}>
+            {isTitleChecked &&
+            isGenreListChecked &&
+            isLocationChecked &&
+            isClassLevelChecked &&
+            isClassFeeChecked &&
+            isClassAdmitChecked ? (
+              <button
+                className={`${styleButton.CTALarge} ${styleButton.beforeCTA}`}
+              >
+                수업 올리기
+              </button>
+            ) : (
+              <button
+                className={`${styleButton.CTALarge} ${styleButton.afterCTA}`}
+              >
+                수업 올리기
+              </button>
+            )}
           </div>
         </div>
       </div>
