@@ -58,6 +58,34 @@
   transition: all ease 0.5s 0s;
 }
 
+.dayBoxs {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%;
+  height: auto;
+  font-size: 14px;
+  font-family: 'Pretendard-Regular';
+}
+
+.dayBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 57px;
+  width: 42px;
+  border-radius: 5px;
+  margin-right: 7px;
+}
+
+.dayBox:hover {
+  border: 1px solid var(--color-white);
+  color: var(--color-white);
+  transition: all ease 0.5s 0s;
+}
+
 .shortBox {
   width: 77px;
 }
@@ -404,6 +432,14 @@
 
 .datePicker {
   width: 100%;
+}
+
+.afterCheck {
+  margin-top: 5px;
+}
+
+.beforeCheck {
+  margin-top: 5px;
 }
 
 .modal {

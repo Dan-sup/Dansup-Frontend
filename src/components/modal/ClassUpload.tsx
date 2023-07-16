@@ -8,6 +8,7 @@ import styleButton from '../../styles/Button.module.css';
 import styleModal from '../../styles/Modal.module.css';
 import styles from '../../styles/UploadPage.module.css';
 import {
+  IClassDayList,
   IGenreList,
   IHashTagList,
   ILocation,
@@ -19,6 +20,7 @@ import HashTag from '../upload/HashTag';
 import Select from '../upload/Select';
 import UploadVideo from '../upload/UploadVideo';
 import ClassDate from '../upload/ClassDate';
+import ClassDay from '../upload/ClassDay';
 import { levelList, wayList } from '@/data/class-data';
 
 interface classUploadProps {
@@ -49,6 +51,11 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const [classSong, setClassSong] = useState<string>('');
   const [classWay, setClassWay] = useState<string>('');
   const [classDate, setClassDate] = useState<Date | null>(null);
+  const [startTime, setStartTime] = useState<string>('');
+  const [endTime, setEndTime] = useState<string>('');
+  const [classDayList, setClassDayList] = useState<IClassDayList[]>([
+    { id: 0, day: '' },
+  ]);
   const [video, setVideo] = useState<IUploadFile | null>(null);
   const [classLink, setClassLink] = useState<string>('');
 
@@ -390,7 +397,17 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                 votedItem={classWay}
                 setVotedItem={setClassWay}
               />
-              <ClassDate selectDate={classDate} setSelectDate={setClassDate} />
+              <div className={styles.box}>
+                <div className={styles.text}>수업 요일</div>
+                <ClassDay list={classDayList} setList={setClassDayList} />
+              </div>
+              <div className={styles.box}>
+                <div className={styles.text}>수업 날짜</div>
+                <ClassDate
+                  selectDate={classDate}
+                  setSelectDate={setClassDate}
+                />
+              </div>
             </div>
           </div>
           <div className={styles.section}>

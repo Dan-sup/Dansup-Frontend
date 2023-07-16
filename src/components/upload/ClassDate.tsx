@@ -12,9 +12,7 @@ export default function ClassDate({
   setSelectDate,
 }: classDateProps) {
   return (
-    <div className={styles.box}>
-      <div className={styles.text}>수업 날짜</div>
-      <div className={styles.datePicker}></div>
+    <div className={styles.datePicker}>
       <DatePicker
         className={`${styles.input} ${styles.datePicker}`}
         dateFormat="yyyy-MM-dd"

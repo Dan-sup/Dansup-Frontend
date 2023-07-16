@@ -28,3 +28,8 @@ export interface IList {
   id: number;
   name: string;
 }
+
+export interface IClassDayList {
+  id: number;
+  day: string;
+}
