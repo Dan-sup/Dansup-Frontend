@@ -172,6 +172,29 @@
   border-bottom: 1px solid var(--color-white);
 }
 
+.inputTime {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  height: 42px;
+  width: 46%;
+  font-size: 14px;
+  font-family: 'Pretendard-Regular';
+  color: var(--color-white);
+  border: 1px solid var(--color-gray-300);
+  border-radius: 5px;
+  outline: none;
+  background: transparent;
+}
+
+.inputTime::placeholder {
+  color: var(--color-gray-400);
+}
+
+.inputTime:focus {
+  border-bottom: 1px solid var(--color-white);
+}
+
 .textarea {
   resize: none;
   line-height: 150%;
@@ -442,6 +465,16 @@
 
 .check {
   margin-top: 5px;
+}
+
+.timeText {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-family: 'Pretendard-Regular';
+  width: 8%;
+  height: 44px;
 }
 
 .modal {

@@ -12,15 +12,13 @@ export default function ClassDate({
   setSelectDate,
 }: classDateProps) {
   return (
-    <div className={styles.datePicker}>
-      <DatePicker
-        className={`${styles.input} ${styles.datePicker}`}
-        dateFormat="yyyy-MM-dd"
-        shouldCloseOnSelect
-        selected={selectDate}
-        onChange={(date: Date) => setSelectDate(date)}
-        placeholderText="수업 날짜를 선택해주세요"
-      />
-    </div>
+    <DatePicker
+      className={`${styles.input} ${styles.datePicker}`}
+      dateFormat="yyyy-MM-dd"
+      shouldCloseOnSelect
+      selected={selectDate}
+      onChange={(date: Date) => setSelectDate(date)}
+      placeholderText="수업 날짜를 선택해주세요"
+    />
   );
 }

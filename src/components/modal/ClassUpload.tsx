@@ -21,6 +21,7 @@ import Select from '../upload/Select';
 import UploadVideo from '../upload/UploadVideo';
 import ClassDate from '../upload/ClassDate';
 import ClassDay from '../upload/ClassDay';
+import ClassTime from '../upload/ClassTime';
 import { levelList, wayList } from '@/data/class-data';
 
 interface classUploadProps {
@@ -51,8 +52,8 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const [classSong, setClassSong] = useState<string>('');
   const [classWay, setClassWay] = useState<string>('');
   const [classDate, setClassDate] = useState<Date | null>(null);
-  const [startTime, setStartTime] = useState<string>('');
-  const [endTime, setEndTime] = useState<string>('');
+  const [startTime, setStartTime] = useState<Date | null>(null);
+  const [endTime, setEndTime] = useState<Date | null>(null);
   const [classDayList, setClassDayList] = useState<IClassDayList[]>([
     { id: 0, day: '' },
   ]);
@@ -398,9 +399,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                 setVotedItem={setClassWay}
               />
             </div>
-            {classWay == '' ? (
-              <></>
-            ) : (
+            {classWay !== '' ? (
               <>
                 {classWay == '원데이' ? (
                   <div className={styles.box}>
@@ -416,8 +415,17 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                     <ClassDay list={classDayList} setList={setClassDayList} />
                   </div>
                 )}
+                <div className={styles.box}>
+                  <div className={styles.text}>수업 시간</div>
+                  <ClassTime
+                    startTime={startTime}
+                    setStartTIme={setStartTime}
+                    endTime={endTime}
+                    setEndTIme={setEndTime}
+                  />
+                </div>
               </>
-            )}
+            ) : null}
           </div>
           <div className={styles.section}>
             <IndicatorThird />
