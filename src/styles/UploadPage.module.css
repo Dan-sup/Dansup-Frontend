@@ -402,6 +402,10 @@
   margin-bottom: 57px;
 }
 
+.datePicker {
+  width: 100%;
+}
+
 .modal {
   color: var(--color-main-100);
 }

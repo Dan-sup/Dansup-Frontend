@@ -18,6 +18,7 @@ import DaumPostcode, { Address } from 'react-daum-postcode';
 import HashTag from '../upload/HashTag';
 import Select from '../upload/Select';
 import UploadVideo from '../upload/UploadVideo';
+import ClassDate from '../upload/ClassDate';
 import { levelList, wayList } from '@/data/class-data';
 
 interface classUploadProps {
@@ -47,6 +48,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const [classAdmit, setClassAdmit] = useState<string>();
   const [classSong, setClassSong] = useState<string>('');
   const [classWay, setClassWay] = useState<string>('');
+  const [classDate, setClassDate] = useState<Date | null>(null);
   const [video, setVideo] = useState<IUploadFile | null>(null);
   const [classLink, setClassLink] = useState<string>('');
 
@@ -388,6 +390,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                 votedItem={classWay}
                 setVotedItem={setClassWay}
               />
+              <ClassDate selectDate={classDate} setSelectDate={setClassDate} />
             </div>
           </div>
           <div className={styles.section}>
