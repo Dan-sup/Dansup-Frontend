@@ -177,7 +177,7 @@
   justify-content: left;
   align-items: center;
   height: 42px;
-  width: 46%;
+  width: 100%;
   font-size: 14px;
   font-family: 'Pretendard-Regular';
   color: var(--color-white);
@@ -192,7 +192,7 @@
 }
 
 .inputTime:focus {
-  border-bottom: 1px solid var(--color-white);
+  border: 1px solid var(--color-white);
 }
 
 .textarea {
@@ -390,10 +390,6 @@
 
 .message {
   margin-left: 4px;
-}
-
-.section {
-  margin-bottom: 60px;
 }
 
 .sectionText {

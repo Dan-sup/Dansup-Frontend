@@ -192,7 +192,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
           </button>
         </div>
         <div className={styles.inputList}>
-          <div className={styles.section}>
+          <div>
             <IndicatorFirst />
             <div className={styles.sectionText}>수업을 소개해주세요</div>
             <div className={styles.box}>
@@ -386,7 +386,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               />
             </div>
           </div>
-          <div className={styles.section}>
+          <div>
             <IndicatorSecond />
             <div className={styles.sectionText}>
               수업방식 & 수업날짜를 선택해주세요
@@ -427,7 +427,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               </>
             ) : null}
           </div>
-          <div className={styles.section}>
+          <div>
             <IndicatorThird />
             <div className={`${styles.sectionText} ${styles.sectionTextWidth}`}>
               수업 소개 영상 & 예약 링크를 업로드해주세요

@@ -16,6 +16,8 @@ export default function ClassDate({
       className={`${styles.input} ${styles.datePicker}`}
       dateFormat="yyyy-MM-dd"
       shouldCloseOnSelect
+      closeOnScroll={true}
+      showPopperArrow={false}
       selected={selectDate}
       onChange={(date: Date) => setSelectDate(date)}
       placeholderText="수업 날짜를 선택해주세요"

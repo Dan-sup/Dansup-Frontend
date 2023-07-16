@@ -21,6 +21,8 @@ export default function ClassTime({
         className={styles.inputTime}
         selected={startTime}
         onChange={(time: Date) => setStartTIme(time)}
+        closeOnScroll={true}
+        showPopperArrow={false}
         showTimeSelect
         showTimeSelectOnly
         timeIntervals={10}
@@ -33,6 +35,8 @@ export default function ClassTime({
         className={styles.inputTime}
         selected={endTime}
         onChange={(time: Date) => setEndTIme(time)}
+        closeOnScroll={true}
+        showPopperArrow={false}
         showTimeSelect
         showTimeSelectOnly
         timeIntervals={10}
