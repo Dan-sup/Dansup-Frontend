@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import { IClassDayList } from '@/types/upload';
+import fonts from '../../styles/typography.module.css';
 import styles from '../../styles/UploadPage.module.css';
 import BeforeCheck from '../../../public/icons/before-check.svg';
 import AfterCheck from '../../../public/icons/after-check.svg';
@@ -37,7 +38,7 @@ export default function ClassDay({ list, setList }: classDayProps) {
   };
 
   return (
-    <div className={styles.dayBoxs}>
+    <div className={`${styles.dayBoxs} ${fonts.body2_Regular}`}>
       {dayList.map(data => {
         if (list.filter(item => item.day === data.name).length == 1) {
           return (

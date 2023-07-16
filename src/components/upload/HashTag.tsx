@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { IHashTagList } from '@/types/upload';
 import styles from '../../styles/UploadPage.module.css';
+import fonts from '../../styles/typography.module.css';
 import Delete from '../../../public/icons/delete.svg';
 
 interface HashTagProps {
@@ -58,16 +59,18 @@ export default function HashTag({
   return (
     <>
       <div className={styles.box}>
-        <div className={styles.maximum}>
-          <div className={styles.text}>{title}</div>
-          <div className={styles.smallTexts}>
+        <div className={styles.row_Between}>
+          <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+            {title}
+          </div>
+          <div className={`${styles.smallTexts} ${fonts.caption1_Regular}`}>
             <div className={`${styles.smallText} ${styles.spacing}`}>최대</div>
-            <div className={`${styles.smallText} ${styles.pointText}`}>3</div>
+            <div className={`${styles.pointText}`}>3</div>
             <div className={styles.smallText}>개</div>
           </div>
         </div>
         <input
-          className={`${styles.input} ${styles.long}`}
+          className={`${styles.input} ${styles.long} ${fonts.body2_Regular}`}
           placeholder="빠른템포의, 허니제이같은 등의 키워드를 작성해보세요!"
           type="text"
           value={hashTag}
@@ -80,7 +83,10 @@ export default function HashTag({
         {hashTagList.length > 1 &&
           hashTagList.slice(1, 4).map((item, idx) => (
             <div key={idx} className={styles.hashTagBox}>
-              <div key={idx} className={styles.hashTag}>
+              <div
+                key={idx}
+                className={`${styles.hashTag} ${fonts.body2_Regular}`}
+              >
                 {'#' + item.hashTag}
               </div>
               <div

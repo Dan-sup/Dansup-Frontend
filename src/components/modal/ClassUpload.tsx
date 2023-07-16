@@ -4,8 +4,9 @@ import Close from '../../../public/icons/close.svg';
 import IndicatorFirst from '../../../public/icons/indicator-first.svg';
 import IndicatorSecond from '../../../public/icons/indicator-second.svg';
 import IndicatorThird from '../../../public/icons/indicator-third.svg';
-import styleButton from '../../styles/Button.module.css';
-import styleModal from '../../styles/Modal.module.css';
+import fonts from '../../styles/typography.module.css';
+import buttonStyles from '../../styles/Button.module.css';
+import modalStyles from '../../styles/Modal.module.css';
 import styles from '../../styles/UploadPage.module.css';
 import {
   IClassDayList,
@@ -185,31 +186,35 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
 
   return (
     <div style={{ display: isOpen ? 'block' : 'none' }}>
-      <div className={`${styleModal.container} ${styleModal.black}`}>
-        <div className={styleModal.modalCloseBox}>
-          <button className={styleModal.modalClose} onClick={closeModal}>
+      <div className={`${modalStyles.container} ${modalStyles.basic}`}>
+        <div className={modalStyles.modalCloseBox}>
+          <button className={modalStyles.modalClose} onClick={closeModal}>
             <Close />
           </button>
         </div>
         <div className={styles.inputList}>
           <div>
             <IndicatorFirst />
-            <div className={styles.sectionText}>수업을 소개해주세요</div>
+            <div className={`${styles.sectionText} ${fonts.head1}`}>
+              수업을 소개해주세요
+            </div>
             <div className={styles.box}>
-              <div className={styles.maximum}>
-                <div className={styles.required}>
-                  <div className={styles.text}>수업 제목</div>
+              <div className={styles.row_Between}>
+                <div className={styles.row}>
+                  <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                    수업 제목
+                  </div>
                   <div className={styles.pointText}>*</div>
                 </div>
-                <div className={styles.smallTexts}>
-                  <div className={`${styles.smallText} ${styles.pointText}`}>
-                    {titleCount}
-                  </div>
+                <div
+                  className={`${styles.smallTexts} ${fonts.caption1_Regular}`}
+                >
+                  <div className={`${styles.pointText}`}>{titleCount}</div>
                   <div className={styles.smallText}>/50</div>
                 </div>
               </div>
               <Textarea
-                className={`${styles.input} ${styles.textarea} ${styles.long}`}
+                className={`${styles.input} ${styles.textarea} ${styles.long} ${fonts.body2_Regular}`}
                 placeholder="수업에 대한 간단한 소개를 담아주세요"
                 value={title}
                 onChange={handleChangeTitle}
@@ -218,25 +223,27 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               />
             </div>
             <div className={styles.box}>
-              <div className={styles.maximum}>
-                <div className={styles.required}>
-                  <div className={styles.text}>수업 장르</div>
+              <div className={styles.row_Between}>
+                <div className={styles.row}>
+                  <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                    수업 장르
+                  </div>
                   <div className={styles.pointText}>*</div>
                 </div>
-                <div className={styles.smallTexts}>
+                <div
+                  className={`${styles.smallTexts} ${fonts.caption1_Regular}`}
+                >
                   <div className={`${styles.smallText} ${styles.spacing}`}>
                     최대
                   </div>
-                  <div className={`${styles.smallText} ${styles.pointText}`}>
-                    5
-                  </div>
+                  <div className={styles.pointText}>5</div>
                   <div className={styles.smallText}>개</div>
                 </div>
               </div>
               {isClicked ? (
                 <>
                   <button
-                    className={`${styles.input} ${styles.genre} ${styles.after}`}
+                    className={`${styles.input} ${styles.genre} ${styles.after} ${fonts.body2_Regular}`}
                     onClick={onClickOpenBox}
                   >
                     댄스 장르를 선택해주세요
@@ -253,7 +260,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               ) : (
                 <>
                   <button
-                    className={`${styles.input} ${styles.genre} ${styles.before}`}
+                    className={`${styles.input} ${styles.genre} ${styles.before} ${fonts.body2_Regular}`}
                     onClick={onClickOpenBox}
                   >
                     댄스 장르를 선택해주세요
@@ -269,24 +276,26 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               title="수업을 소개하는 해시태그"
             />
             <div className={styles.box}>
-              <div className={styles.text}>수업 추가 설명</div>
+              <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                수업 추가 설명
+              </div>
               <div>
                 <input
-                  className={`${styles.input} ${styles.long}`}
+                  className={`${styles.input} ${styles.long} ${fonts.body2_Regular}`}
                   placeholder="이런 것들을 배울 거예요"
                   type="text"
                   value={classContent}
                   onChange={handleChangeClassContent}
                 />
                 <input
-                  className={`${styles.input} ${styles.long}`}
+                  className={`${styles.input} ${styles.long} ${fonts.body2_Regular}`}
                   placeholder="이런 분들을 위한 레슨이에요"
                   type="text"
                   value={classUser}
                   onChange={handleChangeClassUser}
                 />
                 <input
-                  className={`${styles.input} ${styles.long}`}
+                  className={`${styles.input} ${styles.long} ${fonts.body2_Regular}`}
                   placeholder="드리는 인사말"
                   type="text"
                   value={classIntro}
@@ -295,18 +304,20 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               </div>
             </div>
             <div className={styles.box}>
-              <div className={styles.required}>
-                <div className={styles.text}>수업 장소</div>
+              <div className={styles.row}>
+                <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                  수업 장소
+                </div>
                 <div className={styles.pointText}>*</div>
               </div>
               {isOpenLocation && (
                 <div style={{ display: isOpenLocation ? 'block' : 'none' }}>
                   <div
-                    className={`${styleModal.locationContainer} ${styleModal.white}`}
+                    className={`${modalStyles.container} ${modalStyles.location}`}
                   >
-                    <div className={styleModal.modalCloseBox}>
+                    <div className={modalStyles.modalCloseBox}>
                       <button
-                        className={styleModal.modalClose}
+                        className={modalStyles.modalClose}
                         onClick={closeLocationModal}
                       >
                         <Close />
@@ -322,7 +333,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                 </div>
               )}
               <input
-                className={`${styles.input} ${styles.long} ${styles.clickLocation}`}
+                className={`${styles.input} ${styles.long} ${styles.click_Postcode} ${fonts.body2_Regular}`}
                 placeholder="수업 장소를 입력해주세요"
                 type="text"
                 onClick={openLocationModal}
@@ -330,8 +341,10 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               />
             </div>
             <div className={styles.box}>
-              <div className={styles.required}>
-                <div className={styles.textForSelect}>수업 난이도</div>
+              <div className={styles.row}>
+                <div className={`${styles.selectText} ${fonts.body1_SemiBold}`}>
+                  수업 난이도
+                </div>
                 <div className={styles.pointText}>*</div>
               </div>
               <Select
@@ -341,44 +354,50 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               />
             </div>
             <div className={styles.box}>
-              <div className={styles.required}>
-                <div className={styles.text}>수강료</div>
+              <div className={styles.row}>
+                <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                  수강료
+                </div>
                 <div className={styles.pointText}>*</div>
               </div>
-              <div className={styles.detail}>
+              <div className={`${styles.detailText} ${fonts.body2_Regular}`}>
                 클래스 1회 당 수강료를 입력해주세요.
               </div>
-              <div className={styles.required}>
+              <div className={styles.row}>
                 <input
-                  className={`${styles.input} ${styles.long}`}
+                  className={`${styles.input} ${styles.long} ${fonts.body2_Regular}`}
                   placeholder="금액을 입력해주세요"
                   type="text"
                   value={classFee}
                   onChange={handleChangeClassFee}
                 />
-                <div className={styles.unitText}>원</div>
+                <div className={fonts.body2_Regular}>원</div>
               </div>
             </div>
             <div className={styles.box}>
-              <div className={styles.required}>
-                <div className={styles.text}>수업 총원</div>
+              <div className={styles.row}>
+                <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                  수업 총원
+                </div>
                 <div className={styles.pointText}>*</div>
               </div>
-              <div className={styles.required}>
+              <div className={styles.row}>
                 <input
-                  className={`${styles.input} ${styles.long}`}
+                  className={`${styles.input} ${styles.long} ${fonts.body2_Regular}`}
                   placeholder="수업 총원을 입력해주세요"
                   type="text"
                   value={classAdmit}
                   onChange={handleChangeClassAdmit}
                 />
-                <div className={styles.unitText}>명</div>
+                <div className={fonts.body2_Regular}>명</div>
               </div>
             </div>
             <div className={styles.box}>
-              <div className={styles.text}>수업 노래</div>
+              <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                수업 노래
+              </div>
               <input
-                className={`${styles.input} ${styles.long}`}
+                className={`${styles.input} ${styles.long} ${fonts.body2_Regular}`}
                 placeholder="♫ 수업에 진행할 노래를 추가해주세요"
                 type="text"
                 value={classSong}
@@ -388,11 +407,13 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
           </div>
           <div>
             <IndicatorSecond />
-            <div className={styles.sectionText}>
+            <div className={`${styles.sectionText} ${fonts.head1}`}>
               수업방식 & 수업날짜를 선택해주세요
             </div>
             <div className={styles.box}>
-              <div className={styles.textForSelect}>수업 방식</div>
+              <div className={`${styles.selectText} ${fonts.body1_SemiBold}`}>
+                수업 방식
+              </div>
               <Select
                 list={wayList}
                 votedItem={classWay}
@@ -403,7 +424,9 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               <>
                 {classWay == '원데이' ? (
                   <div className={styles.box}>
-                    <div className={styles.text}>수업 날짜</div>
+                    <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                      수업 날짜
+                    </div>
                     <ClassDate
                       selectDate={classDate}
                       setSelectDate={setClassDate}
@@ -411,12 +434,16 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                   </div>
                 ) : (
                   <div className={styles.box}>
-                    <div className={styles.text}>수업 요일</div>
+                    <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                      수업 요일
+                    </div>
                     <ClassDay list={classDayList} setList={setClassDayList} />
                   </div>
                 )}
                 <div className={styles.box}>
-                  <div className={styles.text}>수업 시간</div>
+                  <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                    수업 시간
+                  </div>
                   <ClassTime
                     startTime={startTime}
                     setStartTIme={setStartTime}
@@ -429,16 +456,20 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
           </div>
           <div>
             <IndicatorThird />
-            <div className={`${styles.sectionText} ${styles.sectionTextWidth}`}>
+            <div
+              className={`${styles.sectionText} ${styles.sectionTextWidth} ${fonts.head1}`}
+            >
               수업 소개 영상 & 예약 링크를 업로드해주세요
             </div>
             <div className={styles.box}>
-              <div className={styles.text}>예약 링크</div>
-              <div className={styles.detail}>
+              <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                예약 링크
+              </div>
+              <div className={`${styles.detailText} ${fonts.body2_Regular}`}>
                 구글폼, 네이버 예약 등 수업 예약 URL을 첨부해주세요
               </div>
               <Textarea
-                className={`${styles.input} ${styles.textarea} ${styles.long}`}
+                className={`${styles.input} ${styles.textarea} ${styles.long} ${fonts.body2_Regular}`}
                 placeholder="https://"
                 value={classLink}
                 onChange={handleChangeClassLink}
@@ -456,7 +487,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
         </div>
 
         <div className={styles.bottom}>
-          <div className={styleButton.buttonSpace}>
+          <div className={buttonStyles.buttonSpace}>
             {isTitleChecked &&
             isGenreListChecked &&
             isLocationChecked &&
@@ -464,13 +495,13 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
             isClassFeeChecked &&
             isClassAdmitChecked ? (
               <button
-                className={`${styleButton.CTALarge} ${styleButton.beforeCTA}`}
+                className={`${buttonStyles.CTA_Large} ${buttonStyles.before} ${fonts.body1_SemiBold}`}
               >
                 수업 올리기
               </button>
             ) : (
               <button
-                className={`${styleButton.CTALarge} ${styleButton.afterCTA}`}
+                className={`${buttonStyles.CTA_Large} ${buttonStyles.after} ${fonts.body1_SemiBold}`}
               >
                 수업 올리기
               </button>

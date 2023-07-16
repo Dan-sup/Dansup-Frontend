@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import styleButton from '../../styles/Button.module.css';
-import styleModal from '../../styles/Modal.module.css';
+import buttonStyles from '../../styles/Button.module.css';
+import modalStyles from '../../styles/Modal.module.css';
 import styles from '../../styles/UploadPage.module.css';
+import fonts from '../../styles/typography.module.css';
 import Close from '../../../public/icons/close.svg';
 import Ect from '../../../public/icons/ETC.svg';
 import { IUploadFile } from '@/types/upload';
@@ -20,14 +21,14 @@ export default function PortfolioUpload({
 
   return (
     <div style={{ display: isOpen ? 'block' : 'none' }}>
-      <div className={`${styleModal.container} ${styleModal.black}`}>
-        <div className={styleModal.modalCloseBox}>
-          <button className={styleModal.modalClose} onClick={closeModal}>
+      <div className={`${modalStyles.container} ${modalStyles.basic}`}>
+        <div className={modalStyles.modalCloseBox}>
+          <button className={modalStyles.modalClose} onClick={closeModal}>
             <Close />
           </button>
         </div>
         <div className={styles.inputList}>
-          <div className={styles.uploadMsg}>
+          <div className={`${styles.uploadMessage} ${fonts.body2_Regular}`}>
             <Ect />
             영상 파일을 업로드해주세요
           </div>
@@ -40,16 +41,16 @@ export default function PortfolioUpload({
           </div>
         </div>
         <div className={styles.bottom}>
-          <div className={styleButton.buttonSpace}>
+          <div className={buttonStyles.buttonSpace}>
             {video !== null ? (
               <button
-                className={`${styleButton.CTALarge} ${styleButton.beforeCTA}`}
+                className={`${buttonStyles.CTA_Large} ${buttonStyles.before} ${fonts.body1_SemiBold}`}
               >
                 수업 올리기
               </button>
             ) : (
               <button
-                className={`${styleButton.CTALarge} ${styleButton.afterCTA}`}
+                className={`${buttonStyles.CTA_Large} ${buttonStyles.after} ${fonts.body1_SemiBold}`}
               >
                 수업 올리기
               </button>

@@ -7,156 +7,38 @@
   padding: 0 18px;
 }
 
-.box {
-  margin-bottom: 60px;
-}
-
-.imgBox {
-  width: 375px;
-  height: 188px;
-  margin-bottom: 31px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.clickedBox {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: flex-start;
-  width: 100%;
-  height: auto;
-  font-size: 14px;
-  font-family: 'Pretendard-Regular';
-  margin-top: 4px;
-}
-
-.GenreBox {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 41px;
-  border-radius: 5px;
-  margin: 10px 10px 0 0;
-}
-
-.clickedBeforeBox {
-  color: var(--color-gray-200);
-  border: 1px solid var(--color-gray-300);
-}
-
-.clickedAfterBox {
-  color: var(--color-white);
-  border: 1px solid var(--color-white);
-}
-
-.GenreBox:hover {
-  border: 1px solid var(--color-white);
-  color: var(--color-white);
-  transition: all ease 0.5s 0s;
-}
-
-.dayBoxs {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: flex-start;
-  width: 100%;
-  height: auto;
-  font-size: 14px;
-  font-family: 'Pretendard-Regular';
-}
-
-.dayBox {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 57px;
-  width: 42px;
-  border-radius: 5px;
-  margin-right: 7px;
-}
-
-.dayBox:hover {
-  border: 1px solid var(--color-white);
-  color: var(--color-white);
-  transition: all ease 0.5s 0s;
-}
-
-.shortBox {
-  width: 77px;
-}
-
-.longBox {
-  width: 106px;
-}
-
-.required {
+.row {
   display: flex;
   flex-direction: row;
 }
 
-.maximum {
+.row_Between {
   display: flex;
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
 }
 
-.text {
-  font-size: 16px;
-  font-family: 'Pretendard-SemiBold';
-  margin-bottom: 14px;
-}
-
-.textForSelect {
-  font-size: 16px;
-  font-family: 'Pretendard-SemiBold';
-  margin-bottom: 4px;
-}
-
-.smallTexts {
+/*버튼 부분 묶음*/
+.bottom {
   display: flex;
-  align-items: center;
-  margin-bottom: 14px;
+  justify-content: center;
+  width: 100%;
+  height: 124px;
 }
 
-.smallText {
-  font-size: 12px;
-  font-family: 'Pretendard-Regular';
-  color: var(--color-gray-200);
-}
-
-.pointText {
-  color: var(--color-main-100);
-}
-
-.spacing {
-  margin-right: 2px;
-}
-
+/*모든 input 묶음*/
 .inputList {
   width: 100%;
   margin-bottom: 94px;
 }
 
-.inputs {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
+/*각 input*/
 .input {
   display: flex;
   justify-content: left;
   align-items: center;
   height: 30px;
-  font-size: 14px;
-  font-family: 'Pretendard-Regular';
   color: var(--color-white);
   border: none;
   border-bottom: 1px solid var(--color-gray-300);
@@ -172,14 +54,12 @@
   border-bottom: 1px solid var(--color-white);
 }
 
-.inputTime {
+.timeInput {
   display: flex;
   justify-content: left;
   align-items: center;
   height: 42px;
   width: 100%;
-  font-size: 14px;
-  font-family: 'Pretendard-Regular';
   color: var(--color-white);
   border: 1px solid var(--color-gray-300);
   border-radius: 5px;
@@ -187,19 +67,19 @@
   background: transparent;
 }
 
-.inputTime::placeholder {
+.timeInput::placeholder {
   color: var(--color-gray-400);
 }
 
-.inputTime:focus {
+.timeInput:focus {
   border: 1px solid var(--color-white);
 }
-
 .textarea {
   resize: none;
   line-height: 150%;
 }
 
+/*input마다 다른 길이*/
 .long {
   width: 100%;
 }
@@ -212,31 +92,93 @@
   width: 25%;
 }
 
-.errorMsg {
-  font-size: 12px;
-  font-family: 'Pretendard-Regular';
+/*각 input text + input*/
+.box {
+  margin-bottom: 60px;
+}
+
+/*genre/select*/
+/*전체 감싸는 css*/
+.clickedBox {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%;
+  height: auto;
+  margin-top: 4px;
+}
+
+/*click 전후*/
+.clickedBeforeBox {
+  color: var(--color-gray-200);
+  border: 1px solid var(--color-gray-300);
+}
+
+.clickedAfterBox {
+  color: var(--color-white);
+  border: 1px solid var(--color-white);
+}
+
+/*text*/
+/*각 input text*/
+.text {
+  margin-bottom: 14px;
+}
+
+.selectText {
+  margin-bottom: 10px;
+}
+
+.sectionText {
+  margin: 4px 0 18px 0;
+}
+
+.sectionTextWidth {
+  width: 230px;
+}
+
+.smallTexts {
+  display: flex;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.smallText {
+  color: var(--color-gray-200);
+}
+
+.pointText {
+  color: var(--color-main-100);
+}
+
+.detailText {
+  color: var(--color-gray-100);
+  margin-bottom: 14px;
+}
+
+.errorText {
   color: var(--color-error);
   margin-top: 8px;
 }
 
-.genre {
-  width: 100%;
-  font-size: 14px;
-  font-family: 'Pretendard-Regular';
-  color: var(--color-gray-400);
-  padding: 0;
-  appearance: none;
+/*띄어쓰기*/
+.spacing {
+  margin-right: 2px;
 }
 
-.before {
-  background: url('../../public/icons/arrow.svg') no-repeat right center;
+/*profile-upload : image*/
+.imgBox {
+  width: 375px;
+  height: 188px;
+  margin-bottom: 31px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.after {
-  background: url('../../public/icons/after-arrow.svg') no-repeat right center;
-}
-
-.image {
+.img {
   border-radius: 100%;
   margin-bottom: 14px;
 }
@@ -250,11 +192,11 @@
   height: 33px;
   border: 1px solid var(--color-gray-300);
   border-radius: 30px;
-  font-size: 14px;
   color: var(--color-gray-100);
-  font-family: 'Pretendard-SemiBold';
 }
 
+/*video*/
+/*video/award에서 이중 사용*/
 .blank {
   display: flex;
   justify-content: center;
@@ -298,13 +240,66 @@
   border-radius: 4px;
   background: var(--color-gray-500-card);
   color: var(--color-gray-100);
-  font-family: 'Pretendard-SemiBold';
-  font-size: 14px;
   z-index: 999;
   position: absolute;
   right: 30px;
 }
 
+/*genre*/
+/*genre 버튼*/
+.genre {
+  width: 100%;
+  color: var(--color-gray-400);
+  padding: 0;
+  appearance: none;
+}
+
+/*버튼 내 클릭 전 후 화살표*/
+.before {
+  background: url('../../public/icons/arrow.svg') no-repeat right center;
+}
+
+.after {
+  background: url('../../public/icons/after-arrow.svg') no-repeat right center;
+}
+
+.GenreBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 41px;
+  border-radius: 5px;
+  margin: 10px 10px 0 0;
+}
+
+.GenreBox:hover {
+  border: 1px solid var(--color-white);
+  color: var(--color-white);
+  transition: all ease 0.5s 0s;
+}
+
+.shortBox {
+  width: 77px;
+}
+
+.longBox {
+  width: 106px;
+}
+
+/*profile-upload: award*/
+.addAward {
+  height: 50px;
+  margin-top: 20px;
+}
+
+.awardButton {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 107px;
+}
+
+/*hashTag*/
 .hashTags {
   display: flex;
   flex-direction: row;
@@ -326,8 +321,6 @@
 }
 
 .hashTag {
-  font-family: 'Pretendard-Regular';
-  font-size: 14px;
   color: var(--color-gray-100);
   margin-left: 10px;
 }
@@ -342,78 +335,7 @@
   cursor: pointer;
 }
 
-.addAward {
-  height: 50px;
-  margin-top: 20px;
-}
-
-.awardButton {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 107px;
-}
-
-.bottom {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  height: 124px;
-}
-
-.toastMessageBox {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 40px;
-  border-radius: 5px;
-  background: var(--color-gray-500-card);
-}
-
-.toastMessage {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  font-family: 'Pretendard-Regular';
-  font-size: 14px;
-  color: var(--color-gray-100);
-  margin-left: 10px;
-}
-
-.Ect {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 20px;
-}
-
-.message {
-  margin-left: 4px;
-}
-
-.sectionText {
-  font-family: 'Pretendard-SemiBold';
-  font-size: 20px;
-  margin: 4px 0 18px 0;
-}
-
-.sectionTextWidth {
-  width: 230px;
-}
-
-.clickLocation {
-  background: url('../../public/icons/location-arrow.svg') no-repeat right
-    center;
-}
-
-.postCode {
-  width: 100%;
-  height: 470px;
-  border: 1px solid var(--color-gray-700-bg);
-  margin-top: 16px;
-}
-
+/*수업 난이도, 방식 _ select*/
 .selectBox {
   display: flex;
   justify-content: center;
@@ -430,39 +352,43 @@
   transition: all ease 0.5s 0s;
 }
 
-.detail {
-  font-family: 'Pretendard-Regular';
-  font-size: 14px;
-  color: var(--color-gray-100);
-  margin-bottom: 14px;
-}
-
-.unitText {
-  font-family: 'Pretendard-Regular';
-  font-size: 14px;
-}
-
-.uploadMsg {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-family: 'Pretendard-Regular';
-  font-size: 14px;
-  color: var(--color-gray-100);
-  width: 175px;
-  height: 21px;
-  margin-top: 28px;
-  margin-bottom: 57px;
-}
-
+/*classDate*/
 .datePicker {
   width: 100%;
+}
+
+/*classDay*/
+.dayBoxs {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%;
+  height: auto;
+}
+
+.dayBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 57px;
+  width: 42px;
+  border-radius: 5px;
+  margin-right: 7px;
+}
+
+.dayBox:hover {
+  border: 1px solid var(--color-white);
+  color: var(--color-white);
+  transition: all ease 0.5s 0s;
 }
 
 .check {
   margin-top: 5px;
 }
 
+/*classTime*/
 .timeText {
   display: flex;
   align-items: center;
@@ -471,6 +397,53 @@
   font-family: 'Pretendard-Regular';
   width: 8%;
   height: 44px;
+}
+
+/*toastmsg*/
+.toastMessageBox {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  background: var(--color-gray-500-card);
+}
+
+.toastMessage {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: var(--color-gray-100);
+  margin-left: 10px;
+}
+
+.message {
+  margin-left: 4px;
+}
+
+/*portfolio-upload:msg*/
+.uploadMessage {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--color-gray-100);
+  width: 175px;
+  height: 21px;
+  margin-top: 28px;
+  margin-bottom: 57px;
+}
+
+/*class-upload: location*/
+.postCode {
+  width: 100%;
+  height: 470px;
+  border: 1px solid var(--color-gray-700-bg);
+  margin-top: 16px;
+}
+
+.click_Postcode {
+  background: url('../../public/icons/location-arrow.svg') no-repeat right
+    center;
 }
 
 .modal {

@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import fonts from '../../styles/typography.module.css';
 import styles from '../../styles/UploadPage.module.css';
 import { IGenreList } from '@/types/upload';
 
@@ -63,7 +64,7 @@ export default function DanceGenre({
   };
 
   return (
-    <div className={styles.clickedBox}>
+    <div className={`${styles.clickedBox} ${fonts.body2_Regular}`}>
       {genreList.map(data => {
         if (list.filter(item => item.genre == data.name).length == 1) {
           return (

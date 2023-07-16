@@ -1,5 +1,6 @@
 import { useRef, useMemo, useState } from 'react';
 import styles from '../../styles/UploadPage.module.css';
+import fonts from '../../styles/typography.module.css';
 import { IUploadFile } from '../../types/upload';
 import Plus from '../../../public/icons/plus.svg';
 import Dot from '../../../public/icons/dot.svg';
@@ -67,14 +68,19 @@ export default function UploadVideo({
     <div>
       {isVideo ? (
         <>
-          <div className={styles.maximum}>
-            <div className={styles.text}>{title}</div>
+          <div className={styles.row_Between}>
+            <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+              {title}
+            </div>
             <div className={styles.dot} onClick={onClickFileDelete}>
               <Dot />
             </div>
           </div>
           {isClicked ? (
-            <button onClick={deleteVideo} className={styles.deleteVideo}>
+            <button
+              onClick={deleteVideo}
+              className={`${styles.deleteVideo} ${fonts.body2_SemiBold}`}
+            >
               삭제하기
             </button>
           ) : (
@@ -92,7 +98,9 @@ export default function UploadVideo({
       ) : (
         <>
           <>
-            <div className={styles.text}>{title}</div>
+            <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+              {title}
+            </div>
           </>
           <>
             {showVideo}

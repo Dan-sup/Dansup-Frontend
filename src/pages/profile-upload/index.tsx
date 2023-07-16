@@ -2,7 +2,8 @@ import { useRef, useState, useMemo } from 'react';
 import Image from 'next/image';
 import Textarea from 'react-textarea-autosize';
 import styles from '../../styles/UploadPage.module.css';
-import styleButton from '../../styles/Button.module.css';
+import fonts from '../../styles/typography.module.css';
+import buttonStyles from '../../styles/Button.module.css';
 import BlankImage from '../../../public/icons/blank-image.svg';
 import Plus from '../../../public/icons/plus.svg';
 import Ect from '../../../public/icons/ETC.svg';
@@ -69,7 +70,7 @@ export default function ProfileUpload() {
     if (!image && image == null) {
       return (
         <BlankImage
-          className={styles.image}
+          className={styles.img}
           alt="blank"
           width={100}
           height={100}
@@ -78,7 +79,7 @@ export default function ProfileUpload() {
     }
     return (
       <Image
-        className={styles.image}
+        className={styles.img}
         src={image.thumnail}
         alt={image.type}
         width={100}
@@ -173,38 +174,49 @@ export default function ProfileUpload() {
           ref={fileInputRef}
           onChange={handleUploadImage}
         />
-        <button className={styles.imgButton} onClick={onClickFileInput}>
+        <button
+          className={`${styles.imgButton} ${fonts.body2_SemiBold}`}
+          onClick={onClickFileInput}
+        >
           이미지 업로드
         </button>
       </div>
       <div className={styles.inputList}>
         <div className={styles.box}>
-          <div className={styles.required}>
-            <div className={styles.text}>사용자 계정</div>
+          <div className={styles.row}>
+            <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+              사용자 계정
+            </div>
             <div className={`${styles.pointText}`}>*</div>
           </div>
           <input
-            className={`${styles.input} ${styles.long}`}
+            className={`${styles.input} ${styles.long} ${fonts.body2_Regular}`}
             placeholder="영문, 숫자, 밑줄 및 마침표만 입력 가능합니다"
             type="text"
             value={userId}
             onChange={handleChangeUserId}
           />
-          <div className={styles.errorMsg}>{userIdMsg}</div>
+          <div className={`${styles.errorText} ${fonts.caption1_Regular}`}>
+            {userIdMsg}
+          </div>
         </div>
         <div className={styles.box}>
-          <div className={styles.required}>
-            <div className={styles.text}>댄서 활동명</div>
+          <div className={styles.row}>
+            <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+              댄서 활동명
+            </div>
             <div className={styles.pointText}>*</div>
           </div>
           <input
-            className={`${styles.input} ${styles.long}`}
+            className={`${styles.input} ${styles.long} ${fonts.body2_Regular}`}
             placeholder="한글, 영문, 숫자, 특수기호 입력 가능합니다 (1-14자)"
             type="text"
             value={dancerName}
             onChange={handleChangeDancerName}
           />
-          <div className={styles.errorMsg}>{dancerNameMsg}</div>
+          <div className={`${styles.errorText} ${fonts.caption1_Regular}`}>
+            {dancerNameMsg}
+          </div>
         </div>
         <div className={styles.box}>
           <UploadVideo
@@ -214,17 +226,17 @@ export default function ProfileUpload() {
           />
         </div>
         <div className={styles.box}>
-          <div className={styles.maximum}>
-            <div className={styles.text}>한줄 소개</div>
-            <div className={styles.smallTexts}>
-              <div className={`${styles.smallText} ${styles.pointText}`}>
-                {introCount}
-              </div>
+          <div className={styles.row_Between}>
+            <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+              한줄 소개
+            </div>
+            <div className={`${styles.smallTexts} ${fonts.caption1_Regular}`}>
+              <div className={styles.pointText}>{introCount}</div>
               <div className={styles.smallText}>/80</div>
             </div>
           </div>
           <Textarea
-            className={`${styles.input} ${styles.textarea} ${styles.long}`}
+            className={`${styles.input} ${styles.textarea} ${styles.long} ${fonts.body2_Regular}`}
             placeholder="ex.저는 댄서경력 10년차 프로댄서입니다"
             value={intro}
             onChange={handleChangeIntro}
@@ -233,20 +245,22 @@ export default function ProfileUpload() {
           />
         </div>
         <div className={styles.box}>
-          <div className={styles.maximum}>
-            <div className={styles.text}>나의 장르</div>
-            <div className={styles.smallTexts}>
+          <div className={styles.row_Between}>
+            <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+              나의 장르
+            </div>
+            <div className={`${styles.smallTexts} ${fonts.caption1_Regular}`}>
               <div className={`${styles.smallText} ${styles.spacing}`}>
                 최대
               </div>
-              <div className={`${styles.smallText} ${styles.pointText}`}>3</div>
+              <div className={`${styles.pointText}`}>3</div>
               <div className={styles.smallText}>개</div>
             </div>
           </div>
           {isClicked ? (
             <>
               <button
-                className={`${styles.input} ${styles.genre} ${styles.after}`}
+                className={`${styles.input} ${styles.genre} ${styles.after} ${fonts.body2_Regular}`}
                 onClick={onClickOpenBox}
               >
                 나의 댄스 장르를 선택해주세요
@@ -262,7 +276,7 @@ export default function ProfileUpload() {
           ) : (
             <>
               <button
-                className={`${styles.input} ${styles.genre} ${styles.before}`}
+                className={`${styles.input} ${styles.genre} ${styles.before} ${fonts.body2_Regular}`}
                 onClick={onClickOpenBox}
               >
                 나의 댄스 장르를 선택해주세요
@@ -278,18 +292,20 @@ export default function ProfileUpload() {
           title="나를 소개하는 해시태그"
         />
         <div className={styles.box}>
-          <div className={styles.text}>공연 및 활동경력</div>
+          <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+            공연 및 활동경력
+          </div>
           {awardList.map((item, idx) => (
-            <div className={styles.inputs} key={idx}>
+            <div className={styles.row_Between} key={idx}>
               <input
-                className={`${styles.input} ${styles.short}`}
+                className={`${styles.input} ${styles.short} ${fonts.body2_Regular}`}
                 placeholder="2023.01.01"
                 type="text"
                 value={item.date}
                 onChange={e => handleChangeDate(e, idx)}
               />
               <input
-                className={`${styles.input} ${styles.mid}`}
+                className={`${styles.input} ${styles.mid} ${fonts.body2_Regular}`}
                 placeholder="ex.OO댄스대회 최우수상"
                 type="text"
                 value={item.award}
@@ -311,7 +327,7 @@ export default function ProfileUpload() {
 
       {isFull ? (
         <div className={styles.toastMessageBox}>
-          <div className={styles.toastMessage}>
+          <div className={`${styles.toastMessage} ${fonts.body2_Regular}`}>
             <Ect />
             <div className={styles.message}>
               나의 장르는 최대 3개까지 선택 가능합니다.
@@ -323,16 +339,16 @@ export default function ProfileUpload() {
       )}
 
       <div className={styles.bottom}>
-        <div className={styleButton.buttonSpace}>
+        <div className={buttonStyles.buttonSpace}>
           {isUserIdChecked && isdancerNameChecked ? (
             <button
-              className={`${styleButton.CTALarge} ${styleButton.beforeCTA}`}
+              className={`${buttonStyles.CTA_Large} ${buttonStyles.before} ${fonts.body1_SemiBold}`}
             >
               시작하기
             </button>
           ) : (
             <button
-              className={`${styleButton.CTALarge} ${styleButton.afterCTA}`}
+              className={`${buttonStyles.CTA_Large} ${buttonStyles.after} ${fonts.body1_SemiBold}`}
             >
               시작하기
             </button>

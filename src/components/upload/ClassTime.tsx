@@ -1,4 +1,5 @@
 import DatePicker from 'react-datepicker';
+import fonts from '../../styles/typography.module.css';
 import styles from '../../styles/UploadPage.module.css';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -16,9 +17,9 @@ export default function ClassTime({
   setEndTIme,
 }: classTimeProps) {
   return (
-    <div className={styles.inputs}>
+    <div className={styles.row_Between}>
       <DatePicker
-        className={styles.inputTime}
+        className={`${styles.timeInput} ${fonts.body2_Regular}`}
         selected={startTime}
         onChange={(time: Date) => setStartTIme(time)}
         closeOnScroll={true}
@@ -32,7 +33,7 @@ export default function ClassTime({
       />
       <div className={styles.timeText}>~</div>
       <DatePicker
-        className={styles.inputTime}
+        className={`${styles.timeInput} ${fonts.body2_Regular}`}
         selected={endTime}
         onChange={(time: Date) => setEndTIme(time)}
         closeOnScroll={true}

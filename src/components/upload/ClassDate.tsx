@@ -1,5 +1,6 @@
 import React from 'react';
 import DatePicker from 'react-datepicker';
+import fonts from '../../styles/typography.module.css';
 import styles from '../../styles/UploadPage.module.css';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -13,7 +14,7 @@ export default function ClassDate({
 }: classDateProps) {
   return (
     <DatePicker
-      className={`${styles.input} ${styles.datePicker}`}
+      className={`${styles.input} ${styles.datePicker} ${fonts.body2_Regular}`}
       dateFormat="yyyy-MM-dd"
       shouldCloseOnSelect
       closeOnScroll={true}
