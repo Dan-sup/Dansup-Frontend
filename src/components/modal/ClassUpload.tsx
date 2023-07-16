@@ -330,7 +330,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
             </div>
             <div className={styles.box}>
               <div className={styles.required}>
-                <div className={styles.text}>수업 난이도</div>
+                <div className={styles.textForSelect}>수업 난이도</div>
                 <div className={styles.pointText}>*</div>
               </div>
               <Select
@@ -391,24 +391,33 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               수업방식 & 수업날짜를 선택해주세요
             </div>
             <div className={styles.box}>
-              <div className={styles.text}>수업 방식</div>
+              <div className={styles.textForSelect}>수업 방식</div>
               <Select
                 list={wayList}
                 votedItem={classWay}
                 setVotedItem={setClassWay}
               />
-              <div className={styles.box}>
-                <div className={styles.text}>수업 요일</div>
-                <ClassDay list={classDayList} setList={setClassDayList} />
-              </div>
-              <div className={styles.box}>
-                <div className={styles.text}>수업 날짜</div>
-                <ClassDate
-                  selectDate={classDate}
-                  setSelectDate={setClassDate}
-                />
-              </div>
             </div>
+            {classWay == '' ? (
+              <></>
+            ) : (
+              <>
+                {classWay == '원데이' ? (
+                  <div className={styles.box}>
+                    <div className={styles.text}>수업 날짜</div>
+                    <ClassDate
+                      selectDate={classDate}
+                      setSelectDate={setClassDate}
+                    />
+                  </div>
+                ) : (
+                  <div className={styles.box}>
+                    <div className={styles.text}>수업 요일</div>
+                    <ClassDay list={classDayList} setList={setClassDayList} />
+                  </div>
+                )}
+              </>
+            )}
           </div>
           <div className={styles.section}>
             <IndicatorThird />

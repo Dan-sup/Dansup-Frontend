@@ -112,6 +112,12 @@
   margin-bottom: 14px;
 }
 
+.textForSelect {
+  font-size: 16px;
+  font-family: 'Pretendard-SemiBold';
+  margin-bottom: 4px;
+}
+
 .smallTexts {
   display: flex;
   align-items: center;
@@ -434,11 +440,7 @@
   width: 100%;
 }
 
-.afterCheck {
-  margin-top: 5px;
-}
-
-.beforeCheck {
+.check {
   margin-top: 5px;
 }
 

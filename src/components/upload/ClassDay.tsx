@@ -48,7 +48,7 @@ export default function ClassDay({ list, setList }: classDayProps) {
               value={data.name}
             >
               {data.name}
-              <AfterCheck className={styles.afterCheck} />
+              <AfterCheck className={styles.check} />
             </button>
           );
         } else {
@@ -60,7 +60,7 @@ export default function ClassDay({ list, setList }: classDayProps) {
               value={data.name}
             >
               {data.name}
-              <BeforeCheck className={styles.beforeCheck} />
+              <BeforeCheck className={styles.check} />
             </button>
           );
         }
