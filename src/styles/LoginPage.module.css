@@ -5,6 +5,13 @@
   justify-content: center;
 }
 
+.a {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+}
+
 .loginBtn {
   background-color: #fae300;
   color: #391b1b;

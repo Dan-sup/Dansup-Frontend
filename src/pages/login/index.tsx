@@ -3,12 +3,19 @@ import typoStyles from '../../styles/typography.module.css';
 import KakaoLogo from '../../../public/icons/kakao-logo.svg';
 
 export default function LoginPage() {
+  const REST_API_KEY = '91cfc73a730663e93196247d884f837e';
+  const REDIRECT_URI = 'http://localhost:8080/login/oauth2/code/kakao';
+
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
   return (
     <div className={styles.container}>
-      <button className={`${styles.loginBtn} ${typoStyles.body1_SemiBold}`}>
-        {/*<KakaoLogo />*/}
-        <div>카카오톡으로 시작하기</div>
-      </button>
+      <a href={KAKAO_AUTH_URL} className={styles.a}>
+        <button className={`${styles.loginBtn} ${typoStyles.body1_SemiBold}`}>
+          {/*<KakaoLogo />*/}
+          <div>카카오톡으로 시작하기</div>
+        </button>
+      </a>
     </div>
   );
 }
