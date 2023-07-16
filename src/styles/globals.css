@@ -1,24 +1,54 @@
+:root {
+  --color-white: #ffffff;
+  --color-error: #ff5e5e;
+  --color-main-100: #2aeaea;
+  --color-main-200: #3f6870;
+  --color-main-300: #273c40;
+  --color-gray-100: #c3c3c6;
+  --color-gray-200: #9ea0a3;
+  --color-gray-300: #62646c;
+  --color-gray-400: #454751;
+  --color-gray-500-card: #2c2e34;
+  --color-gray-600: #202026;
+  --color-gray-700-bg: #17171b;
+  --color-gray-800-divider: #101012;
+}
+
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url(../../public/fonts/Pretendard-Regular.otf);
+}
+
+@font-face {
+  font-family: 'Pretendard-SemiBold';
+  src: url(../../public/fonts/Pretendard-SemiBold.otf);
+}
+
 * {
   box-sizing: border-box;
+  user-select: none;
 }
 
 html,
 body {
+  width: 100%; /*테스트 해보기*/
+
   padding: 0;
   margin: 0;
 
+  /*테스트 해보기*/
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
 
-  background: var(--main-bg-color);
+  background-color: var(--color-gray-700-bg);
   -ms-overflow-style: none;
 }
 
 button {
   outline: none;
   border: none;
-  background: transparent;
+  background-color: transparent;
   cursor: pointer;
 }
 
@@ -27,31 +57,20 @@ text {
   letter-spacing: -2.5%;
 }
 
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+li {
+  list-style: none;
+}
+
 ::-webkit-scrollbar {
   display: none;
-}
-
-:root {
-  --main-bg-color: #17171b;
-  --tab-bar-color: #62646c;
-  --card-color: #2c2e34;
-  --white-color: #ffffff;
-  --text-color-first: #c3c3c6;
-  --text-color-second: #9ea0a3;
-  --text-color-third: #202026;
-  --divider-text-color: #101012;
-  --main-color: #2aeaea;
-  --chip-color-first: #3f6870;
-  --chip-color-second: #273c40;
-  --error-color: #ff5e5e;
-}
-
-@font-face {
-  font-family: 'Regular';
-  src: url(../assets/fonts/Pretendard-Regular.otf);
-}
-
-@font-face {
-  font-family: 'SemiBold';
-  src: url(../assets//fonts/Pretendard-SemiBold.otf);
 }
