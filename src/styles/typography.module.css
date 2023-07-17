@@ -1,44 +1,44 @@
 .head0 {
-  font-size: 24px;
   font-family: 'Pretendard-SemiBold';
+  font-size: 24px;
 }
 
 .head1 {
-  font-size: 20px;
   font-family: 'Pretendard-SemiBold';
+  font-size: 20px;
 }
 
 .head2 {
+  font-family: 'Pretendard-SemiBold';
   font-size: 18px;
-  font-family: 'Pretendard-SemiBold';
-}
-
-.body1_SemiBold {
-  font-size: 16px;
-  font-family: 'Pretendard-SemiBold';
 }
 
 .body1_Regular {
-  font-size: 16px;
   font-family: 'Pretendard-Regular';
+  font-size: 16px;
 }
 
-.body2_SemiBold {
-  font-size: 14px;
+.body1_SemiBold {
   font-family: 'Pretendard-SemiBold';
+  font-size: 16px;
 }
 
 .body2_Regular {
-  font-size: 14px;
   font-family: 'Pretendard-Regular';
+  font-size: 14px;
 }
 
-.caption1_SemiBold {
-  font-size: 12px;
+.body2_SemiBold {
   font-family: 'Pretendard-SemiBold';
+  font-size: 14px;
 }
 
 .caption1_Regular {
-  font-size: 12px;
   font-family: 'Pretendard-Regular';
+  font-size: 12px;
+}
+
+.caption1_SemiBold {
+  font-family: 'Pretendard-SemiBold';
+  font-size: 12px;
 }

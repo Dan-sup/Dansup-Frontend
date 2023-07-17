@@ -1,0 +1,31 @@
+.container {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+}
+
+.a {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+}
+
+.loginBtn {
+  background-color: #fae300;
+  color: #391b1b;
+
+  height: 50px;
+  width: 89%;
+
+  border-radius: 4px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btnText {
+  margin-left: 10px;
+}
