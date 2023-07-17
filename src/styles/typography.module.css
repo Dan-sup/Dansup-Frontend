@@ -1,0 +1,44 @@
+.head0 {
+  font-size: 24px;
+  font-family: 'Pretendard-SemiBold';
+}
+
+.head1 {
+  font-size: 20px;
+  font-family: 'Pretendard-SemiBold';
+}
+
+.head2 {
+  font-size: 18px;
+  font-family: 'Pretendard-SemiBold';
+}
+
+.body1_SemiBold {
+  font-size: 16px;
+  font-family: 'Pretendard-SemiBold';
+}
+
+.body1_Regular {
+  font-size: 16px;
+  font-family: 'Pretendard-Regular';
+}
+
+.body2_SemiBold {
+  font-size: 14px;
+  font-family: 'Pretendard-SemiBold';
+}
+
+.body2_Regular {
+  font-size: 14px;
+  font-family: 'Pretendard-Regular';
+}
+
+.caption1_SemiBold {
+  font-size: 12px;
+  font-family: 'Pretendard-SemiBold';
+}
+
+.caption1_Regular {
+  font-size: 12px;
+  font-family: 'Pretendard-Regular';
+}
