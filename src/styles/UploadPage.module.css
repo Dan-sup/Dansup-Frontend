@@ -259,7 +259,7 @@
   background: url('../../public/icons/after-arrow.svg') no-repeat right center;
 }
 
-.GenreBox {
+.genreBox {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -268,7 +268,7 @@
   margin: 10px 10px 0 0;
 }
 
-.GenreBox:hover {
+.genreBox:hover {
   border: 1px solid var(--color-white);
   color: var(--color-white);
   transition: all ease 0.5s 0s;
