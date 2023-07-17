@@ -1,0 +1,39 @@
+{
+  "dancers": [
+    {
+      "genres": [
+        {
+          "genre": "힙합"
+        },
+        {
+          "genre": "걸스힙합"
+        },
+        {
+          "genre": "팝핑"
+        }
+      ],
+      "hashtags": [
+        {
+          "hashtag": "#선위주의"
+        },
+        {
+          "hashtag": "#빠른템포의"
+        },
+        {
+          "hashtag": "#빠른"
+        }
+      ],
+      "intro": "나는 춤이 정말 좋아",
+      "nickname": "유나",
+      "portfolios": [
+        {
+          "date": "2023.6.18",
+          "detail": "홍익대학교 시각디자인과 댄스 소모임"
+        }
+      ],
+      "profileImage": "이미지 multipartfile",
+      "profileVideo": "이미지 multipartfile",
+      "username": "@younaring__"
+    }
+  ]
+}

@@ -441,7 +441,3 @@
   background: url('../../public/icons/location-arrow.svg') no-repeat right
     center;
 }
-
-.modal {
-  color: var(--color-main-100);
-}
