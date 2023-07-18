@@ -41,10 +41,10 @@ export default function DancerProfile() {
 
   return (
     <div className={styles.container}>
-      {dancers.map(data => (
-        <div className={styles.profilePart} key={data.username}>
+      {dancers.map((data, idx) => (
+        <div className={styles.profilePart} key={idx}>
           <div className={styles.backVideo}></div>
-          <div className={styles.profileContainer}>
+          <div className={styles.paddingContainer}>
             <div className={styles.profileImg}></div>
             <div className={`${styles.genreList} ${fonts.body2_Regular}`}>
               {data.genres.map(data => (
@@ -63,8 +63,8 @@ export default function DancerProfile() {
               {data.intro}
             </div>
             <div className={`${styles.hashTagList} ${fonts.body2_Regular}`}>
-              {data.hashtags.map(data => (
-                <div className={styles.hashTagBox} key={data.hashtag}>
+              {data.hashtags.map((data, idx) => (
+                <div className={styles.hashTagBox} key={idx}>
                   <div className={styles.hashTag}>{data.hashtag}</div>
                 </div>
               ))}
