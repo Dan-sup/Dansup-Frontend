@@ -3,13 +3,17 @@ import fonts from '../../../styles/typography.module.css';
 import styles from '../../../styles/Profile.module.css';
 import ClassUpload from '@/components/modal/ClassUpload';
 import PortfolioUpload from '@/components/modal/PortfolioUpload';
+import Portfolio from '@/components/profile/Porfolio';
+import Class from '@/components/profile/Class';
 import dancerData from '../../../jsons/dancerData.json';
 
 export default function DancerProfile() {
   const [isClassOpen, setIsClassOpen] = useState<boolean>(false);
   const [isPortfolioOpen, setIsPortfolioOpen] = useState<boolean>(false);
+  const [isPortfolio, setIsPortfolio] = useState<boolean>(true);
   const dancers = dancerData.dancers;
 
+  /*modal*/
   const openClassModal = () => {
     setIsClassOpen(true);
   };
@@ -24,6 +28,15 @@ export default function DancerProfile() {
 
   const closePortfolioModal = () => {
     setIsPortfolioOpen(false);
+  };
+
+  /*button*/
+  const onClickPortfolio = () => {
+    setIsPortfolio(true);
+  };
+
+  const onClickClass = () => {
+    setIsPortfolio(false);
   };
 
   return (
@@ -59,6 +72,31 @@ export default function DancerProfile() {
           </div>
         </div>
       ))}
+      <div className={styles.buttonBox}>
+        <div className={styles.buttons}>
+          <button
+            className={
+              isPortfolio
+                ? `${styles.button} ${styles.clicked} ${fonts.head2}`
+                : `${styles.button} ${fonts.head2}`
+            }
+            onClick={onClickPortfolio}
+          >
+            포트폴리오
+          </button>
+          <button
+            className={
+              isPortfolio
+                ? `${styles.button} ${fonts.head2}`
+                : `${styles.button} ${styles.clicked} ${fonts.head2}`
+            }
+            onClick={onClickClass}
+          >
+            내 수업
+          </button>
+        </div>
+      </div>
+      {isPortfolio ? <Portfolio /> : <Class />}
       <button onClick={openClassModal} className={styles.modal}>
         내수업 올리기
       </button>

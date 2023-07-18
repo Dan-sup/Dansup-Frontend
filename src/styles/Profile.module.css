@@ -14,6 +14,39 @@
   width: 100%;
 }
 
+.buttonBox {
+  display: flex;
+  justify-content: center;
+  height: 50px;
+  width: 100%;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--color-gray-500-card);
+  margin-top: 30px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 60%;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  color: var(--color-white);
+}
+
+.button:hover {
+  border-bottom: 2px solid var(--color-main-100);
+}
+
+.clicked {
+  border-bottom: 2px solid var(--color-main-100);
+}
+
 .backVideo {
   height: 386px;
   margin-bottom: 15px;
