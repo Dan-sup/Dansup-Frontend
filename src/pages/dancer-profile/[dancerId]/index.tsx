@@ -31,29 +31,31 @@ export default function DancerProfile() {
       {dancers.map(data => (
         <div className={styles.profilePart} key={data.username}>
           <div className={styles.backVideo}></div>
-          <div className={styles.profileImg}></div>
-          <div className={`${styles.genreList} ${fonts.body2_Regular}`}>
-            {data.genres.map(data => (
-              <div className={styles.genreBox} key={data.genre}>
-                <div className={styles.genre}>{data.genre}</div>
-              </div>
-            ))}
-          </div>
-          <div className={`${styles.nickname} ${fonts.head1}`}>
-            {data.nickname}
-          </div>
-          <div className={`${styles.username} ${fonts.caption1_Regular}`}>
-            {data.username}
-          </div>
-          <div className={`${styles.intro} ${fonts.body2_Regular}`}>
-            {data.intro}
-          </div>
-          <div className={`${styles.hashTagList} ${fonts.body2_Regular}`}>
-            {data.hashtags.map(data => (
-              <div className={styles.hashTagBox} key={data.hashtag}>
-                <div className={styles.hashTag}>{data.hashtag}</div>
-              </div>
-            ))}
+          <div className={styles.profileContainer}>
+            <div className={styles.profileImg}></div>
+            <div className={`${styles.genreList} ${fonts.body2_Regular}`}>
+              {data.genres.map(data => (
+                <div className={styles.genreBox} key={data.genre}>
+                  <div className={styles.genre}>{data.genre}</div>
+                </div>
+              ))}
+            </div>
+            <div className={`${styles.nickname} ${fonts.head1}`}>
+              {data.nickname}
+            </div>
+            <div className={`${styles.username} ${fonts.caption1_Regular}`}>
+              {data.username}
+            </div>
+            <div className={`${styles.intro} ${fonts.body2_Regular}`}>
+              {data.intro}
+            </div>
+            <div className={`${styles.hashTagList} ${fonts.body2_Regular}`}>
+              {data.hashtags.map(data => (
+                <div className={styles.hashTagBox} key={data.hashtag}>
+                  <div className={styles.hashTag}>{data.hashtag}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       ))}
