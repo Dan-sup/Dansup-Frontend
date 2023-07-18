@@ -3,18 +3,28 @@ import DansupLogo from '../../../../public/icons/dansup-logo.svg';
 import AvatarIcon from '../../../../public/icons/avatar.svg';
 import styles from '../../../styles/components/common/BasicHeader.module.css';
 
-export default function BasicHeader() {
+interface BasicHeaderProps {
+  type?: string;
+}
+
+export default function BasicHeader({ type }: BasicHeaderProps) {
   return (
     <div className={styles.container}>
-      <div className={styles.btn}>
-        <BackIcon />
-      </div>
-      <div className={styles.btn}>
-        <DansupLogo />
-      </div>
-      <div className={styles.btn}>
-        <AvatarIcon />
-      </div>
+      {type !== 'home' && (
+        <div className={styles.btn}>
+          <BackIcon />
+        </div>
+      )}
+      {type !== 'register' && (
+        <div className={styles.btn}>
+          <DansupLogo />
+        </div>
+      )}
+      {type !== 'register' && (
+        <div className={styles.btn}>
+          <AvatarIcon />
+        </div>
+      )}
     </div>
   );
 }

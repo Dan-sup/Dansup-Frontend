@@ -16,6 +16,7 @@ import {
 import UploadVideo from '../../components/upload/UploadVideo';
 import DanceGenre from '@/components/upload/DanceGenre';
 import HashTag from '@/components/upload/HashTag';
+import BasicHeader from '@/components/common/Header/BasicHeader';
 
 export default function ProfileUpload() {
   const [image, setImage] = useState<IUploadFile | null>(null);
@@ -164,197 +165,201 @@ export default function ProfileUpload() {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.imgBox}>
-        {showImage}
-        <input
-          className={styles.inputFile}
-          type="file"
-          accept="image/*"
-          ref={fileInputRef}
-          onChange={handleUploadImage}
-        />
-        <button
-          className={`${styles.imgButton} ${fonts.body2_SemiBold}`}
-          onClick={onClickFileInput}
-        >
-          이미지 업로드
-        </button>
-      </div>
-      <div className={styles.inputList}>
-        <div className={styles.box}>
-          <div className={styles.row}>
-            <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
-              사용자 계정
-            </div>
-            <div className={`${styles.pointText}`}>*</div>
-          </div>
+    <>
+      <BasicHeader type="register" />
+
+      <div className={styles.container}>
+        <div className={styles.imgBox}>
+          {showImage}
           <input
-            className={`${styles.input} ${styles.long} ${fonts.body2_Regular}`}
-            placeholder="영문, 숫자, 밑줄 및 마침표만 입력 가능합니다"
-            type="text"
-            value={userId}
-            onChange={handleChangeUserId}
+            className={styles.inputFile}
+            type="file"
+            accept="image/*"
+            ref={fileInputRef}
+            onChange={handleUploadImage}
           />
-          <div className={`${styles.errorText} ${fonts.caption1_Regular}`}>
-            {userIdMsg}
-          </div>
-        </div>
-        <div className={styles.box}>
-          <div className={styles.row}>
-            <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
-              댄서 활동명
-            </div>
-            <div className={styles.pointText}>*</div>
-          </div>
-          <input
-            className={`${styles.input} ${styles.long} ${fonts.body2_Regular}`}
-            placeholder="한글, 영문, 숫자, 특수기호 입력 가능합니다 (1-14자)"
-            type="text"
-            value={dancerName}
-            onChange={handleChangeDancerName}
-          />
-          <div className={`${styles.errorText} ${fonts.caption1_Regular}`}>
-            {dancerNameMsg}
-          </div>
-        </div>
-        <div className={styles.box}>
-          <UploadVideo
-            video={video}
-            setVideo={setVideo}
-            title="대표 영상 업로드"
-          />
-        </div>
-        <div className={styles.box}>
-          <div className={styles.row_Between}>
-            <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
-              한줄 소개
-            </div>
-            <div className={`${styles.smallTexts} ${fonts.caption1_Regular}`}>
-              <div className={styles.pointText}>{introCount}</div>
-              <div className={styles.smallText}>/80</div>
-            </div>
-          </div>
-          <Textarea
-            className={`${styles.input} ${styles.textarea} ${styles.long} ${fonts.body2_Regular}`}
-            placeholder="ex.저는 댄서경력 10년차 프로댄서입니다"
-            value={intro}
-            onChange={handleChangeIntro}
-            maxLength={80}
-            cacheMeasurements
-          />
-        </div>
-        <div className={styles.box}>
-          <div className={styles.row_Between}>
-            <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
-              나의 장르
-            </div>
-            <div className={`${styles.smallTexts} ${fonts.caption1_Regular}`}>
-              <div className={`${styles.smallText} ${styles.spacing}`}>
-                최대
-              </div>
-              <div className={`${styles.pointText}`}>3</div>
-              <div className={styles.smallText}>개</div>
-            </div>
-          </div>
-          {isClicked ? (
-            <>
-              <button
-                className={`${styles.input} ${styles.genre} ${styles.after} ${fonts.body2_Regular}`}
-                onClick={onClickOpenBox}
-              >
-                나의 댄스 장르를 선택해주세요
-              </button>
-              <DanceGenre
-                list={genreList}
-                setList={setGenreList}
-                isFull={isFull}
-                setIsFull={setIsFull}
-                limit={4}
-              />
-            </>
-          ) : (
-            <>
-              <button
-                className={`${styles.input} ${styles.genre} ${styles.before} ${fonts.body2_Regular}`}
-                onClick={onClickOpenBox}
-              >
-                나의 댄스 장르를 선택해주세요
-              </button>
-            </>
-          )}
-        </div>
-        <HashTag
-          hashTag={hashTag}
-          setHashTag={setHashTag}
-          hashTagList={hashTagList}
-          setHashTagList={setHashTagList}
-          title="나를 소개하는 해시태그"
-        />
-        <div className={styles.box}>
-          <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
-            공연 및 활동경력
-          </div>
-          {awardList.map((item, idx) => (
-            <div className={styles.row_Between} key={idx}>
-              <input
-                className={`${styles.input} ${styles.short} ${fonts.body2_Regular}`}
-                placeholder="2023.01.01"
-                type="text"
-                value={item.date}
-                onChange={e => handleChangeDate(e, idx)}
-              />
-              <input
-                className={`${styles.input} ${styles.mid} ${fonts.body2_Regular}`}
-                placeholder="ex.OO댄스대회 최우수상"
-                type="text"
-                value={item.award}
-                onChange={e => handleChangeAward(e, idx)}
-              />
-            </div>
-          ))}
-          <div
-            className={`${styles.blank} ${styles.addAward}`}
-            onClick={addAward}
+          <button
+            className={`${styles.imgButton} ${fonts.body2_SemiBold}`}
+            onClick={onClickFileInput}
           >
-            <div className={styles.awardButton}>
-              <Plus />
-              경력 추가하기
+            이미지 업로드
+          </button>
+        </div>
+        <div className={styles.inputList}>
+          <div className={styles.box}>
+            <div className={styles.row}>
+              <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                사용자 계정
+              </div>
+              <div className={`${styles.pointText}`}>*</div>
+            </div>
+            <input
+              className={`${styles.input} ${styles.long} ${fonts.body2_Regular}`}
+              placeholder="영문, 숫자, 밑줄 및 마침표만 입력 가능합니다"
+              type="text"
+              value={userId}
+              onChange={handleChangeUserId}
+            />
+            <div className={`${styles.errorText} ${fonts.caption1_Regular}`}>
+              {userIdMsg}
+            </div>
+          </div>
+          <div className={styles.box}>
+            <div className={styles.row}>
+              <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                댄서 활동명
+              </div>
+              <div className={styles.pointText}>*</div>
+            </div>
+            <input
+              className={`${styles.input} ${styles.long} ${fonts.body2_Regular}`}
+              placeholder="한글, 영문, 숫자, 특수기호 입력 가능합니다 (1-14자)"
+              type="text"
+              value={dancerName}
+              onChange={handleChangeDancerName}
+            />
+            <div className={`${styles.errorText} ${fonts.caption1_Regular}`}>
+              {dancerNameMsg}
+            </div>
+          </div>
+          <div className={styles.box}>
+            <UploadVideo
+              video={video}
+              setVideo={setVideo}
+              title="대표 영상 업로드"
+            />
+          </div>
+          <div className={styles.box}>
+            <div className={styles.row_Between}>
+              <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                한줄 소개
+              </div>
+              <div className={`${styles.smallTexts} ${fonts.caption1_Regular}`}>
+                <div className={styles.pointText}>{introCount}</div>
+                <div className={styles.smallText}>/80</div>
+              </div>
+            </div>
+            <Textarea
+              className={`${styles.input} ${styles.textarea} ${styles.long} ${fonts.body2_Regular}`}
+              placeholder="ex.저는 댄서경력 10년차 프로댄서입니다"
+              value={intro}
+              onChange={handleChangeIntro}
+              maxLength={80}
+              cacheMeasurements
+            />
+          </div>
+          <div className={styles.box}>
+            <div className={styles.row_Between}>
+              <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                나의 장르
+              </div>
+              <div className={`${styles.smallTexts} ${fonts.caption1_Regular}`}>
+                <div className={`${styles.smallText} ${styles.spacing}`}>
+                  최대
+                </div>
+                <div className={`${styles.pointText}`}>3</div>
+                <div className={styles.smallText}>개</div>
+              </div>
+            </div>
+            {isClicked ? (
+              <>
+                <button
+                  className={`${styles.input} ${styles.genre} ${styles.after} ${fonts.body2_Regular}`}
+                  onClick={onClickOpenBox}
+                >
+                  나의 댄스 장르를 선택해주세요
+                </button>
+                <DanceGenre
+                  list={genreList}
+                  setList={setGenreList}
+                  isFull={isFull}
+                  setIsFull={setIsFull}
+                  limit={4}
+                />
+              </>
+            ) : (
+              <>
+                <button
+                  className={`${styles.input} ${styles.genre} ${styles.before} ${fonts.body2_Regular}`}
+                  onClick={onClickOpenBox}
+                >
+                  나의 댄스 장르를 선택해주세요
+                </button>
+              </>
+            )}
+          </div>
+          <HashTag
+            hashTag={hashTag}
+            setHashTag={setHashTag}
+            hashTagList={hashTagList}
+            setHashTagList={setHashTagList}
+            title="나를 소개하는 해시태그"
+          />
+          <div className={styles.box}>
+            <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+              공연 및 활동경력
+            </div>
+            {awardList.map((item, idx) => (
+              <div className={styles.row_Between} key={idx}>
+                <input
+                  className={`${styles.input} ${styles.short} ${fonts.body2_Regular}`}
+                  placeholder="2023.01.01"
+                  type="text"
+                  value={item.date}
+                  onChange={e => handleChangeDate(e, idx)}
+                />
+                <input
+                  className={`${styles.input} ${styles.mid} ${fonts.body2_Regular}`}
+                  placeholder="ex.OO댄스대회 최우수상"
+                  type="text"
+                  value={item.award}
+                  onChange={e => handleChangeAward(e, idx)}
+                />
+              </div>
+            ))}
+            <div
+              className={`${styles.blank} ${styles.addAward}`}
+              onClick={addAward}
+            >
+              <div className={styles.awardButton}>
+                <Plus />
+                경력 추가하기
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {isFull ? (
-        <div className={styles.toastMessageBox}>
-          <div className={`${styles.toastMessage} ${fonts.body2_Regular}`}>
-            <Ect />
-            <div className={styles.message}>
-              나의 장르는 최대 3개까지 선택 가능합니다.
+        {isFull ? (
+          <div className={styles.toastMessageBox}>
+            <div className={`${styles.toastMessage} ${fonts.body2_Regular}`}>
+              <Ect />
+              <div className={styles.message}>
+                나의 장르는 최대 3개까지 선택 가능합니다.
+              </div>
             </div>
           </div>
-        </div>
-      ) : (
-        <></>
-      )}
+        ) : (
+          <></>
+        )}
 
-      <div className={styles.bottom}>
-        <div className={buttonStyles.buttonSpace}>
-          {isUserIdChecked && isdancerNameChecked ? (
-            <button
-              className={`${buttonStyles.CTA_Large} ${buttonStyles.before} ${fonts.body1_SemiBold}`}
-            >
-              시작하기
-            </button>
-          ) : (
-            <button
-              className={`${buttonStyles.CTA_Large} ${buttonStyles.after} ${fonts.body1_SemiBold}`}
-            >
-              시작하기
-            </button>
-          )}
+        <div className={styles.bottom}>
+          <div className={buttonStyles.buttonSpace}>
+            {isUserIdChecked && isdancerNameChecked ? (
+              <button
+                className={`${buttonStyles.CTA_Large} ${buttonStyles.before} ${fonts.body1_SemiBold}`}
+              >
+                시작하기
+              </button>
+            ) : (
+              <button
+                className={`${buttonStyles.CTA_Large} ${buttonStyles.after} ${fonts.body1_SemiBold}`}
+              >
+                시작하기
+              </button>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
