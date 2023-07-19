@@ -4,6 +4,7 @@ import Close from '../../../public/icons/close.svg';
 import IndicatorFirst from '../../../public/icons/indicator-first.svg';
 import IndicatorSecond from '../../../public/icons/indicator-second.svg';
 import IndicatorThird from '../../../public/icons/indicator-third.svg';
+import Ect from '../../../public/icons/ETC.svg';
 import fonts from '../../styles/typography.module.css';
 import buttonStyles from '../../styles/Button.module.css';
 import modalStyles from '../../styles/Modal.module.css';
@@ -36,12 +37,14 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const [genreList, setGenreList] = useState<IGenreList[]>([
     { id: 0, genre: '' },
   ]);
+  const [isGenreFull, setIsGenreFull] = useState<boolean>(false);
   const [isFull, setIsFull] = useState<boolean>(false);
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [hashTag, setHashTag] = useState<string>('');
   const [hashTagList, setHashTagList] = useState<IHashTagList[]>([
     { id: 0, hashTag: '' },
   ]);
+  const [isHashTagFull, setIsHashTagFull] = useState<boolean>(false);
   const [classContent, setClassContent] = useState<string>('');
   const [classUser, setClassUser] = useState<string>('');
   const [classIntro, setClassIntro] = useState<string>('');
@@ -186,7 +189,9 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
 
   return (
     <div style={{ display: isOpen ? 'block' : 'none' }}>
-      <div className={`${modalStyles.container} ${modalStyles.basic}`}>
+      <div
+        className={`${modalStyles.container} ${modalStyles.black} ${modalStyles.withScroll}`}
+      >
         <div className={modalStyles.modalCloseBox}>
           <button className={modalStyles.modalClose} onClick={closeModal}>
             <Close />
@@ -252,8 +257,8 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                   <DanceGenre
                     list={genreList}
                     setList={setGenreList}
-                    isFull={isFull}
-                    setIsFull={setIsFull}
+                    isFull={isGenreFull}
+                    setIsFull={setIsGenreFull}
                     limit={6}
                   />
                 </>
@@ -274,6 +279,8 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               hashTagList={hashTagList}
               setHashTagList={setHashTagList}
               title="수업을 소개하는 해시태그"
+              isFull={isHashTagFull}
+              setIsFull={setIsHashTagFull}
             />
             <div className={styles.box}>
               <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
@@ -313,7 +320,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               {isOpenLocation && (
                 <div style={{ display: isOpenLocation ? 'block' : 'none' }}>
                   <div
-                    className={`${modalStyles.container} ${modalStyles.location}`}
+                    className={`${modalStyles.container} ${modalStyles.white} ${modalStyles.withoutScroll}`}
                   >
                     <div className={modalStyles.modalCloseBox}>
                       <button
@@ -481,6 +488,32 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
             </div>
           </div>
         </div>
+
+        {isGenreFull ? (
+          <div className={styles.toastMessageBox}>
+            <div className={`${styles.toastMessage} ${fonts.body2_Regular}`}>
+              <Ect />
+              <div className={styles.message}>
+                나의 장르는 최대 5개까지 선택 가능합니다.
+              </div>
+            </div>
+          </div>
+        ) : (
+          <></>
+        )}
+
+        {isHashTagFull ? (
+          <div className={styles.toastMessageBox}>
+            <div className={`${styles.toastMessage} ${fonts.body2_Regular}`}>
+              <Ect />
+              <div className={styles.message}>
+                해시태그는 최대 3개까지 선택 가능합니다.
+              </div>
+            </div>
+          </div>
+        ) : (
+          <></>
+        )}
 
         <div className={styles.bottom}>
           <div className={buttonStyles.buttonSpace}>

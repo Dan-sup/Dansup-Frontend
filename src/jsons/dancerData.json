@@ -1,0 +1,63 @@
+{
+  "dancers": [
+    {
+      "genres": [
+        {
+          "genre": "힙합"
+        },
+        {
+          "genre": "걸스힙합"
+        },
+        {
+          "genre": "팝핑"
+        }
+      ],
+      "hashtags": [
+        {
+          "hashtag": "#선위주의"
+        },
+        {
+          "hashtag": "#빠른템포의"
+        },
+        {
+          "hashtag": "#빠른"
+        }
+      ],
+      "intro": "나는 춤이 정말 좋아",
+      "nickname": "유나",
+      "portfolios": [
+        {
+          "date": "2023.01.18",
+          "detail": "홍익대학교 시각디자인과 댄스 소모임"
+        },
+        {
+          "date": "2023.03.20",
+          "detail": "00대회 우수상"
+        },
+        {
+          "date": "2023.04.20",
+          "detail": "00대회 최우수상"
+        },
+        {
+          "date": "2023.05.28",
+          "detail": "00대회 최우수상"
+        },
+        {
+          "date": "2023.06.11",
+          "detail": "00대회 최우수상"
+        },
+        {
+          "date": "2023.06.20",
+          "detail": "00대회 최우수상"
+        },
+        {
+          "date": "2023.07.01",
+          "detail": "00대회 최우수상"
+        }
+      ],
+      "profileImage": "이미지 multipartfile",
+      "profileVideo": "이미지 multipartfile",
+      "username": "@younaring__"
+    }
+  ]
+}
