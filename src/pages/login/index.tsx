@@ -1,15 +1,15 @@
 import styles from '../../styles/LoginPage.module.css';
 import typoStyles from '../../styles/typography.module.css';
 import KakaoLogo from '../../../public/icons/kakao-logo.svg';
+import Image from 'next/image';
+import backgroundImg from '../../../public/imgs/background.png';
 
 export default function LoginPage() {
-  const REST_API_KEY = '91cfc73a730663e93196247d884f837e';
-  const REDIRECT_URI = 'https://takgyun.shop/login/oauth2/code/kakao';
-
-  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+  const KAKAO_AUTH_URL = `https://takgyun.shop/oauth2/authorization/kakao`;
 
   return (
     <div className={styles.container}>
+      <Image src={backgroundImg} alt="img" layout="fill" objectFit="cover" />
       <a href={KAKAO_AUTH_URL} className={styles.a}>
         <button className={`${styles.loginBtn} ${typoStyles.body1_SemiBold}`}>
           <KakaoLogo />

@@ -5,6 +5,8 @@
   width: 100%;
   color: var(--color-white);
   padding: 0 18px;
+
+  margin-top: 55px; /*헤더 height만큼 아래로*/
 }
 
 .row {
