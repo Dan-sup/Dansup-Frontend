@@ -28,10 +28,11 @@ export default function ProfileUpload() {
   const [hashTagList, setHashTagList] = useState<IHashTagList[]>([
     { id: 0, hashTag: '' },
   ]);
+  const [isHashTagFull, setIsHashTagFull] = useState<boolean>(false);
   const [genreList, setGenreList] = useState<IGenreList[]>([
     { id: 0, genre: '' },
   ]);
-  const [isFull, setIsFull] = useState<boolean>(false);
+  const [isGenreFull, setIsGenreFull] = useState<boolean>(false);
   const [awardList, setAwardList] = useState<IAwardList[]>([
     { id: 0, date: '', award: '' },
   ]);
@@ -268,8 +269,8 @@ export default function ProfileUpload() {
               <DanceGenre
                 list={genreList}
                 setList={setGenreList}
-                isFull={isFull}
-                setIsFull={setIsFull}
+                isFull={isGenreFull}
+                setIsFull={setIsGenreFull}
                 limit={4}
               />
             </>
@@ -290,6 +291,8 @@ export default function ProfileUpload() {
           hashTagList={hashTagList}
           setHashTagList={setHashTagList}
           title="나를 소개하는 해시태그"
+          isFull={isHashTagFull}
+          setIsFull={setIsHashTagFull}
         />
         <div className={styles.box}>
           <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
@@ -325,12 +328,25 @@ export default function ProfileUpload() {
         </div>
       </div>
 
-      {isFull ? (
+      {isGenreFull ? (
         <div className={styles.toastMessageBox}>
           <div className={`${styles.toastMessage} ${fonts.body2_Regular}`}>
             <Ect />
             <div className={styles.message}>
               나의 장르는 최대 3개까지 선택 가능합니다.
+            </div>
+          </div>
+        </div>
+      ) : (
+        <></>
+      )}
+
+      {isHashTagFull ? (
+        <div className={styles.toastMessageBox}>
+          <div className={`${styles.toastMessage} ${fonts.body2_Regular}`}>
+            <Ect />
+            <div className={styles.message}>
+              해시태그는 최대 3개까지 선택 가능합니다.
             </div>
           </div>
         </div>

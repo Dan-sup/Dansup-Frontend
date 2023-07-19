@@ -55,25 +55,15 @@
 }
 
 .timeInput {
-  display: flex;
-  justify-content: left;
-  align-items: center;
   height: 42px;
-  width: 100%;
-  color: var(--color-white);
   border: 1px solid var(--color-gray-300);
   border-radius: 5px;
-  outline: none;
-  background: transparent;
-}
-
-.timeInput::placeholder {
-  color: var(--color-gray-400);
 }
 
 .timeInput:focus {
   border: 1px solid var(--color-white);
 }
+
 .textarea {
   resize: none;
   line-height: 150%;
@@ -301,7 +291,6 @@
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
-  margin: -60px 0 60px 0;
 }
 
 .hashTagBox {
@@ -403,6 +392,7 @@
   height: 40px;
   border-radius: 5px;
   background: var(--color-gray-500-card);
+  margin-bottom: 10px;
 }
 
 .toastMessage {
@@ -440,8 +430,4 @@
 .click_Postcode {
   background: url('../../public/icons/location-arrow.svg') no-repeat right
     center;
-}
-
-.modal {
-  color: var(--color-main-100);
 }

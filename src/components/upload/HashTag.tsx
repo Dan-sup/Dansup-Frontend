@@ -10,6 +10,8 @@ interface HashTagProps {
   hashTagList: IHashTagList[];
   setHashTagList: React.Dispatch<React.SetStateAction<IHashTagList[]>>;
   title: string;
+  isFull: boolean;
+  setIsFull: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function HashTag({
@@ -18,6 +20,8 @@ export default function HashTag({
   hashTagList,
   setHashTagList,
   title,
+  isFull,
+  setIsFull,
 }: HashTagProps) {
   const nextId = useRef<number>(1);
 
@@ -37,8 +41,9 @@ export default function HashTag({
         setHashTagList([...hashTagList, hashTagItem]);
         setHashTag('');
         nextId.current += 1;
-        console.log({ hashTagList });
+        setIsFull(false);
       } else {
+        setIsFull(true);
         setHashTag('');
       }
     }
@@ -46,6 +51,7 @@ export default function HashTag({
 
   const deleteHashTag = (id: number) => {
     setHashTagList(hashTagList.filter(item => item.id !== id));
+    setIsFull(false);
   };
 
   const KeyDownHadler = (e: React.KeyboardEvent) => {
@@ -78,25 +84,25 @@ export default function HashTag({
           onKeyUp={addHashTag}
           onKeyDown={KeyDownHadler}
         />
-      </div>
-      <div className={styles.hashTags}>
-        {hashTagList.length > 1 &&
-          hashTagList.slice(1, 4).map((item, idx) => (
-            <div key={idx} className={styles.hashTagBox}>
-              <div
-                key={idx}
-                className={`${styles.hashTag} ${fonts.body2_Regular}`}
-              >
-                {'#' + item.hashTag}
+        <div className={styles.hashTags}>
+          {hashTagList.length > 1 &&
+            hashTagList.slice(1, 4).map((item, idx) => (
+              <div key={idx} className={styles.hashTagBox}>
+                <div
+                  key={idx}
+                  className={`${styles.hashTag} ${fonts.body2_Regular}`}
+                >
+                  {'#' + item.hashTag}
+                </div>
+                <div
+                  onClick={() => deleteHashTag(item.id)}
+                  className={styles.deleteHashTag}
+                >
+                  <Delete />
+                </div>
               </div>
-              <div
-                onClick={() => deleteHashTag(item.id)}
-                className={styles.deleteHashTag}
-              >
-                <Delete />
-              </div>
-            </div>
-          ))}
+            ))}
+        </div>
       </div>
     </>
   );
