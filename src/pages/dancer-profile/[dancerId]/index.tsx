@@ -92,7 +92,7 @@ export default function DancerProfile() {
             }
             onClick={onClickClass}
           >
-            내 수업
+            운영중인 수업
           </button>
         </div>
       </div>
