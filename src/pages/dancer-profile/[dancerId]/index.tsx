@@ -11,7 +11,7 @@ export default function DancerProfile() {
   const [isClassOpen, setIsClassOpen] = useState<boolean>(false);
   const [isPortfolioOpen, setIsPortfolioOpen] = useState<boolean>(false);
   const [isPortfolio, setIsPortfolio] = useState<boolean>(true);
-  const dancers = dancerData.dancers;
+  const profiles = dancerData.profile;
 
   /*modal*/
   const openClassModal = () => {
@@ -41,7 +41,7 @@ export default function DancerProfile() {
 
   return (
     <div className={styles.container}>
-      {dancers.map((data, idx) => (
+      {profiles.map((data, idx) => (
         <div className={styles.profilePart} key={idx}>
           <div className={styles.backVideo}></div>
           <div className={styles.paddingContainer}>

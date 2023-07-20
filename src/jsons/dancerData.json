@@ -1,5 +1,5 @@
 {
-  "dancers": [
+  "profile": [
     {
       "genres": [
         {
@@ -25,47 +25,71 @@
       ],
       "intro": "나는 춤이 정말 좋아",
       "nickname": "유나",
-      "portfolios": [
-        {
-          "date": "2023.01.18",
-          "detail": "홍익대학교 시각디자인과 댄스 소모임"
-        },
-        {
-          "date": "2023.03.20",
-          "detail": "00대회 우수상"
-        },
-        {
-          "date": "2023.04.20",
-          "detail": "00대회 최우수상"
-        },
-        {
-          "date": "2023.05.28",
-          "detail": "00대회 최우수상"
-        },
-        {
-          "date": "2023.06.11",
-          "detail": "00대회 최우수상"
-        },
-        {
-          "date": "2023.06.20",
-          "detail": "00대회 최우수상"
-        },
-        {
-          "date": "2023.07.01",
-          "detail": "00대회 최우수상"
-        },
-        {
-          "video": [
-            {
-              "url": "",
-              "thumnail": ""
-            }
-          ]
-        }
-      ],
-      "profileImage": "이미지 multipartfile",
-      "profileVideo": "이미지 multipartfile",
       "username": "@younaring__"
+    }
+  ],
+  "portfolio": [
+    {
+      "date": "2023.01.18",
+      "detail": "홍익대학교 시각디자인과 댄스 소모임"
+    },
+    {
+      "date": "2023.03.20",
+      "detail": "00대회 우수상"
+    },
+    {
+      "date": "2023.04.20",
+      "detail": "00대회 최우수상"
+    },
+    {
+      "date": "2023.05.28",
+      "detail": "00대회 최우수상"
+    },
+    {
+      "date": "2023.06.11",
+      "detail": "00대회 최우수상"
+    },
+    {
+      "date": "2023.06.20",
+      "detail": "00대회 최우수상"
+    },
+    {
+      "date": "2023.07.01",
+      "detail": "00대회 최우수상"
+    }
+  ],
+  "portfolioVideo": [
+    {
+      "url": "",
+      "thumnail": ""
+    }
+  ],
+  "class": [
+    {
+      "date": "2023/5/29",
+      "days": "월",
+      "genres": "락킹",
+      "location": "서울특별시 강남구 00로 000",
+      "method": "OD",
+      "state": "Active",
+      "thumbnailUrl": "Url",
+      "title": "임선생의 몸치 탈출 프로젝트",
+      "userId": 4,
+      "userNickname": "아이키",
+      "userProfileImage": "image"
+    },
+    {
+      "date": "2023/6/20",
+      "days": "목",
+      "genres": "락킹",
+      "location": "서울특별시 강남구 00로 000",
+      "method": "OD",
+      "state": "Active",
+      "thumbnailUrl": "Url",
+      "title": "임선생의 몸치 탈출 프로젝트",
+      "userId": 4,
+      "userNickname": "유나",
+      "userProfileImage": "image"
     }
   ]
 }
