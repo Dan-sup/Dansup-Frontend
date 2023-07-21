@@ -8,6 +8,7 @@ import typoStyles from '../styles/typography.module.css';
 import styles from '../styles/HomePage.module.css';
 import FilterBar from '@/components/FilterBar';
 import filterBarStyles from '../styles/components/FilterBar.module.css';
+import ClassCard from '@/components/ClassCard';
 
 export default function HomePage() {
   const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
@@ -95,6 +96,7 @@ export default function HomePage() {
         )}
 
         {/* isFilterOn이 false면 classList, true면 filteredClassList 보여주기! */}
+        <ClassCard />
       </div>
     </>
   );
