@@ -9,6 +9,8 @@ import myData from '../../../jsons/myData.json';
 import FloatingBtn from '../../../../public/icons/floating-btn.svg';
 import PortfolioBtn from '../../../../public/icons/portfolio-upload.svg';
 import ClassBtn from '../../../../public/icons/class-upload.svg';
+import BlankImage from '../../../../public/icons/blank-image.svg';
+import Image from 'next/image';
 
 export default function MyPage() {
   const [isUploadBoxOpen, setIsUploadBoxOpen] = useState<boolean>(false);
@@ -16,6 +18,7 @@ export default function MyPage() {
   const [isPortfolioOpen, setIsPortfolioOpen] = useState<boolean>(false);
   const [isPortfolio, setIsPortfolio] = useState<boolean>(true);
   const profiles = myData.profile;
+  const image = myData.image;
 
   /*modal*/
   const openClassModal = () => {
@@ -55,7 +58,26 @@ export default function MyPage() {
         <div className={styles.profilePart} key={idx}>
           <div className={styles.backVideo}></div>
           <div className={styles.paddingContainer}>
-            <div className={styles.profileImg}></div>
+            {image.map((data, idx) => (
+              <div key={idx}>
+                {data.url == '' ? (
+                  <BlankImage
+                    alt="blank"
+                    className={styles.profileImg}
+                    width={100}
+                    heigth={100}
+                  />
+                ) : (
+                  <Image
+                    className={styles.profileImg}
+                    src={data.url}
+                    alt={data.url}
+                    width={100}
+                    height={100}
+                  />
+                )}
+              </div>
+            ))}
             <div className={`${styles.genreList} ${fonts.body2_Regular}`}>
               {data.genres.map(data => (
                 <div className={styles.genreBox} key={data.genre}>
