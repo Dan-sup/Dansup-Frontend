@@ -190,12 +190,16 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   return (
     <div style={{ display: isOpen ? 'block' : 'none' }}>
       <div className={`${modalStyles.container} ${modalStyles.black}`}>
-        <div className={modalStyles.modalCloseBox}>
+        <div
+          className={`${modalStyles.modalCloseBox} ${modalStyles.paddingContainer}`}
+        >
           <button className={modalStyles.modalClose} onClick={closeModal}>
             <Close />
           </button>
         </div>
-        <div className={modalStyles.modalBody}>
+        <div
+          className={`${modalStyles.modalBody}  ${modalStyles.paddingContainer} `}
+        >
           <div className={styles.inputList}>
             <div>
               <IndicatorFirst />

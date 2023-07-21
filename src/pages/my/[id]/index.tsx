@@ -3,9 +3,9 @@ import fonts from '../../../styles/typography.module.css';
 import styles from '../../../styles/Profile.module.css';
 import ClassUpload from '@/components/modal/ClassUpload';
 import PortfolioUpload from '@/components/modal/PortfolioUpload';
-import Portfolio from '@/components/profile/Porfolio';
-import Class from '@/components/profile/Class';
-import dancerData from '../../../jsons/dancerData.json';
+import Portfolio from '@/components/profile/MyPortfolio';
+import Class from '@/components/profile/MyClass';
+import myData from '../../../jsons/myData.json';
 import FloatingBtn from '../../../../public/icons/floating-btn.svg';
 import PortfolioBtn from '../../../../public/icons/portfolio-upload.svg';
 import ClassBtn from '../../../../public/icons/class-upload.svg';
@@ -15,23 +15,29 @@ export default function MyPage() {
   const [isClassOpen, setIsClassOpen] = useState<boolean>(false);
   const [isPortfolioOpen, setIsPortfolioOpen] = useState<boolean>(false);
   const [isPortfolio, setIsPortfolio] = useState<boolean>(true);
-  const profiles = dancerData.profile;
+  const profiles = myData.profile;
 
   /*modal*/
   const openClassModal = () => {
     setIsClassOpen(true);
+    document.body.style.overflow = 'hidden';
   };
 
   const closeClassModal = () => {
     setIsClassOpen(false);
+    setIsUploadBoxOpen(!isUploadBoxOpen);
+    document.body.style.overflow = 'unset';
   };
 
   const openPortfolioModal = () => {
     setIsPortfolioOpen(true);
+    document.body.style.overflow = 'hidden';
   };
 
   const closePortfolioModal = () => {
     setIsPortfolioOpen(false);
+    setIsUploadBoxOpen(!isUploadBoxOpen);
+    document.body.style.overflow = 'unset';
   };
 
   /*button*/
@@ -96,7 +102,7 @@ export default function MyPage() {
             }
             onClick={onClickClass}
           >
-            운영중인 수업
+            내 수업
           </button>
         </div>
       </div>
@@ -108,7 +114,7 @@ export default function MyPage() {
         <div className={styles.modalBox}>
           <button
             onClick={openPortfolioModal}
-            className={`${styles.portfolioBtn} ${styles.modalBtn} ${fonts.body1_SemiBold}`}
+            className={`${styles.upBtn} ${styles.modalBtn} ${fonts.body1_SemiBold}`}
           >
             <PortfolioBtn />
             <div className={styles.modalText}>포트폴리오 올리기</div>
@@ -119,7 +125,7 @@ export default function MyPage() {
           />
           <button
             onClick={openClassModal}
-            className={`${styles.classBtn} ${styles.modalBtn} ${fonts.body1_SemiBold}`}
+            className={`${styles.downBtn} ${styles.modalBtn} ${fonts.body1_SemiBold}`}
           >
             <ClassBtn />
             <div className={styles.modalText}>내수업 올리기</div>

@@ -56,17 +56,35 @@
   background: var(--color-gray-500-card);
 }
 
+.classBtnBox {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  margin-top: 29px;
+  right: 27px;
+}
+
+.classBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 110px;
+  height: 41px;
+  color: var(--color-gray-100);
+  background: var(--color-gray-500-card);
+}
+
 .modalText {
   margin-left: 8px;
 }
 
-.portfolioBtn {
+.upBtn {
   border-radius: 5px 5px 0 0;
   border: none;
   border-bottom: 0.5px solid var(--color-gray-300);
 }
 
-.classBtn {
+.downBtn {
   border-radius: 0 0 5px 5px;
   border: none;
   border-top: 0.5px solid var(--color-gray-300);
@@ -169,17 +187,15 @@
 }
 
 .nickname {
-  height: 30px;
   margin-top: 12px;
 }
 
 .username {
+  margin-top: 5px;
   color: var(--color-gray-300);
-  height: 18px;
 }
 
 .intro {
-  height: 21px;
   margin: 8px 0 10px 0;
 }
 
@@ -269,9 +285,17 @@
 .texts {
   display: flex;
   flex-direction: column;
+  width: 100%;
   height: 41px;
   justify-content: space-between;
   margin-left: 8px;
+}
+
+.classTitle {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
 }
 
 .classVideoBox {
@@ -331,4 +355,14 @@
   width: 12px;
   height: 12px;
   margin-right: 4px;
+}
+
+.dot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
 }

@@ -22,7 +22,7 @@ export default function PortfolioUpload({
   return (
     <div style={{ display: isOpen ? 'block' : 'none' }}>
       <div
-        className={`${modalStyles.container} ${modalStyles.black} ${modalStyles.withoutScroll}`}
+        className={`${modalStyles.container} ${modalStyles.paddingContainer} ${modalStyles.black} ${modalStyles.withoutScroll}`}
       >
         <div className={modalStyles.modalCloseBox}>
           <button className={modalStyles.modalClose} onClick={closeModal}>

@@ -214,6 +214,9 @@
 }
 
 .dot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
   width: 18px;
   height: 18px;
@@ -231,7 +234,7 @@
   color: var(--color-gray-100);
   z-index: 999;
   position: absolute;
-  right: 30px;
+  right: 27px;
 }
 
 /*genre*/

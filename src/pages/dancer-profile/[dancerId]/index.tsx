@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import fonts from '../../../styles/typography.module.css';
 import styles from '../../../styles/Profile.module.css';
-import Portfolio from '@/components/profile/Porfolio';
+import Portfolio from '@/components/profile/Portfolio';
 import Class from '@/components/profile/Class';
 import dancerData from '../../../jsons/dancerData.json';
 

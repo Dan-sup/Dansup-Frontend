@@ -1,15 +1,14 @@
 import { useState } from 'react';
 import fonts from '../../styles/typography.module.css';
 import styles from '../../styles/Profile.module.css';
-import dancerData from '../../jsons/dancerData.json';
+import myData from '../../jsons/myData.json';
 import DropDownBefore from '../../../public/icons/dropdown-before.svg';
 import DropDownAfter from '../../../public/icons/dropdown-after.svg';
 import ReactPlayer from 'react-player';
 
 export default function Portfolio() {
-  const profiles = dancerData.profile;
-  const portfolios = dancerData.portfolio;
-  const portfolioVideo = dancerData.portfolioVideo;
+  const portfolios = myData.portfolio;
+  const portfolioVideo = myData.portfolioVideo;
   const [isClicked, setIsClicked] = useState<boolean>(false);
 
   const onClickDropDown = () => {
@@ -79,7 +78,7 @@ export default function Portfolio() {
                   <div
                     className={`${styles.blankText} ${fonts.body2_SemiBold}`}
                   >
-                    포트폴리오 영상이 없어요
+                    나를 소개할 수 있는 포트폴리오 영상을 추가해주세요
                   </div>
                 </div>
               ) : (
