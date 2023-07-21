@@ -323,7 +323,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                 {isOpenLocation && (
                   <div style={{ display: isOpenLocation ? 'block' : 'none' }}>
                     <div
-                      className={`${modalStyles.container} ${modalStyles.white} ${modalStyles.withoutScroll}`}
+                      className={`${modalStyles.container} ${modalStyles.paddingContainer} ${modalStyles.white} ${modalStyles.withoutScroll}`}
                     >
                       <div className={modalStyles.modalCloseBox}>
                         <button
