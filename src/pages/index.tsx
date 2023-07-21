@@ -32,7 +32,7 @@ export default function HomePage() {
     },
   });
 
-  /* 필터 적용하기 버튼 누르면
+  /* 필터 적용하기 버튼 클릭하면
   const handleFilterOn = () => {
     getFilteredClassListMutation.mutate({
       typingValue: null,
@@ -85,13 +85,12 @@ export default function HomePage() {
                 </span>
                 건
               </div>
-              {/* filteredClassList 사용하기 */}
+              {/* filteredClassList.length */}
               <div className={filterBarStyles.filterIcon}>
                 <FilterIcon />
               </div>
             </div>
             <div className={filterBarStyles.appliedFiltersBox}></div>
-            {/* filteredClassList 사용하기 */}
           </>
         )}
 

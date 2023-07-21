@@ -18,10 +18,24 @@
   align-items: center;
 }
 
-.selectBtn {
+.clickedBtn {
   height: 100%;
 
   color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-right: 20px;
+
+  border-bottom: 2px solid var(--color-main-100);
+}
+
+.btn {
+  height: 100%;
+
+  color: var(--color-gray-300);
 
   display: flex;
   justify-content: center;

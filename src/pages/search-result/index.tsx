@@ -11,6 +11,8 @@ import filterBarStyles from '../../styles/components/FilterBar.module.css';
 
 export default function SearchResultPage() {
   const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
+  const [isClassBtnClicked, setIsClassBtnClicked] = useState<boolean>(true);
+  const [isDancerBtnClicked, setIsDancerBtnClicked] = useState<boolean>(false);
 
   //api 로직 가져와서 사용하기
 
@@ -60,7 +62,7 @@ export default function SearchResultPage() {
   }, []);
   */
 
-  /* 필터 적용하기 버튼 누르면 (타이핑,필터 둘다 적용된 상태)
+  /* 필터 적용하기 버튼 클릭하면 (타이핑,필터 둘다 적용된 상태)
     const handleFilterOn = () => {
       getBothFilteredClassListMutation.mutate({
         typingValue: typingValue, //value 바꾸기
@@ -72,16 +74,31 @@ export default function SearchResultPage() {
   */
   //초기화 버튼 누르면, setIsFilterOn(false); , getTypingFilteredClassListMutation
 
+  const handleBtnClick = () => {
+    setIsClassBtnClicked(!isClassBtnClicked);
+    setIsDancerBtnClicked(!isDancerBtnClicked);
+  };
+
   return (
     <>
       <SearchHeader />
 
       <div className={styles.container}>
         <div className={styles.selectBar}>
-          <div className={`${styles.selectBtn} ${typoStyles.head2_SemiBold}`}>
+          <div
+            className={`${isClassBtnClicked ? styles.clickedBtn : styles.btn} ${
+              typoStyles.head2_SemiBold
+            }`}
+            onClick={handleBtnClick}
+          >
             수업
           </div>
-          <div className={`${styles.selectBtn} ${typoStyles.head2_SemiBold}`}>
+          <div
+            className={`${
+              isDancerBtnClicked ? styles.clickedBtn : styles.btn
+            } ${typoStyles.head2_SemiBold}`}
+            onClick={handleBtnClick}
+          >
             댄서
           </div>
         </div>
@@ -110,7 +127,7 @@ export default function SearchResultPage() {
         )}
       </div>
 
-      {/* isFilterOn이 false면 typingFilteredClassList, true면 bothFilteredClassList 보여주기! */}
+      {/* { isClassBtnClicked ? (isFilterOn이 false면 typingFilteredClassList, true면 bothFilteredClassList 보여주기!) : filteredDancerList } -> 중첩 조건문으로! */}
     </>
   );
 }
