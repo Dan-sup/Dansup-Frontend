@@ -4,46 +4,52 @@ import styles from '../../styles/UploadPage.module.css';
 import 'react-datepicker/dist/react-datepicker.css';
 
 interface classTimeProps {
-  startTime: Date | null;
-  setStartTIme: React.Dispatch<React.SetStateAction<Date | null>>;
-  endTime: Date | null;
-  setEndTIme: React.Dispatch<React.SetStateAction<Date | null>>;
+  startTime: string;
+  setStartTime: React.Dispatch<React.SetStateAction<string>>;
+  endTime: string;
+  setEndTime: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function ClassTime({
   startTime,
-  setStartTIme,
+  setStartTime,
   endTime,
-  setEndTIme,
+  setEndTime,
 }: classTimeProps) {
+  const startTimeChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setStartTime(e.target.value);
+  };
+  const endTimeChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEndTime(e.target.value);
+  };
   return (
     <div className={styles.row_Between}>
-      <DatePicker
+      <input
         className={`${styles.input} ${styles.timeInput} ${fonts.body2_Regular}`}
-        selected={startTime}
-        onChange={(time: Date) => setStartTIme(time)}
-        closeOnScroll={true}
-        showPopperArrow={false}
-        showTimeSelect
-        showTimeSelectOnly
-        timeIntervals={10}
-        timeCaption="Time"
-        dateFormat="aa h:mm"
-        placeholderText="시작시간"
+        type="text"
+        id="startTime"
+        placeholder="시작시간"
+        onChange={startTimeChangeHandler}
+        onFocus={(e: React.ChangeEvent<HTMLInputElement>) =>
+          (e.target.type = 'time')
+        }
+        onBlur={(e: React.ChangeEvent<HTMLInputElement>) =>
+          (e.target.type = 'text')
+        }
       />
       <div className={styles.timeText}>~</div>
-      <DatePicker
+      <input
         className={`${styles.input} ${styles.timeInput} ${fonts.body2_Regular}`}
-        selected={endTime}
-        onChange={(time: Date) => setEndTIme(time)}
-        closeOnScroll={true}
-        showPopperArrow={false}
-        showTimeSelect
-        showTimeSelectOnly
-        timeIntervals={10}
-        timeCaption="Time"
-        dateFormat="aa h:mm"
-        placeholderText="종료시간"
+        type="text"
+        id="endTime"
+        placeholder="종료시간"
+        onChange={endTimeChangeHandler}
+        onFocus={(e: React.ChangeEvent<HTMLInputElement>) =>
+          (e.target.type = 'time')
+        }
+        onBlur={(e: React.ChangeEvent<HTMLInputElement>) =>
+          (e.target.type = 'text')
+        }
       />
     </div>
   );

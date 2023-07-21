@@ -55,9 +55,9 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const [classAdmit, setClassAdmit] = useState<string>();
   const [classSong, setClassSong] = useState<string>('');
   const [classWay, setClassWay] = useState<string>('');
-  const [classDate, setClassDate] = useState<Date | null>(null);
-  const [startTime, setStartTime] = useState<Date | null>(null);
-  const [endTime, setEndTime] = useState<Date | null>(null);
+  const [classDate, setClassDate] = useState<string>('');
+  const [startTime, setStartTime] = useState<string>('');
+  const [endTime, setEndTime] = useState<string>('');
   const [classDayList, setClassDayList] = useState<IClassDayList[]>([
     { id: 0, day: '' },
   ]);
@@ -189,352 +189,356 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
 
   return (
     <div style={{ display: isOpen ? 'block' : 'none' }}>
-      <div
-        className={`${modalStyles.container} ${modalStyles.black} ${modalStyles.withScroll}`}
-      >
+      <div className={`${modalStyles.container} ${modalStyles.black}`}>
         <div className={modalStyles.modalCloseBox}>
           <button className={modalStyles.modalClose} onClick={closeModal}>
             <Close />
           </button>
         </div>
-        <div className={styles.inputList}>
-          <div>
-            <IndicatorFirst />
-            <div className={`${styles.sectionText} ${fonts.head1}`}>
-              수업을 소개해주세요
-            </div>
-            <div className={styles.box}>
-              <div className={styles.row_Between}>
-                <div className={styles.row}>
-                  <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
-                    수업 제목
-                  </div>
-                  <div className={styles.pointText}>*</div>
-                </div>
-                <div
-                  className={`${styles.smallTexts} ${fonts.caption1_Regular}`}
-                >
-                  <div className={`${styles.pointText}`}>{titleCount}</div>
-                  <div className={styles.smallText}>/50</div>
-                </div>
+        <div className={modalStyles.modalBody}>
+          <div className={styles.inputList}>
+            <div>
+              <IndicatorFirst />
+              <div className={`${styles.sectionText} ${fonts.head1}`}>
+                수업을 소개해주세요
               </div>
-              <Textarea
-                className={`${styles.input} ${styles.textarea} ${styles.long} ${fonts.body2_Regular}`}
-                placeholder="수업에 대한 간단한 소개를 담아주세요"
-                value={title}
-                onChange={handleChangeTitle}
-                maxLength={50}
-                cacheMeasurements
-              />
-            </div>
-            <div className={styles.box}>
-              <div className={styles.row_Between}>
-                <div className={styles.row}>
-                  <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
-                    수업 장르
-                  </div>
-                  <div className={styles.pointText}>*</div>
-                </div>
-                <div
-                  className={`${styles.smallTexts} ${fonts.caption1_Regular}`}
-                >
-                  <div className={`${styles.smallText} ${styles.spacing}`}>
-                    최대
-                  </div>
-                  <div className={styles.pointText}>5</div>
-                  <div className={styles.smallText}>개</div>
-                </div>
-              </div>
-              {isClicked ? (
-                <>
-                  <button
-                    className={`${styles.input} ${styles.genre} ${styles.after} ${fonts.body2_Regular}`}
-                    onClick={onClickOpenBox}
-                  >
-                    댄스 장르를 선택해주세요
-                  </button>
-
-                  <DanceGenre
-                    list={genreList}
-                    setList={setGenreList}
-                    isFull={isGenreFull}
-                    setIsFull={setIsGenreFull}
-                    limit={6}
-                  />
-                </>
-              ) : (
-                <>
-                  <button
-                    className={`${styles.input} ${styles.genre} ${styles.before} ${fonts.body2_Regular}`}
-                    onClick={onClickOpenBox}
-                  >
-                    댄스 장르를 선택해주세요
-                  </button>
-                </>
-              )}
-            </div>
-            <HashTag
-              hashTag={hashTag}
-              setHashTag={setHashTag}
-              hashTagList={hashTagList}
-              setHashTagList={setHashTagList}
-              title="수업을 소개하는 해시태그"
-              isFull={isHashTagFull}
-              setIsFull={setIsHashTagFull}
-            />
-            <div className={styles.box}>
-              <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
-                수업 추가 설명
-              </div>
-              <div>
-                <input
-                  className={`${styles.input} ${styles.long} ${fonts.body2_Regular}`}
-                  placeholder="이런 것들을 배울 거예요"
-                  type="text"
-                  value={classContent}
-                  onChange={handleChangeClassContent}
-                />
-                <input
-                  className={`${styles.input} ${styles.long} ${fonts.body2_Regular}`}
-                  placeholder="이런 분들을 위한 레슨이에요"
-                  type="text"
-                  value={classUser}
-                  onChange={handleChangeClassUser}
-                />
-                <input
-                  className={`${styles.input} ${styles.long} ${fonts.body2_Regular}`}
-                  placeholder="드리는 인사말"
-                  type="text"
-                  value={classIntro}
-                  onChange={handleChangeClassIntro}
-                />
-              </div>
-            </div>
-            <div className={styles.box}>
-              <div className={styles.row}>
-                <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
-                  수업 장소
-                </div>
-                <div className={styles.pointText}>*</div>
-              </div>
-              {isOpenLocation && (
-                <div style={{ display: isOpenLocation ? 'block' : 'none' }}>
-                  <div
-                    className={`${modalStyles.container} ${modalStyles.white} ${modalStyles.withoutScroll}`}
-                  >
-                    <div className={modalStyles.modalCloseBox}>
-                      <button
-                        className={modalStyles.modalClose}
-                        onClick={closeLocationModal}
-                      >
-                        <Close />
-                      </button>
+              <div className={styles.box}>
+                <div className={styles.row_Between}>
+                  <div className={styles.row}>
+                    <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                      수업 제목
                     </div>
-                    <div className={styles.postCode}>
-                      <DaumPostcode
-                        onComplete={handleChangeLocation}
-                        style={{ width: '100%', height: '100%' }}
+                    <div className={styles.pointText}>*</div>
+                  </div>
+                  <div
+                    className={`${styles.smallTexts} ${fonts.caption1_Regular}`}
+                  >
+                    <div className={`${styles.pointText}`}>{titleCount}</div>
+                    <div className={styles.smallText}>/50</div>
+                  </div>
+                </div>
+                <Textarea
+                  className={`${styles.input} ${styles.textarea} ${styles.long} ${fonts.body2_Regular}`}
+                  placeholder="수업에 대한 간단한 소개를 담아주세요"
+                  value={title}
+                  onChange={handleChangeTitle}
+                  maxLength={50}
+                  cacheMeasurements
+                />
+              </div>
+              <div className={styles.box}>
+                <div className={styles.row_Between}>
+                  <div className={styles.row}>
+                    <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                      수업 장르
+                    </div>
+                    <div className={styles.pointText}>*</div>
+                  </div>
+                  <div
+                    className={`${styles.smallTexts} ${fonts.caption1_Regular}`}
+                  >
+                    <div className={`${styles.smallText} ${styles.spacing}`}>
+                      최대
+                    </div>
+                    <div className={styles.pointText}>5</div>
+                    <div className={styles.smallText}>개</div>
+                  </div>
+                </div>
+                {isClicked ? (
+                  <>
+                    <button
+                      className={`${styles.input} ${styles.genre} ${styles.after} ${fonts.body2_Regular}`}
+                      onClick={onClickOpenBox}
+                    >
+                      댄스 장르를 선택해주세요
+                    </button>
+
+                    <DanceGenre
+                      list={genreList}
+                      setList={setGenreList}
+                      isFull={isGenreFull}
+                      setIsFull={setIsGenreFull}
+                      limit={6}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <button
+                      className={`${styles.input} ${styles.genre} ${styles.before} ${fonts.body2_Regular}`}
+                      onClick={onClickOpenBox}
+                    >
+                      댄스 장르를 선택해주세요
+                    </button>
+                  </>
+                )}
+              </div>
+              <HashTag
+                hashTag={hashTag}
+                setHashTag={setHashTag}
+                hashTagList={hashTagList}
+                setHashTagList={setHashTagList}
+                title="수업을 소개하는 해시태그"
+                isFull={isHashTagFull}
+                setIsFull={setIsHashTagFull}
+              />
+              <div className={styles.box}>
+                <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                  수업 추가 설명
+                </div>
+                <div>
+                  <input
+                    className={`${styles.input} ${styles.long} ${fonts.body2_Regular}`}
+                    placeholder="이런 것들을 배울 거예요"
+                    type="text"
+                    value={classContent}
+                    onChange={handleChangeClassContent}
+                  />
+                  <input
+                    className={`${styles.input} ${styles.long} ${fonts.body2_Regular}`}
+                    placeholder="이런 분들을 위한 레슨이에요"
+                    type="text"
+                    value={classUser}
+                    onChange={handleChangeClassUser}
+                  />
+                  <input
+                    className={`${styles.input} ${styles.long} ${fonts.body2_Regular}`}
+                    placeholder="드리는 인사말"
+                    type="text"
+                    value={classIntro}
+                    onChange={handleChangeClassIntro}
+                  />
+                </div>
+              </div>
+              <div className={styles.box}>
+                <div className={styles.row}>
+                  <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                    수업 장소
+                  </div>
+                  <div className={styles.pointText}>*</div>
+                </div>
+                {isOpenLocation && (
+                  <div style={{ display: isOpenLocation ? 'block' : 'none' }}>
+                    <div
+                      className={`${modalStyles.container} ${modalStyles.white} ${modalStyles.withoutScroll}`}
+                    >
+                      <div className={modalStyles.modalCloseBox}>
+                        <button
+                          className={modalStyles.modalClose}
+                          onClick={closeLocationModal}
+                        >
+                          <Close />
+                        </button>
+                      </div>
+                      <div className={styles.postCode}>
+                        <DaumPostcode
+                          onComplete={handleChangeLocation}
+                          style={{ width: '100%', height: '100%' }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+                <input
+                  className={`${styles.input} ${styles.long} ${styles.click_Postcode} ${fonts.body2_Regular}`}
+                  placeholder="수업 장소를 입력해주세요"
+                  type="text"
+                  onClick={openLocationModal}
+                  defaultValue={location.address}
+                />
+              </div>
+              <div className={styles.box}>
+                <div className={styles.row}>
+                  <div className={fonts.body1_SemiBold}>수업 난이도</div>
+                  <div className={styles.pointText}>*</div>
+                </div>
+                <Select
+                  list={levelList}
+                  votedItem={classLevel}
+                  setVotedItem={setClassLevel}
+                />
+              </div>
+              <div className={styles.box}>
+                <div className={styles.row}>
+                  <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                    수강료
+                  </div>
+                  <div className={styles.pointText}>*</div>
+                </div>
+                <div className={`${styles.detailText} ${fonts.body2_Regular}`}>
+                  클래스 1회 당 수강료를 입력해주세요.
+                </div>
+                <div className={styles.row}>
+                  <input
+                    className={`${styles.input} ${styles.long} ${fonts.body2_Regular}`}
+                    placeholder="금액을 입력해주세요"
+                    type="text"
+                    value={classFee}
+                    onChange={handleChangeClassFee}
+                  />
+                  <div className={fonts.body2_Regular}>원</div>
+                </div>
+              </div>
+              <div className={styles.box}>
+                <div className={styles.row}>
+                  <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                    수업 총원
+                  </div>
+                  <div className={styles.pointText}>*</div>
+                </div>
+                <div className={styles.row}>
+                  <input
+                    className={`${styles.input} ${styles.long} ${fonts.body2_Regular}`}
+                    placeholder="수업 총원을 입력해주세요"
+                    type="text"
+                    value={classAdmit}
+                    onChange={handleChangeClassAdmit}
+                  />
+                  <div className={fonts.body2_Regular}>명</div>
+                </div>
+              </div>
+              <div className={styles.box}>
+                <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                  수업 노래
+                </div>
+                <input
+                  className={`${styles.input} ${styles.long} ${fonts.body2_Regular}`}
+                  placeholder="♫ 수업에 진행할 노래를 추가해주세요"
+                  type="text"
+                  value={classSong}
+                  onChange={handleChangeClassSong}
+                />
+              </div>
+            </div>
+            <div>
+              <IndicatorSecond />
+              <div className={`${styles.sectionText} ${fonts.head1}`}>
+                수업방식 & 수업날짜를 선택해주세요
+              </div>
+              <div className={styles.box}>
+                <div className={fonts.body1_SemiBold}>수업 방식</div>
+                <Select
+                  list={wayList}
+                  votedItem={classWay}
+                  setVotedItem={setClassWay}
+                />
+              </div>
+              {classWay !== '' ? (
+                <>
+                  {classWay == '원데이' ? (
+                    <div className={styles.box}>
+                      <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                        수업 날짜
+                      </div>
+                      <div onClick={() => console.log(classDate)}>
+                        <ClassDate
+                          selectDate={classDate}
+                          setSelectDate={setClassDate}
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <div className={styles.box}>
+                      <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                        수업 요일
+                      </div>
+                      <ClassDay list={classDayList} setList={setClassDayList} />
+                    </div>
+                  )}
+                  <div className={styles.box}>
+                    <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                      수업 시간
+                    </div>
+                    <div onClick={() => console.log(startTime)}>
+                      <ClassTime
+                        startTime={startTime}
+                        setStartTime={setStartTime}
+                        endTime={endTime}
+                        setEndTime={setEndTime}
                       />
                     </div>
                   </div>
+                </>
+              ) : null}
+            </div>
+            <div>
+              <IndicatorThird />
+              <div
+                className={`${styles.sectionText} ${styles.sectionTextWidth} ${fonts.head1}`}
+              >
+                수업 소개 영상 & 예약 링크를 업로드해주세요
+              </div>
+              <div className={styles.box}>
+                <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                  예약 링크
                 </div>
+                <div className={`${styles.detailText} ${fonts.body2_Regular}`}>
+                  구글폼, 네이버 예약 등 수업 예약 URL을 첨부해주세요
+                </div>
+                <Textarea
+                  className={`${styles.input} ${styles.textarea} ${styles.long} ${fonts.body2_Regular}`}
+                  placeholder="https://"
+                  value={classLink}
+                  onChange={handleChangeClassLink}
+                  cacheMeasurements
+                />
+              </div>
+              <div className={styles.box}>
+                <UploadVideo
+                  video={video}
+                  setVideo={setVideo}
+                  title="소개 영상 업로드"
+                />
+              </div>
+            </div>
+          </div>
+
+          {isGenreFull ? (
+            <div className={styles.toastMessageBox}>
+              <div className={`${styles.toastMessage} ${fonts.body2_Regular}`}>
+                <Ect />
+                <div className={styles.message}>
+                  나의 장르는 최대 5개까지 선택 가능합니다.
+                </div>
+              </div>
+            </div>
+          ) : (
+            <></>
+          )}
+
+          {isHashTagFull ? (
+            <div className={styles.toastMessageBox}>
+              <div className={`${styles.toastMessage} ${fonts.body2_Regular}`}>
+                <Ect />
+                <div className={styles.message}>
+                  해시태그는 최대 3개까지 선택 가능합니다.
+                </div>
+              </div>
+            </div>
+          ) : (
+            <></>
+          )}
+
+          <div className={styles.bottom}>
+            <div className={buttonStyles.buttonSpace}>
+              {isTitleChecked &&
+              isGenreListChecked &&
+              isLocationChecked &&
+              isClassLevelChecked &&
+              isClassFeeChecked &&
+              isClassAdmitChecked ? (
+                <button
+                  className={`${buttonStyles.CTA_Large} ${buttonStyles.before} ${fonts.body1_SemiBold}`}
+                >
+                  수업 올리기
+                </button>
+              ) : (
+                <button
+                  className={`${buttonStyles.CTA_Large} ${buttonStyles.after} ${fonts.body1_SemiBold}`}
+                >
+                  수업 올리기
+                </button>
               )}
-              <input
-                className={`${styles.input} ${styles.long} ${styles.click_Postcode} ${fonts.body2_Regular}`}
-                placeholder="수업 장소를 입력해주세요"
-                type="text"
-                onClick={openLocationModal}
-                defaultValue={location.address}
-              />
             </div>
-            <div className={styles.box}>
-              <div className={styles.row}>
-                <div className={fonts.body1_SemiBold}>수업 난이도</div>
-                <div className={styles.pointText}>*</div>
-              </div>
-              <Select
-                list={levelList}
-                votedItem={classLevel}
-                setVotedItem={setClassLevel}
-              />
-            </div>
-            <div className={styles.box}>
-              <div className={styles.row}>
-                <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
-                  수강료
-                </div>
-                <div className={styles.pointText}>*</div>
-              </div>
-              <div className={`${styles.detailText} ${fonts.body2_Regular}`}>
-                클래스 1회 당 수강료를 입력해주세요.
-              </div>
-              <div className={styles.row}>
-                <input
-                  className={`${styles.input} ${styles.long} ${fonts.body2_Regular}`}
-                  placeholder="금액을 입력해주세요"
-                  type="text"
-                  value={classFee}
-                  onChange={handleChangeClassFee}
-                />
-                <div className={fonts.body2_Regular}>원</div>
-              </div>
-            </div>
-            <div className={styles.box}>
-              <div className={styles.row}>
-                <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
-                  수업 총원
-                </div>
-                <div className={styles.pointText}>*</div>
-              </div>
-              <div className={styles.row}>
-                <input
-                  className={`${styles.input} ${styles.long} ${fonts.body2_Regular}`}
-                  placeholder="수업 총원을 입력해주세요"
-                  type="text"
-                  value={classAdmit}
-                  onChange={handleChangeClassAdmit}
-                />
-                <div className={fonts.body2_Regular}>명</div>
-              </div>
-            </div>
-            <div className={styles.box}>
-              <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
-                수업 노래
-              </div>
-              <input
-                className={`${styles.input} ${styles.long} ${fonts.body2_Regular}`}
-                placeholder="♫ 수업에 진행할 노래를 추가해주세요"
-                type="text"
-                value={classSong}
-                onChange={handleChangeClassSong}
-              />
-            </div>
-          </div>
-          <div>
-            <IndicatorSecond />
-            <div className={`${styles.sectionText} ${fonts.head1}`}>
-              수업방식 & 수업날짜를 선택해주세요
-            </div>
-            <div className={styles.box}>
-              <div className={fonts.body1_SemiBold}>수업 방식</div>
-              <Select
-                list={wayList}
-                votedItem={classWay}
-                setVotedItem={setClassWay}
-              />
-            </div>
-            {classWay !== '' ? (
-              <>
-                {classWay == '원데이' ? (
-                  <div className={styles.box}>
-                    <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
-                      수업 날짜
-                    </div>
-                    <ClassDate
-                      selectDate={classDate}
-                      setSelectDate={setClassDate}
-                    />
-                  </div>
-                ) : (
-                  <div className={styles.box}>
-                    <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
-                      수업 요일
-                    </div>
-                    <ClassDay list={classDayList} setList={setClassDayList} />
-                  </div>
-                )}
-                <div className={styles.box}>
-                  <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
-                    수업 시간
-                  </div>
-                  <ClassTime
-                    startTime={startTime}
-                    setStartTIme={setStartTime}
-                    endTime={endTime}
-                    setEndTIme={setEndTime}
-                  />
-                </div>
-              </>
-            ) : null}
-          </div>
-          <div>
-            <IndicatorThird />
-            <div
-              className={`${styles.sectionText} ${styles.sectionTextWidth} ${fonts.head1}`}
-            >
-              수업 소개 영상 & 예약 링크를 업로드해주세요
-            </div>
-            <div className={styles.box}>
-              <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
-                예약 링크
-              </div>
-              <div className={`${styles.detailText} ${fonts.body2_Regular}`}>
-                구글폼, 네이버 예약 등 수업 예약 URL을 첨부해주세요
-              </div>
-              <Textarea
-                className={`${styles.input} ${styles.textarea} ${styles.long} ${fonts.body2_Regular}`}
-                placeholder="https://"
-                value={classLink}
-                onChange={handleChangeClassLink}
-                cacheMeasurements
-              />
-            </div>
-            <div className={styles.box}>
-              <UploadVideo
-                video={video}
-                setVideo={setVideo}
-                title="소개 영상 업로드"
-              />
-            </div>
-          </div>
-        </div>
-
-        {isGenreFull ? (
-          <div className={styles.toastMessageBox}>
-            <div className={`${styles.toastMessage} ${fonts.body2_Regular}`}>
-              <Ect />
-              <div className={styles.message}>
-                나의 장르는 최대 5개까지 선택 가능합니다.
-              </div>
-            </div>
-          </div>
-        ) : (
-          <></>
-        )}
-
-        {isHashTagFull ? (
-          <div className={styles.toastMessageBox}>
-            <div className={`${styles.toastMessage} ${fonts.body2_Regular}`}>
-              <Ect />
-              <div className={styles.message}>
-                해시태그는 최대 3개까지 선택 가능합니다.
-              </div>
-            </div>
-          </div>
-        ) : (
-          <></>
-        )}
-
-        <div className={styles.bottom}>
-          <div className={buttonStyles.buttonSpace}>
-            {isTitleChecked &&
-            isGenreListChecked &&
-            isLocationChecked &&
-            isClassLevelChecked &&
-            isClassFeeChecked &&
-            isClassAdmitChecked ? (
-              <button
-                className={`${buttonStyles.CTA_Large} ${buttonStyles.before} ${fonts.body1_SemiBold}`}
-              >
-                수업 올리기
-              </button>
-            ) : (
-              <button
-                className={`${buttonStyles.CTA_Large} ${buttonStyles.after} ${fonts.body1_SemiBold}`}
-              >
-                수업 올리기
-              </button>
-            )}
           </div>
         </div>
       </div>
