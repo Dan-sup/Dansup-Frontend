@@ -8,6 +8,7 @@ import typoStyles from '../../styles/typography.module.css';
 import styles from '../../styles/SearchResultPage.module.css';
 import FilterBar from '@/components/FilterBar';
 import filterBarStyles from '../../styles/components/FilterBar.module.css';
+import DancerCard from '@/components/SearchResultPage/DancerCard';
 
 export default function SearchResultPage() {
   const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
@@ -125,9 +126,14 @@ export default function SearchResultPage() {
         {isFilterOn && (
           <div className={filterBarStyles.appliedFiltersBox}></div>
         )}
-      </div>
 
-      {/* { isClassBtnClicked ? (isFilterOn이 false면 typingFilteredClassList, true면 bothFilteredClassList 보여주기!) : filteredDancerList } -> 중첩 조건문으로! */}
+        {/* { isClassBtnClicked ? (isFilterOn이 false면 typingFilteredClassList, true면 bothFilteredClassList 보여주기!) : filteredDancerList } -> 중첩 조건문으로! */}
+        <div className={styles.classListBox}>
+          <DancerCard />
+          <DancerCard />
+          <DancerCard />
+        </div>
+      </div>
     </>
   );
 }

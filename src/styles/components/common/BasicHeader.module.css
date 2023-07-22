@@ -1,5 +1,5 @@
 .container {
-  background-color: blue; /*var(--color-gray-700-bg)*/
+  background-color: var(--color-gray-700-bg);
 
   padding: 0 18px;
   width: 100%;

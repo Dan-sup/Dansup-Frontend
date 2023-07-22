@@ -14,6 +14,7 @@ export default function HomePage() {
   const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
 
   //api 로직 가져와서 사용하기
+  /*
   const { data: classList } = useQuery(['classList'], () => getClassList(), {
     onSuccess: data => {
       console.log(data);
@@ -22,6 +23,7 @@ export default function HomePage() {
       alert('결과를 가져오는데 실패했습니다.');
     },
   });
+  */
 
   const getFilteredClassListMutation = useMutation(getFilteredClassList, {
     onSuccess: data => {
@@ -96,6 +98,8 @@ export default function HomePage() {
         )}
 
         {/* isFilterOn이 false면 classList, true면 filteredClassList 보여주기! */}
+        <ClassCard />
+        <ClassCard />
         <ClassCard />
       </div>
     </>
