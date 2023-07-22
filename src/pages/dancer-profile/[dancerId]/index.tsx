@@ -4,10 +4,13 @@ import styles from '../../../styles/Profile.module.css';
 import Portfolio from '@/components/profile/Portfolio';
 import Class from '@/components/profile/Class';
 import dancerData from '../../../jsons/dancerData.json';
+import BlankImage from '../../../../public/icons/blank-image.svg';
+import Image from 'next/image';
 
 export default function DancerProfile() {
   const [isPortfolio, setIsPortfolio] = useState<boolean>(true);
   const profiles = dancerData.profile;
+  const image = dancerData.image;
 
   /*button*/
   const onClickPortfolio = () => {
@@ -24,7 +27,26 @@ export default function DancerProfile() {
         <div className={styles.profilePart} key={idx}>
           <div className={styles.backVideo}></div>
           <div className={styles.paddingContainer}>
-            <div className={styles.profileImg}></div>
+            {image.map((data, idx) => (
+              <div key={idx}>
+                {data.url == '' ? (
+                  <BlankImage
+                    alt="blank"
+                    className={styles.profileImg}
+                    width={100}
+                    heigth={100}
+                  />
+                ) : (
+                  <Image
+                    className={styles.profileImg}
+                    src={data.url}
+                    alt={data.url}
+                    width={100}
+                    height={100}
+                  />
+                )}
+              </div>
+            ))}
             <div className={`${styles.genreList} ${fonts.body2_Regular}`}>
               {data.genres.map(data => (
                 <div className={styles.genreBox} key={data.genre}>

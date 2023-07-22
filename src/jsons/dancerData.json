@@ -90,5 +90,10 @@
       "userNickname": "유나",
       "userProfileImage": "image"
     }
+  ],
+  "image": [
+    {
+      "url": ""
+    }
   ]
 }
