@@ -260,6 +260,11 @@
 }
 
 /*class*/
+.classProfileBox {
+  width: 42px;
+  height: 42px;
+}
+
 .classProfileImg {
   width: 42px;
   height: 42px;
