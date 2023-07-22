@@ -437,3 +437,31 @@
   background: url('../../public/icons/location-arrow.svg') no-repeat right
     center;
 }
+
+/*회원가입 완료*/
+.registerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.paddingContainer {
+  width: 100%;
+  padding: 0 18px;
+}
+
+.registerTexts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 265px;
+  height: 62px;
+  color: var(--color-white);
+  margin: 55px 0 69px 0;
+}
+
+.registerSmallText {
+  color: var(--color-gray-200);
+}
