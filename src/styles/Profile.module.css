@@ -14,7 +14,7 @@
   width: 100%;
 }
 
-.awardPart {
+.Part {
   width: 100%;
   min-height: 214px;
 }
@@ -23,6 +23,71 @@
   width: 100%;
   height: 6px;
   background: var(--color-gray-800-divider);
+}
+
+.blank {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 214px;
+}
+
+.floatingBtn {
+  position: fixed;
+  bottom: 34px;
+  right: 0;
+}
+
+.modalBox {
+  position: fixed;
+  bottom: 130px;
+  right: 18px;
+}
+
+.modalBtn {
+  display: flex;
+  justify-content: left;
+  padding-left: 14px;
+  align-items: center;
+  width: 174px;
+  height: 50px;
+  color: var(--color-white);
+  background: var(--color-gray-500-card);
+}
+
+.classBtnBox {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  margin-top: 29px;
+  right: 27px;
+}
+
+.classBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 110px;
+  height: 41px;
+  color: var(--color-gray-100);
+  background: var(--color-gray-500-card);
+}
+
+.modalText {
+  margin-left: 8px;
+}
+
+.upBtn {
+  border-radius: 5px 5px 0 0;
+  border: none;
+  border-bottom: 0.5px solid var(--color-gray-300);
+}
+
+.downBtn {
+  border-radius: 0 0 5px 5px;
+  border: none;
+  border-top: 0.5px solid var(--color-gray-300);
 }
 
 /*portfolio, class 선택 버튼*/
@@ -40,8 +105,8 @@
 .buttons {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  width: 60%;
+  justify-content: space-around;
+  width: 100%;
 }
 
 .button {
@@ -71,7 +136,6 @@
   width: 100px;
   height: 100px;
   border-radius: 100%;
-  background: var(--color-gray-100);
   position: absolute;
   top: 336px;
 }
@@ -122,21 +186,20 @@
 }
 
 .nickname {
-  height: 30px;
   margin-top: 12px;
 }
 
 .username {
+  margin-top: 5px;
   color: var(--color-gray-300);
-  height: 18px;
 }
 
 .intro {
-  height: 21px;
   margin: 8px 0 10px 0;
 }
 
 /*portfolio*/
+/*수상내역*/
 .awardBox {
   padding-top: 24px;
 }
@@ -171,6 +234,18 @@
   color: var(--color-gray-100);
 }
 
+.awardBlank {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 109px;
+}
+
+.blankText {
+  color: var(--color-gray-300);
+}
+
 .dragDown {
   display: flex;
   justify-content: center;
@@ -179,6 +254,114 @@
   margin-top: 20px;
 }
 
-.modal {
+/*video*/
+.video {
+  margin-bottom: 10px;
+}
+
+/*class*/
+.classProfileImg {
+  width: 42px;
+  height: 42px;
+  border-radius: 100%;
+  background: var(--color-gray-100);
+}
+
+.classBox {
+  width: 100%;
+  height: 331px;
+}
+
+.classTitleBox {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%;
+  height: 75px;
+}
+
+.texts {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 41px;
+  justify-content: space-between;
+  margin-left: 8px;
+}
+
+.classTitle {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.classVideoBox {
+  width: 100%;
+  height: 210px;
+  background: var(--color-gray-300);
+}
+
+.classDetailBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 46px;
+}
+
+.classGenre {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 33px;
+  height: 22px;
+  border: none;
+  border-radius: 4px;
+  background: var(--color-main-300);
   color: var(--color-main-100);
+}
+
+.classDetail {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 21px;
+  color: var(--color-gray-200);
+}
+
+.classDate {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 21px;
+  margin-left: 16px;
+}
+
+.classLocation {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 21px;
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 12px;
+  height: 12px;
+  margin-right: 4px;
+}
+
+.dot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
 }
