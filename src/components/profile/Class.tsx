@@ -23,7 +23,9 @@ export default function Class() {
                 <div
                   className={`${styles.classTitleBox} ${styles.paddingContainer}`}
                 >
-                  <div className={styles.classProfileImg}></div>
+                  <div className={styles.classProfileBox}>
+                    <div className={styles.classProfileImg}></div>
+                  </div>
                   <div className={styles.texts}>
                     <div
                       className={`${styles.classTitle} ${fonts.body1_Regular}`}
