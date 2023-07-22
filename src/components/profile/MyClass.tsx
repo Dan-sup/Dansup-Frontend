@@ -8,7 +8,7 @@ import Dot from '../../../public/icons/dot.svg';
 
 export default function Class() {
   const classes = myData.class;
-  const [isBtnOpen, setIsBtnOpen] = useState<boolean>(false);
+  const [isBtnOpenList, setIsBtnOpenList] = useState<boolean[]>([]);
 
   return (
     <div className={styles.container}>
@@ -35,13 +35,26 @@ export default function Class() {
                         className={`${styles.classTitle} ${fonts.body1_Regular}`}
                       >
                         {data.title}
-                        <div
+                        <button
                           className={styles.dot}
-                          onClick={() => setIsBtnOpen(!isBtnOpen)}
+                          onClick={e => {
+                            if (
+                              e.currentTarget.name ==
+                              data.danceClassId.toString()
+                            ) {
+                              setIsBtnOpenList([
+                                isBtnOpenList[data.danceClassId],
+                                ...isBtnOpenList,
+                              ]);
+                            } else {
+                              setIsBtnOpenList([false, ...isBtnOpenList]);
+                            }
+                          }}
+                          name={data.danceClassId.toString()}
                         >
                           <Dot />
-                        </div>
-                        {isBtnOpen ? (
+                        </button>
+                        {isBtnOpenList[data.danceClassId] ? (
                           <div className={styles.classBtnBox}>
                             <button
                               className={`${styles.upBtn} ${styles.classBtn} ${fonts.body2_SemiBold}`}
