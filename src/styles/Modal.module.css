@@ -4,9 +4,21 @@
   align-items: center;
   top: 0;
   left: 0;
-  z-index: 9999;
+  z-index: 1;
   width: 100%;
+  position: fixed;
+}
+
+.paddingContainer {
   padding: 0 18px;
+}
+
+.modalBody {
+  width: 100%;
+  max-height: 100vh;
+  overflow-y: auto;
+  padding-bottom: 54px;
+  position: relative;
 }
 
 .black {
@@ -17,13 +29,8 @@
   background: var(--color-white);
 }
 
-.withScroll {
-  position: absolute;
-}
-
 .withoutScroll {
   height: 100%;
-  position: fixed;
 }
 
 .modalCloseBox {
