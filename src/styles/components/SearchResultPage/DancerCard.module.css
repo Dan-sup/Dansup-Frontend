@@ -16,9 +16,21 @@
   margin-bottom: 20px;
 
   display: flex;
+  align-items: center;
 }
 
 .genre {
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 5px;
+  background-color: var(--color-main-300);
+  color: var(--color-main-100);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-right: 6px;
 }
 
 .bottomBox {
