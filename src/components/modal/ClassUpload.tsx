@@ -8,13 +8,7 @@ import fonts from '../../styles/typography.module.css';
 import buttonStyles from '../../styles/Button.module.css';
 import modalStyles from '../../styles/Modal.module.css';
 import styles from '../../styles/UploadPage.module.css';
-import {
-  IClassDayList,
-  IGenreList,
-  IHashTagList,
-  ILocation,
-  IUploadFile,
-} from '@/types/upload';
+import { IList, IUploadFile } from '@/types/upload';
 import DanceGenre from '../upload/DanceGenre';
 import DaumPostcode, { Address } from 'react-daum-postcode';
 import HashTag from '../upload/HashTag';
@@ -34,35 +28,34 @@ interface classUploadProps {
 export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const [titleCount, setTitleCount] = useState<number>(0);
   const [title, setTitle] = useState<string>('');
-  const [genreList, setGenreList] = useState<IGenreList[]>([
-    { id: 0, genre: '' },
-  ]);
+  const [genreList, setGenreList] = useState<IList[]>([{ id: 0, name: '' }]);
   const [isGenreFull, setIsGenreFull] = useState<boolean>(false);
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [hashTag, setHashTag] = useState<string>('');
-  const [hashTagList, setHashTagList] = useState<IHashTagList[]>([
-    { id: 0, hashTag: '' },
+  const [hashTagList, setHashTagList] = useState<IList[]>([
+    { id: 0, name: '' },
   ]);
   const [isHashTagFull, setIsHashTagFull] = useState<boolean>(false);
   const [classContent, setClassContent] = useState<string>('');
   const [classUser, setClassUser] = useState<string>('');
   const [classIntro, setClassIntro] = useState<string>('');
-  const [location, setLocation] = useState<ILocation>({ address: '' });
+  const [location, setLocation] = useState<IList>({ id: 0, name: '' });
   const [isOpenLocation, setIsOpenLocation] = useState<boolean>(false);
   const [classLevel, setClassLevel] = useState<string>('');
   const [classFee, setClassFee] = useState<string>();
   const [classAdmit, setClassAdmit] = useState<string>();
   const [classSong, setClassSong] = useState<string>('');
+  const [selectWayClickIndex, setSelectWayClickIndex] = useState<number>(5);
+  const [selectLevelClickIndex, setSelectLevelClickIndex] = useState<number>(5);
   const [classWay, setClassWay] = useState<string>('');
   const [classDate, setClassDate] = useState<string>('');
   const [startTime, setStartTime] = useState<string>('');
   const [endTime, setEndTime] = useState<string>('');
-  const [classDayList, setClassDayList] = useState<IClassDayList[]>([
-    { id: 0, day: '' },
+  const [classDayList, setClassDayList] = useState<IList[]>([
+    { id: 0, name: '' },
   ]);
   const [video, setVideo] = useState<IUploadFile | null>(null);
   const [classLink, setClassLink] = useState<string>('');
-  const [isToastMsg, setIsToastMsg] = useState<boolean>(false);
 
   //우효성 검사 state (Checked => 형식)
   const [isTitleChecked, setIsTitleChecked] = useState<boolean>(false);
@@ -124,7 +117,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
       }
       fullAddress += extraAddress !== '' ? `${extraAddress}` : '';
     }
-    setLocation({ ...location, address: fullAddress });
+    setLocation({ ...location, name: fullAddress });
     setIsLocationChecked(true);
     setIsOpenLocation(false);
     document.body.style.overflow = 'unset';
@@ -360,7 +353,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                   placeholder="수업 장소를 입력해주세요"
                   type="text"
                   onClick={openLocationModal}
-                  defaultValue={location.address}
+                  defaultValue={location.name}
                 />
               </div>
               <div className={styles.box}>
@@ -372,6 +365,8 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                   list={levelList}
                   votedItem={classLevel}
                   setVotedItem={setClassLevel}
+                  clickIndex={selectLevelClickIndex}
+                  setClickIndex={setSelectLevelClickIndex}
                 />
               </div>
               <div className={styles.box}>
@@ -437,6 +432,8 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                   list={wayList}
                   votedItem={classWay}
                   setVotedItem={setClassWay}
+                  clickIndex={selectWayClickIndex}
+                  setClickIndex={setSelectWayClickIndex}
                 />
               </div>
               {classWay !== '' ? (

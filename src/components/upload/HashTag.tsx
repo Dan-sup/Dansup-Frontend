@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { IHashTagList } from '@/types/upload';
+import { IList } from '@/types/upload';
 import styles from '../../styles/UploadPage.module.css';
 import fonts from '../../styles/typography.module.css';
 import Delete from '../../../public/icons/delete.svg';
@@ -7,8 +7,8 @@ import Delete from '../../../public/icons/delete.svg';
 interface HashTagProps {
   hashTag: string;
   setHashTag: React.Dispatch<React.SetStateAction<string>>;
-  hashTagList: IHashTagList[];
-  setHashTagList: React.Dispatch<React.SetStateAction<IHashTagList[]>>;
+  hashTagList: IList[];
+  setHashTagList: React.Dispatch<React.SetStateAction<IList[]>>;
   title: string;
   isFull: boolean;
   setIsFull: React.Dispatch<React.SetStateAction<boolean>>;
@@ -28,13 +28,13 @@ export default function HashTag({
   const addHashTag = (e: any) => {
     const hashTagItem = {
       id: nextId.current,
-      hashTag: e.target.value.trim(),
+      name: e.target.value.trim(),
     };
 
     const allowedCommand = ['Enter', 'NumpadEnter'];
     if (!allowedCommand.includes(e.code)) return;
 
-    if (hashTagItem.hashTag == '') {
+    if (hashTagItem.name == '') {
       return;
     } else {
       if (hashTagList.length < 4) {
@@ -92,7 +92,7 @@ export default function HashTag({
                   key={idx}
                   className={`${styles.hashTag} ${fonts.body2_Regular}`}
                 >
-                  {'#' + item.hashTag}
+                  {'#' + item.name}
                 </div>
                 <div
                   onClick={() => deleteHashTag(item.id)}

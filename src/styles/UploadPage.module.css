@@ -100,6 +100,7 @@
   width: 100%;
   height: auto;
   margin-top: 4px;
+  cursor: pointer;
 }
 
 /*click 전후*/
@@ -495,9 +496,45 @@
   height: 20px;
   border-radius: 100%;
   border: 6.5px solid var(--color-gray-300);
+  cursor: pointer;
 }
 
 .radio [type='radio']:checked {
   box-sizing: border-box;
   border: 6.5px solid var(--color-main-100);
+}
+
+.classSelectBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 170px;
+  height: 45px;
+}
+
+.classSelectBtn:hover {
+  border: 1px solid var(--color-white);
+  color: var(--color-white);
+  transition: all ease 0.5s 0s;
+}
+
+.right {
+  border-radius: 5px 0 0 5px;
+}
+
+.left {
+  border-radius: 0 5px 5px 0;
+}
+
+.timeBox {
+  margin-top: 14px;
+}
+
+.reset {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  color: var(--color-gray-200);
+  cursor: pointer;
 }

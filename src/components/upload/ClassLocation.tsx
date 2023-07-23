@@ -1,11 +1,11 @@
 import { useRef } from 'react';
 import fonts from '../../styles/typography.module.css';
 import styles from '../../styles/UploadPage.module.css';
-import { ILocationList } from '@/types/upload';
+import { IList } from '@/types/upload';
 
 interface danceGenreProps {
-  list: ILocationList[];
-  setList: React.Dispatch<React.SetStateAction<ILocationList[]>>;
+  list: IList[];
+  setList: React.Dispatch<React.SetStateAction<IList[]>>;
 }
 
 export default function ClassLocation({ list, setList }: danceGenreProps) {
@@ -44,19 +44,19 @@ export default function ClassLocation({ list, setList }: danceGenreProps) {
   const handleChangeLocation = (e: any) => {
     const newItem = {
       id: nextId.current,
-      location: e.target.value,
+      name: e.target.value,
     };
 
     if (
       e.target.value == '서울 전체' ||
-      list.filter(item => item.location == '서울 전체').length == 1
+      list.filter(item => item.name == '서울 전체').length == 1
     ) {
       nextId.current == 1;
-      setList(list.filter(item => item.location === e.target.value));
+      setList(list.filter(item => item.name === e.target.value));
       setList([newItem]);
     } else {
-      if (list.filter(item => item.location == e.target.value).length !== 0) {
-        setList(list.filter(item => item.location !== e.target.value));
+      if (list.filter(item => item.name == e.target.value).length !== 0) {
+        setList(list.filter(item => item.name !== e.target.value));
       } else {
         setList([...list, newItem]);
         nextId.current += 1;
@@ -65,14 +65,14 @@ export default function ClassLocation({ list, setList }: danceGenreProps) {
   };
 
   return (
-    <div className={`${styles.clickedBox} ${fonts.body2_Regular}`}>
+    <div className={styles.clickedBox}>
       {locationList.map(data => {
-        if (list.filter(item => item.location == data.name).length == 1) {
+        if (list.filter(item => item.name == data.name).length == 1) {
           return (
             <>
               {data.isShort ? (
                 <button
-                  className={`${styles.genreBox} ${styles.clickedAfterBox} ${styles.shortBox}`}
+                  className={`${styles.genreBox} ${styles.clickedAfterBox} ${styles.shortBox} ${fonts.body2_Regular}`}
                   key={data.id}
                   onClick={handleChangeLocation}
                   value={data.name}
@@ -81,7 +81,7 @@ export default function ClassLocation({ list, setList }: danceGenreProps) {
                 </button>
               ) : (
                 <button
-                  className={`${styles.genreBox} ${styles.clickedAfterBox} ${styles.longBox}`}
+                  className={`${styles.genreBox} ${styles.clickedAfterBox} ${styles.longBox} ${fonts.body2_Regular}`}
                   key={data.id}
                   onClick={handleChangeLocation}
                   value={data.name}
@@ -96,7 +96,7 @@ export default function ClassLocation({ list, setList }: danceGenreProps) {
             <>
               {data.isShort ? (
                 <button
-                  className={`${styles.genreBox} ${styles.clickedBeforeBox} ${styles.shortBox}`}
+                  className={`${styles.genreBox} ${styles.clickedBeforeBox} ${styles.shortBox} ${fonts.body2_Regular}`}
                   key={data.id}
                   onClick={handleChangeLocation}
                   value={data.name}
@@ -105,7 +105,7 @@ export default function ClassLocation({ list, setList }: danceGenreProps) {
                 </button>
               ) : (
                 <button
-                  className={`${styles.genreBox} ${styles.clickedBeforeBox} ${styles.longBox}`}
+                  className={`${styles.genreBox} ${styles.clickedBeforeBox} ${styles.longBox} ${fonts.body2_Regular}`}
                   key={data.id}
                   onClick={handleChangeLocation}
                   value={data.name}

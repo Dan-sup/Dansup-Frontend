@@ -1,13 +1,13 @@
 import { useRef } from 'react';
-import { IClassDayList } from '@/types/upload';
+import { IList } from '@/types/upload';
 import fonts from '../../styles/typography.module.css';
 import styles from '../../styles/UploadPage.module.css';
 import BeforeCheck from '../../../public/icons/before-check.svg';
 import AfterCheck from '../../../public/icons/after-check.svg';
 
 interface classDayProps {
-  list: IClassDayList[];
-  setList: React.Dispatch<React.SetStateAction<IClassDayList[]>>;
+  list: IList[];
+  setList: React.Dispatch<React.SetStateAction<IList[]>>;
 }
 
 export default function ClassDay({ list, setList }: classDayProps) {
@@ -26,11 +26,11 @@ export default function ClassDay({ list, setList }: classDayProps) {
   const handleChangeDay = (e: any) => {
     const newItem = {
       id: nextId.current,
-      day: e.target.value,
+      name: e.target.value,
     };
 
-    if (list.filter(item => item.day == e.target.value).length !== 0) {
-      setList(list.filter(item => item.day !== e.target.value));
+    if (list.filter(item => item.name == e.target.value).length !== 0) {
+      setList(list.filter(item => item.name !== e.target.value));
     } else {
       setList([...list, newItem]);
       nextId.current += 1;
@@ -38,12 +38,12 @@ export default function ClassDay({ list, setList }: classDayProps) {
   };
 
   return (
-    <div className={`${styles.dayBoxs} ${fonts.body2_Regular}`}>
+    <div className={styles.dayBoxs}>
       {dayList.map(data => {
-        if (list.filter(item => item.day === data.name).length == 1) {
+        if (list.filter(item => item.name === data.name).length == 1) {
           return (
             <button
-              className={`${styles.dayBox} ${styles.clickedAfterBox}`}
+              className={`${styles.dayBox} ${styles.clickedAfterBox} ${fonts.body2_Regular}`}
               key={data.id}
               onClick={handleChangeDay}
               value={data.name}
@@ -55,7 +55,7 @@ export default function ClassDay({ list, setList }: classDayProps) {
         } else {
           return (
             <button
-              className={`${styles.dayBox} ${styles.clickedBeforeBox}`}
+              className={`${styles.dayBox} ${styles.clickedBeforeBox} ${fonts.body2_Regular}`}
               key={data.id}
               onClick={handleChangeDay}
               value={data.name}

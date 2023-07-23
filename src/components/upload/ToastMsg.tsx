@@ -22,9 +22,11 @@ export default function ToastMsg({ isOpen, setIsOpen, msg }: toastMsgProps) {
     <>
       {isOpen ? (
         <div className={styles.toastMessageBox}>
-          <div className={`${styles.toastMessage} ${fonts.body2_Regular}`}>
+          <div className={styles.toastMessage}>
             <Ect />
-            <div className={styles.message}>{msg}</div>
+            <div className={`${styles.message} ${fonts.body2_Regular}`}>
+              {msg}
+            </div>
           </div>
         </div>
       ) : (
