@@ -470,3 +470,34 @@
 .registerSmallText {
   color: var(--color-gray-200);
 }
+
+/*filter*/
+.radios {
+  display: flex;
+  flex-direction: column;
+  color: var(--color-gray-200);
+}
+
+.radio {
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.radio span {
+  margin-left: 10px;
+}
+
+.radio [type='radio'] {
+  box-sizing: border-box;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  border: 6.5px solid var(--color-gray-300);
+}
+
+.radio [type='radio']:checked {
+  box-sizing: border-box;
+  border: 6.5px solid var(--color-main-100);
+}

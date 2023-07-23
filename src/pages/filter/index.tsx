@@ -8,7 +8,7 @@ import Select from '@/components/upload/Select';
 import ClassDay from '@/components/upload/ClassDay';
 import ClassLocation from '@/components/upload/ClassLocation';
 import BasicHeader from '@/components/common/Header/BasicHeader';
-import { levelList, wayList } from '@/data/class-data';
+import { levelList, wayList, classFeeList } from '@/data/class-data';
 
 export default function Filter() {
   const [locationList, setLocationList] = useState<ILocationList[]>([
@@ -26,6 +26,7 @@ export default function Filter() {
   ]);
   const [classWay, setClassWay] = useState<string>('');
   const [classLevel, setClassLevel] = useState<string>('');
+  const [classFee, setClassFee] = useState<string>('');
 
   //location 박스 열기
   const onClickOpenLocationBox = () => {
@@ -35,6 +36,11 @@ export default function Filter() {
   //Genre 박스 열기
   const onClickOpenGenreBox = () => {
     setIsClickedGenre(!isClickedGenre);
+  };
+
+  //classfee
+  const handleChangeClassFee = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setClassFee(e.target.value);
   };
 
   return (
@@ -119,6 +125,31 @@ export default function Filter() {
               votedItem={classLevel}
               setVotedItem={setClassLevel}
             />
+          </div>
+          <div className={styles.box}>
+            <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+              수강료
+            </div>
+            <div className={`${styles.detailText} ${fonts.body2_Regular}`}>
+              클래스 1회 당 수강료를 선택해주세요.
+            </div>
+            <form className={`${styles.radios} ${fonts.body2_Regular}`}>
+              {classFeeList.map((item, idx) => (
+                <>
+                  <label className={styles.radio}>
+                    <input
+                      type="radio"
+                      id={item.name}
+                      value={item.name}
+                      onChange={handleChangeClassFee}
+                      name="classFee"
+                      key={idx}
+                    />
+                    <span>{item.name}</span>
+                  </label>
+                </>
+              ))}
+            </form>
           </div>
         </div>
       </div>

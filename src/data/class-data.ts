@@ -13,3 +13,12 @@ export const wayList = [
   { id: 3, name: '전문반' },
   { id: 4, name: '세션' },
 ];
+
+export const classFeeList = [
+  { id: 0, name: '전체 가격' },
+  { id: 1, name: '1,000원 ~ 10,000원' },
+  { id: 2, name: '10,000원 ~ 30,000원' },
+  { id: 3, name: '30,000원 ~ 60,000원' },
+  { id: 4, name: '60,000원 ~ 90,000원' },
+  { id: 5, name: '100,000원 이상' },
+];
