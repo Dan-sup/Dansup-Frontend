@@ -13,6 +13,10 @@ export default function Class() {
   return (
     <div className={styles.container}>
       {classes.map((data, idx) => {
+        let location = data.location.substring(
+          0,
+          data.location.indexOf('구 ') + 1,
+        );
         return (
           <>
             {data.title.length == 0 ? (
@@ -93,7 +97,7 @@ export default function Class() {
                     <div className={styles.classDetail}>
                       <div className={styles.classLocation}>
                         <Location className={styles.icon} />
-                        {data.location}
+                        {location}
                       </div>
                       <div className={styles.classDate}>
                         <Date className={styles.icon} />
