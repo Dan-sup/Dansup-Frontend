@@ -1,17 +1,26 @@
 import typoStyles from '../../styles/typography.module.css';
 import styles from '../../styles/components/SearchResultPage/DancerCard.module.css';
+import { useState } from 'react';
 
-export default function DancerCard() {
+interface DancerCardProps {
+  isGenreIncluding?: boolean;
+}
+
+export default function DancerCard({ isGenreIncluding }: DancerCardProps) {
   return (
     <div className={styles.container}>
-      <div className={styles.genreBox}>
-        <div className={`${styles.genre} ${typoStyles.caption1_Regular}`}>
-          힙합
+      {isGenreIncluding && (
+        <div className={styles.genreBox}>
+          <div className={`${styles.genre} ${typoStyles.caption1_Regular}`}>
+            힙합
+          </div>
+          <div className={`${styles.genre} ${typoStyles.caption1_Regular}`}>
+            걸스힙합
+          </div>
         </div>
-        <div className={`${styles.genre} ${typoStyles.caption1_Regular}`}>
-          걸스힙합
-        </div>
-      </div>
+      )}
+
+      <div className={styles.divider}></div>
 
       <div className={styles.bottomBox}>
         <div className={styles.profileImg}></div>
