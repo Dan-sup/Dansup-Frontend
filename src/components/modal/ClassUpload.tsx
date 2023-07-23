@@ -4,7 +4,6 @@ import Close from '../../../public/icons/close.svg';
 import IndicatorFirst from '../../../public/icons/indicator-first.svg';
 import IndicatorSecond from '../../../public/icons/indicator-second.svg';
 import IndicatorThird from '../../../public/icons/indicator-third.svg';
-import Ect from '../../../public/icons/ETC.svg';
 import fonts from '../../styles/typography.module.css';
 import buttonStyles from '../../styles/Button.module.css';
 import modalStyles from '../../styles/Modal.module.css';
@@ -24,6 +23,7 @@ import UploadVideo from '../upload/UploadVideo';
 import ClassDate from '../upload/ClassDate';
 import ClassDay from '../upload/ClassDay';
 import ClassTime from '../upload/ClassTime';
+import ToastMsg from '../upload/ToastMsg';
 import { levelList, wayList } from '@/data/class-data';
 
 interface classUploadProps {
@@ -38,7 +38,6 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
     { id: 0, genre: '' },
   ]);
   const [isGenreFull, setIsGenreFull] = useState<boolean>(false);
-  const [isFull, setIsFull] = useState<boolean>(false);
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [hashTag, setHashTag] = useState<string>('');
   const [hashTagList, setHashTagList] = useState<IHashTagList[]>([
@@ -63,6 +62,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   ]);
   const [video, setVideo] = useState<IUploadFile | null>(null);
   const [classLink, setClassLink] = useState<string>('');
+  const [isToastMsg, setIsToastMsg] = useState<boolean>(false);
 
   //우효성 검사 state (Checked => 형식)
   const [isTitleChecked, setIsTitleChecked] = useState<boolean>(false);
@@ -73,6 +73,8 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const [isClassFeeChecked, setIsClassFeeChecked] = useState<boolean>(false);
   const [isClassAdmitChecked, setIsClassAdmitChecked] =
     useState<boolean>(false);
+  const [isLinkChecked, setIsLinkChecked] = useState<boolean>(false);
+  const [isVideoChecked, setIsVideoChecked] = useState<boolean>(false);
 
   //수업 제목
   const handleChangeTitle = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -170,6 +172,11 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const handleChangeClassLink = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const currentClassLink = e.target.value;
     setClassLink(currentClassLink);
+    if (currentClassLink !== '') {
+      setIsLinkChecked(true);
+    } else {
+      setIsLinkChecked(false);
+    }
   };
 
   //GenreList & ClassLevel check
@@ -185,7 +192,13 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
     } else {
       setIsClassLevelChecked(false);
     }
-  }, [genreList, classLevel]);
+
+    if (video !== null) {
+      setIsVideoChecked(true);
+    } else {
+      setIsVideoChecked(false);
+    }
+  }, [genreList, classLevel, video]);
 
   return (
     <div style={{ display: isOpen ? 'block' : 'none' }}>
@@ -472,8 +485,11 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                 수업 소개 영상 & 예약 링크를 업로드해주세요
               </div>
               <div className={styles.box}>
-                <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
-                  예약 링크
+                <div className={styles.row}>
+                  <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                    예약 링크
+                  </div>
+                  <div className={styles.pointText}>*</div>
                 </div>
                 <div className={`${styles.detailText} ${fonts.body2_Regular}`}>
                   구글폼, 네이버 예약 등 수업 예약 URL을 첨부해주세요
@@ -488,6 +504,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               </div>
               <div className={styles.box}>
                 <UploadVideo
+                  isImportant={true}
                   video={video}
                   setVideo={setVideo}
                   title="소개 영상 업로드"
@@ -496,31 +513,17 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
             </div>
           </div>
 
-          {isGenreFull ? (
-            <div className={styles.toastMessageBox}>
-              <div className={`${styles.toastMessage} ${fonts.body2_Regular}`}>
-                <Ect />
-                <div className={styles.message}>
-                  나의 장르는 최대 5개까지 선택 가능합니다.
-                </div>
-              </div>
-            </div>
-          ) : (
-            <></>
-          )}
+          <ToastMsg
+            isOpen={isGenreFull}
+            setIsOpen={setIsGenreFull}
+            msg="나의 장르는 최대 5개까지 선택 가능합니다."
+          />
 
-          {isHashTagFull ? (
-            <div className={styles.toastMessageBox}>
-              <div className={`${styles.toastMessage} ${fonts.body2_Regular}`}>
-                <Ect />
-                <div className={styles.message}>
-                  해시태그는 최대 3개까지 선택 가능합니다.
-                </div>
-              </div>
-            </div>
-          ) : (
-            <></>
-          )}
+          <ToastMsg
+            isOpen={isHashTagFull}
+            setIsOpen={setIsHashTagFull}
+            msg=" 해시태그는 최대 3개까지 선택 가능합니다."
+          />
 
           <div className={styles.bottom}>
             <div className={buttonStyles.buttonSpace}>
@@ -529,7 +532,9 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               isLocationChecked &&
               isClassLevelChecked &&
               isClassFeeChecked &&
-              isClassAdmitChecked ? (
+              isClassAdmitChecked &&
+              isLinkChecked &&
+              isVideoChecked ? (
                 <button
                   className={`${buttonStyles.CTA_Large} ${buttonStyles.before} ${fonts.body1_SemiBold}`}
                 >

@@ -279,6 +279,10 @@
 }
 
 /*profile-upload: award*/
+.awardBetween {
+  margin-top: 14px;
+}
+
 .addAward {
   height: 50px;
   margin-top: 20px;

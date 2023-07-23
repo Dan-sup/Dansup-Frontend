@@ -42,12 +42,17 @@ export default function Class() {
                               e.currentTarget.name ==
                               data.danceClassId.toString()
                             ) {
+                              console.log(e.currentTarget.name);
                               setIsBtnOpenList([
-                                isBtnOpenList[data.danceClassId],
+                                isBtnOpenList[data.danceClassId] ==
+                                  !isBtnOpenList[data.danceClassId],
                                 ...isBtnOpenList,
                               ]);
                             } else {
-                              setIsBtnOpenList([false, ...isBtnOpenList]);
+                              setIsBtnOpenList([
+                                isBtnOpenList[data.danceClassId] == false,
+                                ...isBtnOpenList,
+                              ]);
                             }
                           }}
                           name={data.danceClassId.toString()}

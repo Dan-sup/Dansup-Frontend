@@ -6,7 +6,6 @@ import fonts from '../../styles/typography.module.css';
 import buttonStyles from '../../styles/Button.module.css';
 import BlankImage from '../../../public/icons/blank-image.svg';
 import Plus from '../../../public/icons/plus.svg';
-import Ect from '../../../public/icons/ETC.svg';
 import {
   IUploadFile,
   IAwardList,
@@ -16,6 +15,7 @@ import {
 import UploadVideo from '../../components/upload/UploadVideo';
 import DanceGenre from '@/components/upload/DanceGenre';
 import HashTag from '@/components/upload/HashTag';
+import ToastMsg from '@/components/upload/ToastMsg';
 import BasicHeader from '@/components/common/Header/BasicHeader';
 
 export default function ProfileUpload() {
@@ -225,6 +225,7 @@ export default function ProfileUpload() {
           </div>
           <div className={styles.box}>
             <UploadVideo
+              isImportant={false}
               video={video}
               setVideo={setVideo}
               title="대표 영상 업로드"
@@ -303,7 +304,10 @@ export default function ProfileUpload() {
               공연 및 활동경력
             </div>
             {awardList.map((item, idx) => (
-              <div className={styles.row_Between} key={idx}>
+              <div
+                className={`${styles.row_Between} ${styles.awardBetween}`}
+                key={idx}
+              >
                 <input
                   className={`${styles.input} ${styles.short} ${fonts.body2_Regular}`}
                   placeholder="2023.01.01"
@@ -332,31 +336,17 @@ export default function ProfileUpload() {
           </div>
         </div>
 
-        {isGenreFull ? (
-          <div className={styles.toastMessageBox}>
-            <div className={`${styles.toastMessage} ${fonts.body2_Regular}`}>
-              <Ect />
-              <div className={styles.message}>
-                나의 장르는 최대 3개까지 선택 가능합니다.
-              </div>
-            </div>
-          </div>
-        ) : (
-          <></>
-        )}
+        <ToastMsg
+          isOpen={isGenreFull}
+          setIsOpen={setIsGenreFull}
+          msg="나의 장르는 최대 3개까지 선택 가능합니다."
+        />
 
-        {isHashTagFull ? (
-          <div className={styles.toastMessageBox}>
-            <div className={`${styles.toastMessage} ${fonts.body2_Regular}`}>
-              <Ect />
-              <div className={styles.message}>
-                해시태그는 최대 3개까지 선택 가능합니다.
-              </div>
-            </div>
-          </div>
-        ) : (
-          <></>
-        )}
+        <ToastMsg
+          isOpen={isHashTagFull}
+          setIsOpen={setIsHashTagFull}
+          msg=" 해시태그는 최대 3개까지 선택 가능합니다."
+        />
 
         <div className={styles.bottom}>
           <div className={buttonStyles.buttonSpace}>
