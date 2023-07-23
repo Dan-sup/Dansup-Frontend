@@ -60,7 +60,7 @@ export default function Class() {
                       </div>
                       <div className={styles.classDate}>
                         <Date className={styles.icon} />
-                        {data.method} {data.date}
+                        {data.method} · {data.date}
                       </div>
                     </div>
                   </div>

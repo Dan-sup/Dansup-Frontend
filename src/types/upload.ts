@@ -33,3 +33,8 @@ export interface IClassDayList {
   id: number;
   day: string;
 }
+
+export interface ILocationList {
+  id: number;
+  location: string;
+}
