@@ -1,11 +1,11 @@
 import { useRef } from 'react';
 import fonts from '../../styles/typography.module.css';
 import styles from '../../styles/UploadPage.module.css';
-import { IGenreList } from '@/types/upload';
+import { IList } from '@/types/upload';
 
 interface danceGenreProps {
-  list: IGenreList[];
-  setList: React.Dispatch<React.SetStateAction<IGenreList[]>>;
+  list: IList[];
+  setList: React.Dispatch<React.SetStateAction<IList[]>>;
   isFull: boolean;
   setIsFull: React.Dispatch<React.SetStateAction<boolean>>;
   limit: number;
@@ -46,11 +46,11 @@ export default function DanceGenre({
   const handleChangeGenre = (e: any) => {
     const newItem = {
       id: nextId.current,
-      genre: e.target.value,
+      name: e.target.value,
     };
 
-    if (list.filter(item => item.genre == e.target.value).length !== 0) {
-      setList(list.filter(item => item.genre !== e.target.value));
+    if (list.filter(item => item.name == e.target.value).length !== 0) {
+      setList(list.filter(item => item.name !== e.target.value));
       setIsFull(false);
     } else {
       if (list.length < limit) {
@@ -64,14 +64,14 @@ export default function DanceGenre({
   };
 
   return (
-    <div className={`${styles.clickedBox} ${fonts.body2_Regular}`}>
+    <div className={styles.clickedBox}>
       {genreList.map(data => {
-        if (list.filter(item => item.genre == data.name).length == 1) {
+        if (list.filter(item => item.name == data.name).length == 1) {
           return (
             <>
               {data.isShort ? (
                 <button
-                  className={`${styles.genreBox} ${styles.clickedAfterBox} ${styles.shortBox}`}
+                  className={`${styles.genreBox} ${styles.clickedAfterBox} ${styles.shortBox} ${fonts.body2_Regular}`}
                   key={data.id}
                   onClick={handleChangeGenre}
                   value={data.name}
@@ -80,7 +80,7 @@ export default function DanceGenre({
                 </button>
               ) : (
                 <button
-                  className={`${styles.genreBox} ${styles.clickedAfterBox} ${styles.longBox}`}
+                  className={`${styles.genreBox} ${styles.clickedAfterBox} ${styles.longBox} ${fonts.body2_Regular}`}
                   key={data.id}
                   onClick={handleChangeGenre}
                   value={data.name}
@@ -95,7 +95,7 @@ export default function DanceGenre({
             <>
               {data.isShort ? (
                 <button
-                  className={`${styles.genreBox} ${styles.clickedBeforeBox} ${styles.shortBox}`}
+                  className={`${styles.genreBox} ${styles.clickedBeforeBox} ${styles.shortBox}  ${fonts.body2_Regular}`}
                   key={data.id}
                   onClick={handleChangeGenre}
                   value={data.name}
@@ -104,7 +104,7 @@ export default function DanceGenre({
                 </button>
               ) : (
                 <button
-                  className={`${styles.genreBox} ${styles.clickedBeforeBox} ${styles.longBox}`}
+                  className={`${styles.genreBox} ${styles.clickedBeforeBox} ${styles.longBox}  ${fonts.body2_Regular}`}
                   key={data.id}
                   onClick={handleChangeGenre}
                   value={data.name}

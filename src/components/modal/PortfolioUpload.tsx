@@ -36,6 +36,7 @@ export default function PortfolioUpload({
           </div>
           <div className={styles.box}>
             <UploadVideo
+              isImportant={false}
               video={video}
               setVideo={setVideo}
               title="영상 파일 업로드"

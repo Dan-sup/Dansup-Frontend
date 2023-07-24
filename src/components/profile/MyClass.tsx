@@ -13,6 +13,10 @@ export default function Class() {
   return (
     <div className={styles.container}>
       {classes.map((data, idx) => {
+        let location = data.location.substring(
+          0,
+          data.location.indexOf('구 ') + 1,
+        );
         return (
           <>
             {data.title.length == 0 ? (
@@ -42,12 +46,14 @@ export default function Class() {
                               e.currentTarget.name ==
                               data.danceClassId.toString()
                             ) {
-                              setIsBtnOpenList([
-                                isBtnOpenList[data.danceClassId],
-                                ...isBtnOpenList,
-                              ]);
+                              console.log(isBtnOpenList[data.danceClassId]);
+                              isBtnOpenList[Number(e.currentTarget.name)] ==
+                                true;
+                              setIsBtnOpenList([...isBtnOpenList]);
                             } else {
-                              setIsBtnOpenList([false, ...isBtnOpenList]);
+                              isBtnOpenList[Number(e.currentTarget.name)] ==
+                                false;
+                              setIsBtnOpenList([...isBtnOpenList]);
                             }
                           }}
                           name={data.danceClassId.toString()}
@@ -88,11 +94,11 @@ export default function Class() {
                     <div className={styles.classDetail}>
                       <div className={styles.classLocation}>
                         <Location className={styles.icon} />
-                        {data.location}
+                        {location}
                       </div>
                       <div className={styles.classDate}>
                         <Date className={styles.icon} />
-                        {data.method} {data.date}
+                        {data.method} · {data.date}
                       </div>
                     </div>
                   </div>

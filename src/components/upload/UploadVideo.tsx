@@ -9,12 +9,14 @@ interface uploadVideoProps {
   video: IUploadFile | null;
   setVideo: React.Dispatch<React.SetStateAction<IUploadFile | null>>;
   title: string;
+  isImportant: boolean;
 }
 
 export default function UploadVideo({
   video,
   setVideo,
   title,
+  isImportant,
 }: uploadVideoProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isClicked, setIsClicked] = useState<boolean>(false);
@@ -69,9 +71,18 @@ export default function UploadVideo({
       {isVideo ? (
         <>
           <div className={styles.row_Between}>
-            <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
-              {title}
-            </div>
+            {isImportant ? (
+              <div className={styles.row}>
+                <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                  {title}
+                </div>
+                <div className={styles.pointText}>*</div>
+              </div>
+            ) : (
+              <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                {title}
+              </div>
+            )}
             <div className={styles.dot} onClick={onClickFileDelete}>
               <Dot />
             </div>
@@ -98,9 +109,18 @@ export default function UploadVideo({
       ) : (
         <>
           <>
-            <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
-              {title}
-            </div>
+            {isImportant ? (
+              <div className={styles.row}>
+                <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                  {title}
+                </div>
+                <div className={styles.pointText}>*</div>
+              </div>
+            ) : (
+              <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                {title}
+              </div>
+            )}
           </>
           <>
             {showVideo}
