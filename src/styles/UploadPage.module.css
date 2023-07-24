@@ -530,10 +530,13 @@
   margin-top: 14px;
 }
 
+.filterInputList {
+  margin-top: 16px;
+}
+
 .reset {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
   width: 100%;
   color: var(--color-gray-200);
   cursor: pointer;

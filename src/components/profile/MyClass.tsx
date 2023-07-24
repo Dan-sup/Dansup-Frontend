@@ -6,9 +6,17 @@ import Date from '../../../public/icons/date.svg';
 import Location from '../../../public/icons/location.svg';
 import Dot from '../../../public/icons/dot.svg';
 
+type IOpenList = {
+  isBtnOpen: boolean;
+};
+
 export default function Class() {
   const classes = myData.class;
-  const [isBtnOpenList, setIsBtnOpenList] = useState<boolean[]>([]);
+  const [isBtnOpenList, setIsBtnOpenList] = useState<IOpenList[]>([
+    {
+      isBtnOpen: false,
+    },
+  ]);
 
   return (
     <div className={styles.container}>
@@ -46,21 +54,30 @@ export default function Class() {
                               e.currentTarget.name ==
                               data.danceClassId.toString()
                             ) {
-                              console.log(isBtnOpenList[data.danceClassId]);
-                              isBtnOpenList[Number(e.currentTarget.name)] ==
-                                true;
-                              setIsBtnOpenList([...isBtnOpenList]);
+                              const newItem = {
+                                isBtnOpen:
+                                  !isBtnOpenList[data.danceClassId]?.isBtnOpen,
+                              };
+                              setIsBtnOpenList([...isBtnOpenList, newItem]);
+                              console.log(e.currentTarget.value);
+                              console.log(data.danceClassId);
+                              console.log(newItem);
                             } else {
-                              isBtnOpenList[Number(e.currentTarget.name)] ==
-                                false;
-                              setIsBtnOpenList([...isBtnOpenList]);
+                              const newItem = {
+                                isBtnOpen:
+                                  isBtnOpenList[data.danceClassId]?.isBtnOpen,
+                              };
+                              setIsBtnOpenList([...isBtnOpenList, newItem]);
+                              console.log(e.currentTarget.value);
+                              console.log(data.danceClassId);
+                              console.log(newItem);
                             }
                           }}
                           name={data.danceClassId.toString()}
                         >
                           <Dot />
                         </button>
-                        {isBtnOpenList[data.danceClassId] ? (
+                        {isBtnOpenList[data.danceClassId]?.isBtnOpen ? (
                           <div className={styles.classBtnBox}>
                             <button
                               className={`${styles.upBtn} ${styles.classBtn} ${fonts.body2_SemiBold}`}
