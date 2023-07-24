@@ -46,13 +46,14 @@ export default function Class() {
                               e.currentTarget.name ==
                               data.danceClassId.toString()
                             ) {
-                              console.log(e.currentTarget.name);
-                              setIsBtnOpenList([
-                                !isBtnOpenList[data.danceClassId],
-                                ...isBtnOpenList,
-                              ]);
+                              console.log(isBtnOpenList[data.danceClassId]);
+                              isBtnOpenList[Number(e.currentTarget.name)] ==
+                                true;
+                              setIsBtnOpenList([...isBtnOpenList]);
                             } else {
-                              setIsBtnOpenList([false, ...isBtnOpenList]);
+                              isBtnOpenList[Number(e.currentTarget.name)] ==
+                                false;
+                              setIsBtnOpenList([...isBtnOpenList]);
                             }
                           }}
                           name={data.danceClassId.toString()}
