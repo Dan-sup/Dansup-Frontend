@@ -1,15 +1,15 @@
 import { useState } from 'react';
-import fonts from '../../../styles/typography.module.css';
-import styles from '../../../styles/Profile.module.css';
+import fonts from '../../styles/typography.module.css';
+import styles from '../../styles/Profile.module.css';
 import ClassUpload from '@/components/modal/ClassUpload';
 import PortfolioUpload from '@/components/modal/PortfolioUpload';
 import Portfolio from '@/components/profile/MyPortfolio';
 import Class from '@/components/profile/MyClass';
-import myData from '../../../jsons/myData.json';
-import FloatingBtn from '../../../../public/icons/floating-btn.svg';
-import PortfolioBtn from '../../../../public/icons/portfolio-upload.svg';
-import ClassBtn from '../../../../public/icons/class-upload.svg';
-import BlankImage from '../../../../public/icons/blank-image.svg';
+import myData from '../../jsons/myData.json';
+import FloatingBtn from '../../../public/icons/floating-btn.svg';
+import PortfolioBtn from '../../../public/icons/portfolio-upload.svg';
+import ClassBtn from '../../../public/icons/class-upload.svg';
+import BlankImage from '../../../public/icons/blank-image.svg';
 import Image from 'next/image';
 
 export default function MyPage() {
