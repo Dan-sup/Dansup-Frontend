@@ -1,0 +1,22 @@
+.descriptionBox {
+  width: 100%;
+
+  margin-bottom: 24px;
+}
+
+.descriptionBox:last-child {
+  /*last-child !!*/
+  width: 100%;
+
+  margin-bottom: 0px;
+}
+
+.title {
+  color: var(--color-gray-300);
+
+  margin-bottom: 8px;
+}
+
+.text {
+  color: var(--color-gray-100);
+}
