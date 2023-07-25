@@ -6,13 +6,25 @@ import Date from '../../../public/icons/date.svg';
 import Location from '../../../public/icons/location.svg';
 import Dot from '../../../public/icons/dot.svg';
 
+type IOpenList = {
+  isBtnOpen: boolean;
+};
+
 export default function Class() {
   const classes = myData.class;
-  const [isBtnOpenList, setIsBtnOpenList] = useState<boolean[]>([]);
+  const [isBtnOpenList, setIsBtnOpenList] = useState<IOpenList[]>([
+    {
+      isBtnOpen: false,
+    },
+  ]);
 
   return (
     <div className={styles.container}>
       {classes.map((data, idx) => {
+        let location = data.location.substring(
+          0,
+          data.location.indexOf('구 ') + 1,
+        );
         return (
           <>
             {data.title.length == 0 ? (
@@ -42,19 +54,30 @@ export default function Class() {
                               e.currentTarget.name ==
                               data.danceClassId.toString()
                             ) {
-                              setIsBtnOpenList([
-                                isBtnOpenList[data.danceClassId],
-                                ...isBtnOpenList,
-                              ]);
+                              const newItem = {
+                                isBtnOpen:
+                                  !isBtnOpenList[data.danceClassId]?.isBtnOpen,
+                              };
+                              setIsBtnOpenList([...isBtnOpenList, newItem]);
+                              console.log(e.currentTarget.value);
+                              console.log(data.danceClassId);
+                              console.log(newItem);
                             } else {
-                              setIsBtnOpenList([false, ...isBtnOpenList]);
+                              const newItem = {
+                                isBtnOpen:
+                                  isBtnOpenList[data.danceClassId]?.isBtnOpen,
+                              };
+                              setIsBtnOpenList([...isBtnOpenList, newItem]);
+                              console.log(e.currentTarget.value);
+                              console.log(data.danceClassId);
+                              console.log(newItem);
                             }
                           }}
                           name={data.danceClassId.toString()}
                         >
                           <Dot />
                         </button>
-                        {isBtnOpenList[data.danceClassId] ? (
+                        {isBtnOpenList[data.danceClassId]?.isBtnOpen ? (
                           <div className={styles.classBtnBox}>
                             <button
                               className={`${styles.upBtn} ${styles.classBtn} ${fonts.body2_SemiBold}`}
@@ -88,11 +111,11 @@ export default function Class() {
                     <div className={styles.classDetail}>
                       <div className={styles.classLocation}>
                         <Location className={styles.icon} />
-                        {data.location}
+                        {location}
                       </div>
                       <div className={styles.classDate}>
                         <Date className={styles.icon} />
-                        {data.method} {data.date}
+                        {data.method} · {data.date}
                       </div>
                     </div>
                   </div>

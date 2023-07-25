@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import styles from '../styles/components/FilterBar.module.css';
 import typoStyles from '../styles/typography.module.css';
 import FilterIcon from '../../public/icons/filter.svg';
+import Filter from './modal/Filter';
 
 interface FilterBarProps {
   isFilterOn?: boolean;
@@ -8,6 +10,19 @@ interface FilterBarProps {
 
 //나중에 쓰기
 export default function FilterBar({ isFilterOn }: FilterBarProps) {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  /*modal*/
+  const openModal = () => {
+    setIsModalOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    document.body.style.overflow = 'unset';
+  };
+
   return (
     <>
       {!isFilterOn ? (
@@ -15,9 +30,10 @@ export default function FilterBar({ isFilterOn }: FilterBarProps) {
           <div className={`${styles.barText} ${typoStyles.body1_SemiBold}`}>
             최근 업로드 된 수업
           </div>
-          <div className={styles.filterIcon}>
+          <button className={styles.filterIcon} onClick={openModal}>
             <FilterIcon />
-          </div>
+          </button>
+          <Filter isOpen={isModalOpen} closeModal={closeModal} />
         </div>
       ) : (
         <>
@@ -31,10 +47,12 @@ export default function FilterBar({ isFilterOn }: FilterBarProps) {
               </span>
               건
             </div>
-            <div className={styles.filterIcon}>
+            <button className={styles.filterIcon} onClick={openModal}>
               <FilterIcon />
-            </div>
+            </button>
+            <Filter isOpen={isModalOpen} closeModal={closeModal} />
           </div>
+
           <div className={styles.appliedFiltersBox}></div>
         </>
       )}

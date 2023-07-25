@@ -4,18 +4,11 @@ import Close from '../../../public/icons/close.svg';
 import IndicatorFirst from '../../../public/icons/indicator-first.svg';
 import IndicatorSecond from '../../../public/icons/indicator-second.svg';
 import IndicatorThird from '../../../public/icons/indicator-third.svg';
-import Ect from '../../../public/icons/ETC.svg';
 import fonts from '../../styles/typography.module.css';
 import buttonStyles from '../../styles/Button.module.css';
 import modalStyles from '../../styles/Modal.module.css';
 import styles from '../../styles/UploadPage.module.css';
-import {
-  IClassDayList,
-  IGenreList,
-  IHashTagList,
-  ILocation,
-  IUploadFile,
-} from '@/types/upload';
+import { IList, IUploadFile, IGenreList } from '@/types/upload';
 import DanceGenre from '../upload/DanceGenre';
 import DaumPostcode, { Address } from 'react-daum-postcode';
 import HashTag from '../upload/HashTag';
@@ -24,7 +17,10 @@ import UploadVideo from '../upload/UploadVideo';
 import ClassDate from '../upload/ClassDate';
 import ClassDay from '../upload/ClassDay';
 import ClassTime from '../upload/ClassTime';
+import ToastMsg from '../upload/ToastMsg';
 import { levelList, wayList } from '@/data/class-data';
+import { postClassInfo } from '@/apis/class';
+import { useMutation } from '@tanstack/react-query';
 
 interface classUploadProps {
   isOpen: boolean;
@@ -34,33 +30,40 @@ interface classUploadProps {
 export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const [titleCount, setTitleCount] = useState<number>(0);
   const [title, setTitle] = useState<string>('');
-  const [genreList, setGenreList] = useState<IGenreList[]>([
-    { id: 0, genre: '' },
-  ]);
+  const [genreList, setGenreList] = useState<IGenreList[]>([{ genre: '' }]);
   const [isGenreFull, setIsGenreFull] = useState<boolean>(false);
-  const [isFull, setIsFull] = useState<boolean>(false);
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [hashTag, setHashTag] = useState<string>('');
-  const [hashTagList, setHashTagList] = useState<IHashTagList[]>([
-    { id: 0, hashTag: '' },
+  const [hashTagList, setHashTagList] = useState<IList[]>([
+    { id: 0, name: '' },
   ]);
   const [isHashTagFull, setIsHashTagFull] = useState<boolean>(false);
   const [classContent, setClassContent] = useState<string>('');
   const [classUser, setClassUser] = useState<string>('');
   const [classIntro, setClassIntro] = useState<string>('');
-  const [location, setLocation] = useState<ILocation>({ address: '' });
+  const [location, setLocation] = useState<IList>({ id: 0, name: '' });
   const [isOpenLocation, setIsOpenLocation] = useState<boolean>(false);
   const [classLevel, setClassLevel] = useState<string>('');
   const [classFee, setClassFee] = useState<string>();
   const [classAdmit, setClassAdmit] = useState<string>();
   const [classSong, setClassSong] = useState<string>('');
+  const [selectWayClickIndex, setSelectWayClickIndex] = useState<number>(5);
+  const [selectLevelClickIndex, setSelectLevelClickIndex] = useState<number>(5);
   const [classWay, setClassWay] = useState<string>('');
   const [classDate, setClassDate] = useState<string>('');
   const [startTime, setStartTime] = useState<string>('');
   const [endTime, setEndTime] = useState<string>('');
-  const [classDayList, setClassDayList] = useState<IClassDayList[]>([
-    { id: 0, day: '' },
+  const [classDayList, setClassDayList] = useState<IList[]>([
+    { id: 0, name: '' },
   ]);
+  const [monday, setMonday] = useState<boolean>(false);
+  const [tuesday, setTuesday] = useState<boolean>(false);
+  const [wednesday, setWednesday] = useState<boolean>(false);
+  const [thursday, setThursday] = useState<boolean>(false);
+  const [friday, setFriday] = useState<boolean>(false);
+  const [saturday, setSaturday] = useState<boolean>(false);
+  const [sunday, setSunday] = useState<boolean>(false);
+
   const [video, setVideo] = useState<IUploadFile | null>(null);
   const [classLink, setClassLink] = useState<string>('');
 
@@ -73,6 +76,8 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const [isClassFeeChecked, setIsClassFeeChecked] = useState<boolean>(false);
   const [isClassAdmitChecked, setIsClassAdmitChecked] =
     useState<boolean>(false);
+  const [isLinkChecked, setIsLinkChecked] = useState<boolean>(false);
+  const [isVideoChecked, setIsVideoChecked] = useState<boolean>(false);
 
   //수업 제목
   const handleChangeTitle = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -122,7 +127,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
       }
       fullAddress += extraAddress !== '' ? `${extraAddress}` : '';
     }
-    setLocation({ ...location, address: fullAddress });
+    setLocation({ ...location, name: fullAddress });
     setIsLocationChecked(true);
     setIsOpenLocation(false);
     document.body.style.overflow = 'unset';
@@ -170,6 +175,11 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const handleChangeClassLink = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const currentClassLink = e.target.value;
     setClassLink(currentClassLink);
+    if (currentClassLink !== '') {
+      setIsLinkChecked(true);
+    } else {
+      setIsLinkChecked(false);
+    }
   };
 
   //GenreList & ClassLevel check
@@ -185,7 +195,85 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
     } else {
       setIsClassLevelChecked(false);
     }
-  }, [genreList, classLevel]);
+
+    if (video !== null) {
+      setIsVideoChecked(true);
+    } else {
+      setIsVideoChecked(false);
+    }
+
+    if (classDayList.filter(item => item.name == '월').length !== 0) {
+      setMonday(true);
+    }
+
+    if (classDayList.filter(item => item.name == '화').length !== 0) {
+      setTuesday(true);
+    }
+
+    if (classDayList.filter(item => item.name == '수').length !== 0) {
+      setWednesday(true);
+    }
+
+    if (classDayList.filter(item => item.name == '목').length !== 0) {
+      setThursday(true);
+    }
+
+    if (classDayList.filter(item => item.name == '금').length !== 0) {
+      setFriday(true);
+    }
+
+    if (classDayList.filter(item => item.name == '토').length !== 0) {
+      setSaturday(true);
+    }
+
+    if (classDayList.filter(item => item.name == '일').length !== 0) {
+      setSunday(true);
+    }
+  }, [genreList, classLevel, video, classDayList]);
+
+  //api
+  const classUploadMutation = useMutation(postClassInfo, {
+    onSuccess: data => {
+      alert('수업이 업로드되었습니다.');
+      closeModal;
+    },
+    onError: error => {
+      alert('수업 업로드에 실패하였습니다.');
+    },
+  });
+
+  const handleSubmit = () => {
+    classUploadMutation.mutate({
+      date: classDate,
+      days: {
+        monday: monday,
+        tuesday: tuesday,
+        wednesday: wednesday,
+        thursday: thursday,
+        friday: friday,
+        saturday: saturday,
+        sunday: sunday,
+      },
+      detail1: classContent,
+      detail2: classUser,
+      detail3: classIntro,
+      difficulty: classLevel,
+      endTime: endTime,
+      genre: [genreList],
+      hashTag1: hashTagList[0],
+      hashTag2: hashTagList[1],
+      hashTag3: hashTagList[2],
+      location: location,
+      maxPeople: classAdmit,
+      method: classWay,
+      reserveLink: classLink,
+      song: classSong,
+      startTime: startTime,
+      title: title,
+      tuition: classFee,
+      videoFile: video,
+    });
+  };
 
   return (
     <div style={{ display: isOpen ? 'block' : 'none' }}>
@@ -347,7 +435,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                   placeholder="수업 장소를 입력해주세요"
                   type="text"
                   onClick={openLocationModal}
-                  defaultValue={location.address}
+                  defaultValue={location.name}
                 />
               </div>
               <div className={styles.box}>
@@ -359,6 +447,8 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                   list={levelList}
                   votedItem={classLevel}
                   setVotedItem={setClassLevel}
+                  clickIndex={selectLevelClickIndex}
+                  setClickIndex={setSelectLevelClickIndex}
                 />
               </div>
               <div className={styles.box}>
@@ -424,6 +514,8 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                   list={wayList}
                   votedItem={classWay}
                   setVotedItem={setClassWay}
+                  clickIndex={selectWayClickIndex}
+                  setClickIndex={setSelectWayClickIndex}
                 />
               </div>
               {classWay !== '' ? (
@@ -472,8 +564,11 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                 수업 소개 영상 & 예약 링크를 업로드해주세요
               </div>
               <div className={styles.box}>
-                <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
-                  예약 링크
+                <div className={styles.row}>
+                  <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                    예약 링크
+                  </div>
+                  <div className={styles.pointText}>*</div>
                 </div>
                 <div className={`${styles.detailText} ${fonts.body2_Regular}`}>
                   구글폼, 네이버 예약 등 수업 예약 URL을 첨부해주세요
@@ -488,6 +583,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               </div>
               <div className={styles.box}>
                 <UploadVideo
+                  isImportant={true}
                   video={video}
                   setVideo={setVideo}
                   title="소개 영상 업로드"
@@ -496,31 +592,17 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
             </div>
           </div>
 
-          {isGenreFull ? (
-            <div className={styles.toastMessageBox}>
-              <div className={`${styles.toastMessage} ${fonts.body2_Regular}`}>
-                <Ect />
-                <div className={styles.message}>
-                  나의 장르는 최대 5개까지 선택 가능합니다.
-                </div>
-              </div>
-            </div>
-          ) : (
-            <></>
-          )}
+          <ToastMsg
+            isOpen={isGenreFull}
+            setIsOpen={setIsGenreFull}
+            msg="나의 장르는 최대 5개까지 선택 가능합니다."
+          />
 
-          {isHashTagFull ? (
-            <div className={styles.toastMessageBox}>
-              <div className={`${styles.toastMessage} ${fonts.body2_Regular}`}>
-                <Ect />
-                <div className={styles.message}>
-                  해시태그는 최대 3개까지 선택 가능합니다.
-                </div>
-              </div>
-            </div>
-          ) : (
-            <></>
-          )}
+          <ToastMsg
+            isOpen={isHashTagFull}
+            setIsOpen={setIsHashTagFull}
+            msg=" 해시태그는 최대 3개까지 선택 가능합니다."
+          />
 
           <div className={styles.bottom}>
             <div className={buttonStyles.buttonSpace}>
@@ -529,14 +611,18 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               isLocationChecked &&
               isClassLevelChecked &&
               isClassFeeChecked &&
-              isClassAdmitChecked ? (
+              isClassAdmitChecked &&
+              isLinkChecked &&
+              isVideoChecked ? (
                 <button
+                  onClick={handleSubmit}
                   className={`${buttonStyles.CTA_Large} ${buttonStyles.before} ${fonts.body1_SemiBold}`}
                 >
                   수업 올리기
                 </button>
               ) : (
                 <button
+                  onClick={handleSubmit}
                   className={`${buttonStyles.CTA_Large} ${buttonStyles.after} ${fonts.body1_SemiBold}`}
                 >
                   수업 올리기

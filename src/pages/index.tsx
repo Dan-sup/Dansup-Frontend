@@ -9,9 +9,22 @@ import styles from '../styles/HomePage.module.css';
 import FilterBar from '@/components/FilterBar';
 import filterBarStyles from '../styles/components/FilterBar.module.css';
 import ClassCard from '@/components/ClassCard';
+import Filter from '../components/modal/Filter';
 
 export default function HomePage() {
   const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  /*modal*/
+  const openModal = () => {
+    setIsModalOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    document.body.style.overflow = 'unset';
+  };
 
   //api 로직 가져와서 사용하기
   /*
@@ -70,9 +83,10 @@ export default function HomePage() {
             >
               최근 업로드 된 수업
             </div>
-            <div className={filterBarStyles.filterIcon}>
+            <button className={styles.filterIcon} onClick={openModal}>
               <FilterIcon />
-            </div>
+            </button>
+            <Filter isOpen={isModalOpen} closeModal={closeModal} />
           </div>
         ) : (
           <>
@@ -89,9 +103,10 @@ export default function HomePage() {
                 건
               </div>
               {/* filteredClassList.length */}
-              <div className={filterBarStyles.filterIcon}>
+              <button className={styles.filterIcon} onClick={openModal}>
                 <FilterIcon />
-              </div>
+              </button>
+              <Filter isOpen={isModalOpen} closeModal={closeModal} />
             </div>
             <div className={filterBarStyles.appliedFiltersBox}></div>
           </>
