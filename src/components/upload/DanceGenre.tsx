@@ -1,11 +1,10 @@
-import { useRef } from 'react';
 import fonts from '../../styles/typography.module.css';
 import styles from '../../styles/UploadPage.module.css';
-import { IList } from '@/types/upload';
+import { IGenreList } from '@/types/upload';
 
 interface danceGenreProps {
-  list: IList[];
-  setList: React.Dispatch<React.SetStateAction<IList[]>>;
+  list: IGenreList[];
+  setList: React.Dispatch<React.SetStateAction<IGenreList[]>>;
   isFull: boolean;
   setIsFull: React.Dispatch<React.SetStateAction<boolean>>;
   limit: number;
@@ -41,22 +40,18 @@ export default function DanceGenre({
     { id: 18, name: '기타', isShort: true },
   ];
 
-  const nextId = useRef<number>(1);
-
   const handleChangeGenre = (e: any) => {
     const newItem = {
-      id: nextId.current,
-      name: e.target.value,
+      genre: e.target.value,
     };
 
-    if (list.filter(item => item.name == e.target.value).length !== 0) {
-      setList(list.filter(item => item.name !== e.target.value));
+    if (list.filter(item => item.genre == e.target.value).length !== 0) {
+      setList(list.filter(item => item.genre !== e.target.value));
       setIsFull(false);
     } else {
       if (list.length < limit) {
         setList([...list, newItem]);
         setIsFull(false);
-        nextId.current += 1;
       } else {
         setIsFull(true);
       }
@@ -66,7 +61,7 @@ export default function DanceGenre({
   return (
     <div className={styles.clickedBox}>
       {genreList.map(data => {
-        if (list.filter(item => item.name == data.name).length == 1) {
+        if (list.filter(item => item.genre == data.name).length == 1) {
           return (
             <>
               {data.isShort ? (

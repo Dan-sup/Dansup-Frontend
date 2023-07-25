@@ -8,7 +8,7 @@ import fonts from '../../styles/typography.module.css';
 import buttonStyles from '../../styles/Button.module.css';
 import modalStyles from '../../styles/Modal.module.css';
 import styles from '../../styles/UploadPage.module.css';
-import { IList, IUploadFile } from '@/types/upload';
+import { IList, IUploadFile, IGenreList } from '@/types/upload';
 import DanceGenre from '../upload/DanceGenre';
 import DaumPostcode, { Address } from 'react-daum-postcode';
 import HashTag from '../upload/HashTag';
@@ -19,6 +19,8 @@ import ClassDay from '../upload/ClassDay';
 import ClassTime from '../upload/ClassTime';
 import ToastMsg from '../upload/ToastMsg';
 import { levelList, wayList } from '@/data/class-data';
+import { postClassInfo } from '@/apis/class';
+import { useMutation } from '@tanstack/react-query';
 
 interface classUploadProps {
   isOpen: boolean;
@@ -28,7 +30,7 @@ interface classUploadProps {
 export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const [titleCount, setTitleCount] = useState<number>(0);
   const [title, setTitle] = useState<string>('');
-  const [genreList, setGenreList] = useState<IList[]>([{ id: 0, name: '' }]);
+  const [genreList, setGenreList] = useState<IGenreList[]>([{ genre: '' }]);
   const [isGenreFull, setIsGenreFull] = useState<boolean>(false);
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [hashTag, setHashTag] = useState<string>('');
@@ -54,6 +56,14 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const [classDayList, setClassDayList] = useState<IList[]>([
     { id: 0, name: '' },
   ]);
+  const [monday, setMonday] = useState<boolean>(false);
+  const [tuesday, setTuesday] = useState<boolean>(false);
+  const [wednesday, setWednesday] = useState<boolean>(false);
+  const [thursday, setThursday] = useState<boolean>(false);
+  const [friday, setFriday] = useState<boolean>(false);
+  const [saturday, setSaturday] = useState<boolean>(false);
+  const [sunday, setSunday] = useState<boolean>(false);
+
   const [video, setVideo] = useState<IUploadFile | null>(null);
   const [classLink, setClassLink] = useState<string>('');
 
@@ -191,7 +201,79 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
     } else {
       setIsVideoChecked(false);
     }
-  }, [genreList, classLevel, video]);
+
+    if (classDayList.filter(item => item.name == '월').length !== 0) {
+      setMonday(true);
+    }
+
+    if (classDayList.filter(item => item.name == '화').length !== 0) {
+      setTuesday(true);
+    }
+
+    if (classDayList.filter(item => item.name == '수').length !== 0) {
+      setWednesday(true);
+    }
+
+    if (classDayList.filter(item => item.name == '목').length !== 0) {
+      setThursday(true);
+    }
+
+    if (classDayList.filter(item => item.name == '금').length !== 0) {
+      setFriday(true);
+    }
+
+    if (classDayList.filter(item => item.name == '토').length !== 0) {
+      setSaturday(true);
+    }
+
+    if (classDayList.filter(item => item.name == '일').length !== 0) {
+      setSunday(true);
+    }
+  }, [genreList, classLevel, video, classDayList]);
+
+  //api
+  const classUploadMutation = useMutation(postClassInfo, {
+    onSuccess: data => {
+      alert('수업이 업로드되었습니다.');
+      closeModal;
+    },
+    onError: error => {
+      alert('수업 업로드에 실패하였습니다.');
+    },
+  });
+
+  const handleSubmit = () => {
+    classUploadMutation.mutate({
+      date: classDate,
+      days: {
+        monday: monday,
+        tuesday: tuesday,
+        wednesday: wednesday,
+        thursday: thursday,
+        friday: friday,
+        saturday: saturday,
+        sunday: sunday,
+      },
+      detail1: classContent,
+      detail2: classUser,
+      detail3: classIntro,
+      difficulty: classLevel,
+      endTime: endTime,
+      genre: [genreList],
+      hashTag1: hashTagList[0],
+      hashTag2: hashTagList[1],
+      hashTag3: hashTagList[2],
+      location: location,
+      maxPeople: classAdmit,
+      method: classWay,
+      reserveLink: classLink,
+      song: classSong,
+      startTime: startTime,
+      title: title,
+      tuition: classFee,
+      videoFile: video,
+    });
+  };
 
   return (
     <div style={{ display: isOpen ? 'block' : 'none' }}>
@@ -533,12 +615,14 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               isLinkChecked &&
               isVideoChecked ? (
                 <button
+                  onClick={handleSubmit}
                   className={`${buttonStyles.CTA_Large} ${buttonStyles.before} ${fonts.body1_SemiBold}`}
                 >
                   수업 올리기
                 </button>
               ) : (
                 <button
+                  onClick={handleSubmit}
                   className={`${buttonStyles.CTA_Large} ${buttonStyles.after} ${fonts.body1_SemiBold}`}
                 >
                   수업 올리기
