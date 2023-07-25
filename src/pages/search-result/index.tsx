@@ -15,6 +15,7 @@ export default function SearchResultPage() {
   const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
   const [isClassBtnClicked, setIsClassBtnClicked] = useState<boolean>(true);
   const [isDancerBtnClicked, setIsDancerBtnClicked] = useState<boolean>(false);
+  const [isGenreIncluding, setIsGenreIncluding] = useState<boolean>(true);
 
   //api 로직 가져와서 사용하기
 
@@ -137,9 +138,9 @@ export default function SearchResultPage() {
           </>
         ) : (
           <div className={styles.classListBox}>
-            <DancerCard />
-            <DancerCard />
-            <DancerCard />
+            <DancerCard isGenreIncluding={true} />
+            <DancerCard isGenreIncluding={false} />
+            <DancerCard isGenreIncluding={true} />
           </div>
         )}
       </div>
