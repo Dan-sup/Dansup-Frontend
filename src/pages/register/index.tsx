@@ -6,7 +6,7 @@ import fonts from '../../styles/typography.module.css';
 import buttonStyles from '../../styles/Button.module.css';
 import BlankImage from '../../../public/icons/blank-image.svg';
 import Plus from '../../../public/icons/plus.svg';
-import { IUploadFile, IAwardList, IList } from '../../types/upload';
+import { IUploadFile, IAwardList, IList, IGenreList } from '../../types/upload';
 import UploadVideo from '../../components/upload/UploadVideo';
 import DanceGenre from '@/components/upload/DanceGenre';
 import HashTag from '@/components/upload/HashTag';
@@ -25,7 +25,7 @@ export default function ProfileUpload() {
     { id: 0, name: '' },
   ]);
   const [isHashTagFull, setIsHashTagFull] = useState<boolean>(false);
-  const [genreList, setGenreList] = useState<IList[]>([{ id: 0, name: '' }]);
+  const [genreList, setGenreList] = useState<IGenreList[]>([{ genre: '' }]);
   const [isGenreFull, setIsGenreFull] = useState<boolean>(false);
   const [awardList, setAwardList] = useState<IAwardList[]>([
     { id: 0, date: '', award: '' },
@@ -36,11 +36,10 @@ export default function ProfileUpload() {
   const [userIdMsg, setUserIdMsg] = useState<string>('');
   const [dancerNameMsg, setDancerNameMsg] = useState<string>('');
 
-  //우효성 검사 state (Checked => 형식, Valid => 중복)
+  //유효성 검사 state (Checked => 형식, Valid => 중복)
   const [isUserIdChecked, setIsUserIdChecked] = useState<boolean>(false);
   const [isdancerNameChecked, setIsDancerNameChecked] =
     useState<boolean>(false);
-  const [isUserIdValid, setIsUserIdValid] = useState<boolean>(false);
 
   //image 미리보기
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -58,6 +57,8 @@ export default function ProfileUpload() {
         thumnail: url,
         type: fileList[0].type.slice(0, 5),
       });
+      console.log(fileList); //!!!!!!!!!!!!!!
+      console.log(image); //!!!!!!!!!!!!!!
     }
   };
 
@@ -158,6 +159,27 @@ export default function ProfileUpload() {
     setAwardList(awardListsCopy);
   };
 
+  const handleSubmit = () => {
+    const formData = new FormData();
+    formData.append('signUpDto', {
+      username: '@younaring__',
+      nickname: dancerName,
+      intro: intro,
+      genres: [{ genre: '락킹' }, { genre: '왁킹' }, { genre: null }],
+      hashtag1: '#하이',
+      hashtag2: '#브이',
+      hashtag3: null,
+      portfolios: [
+        { date: '2020/03/06', detail: '20 대회 우승' },
+        { date: '2021/07/07', detail: '21 대회 우승' },
+      ],
+    });
+    formData.append('profileImage', image);
+    formData.append('profileVideo', video);
+
+    for (const keyValue of formData) console.log(keyValue);
+  };
+
   return (
     <>
       <BasicHeader type="register" />
@@ -179,6 +201,7 @@ export default function ProfileUpload() {
             이미지 업로드
           </button>
         </div>
+
         <div className={styles.inputList}>
           <div className={styles.box}>
             <div className={styles.row}>
@@ -198,6 +221,7 @@ export default function ProfileUpload() {
               {userIdMsg}
             </div>
           </div>
+
           <div className={styles.box}>
             <div className={styles.row}>
               <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
@@ -216,6 +240,7 @@ export default function ProfileUpload() {
               {dancerNameMsg}
             </div>
           </div>
+
           <div className={styles.box}>
             <UploadVideo
               isImportant={false}
@@ -224,6 +249,7 @@ export default function ProfileUpload() {
               title="대표 영상 업로드"
             />
           </div>
+
           <div className={styles.box}>
             <div className={styles.row_Between}>
               <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
@@ -239,10 +265,11 @@ export default function ProfileUpload() {
               placeholder="ex.저는 댄서경력 10년차 프로댄서입니다"
               value={intro}
               onChange={handleChangeIntro}
-              maxLength={80}
+              maxLength={79}
               cacheMeasurements
             />
           </div>
+
           <div className={styles.box}>
             <div className={styles.row_Between}>
               <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
@@ -283,6 +310,7 @@ export default function ProfileUpload() {
               </>
             )}
           </div>
+
           <HashTag
             hashTag={hashTag}
             setHashTag={setHashTag}
@@ -292,6 +320,7 @@ export default function ProfileUpload() {
             isFull={isHashTagFull}
             setIsFull={setIsHashTagFull}
           />
+
           <div className={styles.box}>
             <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
               공연 및 활동경력
@@ -346,6 +375,7 @@ export default function ProfileUpload() {
             {isUserIdChecked && isdancerNameChecked ? (
               <button
                 className={`${buttonStyles.CTA_Large} ${buttonStyles.before} ${fonts.body1_SemiBold}`}
+                onClick={handleSubmit}
               >
                 시작하기
               </button>
