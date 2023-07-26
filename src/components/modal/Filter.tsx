@@ -3,7 +3,7 @@ import styles from '../../styles/UploadPage.module.css';
 import modalStyles from '../../styles/Modal.module.css';
 import buttonStyles from '../../styles/Button.module.css';
 import fonts from '../../styles/typography.module.css';
-import { IList } from '@/types/upload';
+import { IList, IGenreList } from '@/types/upload';
 import DanceGenre from '@/components/upload/DanceGenre';
 import Select from '@/components/upload/Select';
 import ClassDay from '@/components/upload/ClassDay';
@@ -29,7 +29,7 @@ export default function Filter({ isOpen, closeModal }: filterProps) {
   ]);
   const [isClickedLocation, setIsClickedLocation] = useState<boolean>(false);
   //Genre 박스 열기
-  const [genreList, setGenreList] = useState<IList[]>([{ id: 0, name: '' }]);
+  const [genreList, setGenreList] = useState<IGenreList[]>([{ genre: '' }]);
   const [isGenreFull, setIsGenreFull] = useState<boolean>(false);
   const [isClickedGenre, setIsClickedGenre] = useState<boolean>(false);
   const [classDayList, setClassDayList] = useState<IList[]>([
@@ -150,7 +150,7 @@ export default function Filter({ isOpen, closeModal }: filterProps) {
   //초기화
   const onClickReset = () => {
     setLocationList([{ id: 0, name: '' }]);
-    setGenreList([{ id: 0, name: '' }]);
+    setGenreList([{ genre: '' }]);
     setClassDayList([{ id: 0, name: '' }]);
     setSelectWayClickIndex(5);
     setClassWay('');
