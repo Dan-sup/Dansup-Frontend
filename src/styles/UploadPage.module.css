@@ -265,12 +265,6 @@
   margin: 10px 10px 0 0;
 }
 
-.genreBox:hover {
-  border: 1px solid var(--color-white);
-  color: var(--color-white);
-  transition: all ease 0.5s 0s;
-}
-
 .shortBox {
   width: 77px;
 }
@@ -342,12 +336,6 @@
   margin: 10px 10px 0 0;
 }
 
-.selectBox:hover {
-  border: 1px solid var(--color-white);
-  color: var(--color-white);
-  transition: all ease 0.5s 0s;
-}
-
 /*classDate*/
 .datePicker {
   width: 100%;
@@ -372,12 +360,6 @@
   width: 42px;
   border-radius: 5px;
   margin-right: 7px;
-}
-
-.dayBox:hover {
-  border: 1px solid var(--color-white);
-  color: var(--color-white);
-  transition: all ease 0.5s 0s;
 }
 
 .check {
