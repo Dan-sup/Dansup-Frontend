@@ -378,10 +378,17 @@
 }
 
 /*toastmsg*/
+.toastMessageContainer {
+  display: flex;
+  justify-content: center;
+}
+
 .toastMessageBox {
+  position: fixed;
+  bottom: 50px;
   display: flex;
   align-items: center;
-  width: 100%;
+  width: calc(100% - 36px);
   height: 40px;
   border-radius: 5px;
   background: var(--color-gray-500-card);
