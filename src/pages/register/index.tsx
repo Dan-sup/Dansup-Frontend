@@ -6,7 +6,7 @@ import fonts from '../../styles/typography.module.css';
 import buttonStyles from '../../styles/Button.module.css';
 import BlankImage from '../../../public/icons/blank-image.svg';
 import Plus from '../../../public/icons/plus.svg';
-import { IUploadFile, IAwardList, IList } from '../../types/upload';
+import { IUploadFile, IAwardList, IList, IGenreList } from '../../types/upload';
 import UploadVideo from '../../components/upload/UploadVideo';
 import DanceGenre from '@/components/upload/DanceGenre';
 import HashTag from '@/components/upload/HashTag';
@@ -25,7 +25,7 @@ export default function ProfileUpload() {
     { id: 0, name: '' },
   ]);
   const [isHashTagFull, setIsHashTagFull] = useState<boolean>(false);
-  const [genreList, setGenreList] = useState<IList[]>([{ id: 0, name: '' }]);
+  const [genreList, setGenreList] = useState<IGenreList[]>([{ genre: '' }]);
   const [isGenreFull, setIsGenreFull] = useState<boolean>(false);
   const [awardList, setAwardList] = useState<IAwardList[]>([
     { id: 0, date: '', award: '' },
