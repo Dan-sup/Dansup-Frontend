@@ -64,7 +64,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const [saturday, setSaturday] = useState<boolean>(false);
   const [sunday, setSunday] = useState<boolean>(false);
 
-  const [video, setVideo] = useState<IUploadFile | null>(null);
+  const [video, setVideo] = useState<File | undefined>();
   const [classLink, setClassLink] = useState<string>('');
 
   //우효성 검사 state (Checked => 형식)

@@ -17,7 +17,7 @@ export default function PortfolioUpload({
   isOpen,
   closeModal,
 }: portfolioUploadProps) {
-  const [video, setVideo] = useState<IUploadFile | null>(null);
+  const [video, setVideo] = useState<File | undefined>();
 
   return (
     <div style={{ display: isOpen ? 'block' : 'none' }}>

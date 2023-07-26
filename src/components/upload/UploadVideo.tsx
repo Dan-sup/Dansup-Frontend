@@ -1,13 +1,12 @@
 import { useRef, useMemo, useState } from 'react';
 import styles from '../../styles/UploadPage.module.css';
 import fonts from '../../styles/typography.module.css';
-import { IUploadFile } from '../../types/upload';
 import Plus from '../../../public/icons/plus.svg';
 import Dot from '../../../public/icons/dot.svg';
 
 interface uploadVideoProps {
-  video: IUploadFile | null;
-  setVideo: React.Dispatch<React.SetStateAction<IUploadFile | null>>;
+  video: File | undefined;
+  setVideo: React.Dispatch<React.SetStateAction<File | undefined>>;
   title: string;
   isImportant: boolean;
 }
@@ -21,6 +20,7 @@ export default function UploadVideo({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [isVideo, setIsVideo] = useState<boolean>(false);
+  const [fileList, setFileList] = useState<string>('');
 
   const onClickFileInput = () => {
     fileInputRef.current?.click();
@@ -31,26 +31,31 @@ export default function UploadVideo({
   };
 
   const handleUploadVideo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const fileList = e.target.files;
-    if (fileList && fileList[0]) {
-      const url = URL.createObjectURL(fileList[0]);
-      setVideo({
-        file: fileList[0],
-        thumnail: url,
-        type: fileList[0].type.slice(0, 5),
-      });
-      setIsVideo(!isVideo);
+    const file = e.target.files?.[0];
+    if (!file) {
+      return;
     }
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    fileReader.onload = data => {
+      if (typeof data.target?.result === 'string') {
+        console.log(data.target?.result); // file을 url 형태로 읽은 결과물이다.
+        setFileList(data.target?.result); // 미리보기를 위한 *임시 url* (Blob 형태)
+        setVideo(file); // uploadFile API에 보내기 위한 url
+        console.log(video);
+        setIsVideo(!isVideo);
+      }
+    };
   };
 
   const deleteVideo = () => {
-    setVideo(null);
+    setFileList('');
     setIsVideo(!isVideo);
     setIsClicked(!isClicked);
   };
 
   const showVideo = useMemo(() => {
-    if (!video && video == null) {
+    if (!fileList && fileList == '') {
       return (
         <div
           className={`${styles.blank} ${styles.video}`}
@@ -63,8 +68,8 @@ export default function UploadVideo({
         </div>
       );
     }
-    return <video className={styles.video} src={video.thumnail} controls />;
-  }, [video]);
+    return <video className={styles.video} src={fileList} controls />;
+  }, [fileList]);
 
   return (
     <div>

@@ -57,19 +57,31 @@ export const postClassInfo = async (input: any) => {
 };
 
 //경력 조회
-export const getPortfolio = async () => {
-  const response = await client.get('/mypage/portfolio');
+export const getPortfolio = async (accessToken: any) => {
+  const response = await client.get('/mypage/portfolio', {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
   return response.data;
 };
 
 //포트폴리오 영상
-export const getPortfolioVideo = async () => {
-  const response = await client.get('/mypage/portfolio/video');
+export const getPortfolioVideo = async (accessToken: any) => {
+  const response = await client.get('/mypage/portfolio/video', {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
   return response.data;
 };
 
 //수업
-export const getClass = async () => {
-  const response = await client.get('/mypage/class');
+export const getClass = async (accessToken: any) => {
+  const response = await client.get('/mypage/class', {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
   return response.data;
 };

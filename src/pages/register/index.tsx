@@ -14,10 +14,11 @@ import ToastMsg from '@/components/upload/ToastMsg';
 import BasicHeader from '@/components/common/Header/BasicHeader';
 
 export default function ProfileUpload() {
-  const [image, setImage] = useState<IUploadFile | null>(null);
+  const [image, setImage] = useState<File>();
+  const [fileList, setFileList] = useState<string>('');
   const [userId, setUserId] = useState<string>('');
   const [dancerName, setDancerName] = useState<string>('');
-  const [video, setVideo] = useState<IUploadFile | null>(null);
+  const [video, setVideo] = useState<File | undefined>();
   const [introCount, setIntroCount] = useState<number>(0);
   const [intro, setIntro] = useState<string>('');
   const [hashTag, setHashTag] = useState<string>('');
@@ -50,19 +51,23 @@ export default function ProfileUpload() {
   };
 
   const handleUploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const fileList = e.target.files;
-    if (fileList && fileList[0]) {
-      const url = URL.createObjectURL(fileList[0]);
-      setImage({
-        file: fileList[0],
-        thumnail: url,
-        type: fileList[0].type.slice(0, 5),
-      });
+    const file = e.target.files?.[0];
+    if (!file) {
+      return;
     }
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    fileReader.onload = data => {
+      if (typeof data.target?.result === 'string') {
+        console.log(data.target?.result); // file을 url 형태로 읽은 결과물이다.
+        setFileList(data.target?.result); // 미리보기를 위한 *임시 url* (Blob 형태)
+        setImage(file); // uploadFile API에 보내기 위한 url
+        console.log(image);
+      }
+    };
   };
-
   const showImage = useMemo(() => {
-    if (!image && image == null) {
+    if (!fileList && fileList == '') {
       return (
         <BlankImage
           className={styles.img}
@@ -75,13 +80,13 @@ export default function ProfileUpload() {
     return (
       <Image
         className={styles.img}
-        src={image.thumnail}
-        alt={image.type}
+        src={fileList}
+        alt={fileList}
         width={100}
         height={100}
       />
     );
-  }, [image]);
+  }, [fileList]);
 
   //userId
   const handleChangeUserId = (e: React.ChangeEvent<HTMLInputElement>) => {
