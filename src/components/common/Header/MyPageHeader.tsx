@@ -22,39 +22,40 @@ export default function MyPageHeader() {
 
   return (
     <>
-      <div className={styles.container}></div>
-      <div className={styles.containerBtn}>
-        <div className={`${styles.btn} ${styles.backBtn}`}>
-          <BackIcon />
-        </div>
-        <div
-          className={`${styles.btn} ${styles.dotBtn}`}
-          onClick={() => {
-            setIsOpen(!isOpen);
-          }}
-        >
-          <DotIcon />
-        </div>
-        {isOpen ? (
-          <button
-            className={`${styles.logoutBtn} ${fonts.body2_SemiBold}`}
-            onClick={openModal}
+      <div className={styles.container}>
+        <div className={styles.containerBtn}>
+          <div className={styles.btn}>
+            <BackIcon />
+          </div>
+          <div
+            className={styles.btn}
+            onClick={() => {
+              setIsOpen(!isOpen);
+            }}
           >
-            로그아웃
-          </button>
-        ) : (
-          <></>
-        )}
-        {isModalOpen ? (
-          <Modal
-            question="계정에서 로그아웃 하시겠어요?"
-            requestion=""
-            button="로그아웃"
-            closeModal={closeModal}
-          />
-        ) : (
-          <></>
-        )}
+            <DotIcon />
+          </div>
+          {isOpen ? (
+            <button
+              className={`${styles.logoutBtn} ${fonts.body2_SemiBold}`}
+              onClick={openModal}
+            >
+              로그아웃
+            </button>
+          ) : (
+            <></>
+          )}
+          {isModalOpen ? (
+            <Modal
+              question="계정에서 로그아웃 하시겠어요?"
+              requestion=""
+              button="로그아웃"
+              closeModal={closeModal}
+            />
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
     </>
   );

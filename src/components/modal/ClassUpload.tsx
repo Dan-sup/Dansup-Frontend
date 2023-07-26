@@ -19,7 +19,7 @@ import ClassDay from '../upload/ClassDay';
 import ClassTime from '../upload/ClassTime';
 import ToastMsg from '../upload/ToastMsg';
 import { levelList, wayList } from '@/data/class-data';
-import { postClassInfo } from '@/apis/class';
+import { postClassInfo } from '@/apis/my';
 import { useMutation } from '@tanstack/react-query';
 
 interface classUploadProps {
