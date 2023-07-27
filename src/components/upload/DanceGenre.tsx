@@ -49,7 +49,7 @@ export default function DanceGenre({
       setList(list.filter(item => item.genre !== e.target.value));
       setIsFull(false);
     } else {
-      if (list.length < limit) {
+      if (list.length < limit - 1) {
         setList([...list, newItem]);
         setIsFull(false);
       } else {

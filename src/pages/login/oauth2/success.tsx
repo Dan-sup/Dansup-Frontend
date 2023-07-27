@@ -30,7 +30,8 @@ export default function OauthSuccessPage() {
     console.log(data);
     console.log(data.accessToken);
 
-    if (data.isGuest === 'true') {
+    if (data.isGuest === 'false') {
+      //회원가입 테스트 완료 후, 'true'로 다시 바꿔놓기!
       router.push({
         pathname: '/register',
         query: { accessToken: data.accessToken },
