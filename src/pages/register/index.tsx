@@ -244,12 +244,11 @@ export default function ProfileUpload() {
     for (const keyValue of formData) console.log(keyValue);
     //console.log(formData);
 
-    /* 회원가입 테스트 후 돌려놓기!
+    //회원가입 테스트할 땐 주석 처리
     registerMutation.mutate({
       formData: formData,
       accessToken: accessToken,
     });
-    */
   };
 
   return (
