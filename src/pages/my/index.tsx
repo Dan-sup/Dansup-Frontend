@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import fonts from '../../styles/typography.module.css';
 import styles from '../../styles/Profile.module.css';
 import ClassUpload from '@/components/modal/ClassUpload';
@@ -18,6 +18,7 @@ export default function MyPage() {
   const [isClassOpen, setIsClassOpen] = useState<boolean>(false);
   const [isPortfolioOpen, setIsPortfolioOpen] = useState<boolean>(false);
   const [isPortfolio, setIsPortfolio] = useState<boolean>(true);
+  const [isHeader, setIsHeader] = useState<boolean>(true);
   const profiles = myData.profile;
   const image = myData.image;
 
@@ -53,9 +54,19 @@ export default function MyPage() {
     setIsPortfolio(false);
   };
 
+  useEffect(() => {
+    if (isClassOpen || isPortfolio) {
+      setIsHeader(false);
+    } else {
+      setIsHeader(true);
+    }
+  });
+
   return (
     <>
-      <MyPageHeader />
+      <div style={{ display: isHeader ? 'block' : 'none' }}>
+        <MyPageHeader />
+      </div>
       <div className={styles.container}>
         {profiles.map((data, idx) => (
           <div className={styles.profilePart} key={idx}>
