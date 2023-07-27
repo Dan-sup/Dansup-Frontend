@@ -264,7 +264,6 @@ export default function ProfileUpload() {
             이미지 업로드
           </button>
         </div>
-
         <div className={styles.inputList}>
           <div className={styles.box}>
             <div className={styles.row}>
@@ -284,7 +283,6 @@ export default function ProfileUpload() {
               {userIdMsg}
             </div>
           </div>
-
           <div className={styles.box}>
             <div className={styles.row}>
               <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
@@ -303,7 +301,6 @@ export default function ProfileUpload() {
               {dancerNameMsg}
             </div>
           </div>
-
           <div className={styles.box}>
             <UploadVideo
               isImportant={false}
@@ -312,7 +309,6 @@ export default function ProfileUpload() {
               title="대표 영상 업로드"
             />
           </div>
-
           <div className={styles.box}>
             <div className={styles.row_Between}>
               <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
@@ -332,7 +328,6 @@ export default function ProfileUpload() {
               cacheMeasurements
             />
           </div>
-
           <div className={styles.box}>
             <div className={styles.row_Between}>
               <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
@@ -373,7 +368,6 @@ export default function ProfileUpload() {
               </>
             )}
           </div>
-
           <HashTag
             hashTag={hashTag}
             setHashTag={setHashTag}
@@ -383,7 +377,6 @@ export default function ProfileUpload() {
             isFull={isHashTagFull}
             setIsFull={setIsHashTagFull}
           />
-
           <div className={styles.box}>
             <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
               공연 및 활동경력
