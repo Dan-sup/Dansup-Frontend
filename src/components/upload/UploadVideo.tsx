@@ -50,6 +50,7 @@ export default function UploadVideo({
 
   const deleteVideo = () => {
     setFileList('');
+    setVideo(undefined);
     setIsVideo(!isVideo);
     setIsClicked(!isClicked);
   };

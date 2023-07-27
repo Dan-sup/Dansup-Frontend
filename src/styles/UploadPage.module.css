@@ -78,7 +78,7 @@
 }
 
 .mid {
-  width: 70%;
+  width: 60%;
 }
 
 .short {
@@ -185,6 +185,20 @@
   color: var(--color-gray-100);
 }
 
+.reImgButton {
+  width: 122px;
+  height: 33px;
+  border: 1px solid var(--color-gray-300);
+  border-radius: 30px;
+  color: var(--color-gray-100);
+}
+
+.imgDeleteButton {
+  color: var(--color-gray-100);
+  margin-top: 12px;
+  text-decoration: underline;
+}
+
 /*video*/
 /*video/award에서 이중 사용*/
 .blank {
@@ -265,12 +279,6 @@
   margin: 10px 10px 0 0;
 }
 
-.genreBox:hover {
-  border: 1px solid var(--color-white);
-  color: var(--color-white);
-  transition: all ease 0.5s 0s;
-}
-
 .shortBox {
   width: 77px;
 }
@@ -294,6 +302,14 @@
   justify-content: space-between;
   align-items: center;
   width: 107px;
+}
+
+.awardDeleteBtn {
+  width: 20px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /*hashTag*/
@@ -342,12 +358,6 @@
   margin: 10px 10px 0 0;
 }
 
-.selectBox:hover {
-  border: 1px solid var(--color-white);
-  color: var(--color-white);
-  transition: all ease 0.5s 0s;
-}
-
 /*classDate*/
 .datePicker {
   width: 100%;
@@ -374,12 +384,6 @@
   margin-right: 7px;
 }
 
-.dayBox:hover {
-  border: 1px solid var(--color-white);
-  color: var(--color-white);
-  transition: all ease 0.5s 0s;
-}
-
 .check {
   margin-top: 5px;
 }
@@ -396,10 +400,17 @@
 }
 
 /*toastmsg*/
+.toastMessageContainer {
+  display: flex;
+  justify-content: center;
+}
+
 .toastMessageBox {
+  position: fixed;
+  bottom: 50px;
   display: flex;
   align-items: center;
-  width: 100%;
+  width: calc(100% - 36px);
   height: 40px;
   border-radius: 5px;
   background: var(--color-gray-500-card);

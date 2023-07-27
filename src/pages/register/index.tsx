@@ -6,7 +6,8 @@ import fonts from '../../styles/typography.module.css';
 import buttonStyles from '../../styles/Button.module.css';
 import BlankImage from '../../../public/icons/blank-image.svg';
 import Plus from '../../../public/icons/plus.svg';
-import { IUploadFile, IAwardList, IList, IGenreList } from '../../types/upload';
+import Delete from '../../../public/icons/award-delete.svg';
+import { IAwardList, IList, IGenreList } from '../../types/upload';
 import UploadVideo from '../../components/upload/UploadVideo';
 import DanceGenre from '@/components/upload/DanceGenre';
 import HashTag from '@/components/upload/HashTag';
@@ -66,6 +67,12 @@ export default function ProfileUpload() {
       }
     };
   };
+
+  const deleteImage = () => {
+    setFileList('');
+    setImage(undefined);
+  };
+
   const showImage = useMemo(() => {
     if (!fileList && fileList == '') {
       return (
@@ -145,6 +152,10 @@ export default function ProfileUpload() {
     nextId.current += 1;
   };
 
+  const deleteAward = (id: number) => {
+    setAwardList(awardList.filter(item => item.id !== id));
+  };
+
   const handleChangeDate = (
     e: React.ChangeEvent<HTMLInputElement>,
     index: number,
@@ -177,12 +188,29 @@ export default function ProfileUpload() {
             ref={fileInputRef}
             onChange={handleUploadImage}
           />
-          <button
-            className={`${styles.imgButton} ${fonts.body2_SemiBold}`}
-            onClick={onClickFileInput}
-          >
-            이미지 업로드
-          </button>
+          {fileList == '' ? (
+            <button
+              className={`${styles.imgButton} ${fonts.body2_SemiBold}`}
+              onClick={onClickFileInput}
+            >
+              이미지 업로드
+            </button>
+          ) : (
+            <>
+              <button
+                className={`${styles.reImgButton} ${fonts.body2_SemiBold}`}
+                onClick={onClickFileInput}
+              >
+                이미지 재업로드
+              </button>
+              <button
+                className={`${styles.imgDeleteButton} ${fonts.caption1_Regular}`}
+                onClick={deleteImage}
+              >
+                프로필 이미지 삭제
+              </button>
+            </>
+          )}
         </div>
         <div className={styles.inputList}>
           <div className={styles.box}>
@@ -320,6 +348,16 @@ export default function ProfileUpload() {
                   value={item.award}
                   onChange={e => handleChangeAward(e, idx)}
                 />
+                {idx > 0 ? (
+                  <div
+                    className={styles.awardDeleteBtn}
+                    onClick={() => deleteAward(item.id)}
+                  >
+                    <Delete />
+                  </div>
+                ) : (
+                  <div className={styles.awardDeleteBtn}></div>
+                )}
               </div>
             ))}
             <div

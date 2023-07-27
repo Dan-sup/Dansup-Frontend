@@ -19,7 +19,7 @@ export default function ToastMsg({ isOpen, setIsOpen, msg }: toastMsgProps) {
     };
   });
   return (
-    <>
+    <div className={styles.toastMessageContainer}>
       {isOpen ? (
         <div className={styles.toastMessageBox}>
           <div className={styles.toastMessage}>
@@ -32,6 +32,6 @@ export default function ToastMsg({ isOpen, setIsOpen, msg }: toastMsgProps) {
       ) : (
         <></>
       )}
-    </>
+    </div>
   );
 }
