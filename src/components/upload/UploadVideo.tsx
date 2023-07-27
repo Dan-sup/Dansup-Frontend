@@ -39,10 +39,11 @@ export default function UploadVideo({
     fileReader.readAsDataURL(file);
     fileReader.onload = data => {
       if (typeof data.target?.result === 'string') {
-        console.log(data.target?.result); // file을 url 형태로 읽은 결과물이다.
+        //console.log(data.target?.result); // file을 url 형태로 읽은 결과물이다.
         setFileList(data.target?.result); // 미리보기를 위한 *임시 url* (Blob 형태)
         setVideo(file); // uploadFile API에 보내기 위한 url
-        console.log(video);
+
+        //console.log(video);
         setIsVideo(!isVideo);
       }
     };
@@ -50,6 +51,7 @@ export default function UploadVideo({
 
   const deleteVideo = () => {
     setFileList('');
+    setVideo(undefined);
     setIsVideo(!isVideo);
     setIsClicked(!isClicked);
   };

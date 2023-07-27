@@ -5,9 +5,8 @@ export type IUploadFile = {
 };
 
 export interface IAwardList {
-  id: number;
   date: string;
-  award: string;
+  detail: string;
 }
 
 export interface IList {
