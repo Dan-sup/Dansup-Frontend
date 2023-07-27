@@ -6,8 +6,8 @@ import fonts from '../../styles/typography.module.css';
 import buttonStyles from '../../styles/Button.module.css';
 import BlankImage from '../../../public/icons/blank-image.svg';
 import Plus from '../../../public/icons/plus.svg';
-import Dot from '../../../public/icons/dot.svg';
-import { IUploadFile, IAwardList, IList, IGenreList } from '../../types/upload';
+import Delete from '../../../public/icons/award-delete.svg';
+import { IAwardList, IList, IGenreList } from '../../types/upload';
 import UploadVideo from '../../components/upload/UploadVideo';
 import DanceGenre from '@/components/upload/DanceGenre';
 import HashTag from '@/components/upload/HashTag';
@@ -150,6 +150,10 @@ export default function ProfileUpload() {
 
     setAwardList([...awardList, awardItem]);
     nextId.current += 1;
+  };
+
+  const deleteAward = (id: number) => {
+    setAwardList(awardList.filter(item => item.id !== id));
   };
 
   const handleChangeDate = (
@@ -344,6 +348,16 @@ export default function ProfileUpload() {
                   value={item.award}
                   onChange={e => handleChangeAward(e, idx)}
                 />
+                {idx > 0 ? (
+                  <div
+                    className={styles.awardDeleteBtn}
+                    onClick={() => deleteAward(item.id)}
+                  >
+                    <Delete />
+                  </div>
+                ) : (
+                  <div className={styles.awardDeleteBtn}></div>
+                )}
               </div>
             ))}
             <div

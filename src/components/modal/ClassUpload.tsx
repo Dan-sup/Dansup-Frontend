@@ -8,7 +8,7 @@ import fonts from '../../styles/typography.module.css';
 import buttonStyles from '../../styles/Button.module.css';
 import modalStyles from '../../styles/Modal.module.css';
 import styles from '../../styles/UploadPage.module.css';
-import { IList, IUploadFile, IGenreList } from '@/types/upload';
+import { IList, IGenreList } from '@/types/upload';
 import DanceGenre from '../upload/DanceGenre';
 import DaumPostcode, { Address } from 'react-daum-postcode';
 import HashTag from '../upload/HashTag';
