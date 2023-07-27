@@ -12,6 +12,9 @@ import DanceGenre from '@/components/upload/DanceGenre';
 import HashTag from '@/components/upload/HashTag';
 import ToastMsg from '@/components/upload/ToastMsg';
 import BasicHeader from '@/components/common/Header/BasicHeader';
+import { useRouter } from 'next/router';
+import { useMutation } from '@tanstack/react-query';
+import { register } from '@/apis/auth';
 
 export default function ProfileUpload() {
   const [image, setImage] = useState<File>();
@@ -159,6 +162,19 @@ export default function ProfileUpload() {
     setAwardList(awardListsCopy);
   };
 
+  //여기서부터!!
+  const router = useRouter();
+  const { accessToken } = router.query;
+
+  const registerMutation = useMutation(register, {
+    onSuccess: data => {
+      console.log(data);
+    },
+    onError: error => {
+      console.log(error);
+    },
+  });
+
   const handleSubmit = () => {
     console.log(image || null); //V
     console.log(video || null); //V
@@ -184,27 +200,32 @@ export default function ProfileUpload() {
     const formData = new FormData();
     formData.append(
       'signUpDto',
-      JSON.stringify({
-        username: `@${userId}`,
-        nickname: dancerName,
-        intro: intro !== '' ? intro : null,
-        genres: genreList,
-        hashtag1:
-          hashTagList[1]?.name !== undefined
-            ? `#${hashTagList[1]?.name}`
-            : null,
-        hashtag2:
-          hashTagList[2]?.name !== undefined
-            ? `#${hashTagList[2]?.name}`
-            : null,
-        hashtag3:
-          hashTagList[3]?.name !== undefined
-            ? `#${hashTagList[3]?.name}`
-            : null,
-        portfolios: awardList.filter(
-          filter => filter.date !== '' && filter.detail !== '',
-        ),
-      }),
+      new Blob(
+        [
+          JSON.stringify({
+            username: `@${userId}`,
+            nickname: dancerName,
+            intro: intro !== '' ? intro : null,
+            genres: genreList,
+            hashtag1:
+              hashTagList[1]?.name !== undefined
+                ? `#${hashTagList[1]?.name}`
+                : null,
+            hashtag2:
+              hashTagList[2]?.name !== undefined
+                ? `#${hashTagList[2]?.name}`
+                : null,
+            hashtag3:
+              hashTagList[3]?.name !== undefined
+                ? `#${hashTagList[3]?.name}`
+                : null,
+            portfolios: awardList.filter(
+              filter => filter.date !== '' && filter.detail !== '',
+            ),
+          }),
+        ],
+        { type: 'application/json' },
+      ),
     );
     if (image instanceof File) {
       formData.append('profileImage', image);
@@ -214,6 +235,12 @@ export default function ProfileUpload() {
     }
 
     for (const keyValue of formData) console.log(keyValue);
+    //console.log(formData);
+
+    registerMutation.mutate({
+      formData: formData,
+      accessToken: accessToken,
+    });
   };
 
   return (
