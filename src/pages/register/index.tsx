@@ -176,6 +176,7 @@ export default function ProfileUpload() {
   const registerMutation = useMutation(register, {
     onSuccess: data => {
       console.log(data);
+      router.push('/register-done');
     },
     onError: error => {
       console.log(error);

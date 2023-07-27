@@ -2,8 +2,11 @@ import styles from '../../styles/UploadPage.module.css';
 import fonts from '../../styles/typography.module.css';
 import buttonStyles from '../../styles/Button.module.css';
 import RegisterDone from '../../../public/icons/register-done.svg';
+import { useRouter } from 'next/router';
 
 export default function RegisterDonePage() {
+  const router = useRouter();
+
   return (
     <>
       <div className={styles.registerContainer}>
@@ -19,6 +22,7 @@ export default function RegisterDonePage() {
             <div className={buttonStyles.buttonSpace}>
               <button
                 className={`${buttonStyles.CTA_Large} ${buttonStyles.before} ${fonts.body1_SemiBold}`}
+                onClick={() => router.push('/')}
               >
                 홈으로
               </button>
