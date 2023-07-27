@@ -151,10 +151,6 @@ export default function ProfileUpload() {
     setAwardList([...awardList, awardItem]);
   };
 
-  const deleteAward = (id: number) => {
-    setAwardList(awardList.filter(item => item.id !== id));
-  };
-
   const handleChangeDate = (
     e: React.ChangeEvent<HTMLInputElement>,
     index: number,
@@ -428,16 +424,6 @@ export default function ProfileUpload() {
                   value={item.detail}
                   onChange={e => handleChangeAward(e, idx)}
                 />
-                {idx > 0 ? (
-                  <div
-                    className={styles.awardDeleteBtn}
-                    onClick={() => deleteAward(item.id)}
-                  >
-                    <Delete />
-                  </div>
-                ) : (
-                  <div className={styles.awardDeleteBtn}></div>
-                )}
               </div>
             ))}
             <div
