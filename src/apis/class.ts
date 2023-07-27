@@ -2,32 +2,26 @@ import client from './client';
 
 //클래스 리스트 get
 export const getClassList = async () => {
-  const response = await client.get('/danceclasses');
+  const response = await client.get('/classes');
   return response.data;
 };
 
 //필터링한 클래스 리스트 get
 export const getFilteredClassList = async (input: any) => {
   const response = await client.post(
-    '/danceclasses/filters',
+    '/classes/filters',
     {
       params: {
-        word: input.typingValue,
+        title: input.typingValue,
       },
     },
-    { data: { danceClassFilterDto: input.filterValue } },
+    { data: input.filterValue },
   );
   return response.data;
 };
 
 //한 클래스 세부 get
 export const getClass = async (classId: number) => {
-  const response = await client.get(`/danceclasses/${classId}`);
-  return response.data;
-};
-
-//한 클래스의 영상 get
-export const getClassVideo = async (classId: number) => {
-  const response = await client.get(`/danceclasses/${classId}/video`);
+  const response = await client.get(`/classes/${classId}`);
   return response.data;
 };

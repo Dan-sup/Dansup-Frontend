@@ -26,7 +26,7 @@ export default function SearchResultPage() {
       console.log(data);
     },
     onError: error => {
-      alert('결과를 가져오는데 실패했습니다.');
+      console.log(error);
     },
   });
 
@@ -37,7 +37,7 @@ export default function SearchResultPage() {
       console.log(data);
     },
     onError: error => {
-      alert('결과를 가져오는데 실패했습니다.');
+      console.log(error);
     },
   });
 
@@ -50,7 +50,7 @@ export default function SearchResultPage() {
         console.log(data);
       },
       onError: error => {
-        alert('결과를 가져오는데 실패했습니다.');
+        console.log(error);
       },
     },
   );
