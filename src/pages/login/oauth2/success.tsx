@@ -14,30 +14,46 @@ export default function OauthSuccessPage() {
 
   const [cookies, setCookie] = useCookies(['refreshToken']);
 
+  /*
   const getMyInfoMutation = useMutation(getMyInfo, {
     onSuccess: data => {
-      setUser({ ...user, profileImg: data.userProfileImage });
+      setUser({ ...user, profileImg: data.profileImageUrl });
     },
     onError: error => {
       console.log(error);
     },
   });
+  */
 
   useEffect(() => {
-    //console.log(data);
-    //console.log(data.accessToken);
+    if (!router.isReady) return;
+    console.log(data);
+    console.log(data.accessToken);
 
-    if (data.isGuest === 'true') {
+    if (data.isGuest === 'false') {
+      //회원가입 테스트 완료 후, 'true'로 다시 바꿔놓기!
       router.push({
         pathname: '/register',
         query: { accessToken: data.accessToken },
       });
     } else {
-      setUser({ ...user, accessToken: data.accessToken });
-      setCookie('refreshToken', data.refreshToken);
-      getMyInfoMutation.mutate(data.accessToken);
+      //이 페이지에서 바로 set은 되는데 콘솔에는 안나옴.....
+      {
+        setUser({
+          ...user,
+          accessToken: data.accessToken,
+          refreshToken: data.refreshToken,
+        });
+        console.log(user);
+        setCookie('refreshToken', data.refreshToken, {
+          sameSite: 'strict',
+          path: '/',
+        }); //옵션 설정했더니 쿠키 바로 설정됨!!!!!!!
+        //getMyInfoMutation.mutate(data.accessToken);
+        router.push('/');
+      }
     }
-  }, [data]);
+  }, [router.isReady]);
 
   return <></>;
 }

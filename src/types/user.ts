@@ -1,4 +1,5 @@
 export interface IUser {
   accessToken: string | string[] | undefined;
-  profileImg: string;
+  refreshToken: string | string[] | undefined;
+  //profileImg: string;
 }

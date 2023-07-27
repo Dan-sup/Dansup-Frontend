@@ -13,6 +13,9 @@ import DanceGenre from '@/components/upload/DanceGenre';
 import HashTag from '@/components/upload/HashTag';
 import ToastMsg from '@/components/upload/ToastMsg';
 import BasicHeader from '@/components/common/Header/BasicHeader';
+import { useRouter } from 'next/router';
+import { useMutation } from '@tanstack/react-query';
+import { register } from '@/apis/auth';
 
 export default function ProfileUpload() {
   const [image, setImage] = useState<File>();
@@ -27,22 +30,19 @@ export default function ProfileUpload() {
     { id: 0, name: '' },
   ]);
   const [isHashTagFull, setIsHashTagFull] = useState<boolean>(false);
-  const [genreList, setGenreList] = useState<IGenreList[]>([{ genre: '' }]);
+  const [genreList, setGenreList] = useState<IGenreList[]>([]);
   const [isGenreFull, setIsGenreFull] = useState<boolean>(false);
-  const [awardList, setAwardList] = useState<IAwardList[]>([
-    { id: 0, date: '', award: '' },
-  ]);
+  const [awardList, setAwardList] = useState<IAwardList[]>([]);
   const [isClicked, setIsClicked] = useState<boolean>(false);
 
   //에러 메시지, 확인 메시지 state
   const [userIdMsg, setUserIdMsg] = useState<string>('');
   const [dancerNameMsg, setDancerNameMsg] = useState<string>('');
 
-  //우효성 검사 state (Checked => 형식, Valid => 중복)
+  //유효성 검사 state (Checked => 형식, Valid => 중복)
   const [isUserIdChecked, setIsUserIdChecked] = useState<boolean>(false);
   const [isdancerNameChecked, setIsDancerNameChecked] =
     useState<boolean>(false);
-  const [isUserIdValid, setIsUserIdValid] = useState<boolean>(false);
 
   //image 미리보기
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -60,10 +60,11 @@ export default function ProfileUpload() {
     fileReader.readAsDataURL(file);
     fileReader.onload = data => {
       if (typeof data.target?.result === 'string') {
-        console.log(data.target?.result); // file을 url 형태로 읽은 결과물이다.
+        //console.log(data.target?.result); // file을 url 형태로 읽은 결과물이다.
         setFileList(data.target?.result); // 미리보기를 위한 *임시 url* (Blob 형태)
         setImage(file); // uploadFile API에 보내기 위한 url
-        console.log(image);
+
+        //console.log(image);
       }
     };
   };
@@ -143,17 +144,11 @@ export default function ProfileUpload() {
   //Award,Date
   const addAward = () => {
     const awardItem = {
-      id: nextId.current,
       date: '',
-      award: '',
+      detail: '',
     };
 
     setAwardList([...awardList, awardItem]);
-    nextId.current += 1;
-  };
-
-  const deleteAward = (id: number) => {
-    setAwardList(awardList.filter(item => item.id !== id));
   };
 
   const handleChangeDate = (
@@ -170,8 +165,91 @@ export default function ProfileUpload() {
     index: number,
   ) => {
     const awardListsCopy: IAwardList[] = JSON.parse(JSON.stringify(awardList));
-    awardListsCopy[index].award = e.target.value;
+    awardListsCopy[index].detail = e.target.value;
     setAwardList(awardListsCopy);
+  };
+
+  //여기서부터!!
+  const router = useRouter();
+  const { accessToken } = router.query;
+
+  const registerMutation = useMutation(register, {
+    onSuccess: data => {
+      console.log(data);
+    },
+    onError: error => {
+      console.log(error);
+    },
+  });
+
+  const handleSubmit = () => {
+    console.log(image || null); //V
+    console.log(video || null); //V
+    console.log(`@${userId}`); //V
+    console.log(dancerName); //V
+    console.log(intro !== '' ? intro : null); //V
+    console.log(genreList); //V
+    console.log(hashTagList);
+    console.log(
+      awardList.filter(filter => filter.date !== '' && filter.detail !== ''),
+    ); //filter메서드로 값 하나라도 빈거 거르기 //V
+
+    console.log(
+      hashTagList[1]?.name !== undefined ? `#${hashTagList[1]?.name}` : null,
+    );
+    console.log(
+      hashTagList[2]?.name !== undefined ? `#${hashTagList[2]?.name}` : null,
+    );
+    console.log(
+      hashTagList[3]?.name !== undefined ? `#${hashTagList[3]?.name}` : null,
+    );
+
+    const formData = new FormData();
+    formData.append(
+      'signUpDto',
+      new Blob(
+        [
+          JSON.stringify({
+            username: `@${userId}`,
+            nickname: dancerName,
+            intro: intro !== '' ? intro : null,
+            genres: genreList,
+            hashtag1:
+              hashTagList[1]?.name !== undefined
+                ? `#${hashTagList[1]?.name}`
+                : null,
+            hashtag2:
+              hashTagList[2]?.name !== undefined
+                ? `#${hashTagList[2]?.name}`
+                : null,
+            hashtag3:
+              hashTagList[3]?.name !== undefined
+                ? `#${hashTagList[3]?.name}`
+                : null,
+            portfolios: awardList.filter(
+              filter => filter.date !== '' && filter.detail !== '',
+            ),
+          }),
+        ],
+        { type: 'application/json' },
+      ),
+    );
+    if (image instanceof File) {
+      formData.append('profileImage', image);
+    }
+    if (video instanceof File) {
+      formData.append('profileVideo', video);
+    }
+
+    for (const keyValue of formData) console.log(keyValue);
+    //console.log(formData);
+
+    /* 회원가입 테스트 후 돌려놓기!
+    registerMutation.mutate({
+      formData: formData,
+      accessToken: accessToken,
+    });
+    */
   };
 
   return (
@@ -272,7 +350,7 @@ export default function ProfileUpload() {
               placeholder="ex.저는 댄서경력 10년차 프로댄서입니다"
               value={intro}
               onChange={handleChangeIntro}
-              maxLength={80}
+              maxLength={79}
               cacheMeasurements
             />
           </div>
@@ -336,7 +414,7 @@ export default function ProfileUpload() {
               >
                 <input
                   className={`${styles.input} ${styles.short} ${fonts.body2_Regular}`}
-                  placeholder="2023.01.01"
+                  placeholder="2023/01/01"
                   type="text"
                   value={item.date}
                   onChange={e => handleChangeDate(e, idx)}
@@ -345,19 +423,9 @@ export default function ProfileUpload() {
                   className={`${styles.input} ${styles.mid} ${fonts.body2_Regular}`}
                   placeholder="ex.OO댄스대회 최우수상"
                   type="text"
-                  value={item.award}
+                  value={item.detail}
                   onChange={e => handleChangeAward(e, idx)}
                 />
-                {idx > 0 ? (
-                  <div
-                    className={styles.awardDeleteBtn}
-                    onClick={() => deleteAward(item.id)}
-                  >
-                    <Delete />
-                  </div>
-                ) : (
-                  <div className={styles.awardDeleteBtn}></div>
-                )}
               </div>
             ))}
             <div
@@ -389,6 +457,7 @@ export default function ProfileUpload() {
             {isUserIdChecked && isdancerNameChecked ? (
               <button
                 className={`${buttonStyles.CTA_Large} ${buttonStyles.before} ${fonts.body1_SemiBold}`}
+                onClick={handleSubmit}
               >
                 시작하기
               </button>
