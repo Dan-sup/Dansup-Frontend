@@ -5,7 +5,6 @@ import styles from '../../styles/UploadPage.module.css';
 import fonts from '../../styles/typography.module.css';
 import Close from '../../../public/icons/close.svg';
 import Ect from '../../../public/icons/ETC.svg';
-import { IUploadFile } from '@/types/upload';
 import UploadVideo from '../upload/UploadVideo';
 
 interface portfolioUploadProps {
