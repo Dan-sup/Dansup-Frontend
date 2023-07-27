@@ -91,7 +91,6 @@ export default function ProfileUpload() {
         alt={fileList}
         width={100}
         height={100}
-        onClick={deleteImage}
       />
     );
   }, [fileList]);
@@ -185,12 +184,29 @@ export default function ProfileUpload() {
             ref={fileInputRef}
             onChange={handleUploadImage}
           />
-          <button
-            className={`${styles.imgButton} ${fonts.body2_SemiBold}`}
-            onClick={onClickFileInput}
-          >
-            이미지 업로드
-          </button>
+          {fileList == '' ? (
+            <button
+              className={`${styles.imgButton} ${fonts.body2_SemiBold}`}
+              onClick={onClickFileInput}
+            >
+              이미지 업로드
+            </button>
+          ) : (
+            <>
+              <button
+                className={`${styles.reImgButton} ${fonts.body2_SemiBold}`}
+                onClick={onClickFileInput}
+              >
+                이미지 재업로드
+              </button>
+              <button
+                className={`${styles.imgDeleteButton} ${fonts.caption1_Regular}`}
+                onClick={deleteImage}
+              >
+                프로필 이미지 삭제
+              </button>
+            </>
+          )}
         </div>
         <div className={styles.inputList}>
           <div className={styles.box}>
