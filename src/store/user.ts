@@ -5,6 +5,7 @@ export const userState = atom<IUser>({
   key: 'userState',
   default: {
     accessToken: '',
-    profileImg: '',
+    refreshToken: '',
+    //profileImg: '',
   },
 });
