@@ -171,6 +171,7 @@
 .img {
   border-radius: 100%;
   margin-bottom: 14px;
+  cursor: pointer;
 }
 
 .inputFile {

@@ -6,6 +6,7 @@ import fonts from '../../styles/typography.module.css';
 import buttonStyles from '../../styles/Button.module.css';
 import BlankImage from '../../../public/icons/blank-image.svg';
 import Plus from '../../../public/icons/plus.svg';
+import Dot from '../../../public/icons/dot.svg';
 import { IUploadFile, IAwardList, IList, IGenreList } from '../../types/upload';
 import UploadVideo from '../../components/upload/UploadVideo';
 import DanceGenre from '@/components/upload/DanceGenre';
@@ -66,6 +67,12 @@ export default function ProfileUpload() {
       }
     };
   };
+
+  const deleteImage = () => {
+    setFileList('');
+    setImage(undefined);
+  };
+
   const showImage = useMemo(() => {
     if (!fileList && fileList == '') {
       return (
@@ -84,6 +91,7 @@ export default function ProfileUpload() {
         alt={fileList}
         width={100}
         height={100}
+        onClick={deleteImage}
       />
     );
   }, [fileList]);
