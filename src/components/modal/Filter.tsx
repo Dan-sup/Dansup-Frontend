@@ -10,7 +10,11 @@ import ClassDay from '@/components/upload/ClassDay';
 import ClassLocation from '@/components/upload/ClassLocation';
 import SelectTime from '@/components/upload/SelectTime';
 import ClassTime from '@/components/upload/ClassTime';
-import { levelList, wayList, classFeeList } from '@/data/class-data';
+import {
+  filterLevelList,
+  filterWayList,
+  classFeeList,
+} from '@/data/class-data';
 import Close from '../../../public/icons/close.svg';
 
 const timeSelectWay = [
@@ -29,25 +33,21 @@ export default function Filter({ isOpen, closeModal }: filterProps) {
   ]);
   const [isClickedLocation, setIsClickedLocation] = useState<boolean>(false);
   //Genre 박스 열기
-  const [genreList, setGenreList] = useState<IGenreList[]>([{ genre: '' }]);
+  const [genreList, setGenreList] = useState<IGenreList[]>([]);
   const [isGenreFull, setIsGenreFull] = useState<boolean>(false);
   const [isClickedGenre, setIsClickedGenre] = useState<boolean>(false);
   const [classDayList, setClassDayList] = useState<IList[]>([
     { id: 0, name: '' },
   ]);
-  const [selectWayClickIndex, setSelectWayClickIndex] = useState<number>(5);
-  const [selectLevelClickIndex, setSelectLevelClickIndex] = useState<number>(5);
-  const [classWay, setClassWay] = useState<string>('');
-  const [classLevel, setClassLevel] = useState<string>('');
+  const [selectWayClickIndex, setSelectWayClickIndex] = useState<number>(0);
+  const [selectLevelClickIndex, setSelectLevelClickIndex] = useState<number>(0);
+  const [classWay, setClassWay] = useState<string>('전체');
+  const [classLevel, setClassLevel] = useState<string>('전체');
   const [classFee, setClassFee] = useState<string>('전체 가격');
-  //시간 선택 방법 선택
-  const [clickedTimeWayIndex, setClickedTimeWayIndex] = useState<number>(0);
-  const [clickedTimeWay, setClickedTimeWay] = useState<string>('');
+
   //목록 선택
-  const [selectTimeClickIndex, SetSelectTimeClickIndex] = useState<number>(9);
+  const [selectTimeClickIndex, SetSelectTimeClickIndex] = useState<number>(0);
   const [clickedTime, setClickedTime] = useState<string>('');
-  const [startTime, setStartTime] = useState<string>('');
-  const [endTime, setEndTime] = useState<string>('');
 
   //우효성 검사 state (Checked => 형식)
   const [isLocationChecked, setIsLocationChecked] = useState<boolean>(false);
@@ -70,12 +70,6 @@ export default function Filter({ isOpen, closeModal }: filterProps) {
   //Genre 박스 열기
   const onClickOpenGenreBox = () => {
     setIsClickedGenre(!isClickedGenre);
-  };
-
-  //시간 선택 방법
-  const onClickTimeBtn = (item: IList) => {
-    setClickedTimeWayIndex(item.id);
-    setClickedTimeWay(item.name);
   };
 
   //classfee
@@ -101,7 +95,7 @@ export default function Filter({ isOpen, closeModal }: filterProps) {
       setIsGenreListChecked(false);
     }
 
-    if (classLevel !== '') {
+    if (classLevel !== '전체') {
       setIsClassLevelChecked(true);
     } else {
       setIsClassLevelChecked(false);
@@ -113,28 +107,16 @@ export default function Filter({ isOpen, closeModal }: filterProps) {
       setIsClassDayChecked(false);
     }
 
-    if (classWay !== '') {
+    if (classWay !== '전체') {
       setIsClassWayChecked(true);
     } else {
       setIsClassWayChecked(false);
     }
 
-    if (clickedTime !== '') {
+    if (clickedTime !== '전체') {
       setIsSelectTimeChecked(true);
     } else {
       setIsSelectTimeChecked(false);
-    }
-
-    if (startTime !== '') {
-      setIsStartTimeChecked(true);
-    } else {
-      setIsStartTimeChecked(false);
-    }
-
-    if (endTime !== '') {
-      setIsEndTimeChecked(true);
-    } else {
-      setIsEndTimeChecked(false);
     }
   }, [
     locationList,
@@ -143,8 +125,6 @@ export default function Filter({ isOpen, closeModal }: filterProps) {
     classDayList,
     classWay,
     clickedTime,
-    startTime,
-    endTime,
   ]);
 
   //초기화
@@ -152,18 +132,14 @@ export default function Filter({ isOpen, closeModal }: filterProps) {
     setLocationList([{ id: 0, name: '' }]);
     setGenreList([{ genre: '' }]);
     setClassDayList([{ id: 0, name: '' }]);
-    setSelectWayClickIndex(5);
-    setClassWay('');
+    setSelectWayClickIndex(0);
+    setClassWay('전체');
     setClassFee('전체 가격');
     setIsClassFeeChecked(false);
-    setSelectLevelClickIndex(5);
-    setClassLevel('');
-    setClickedTimeWayIndex(0);
-    setClickedTimeWay('');
-    SetSelectTimeClickIndex(9);
+    setSelectLevelClickIndex(0);
+    setClassLevel('전체');
+    SetSelectTimeClickIndex(0);
     setClickedTime('');
-    setStartTime('');
-    setEndTime('');
   };
 
   return (
@@ -255,71 +231,17 @@ export default function Filter({ isOpen, closeModal }: filterProps) {
               <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
                 수업 시간
               </div>
-              <div className={styles.row}>
-                {timeSelectWay.map((item, idx) => (
-                  <div onClick={() => onClickTimeBtn(item)} key={idx}>
-                    {clickedTimeWayIndex == item.id ? (
-                      <>
-                        {item.id == 0 ? (
-                          <>
-                            <button
-                              className={`${styles.classSelectBtn} ${styles.right} ${styles.clickedAfterBox} ${fonts.body2_SemiBold}`}
-                            >
-                              {item.name}
-                            </button>
-                          </>
-                        ) : (
-                          <>
-                            <button
-                              className={`${styles.classSelectBtn} ${styles.left} ${styles.clickedAfterBox} ${fonts.body2_SemiBold}`}
-                            >
-                              {item.name}
-                            </button>
-                          </>
-                        )}
-                      </>
-                    ) : (
-                      <>
-                        {item.id == 0 ? (
-                          <button
-                            className={`${styles.classSelectBtn} ${styles.right} ${styles.clickedBeforeBox} ${fonts.body2_SemiBold}`}
-                          >
-                            {item.name}
-                          </button>
-                        ) : (
-                          <button
-                            className={`${styles.classSelectBtn} ${styles.left} ${styles.clickedBeforeBox} ${fonts.body2_SemiBold}`}
-                          >
-                            {item.name}
-                          </button>
-                        )}
-                      </>
-                    )}
-                  </div>
-                ))}
-              </div>
-              {clickedTimeWayIndex == 0 ? (
-                <SelectTime
-                  votedItem={clickedTime}
-                  setVotedItem={setClickedTime}
-                  clickIndex={selectTimeClickIndex}
-                  setClickIndex={SetSelectTimeClickIndex}
-                />
-              ) : (
-                <div className={styles.timeBox}>
-                  <ClassTime
-                    startTime={startTime}
-                    setStartTime={setStartTime}
-                    endTime={endTime}
-                    setEndTime={setEndTime}
-                  />
-                </div>
-              )}
+              <SelectTime
+                votedItem={clickedTime}
+                setVotedItem={setClickedTime}
+                clickIndex={selectTimeClickIndex}
+                setClickIndex={SetSelectTimeClickIndex}
+              />
             </div>
             <div className={styles.box}>
               <div className={fonts.body1_SemiBold}>수업 방식</div>
               <Select
-                list={wayList}
+                list={filterWayList}
                 votedItem={classWay}
                 setVotedItem={setClassWay}
                 clickIndex={selectWayClickIndex}
@@ -329,7 +251,7 @@ export default function Filter({ isOpen, closeModal }: filterProps) {
             <div className={styles.box}>
               <div className={fonts.body1_SemiBold}>수업 난이도</div>
               <Select
-                list={levelList}
+                list={filterLevelList}
                 votedItem={classLevel}
                 setVotedItem={setClassLevel}
                 clickIndex={selectLevelClickIndex}

@@ -46,8 +46,8 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const [location, setLocation] = useState<IList>({ id: 0, name: '' });
   const [isOpenLocation, setIsOpenLocation] = useState<boolean>(false);
   const [classLevel, setClassLevel] = useState<string>('');
-  const [classFee, setClassFee] = useState<string>();
-  const [classAdmit, setClassAdmit] = useState<string>();
+  const [classFee, setClassFee] = useState<number>();
+  const [classAdmit, setClassAdmit] = useState<number>();
   const [classSong, setClassSong] = useState<string>('');
   const [selectWayClickIndex, setSelectWayClickIndex] = useState<number>(5);
   const [selectLevelClickIndex, setSelectLevelClickIndex] = useState<number>(5);
@@ -147,9 +147,9 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
 
   //수강료
   const handleChangeClassFee = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const currentClassFee = e.target.value;
+    const currentClassFee = Number(e.target.value);
     setClassFee(currentClassFee);
-    if (currentClassFee !== '') {
+    if (currentClassFee !== null) {
       setIsClassFeeChecked(true);
     } else {
       setIsClassFeeChecked(false);
@@ -158,9 +158,9 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
 
   //수용 인원
   const handleChangeClassAdmit = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const currentClassAdmit = e.target.value;
+    const currentClassAdmit = Number(e.target.value);
     setClassAdmit(currentClassAdmit);
-    if (currentClassAdmit !== '') {
+    if (currentClassAdmit !== null) {
       setIsClassAdmitChecked(true);
     } else {
       setIsClassAdmitChecked(false);
@@ -249,6 +249,18 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
 
   const handleSubmit = () => {
     const formData = new FormData();
+    console.log(classDate);
+    console.log(monday);
+    console.log(tuesday);
+    console.log(location.name);
+    console.log(classContent);
+    console.log(classLevel);
+    console.log(endTime);
+    console.log(classFee);
+    console.log(classAdmit);
+    console.log(classWay);
+    console.log(classLink);
+
     formData.append(
       'createDanceClassDto',
       new Blob(
@@ -282,7 +294,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               hashTagList[3]?.name !== undefined
                 ? `#${hashTagList[3]?.name}`
                 : null,
-            location: location,
+            location: location.name,
             maxPeople: classAdmit,
             method: classWay,
             reserveLink: classLink,
@@ -496,7 +508,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                   <input
                     className={`${styles.input} ${styles.long} ${fonts.body2_Regular}`}
                     placeholder="금액을 입력해주세요"
-                    type="text"
+                    type="number"
                     value={classFee}
                     onChange={handleChangeClassFee}
                   />
