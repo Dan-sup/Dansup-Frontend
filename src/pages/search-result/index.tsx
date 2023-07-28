@@ -11,7 +11,6 @@ import filterBarStyles from '../../styles/components/FilterBar.module.css';
 import DancerCard from '@/components/SearchResultPage/DancerCard';
 import ClassCard from '@/components/ClassCard';
 import { useRouter } from 'next/router';
-import Class from '@/components/profile/MyClass';
 
 export default function SearchResultPage() {
   const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
@@ -35,9 +34,9 @@ export default function SearchResultPage() {
   const getTypingFilteredClassListMutation = useMutation(getFilteredClassList, {
     onSuccess: data => {
       //여기로 typingFilteredClassList 오면 사용!
-      console.log(data);
+      //console.log(data);
       setTypingFilteredClassList(data.data);
-      console.log(typingFilteredClassList);
+      //console.log(typingFilteredClassList);
     },
     onError: error => {
       console.log(error);
@@ -55,21 +54,20 @@ export default function SearchResultPage() {
     },
   });
 
-  /*
   //타이핑 검색한 '댄서' 리스트 가져오기
   const { data: filteredDancerList } = useQuery(
-    ['classList'],
+    ['classList', typingValue],
     () => getFilteredDancerList(typingValue), //value 바꾸기
     {
       onSuccess: data => {
         console.log(data);
+        console.log(data.data);
       },
       onError: error => {
         console.log(error);
       },
     },
   );
-  */
 
   //검색 페이지에서 입력한 input값을, 이 페이지로 넘겨서 처음에 typingFilteredClassList 보여주기
   useEffect(() => {
@@ -129,16 +127,20 @@ export default function SearchResultPage() {
             <span
               className={`${filterBarStyles.onNumberText} ${typoStyles.body2_Regular}`}
             >
-              {!isFilterOn
-                ? typingFilteredClassList.length
-                : bothFilteredClassList.length}
+              {isClassBtnClicked
+                ? !isFilterOn
+                  ? typingFilteredClassList.length
+                  : bothFilteredClassList.length
+                : filteredDancerList.data.length}
             </span>
             건
           </div>
 
-          <div className={filterBarStyles.filterIcon}>
-            <FilterIcon />
-          </div>
+          {isClassBtnClicked && (
+            <div className={filterBarStyles.filterIcon}>
+              <FilterIcon />
+            </div>
+          )}
         </div>
 
         {isFilterOn && (
@@ -162,9 +164,9 @@ export default function SearchResultPage() {
           )
         ) : (
           <div className={styles.classListBox}>
-            <DancerCard isGenreIncluding={true} />
-            <DancerCard isGenreIncluding={false} />
-            <DancerCard isGenreIncluding={true} />
+            {filteredDancerList.data.map((dancerInfo: any, idx: any) => (
+              <DancerCard key={idx} dancerInfo={dancerInfo} />
+            ))}
           </div>
         )}
       </div>
