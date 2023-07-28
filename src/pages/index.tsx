@@ -10,10 +10,13 @@ import FilterBar from '@/components/FilterBar';
 import filterBarStyles from '../styles/components/FilterBar.module.css';
 import ClassCard from '@/components/ClassCard';
 import Filter from '../components/modal/Filter';
+import { useRouter } from 'next/router';
 
 export default function HomePage() {
   const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const router = useRouter();
 
   /*modal*/
   const openModal = () => {
@@ -67,10 +70,12 @@ export default function HomePage() {
           <div className={styles.searchIcon}>
             <SearchIcon />
           </div>
-          <input
+          <div
             className={`${styles.input} ${typoStyles.body2_Regular}`}
-            placeholder="수업 이름, 댄서명을 검색해보세요"
-          />
+            onClick={() => router.push('/search')}
+          >
+            수업 이름, 댄서명을 검색해보세요
+          </div>
         </div>
 
         {/*<FilterBar isFilterOn={isFilterOn} />*/}
