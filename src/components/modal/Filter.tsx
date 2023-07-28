@@ -9,18 +9,12 @@ import Select from '@/components/upload/Select';
 import ClassDay from '@/components/upload/ClassDay';
 import ClassLocation from '@/components/upload/ClassLocation';
 import SelectTime from '@/components/upload/SelectTime';
-import ClassTime from '@/components/upload/ClassTime';
 import {
   filterLevelList,
   filterWayList,
   classFeeList,
 } from '@/data/class-data';
 import Close from '../../../public/icons/close.svg';
-
-const timeSelectWay = [
-  { id: 0, name: '목록에서 선택' },
-  { id: 1, name: '직접 선택' },
-];
 
 interface filterProps {
   isOpen: boolean;
