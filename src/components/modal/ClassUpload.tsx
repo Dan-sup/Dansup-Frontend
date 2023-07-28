@@ -21,6 +21,8 @@ import ToastMsg from '../upload/ToastMsg';
 import { levelList, wayList } from '@/data/class-data';
 import { postClassInfo } from '@/apis/my';
 import { useMutation } from '@tanstack/react-query';
+import { useRecoilValue } from 'recoil';
+import { userState } from '@/store/user';
 
 interface classUploadProps {
   isOpen: boolean;
@@ -30,7 +32,7 @@ interface classUploadProps {
 export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const [titleCount, setTitleCount] = useState<number>(0);
   const [title, setTitle] = useState<string>('');
-  const [genreList, setGenreList] = useState<IGenreList[]>([{ genre: '' }]);
+  const [genreList, setGenreList] = useState<IGenreList[]>([]);
   const [isGenreFull, setIsGenreFull] = useState<boolean>(false);
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [hashTag, setHashTag] = useState<string>('');
@@ -232,46 +234,77 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   }, [genreList, classLevel, video, classDayList]);
 
   //api
+  const user = useRecoilValue(userState);
+  const accessToken = user.accessToken;
+
   const classUploadMutation = useMutation(postClassInfo, {
     onSuccess: data => {
-      alert('수업이 업로드되었습니다.');
+      console.log(data);
       closeModal;
     },
     onError: error => {
-      alert('수업 업로드에 실패하였습니다.');
+      console.log(error);
     },
   });
 
   const handleSubmit = () => {
+    const formData = new FormData();
+    formData.append(
+      'createDanceClassDto',
+      new Blob(
+        [
+          JSON.stringify({
+            date: classDate,
+            days: {
+              monday: monday,
+              tuesday: tuesday,
+              wednesday: wednesday,
+              thursday: thursday,
+              friday: friday,
+              saturday: saturday,
+              sunday: sunday,
+            },
+            detail1: classContent,
+            detail2: classUser,
+            detail3: classIntro,
+            difficulty: classLevel,
+            endTime: endTime,
+            genre: genreList,
+            hashtag1:
+              hashTagList[1]?.name !== undefined
+                ? `#${hashTagList[1]?.name}`
+                : null,
+            hashtag2:
+              hashTagList[2]?.name !== undefined
+                ? `#${hashTagList[2]?.name}`
+                : null,
+            hashtag3:
+              hashTagList[3]?.name !== undefined
+                ? `#${hashTagList[3]?.name}`
+                : null,
+            location: location,
+            maxPeople: classAdmit,
+            method: classWay,
+            reserveLink: classLink,
+            song: classSong,
+            startTime: startTime,
+            title: title,
+            tuition: classFee,
+          }),
+        ],
+        { type: 'application/json' },
+      ),
+    );
+    if (video instanceof File) {
+      formData.append('profileVideo', video);
+    }
+    for (const keyValue of formData) console.log(keyValue);
+    //console.log(formData);
+
+    //회원가입 테스트할 땐 주석 처리
     classUploadMutation.mutate({
-      date: classDate,
-      days: {
-        monday: monday,
-        tuesday: tuesday,
-        wednesday: wednesday,
-        thursday: thursday,
-        friday: friday,
-        saturday: saturday,
-        sunday: sunday,
-      },
-      detail1: classContent,
-      detail2: classUser,
-      detail3: classIntro,
-      difficulty: classLevel,
-      endTime: endTime,
-      genre: [genreList],
-      hashTag1: hashTagList[0],
-      hashTag2: hashTagList[1],
-      hashTag3: hashTagList[2],
-      location: location,
-      maxPeople: classAdmit,
-      method: classWay,
-      reserveLink: classLink,
-      song: classSong,
-      startTime: startTime,
-      title: title,
-      tuition: classFee,
-      videoFile: video,
+      formData: formData,
+      accessToken: accessToken,
     });
   };
 
