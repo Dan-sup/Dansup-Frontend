@@ -296,12 +296,10 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
       ),
     );
     if (video instanceof File) {
-      formData.append('profileVideo', video);
+      formData.append('videoFile', video);
     }
     for (const keyValue of formData) console.log(keyValue);
-    //console.log(formData);
 
-    //회원가입 테스트할 땐 주석 처리
     classUploadMutation.mutate({
       formData: formData,
       accessToken: accessToken,
@@ -655,7 +653,6 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                 </button>
               ) : (
                 <button
-                  onClick={handleSubmit}
                   className={`${buttonStyles.CTA_Large} ${buttonStyles.after} ${fonts.body1_SemiBold}`}
                 >
                   수업 올리기

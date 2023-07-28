@@ -6,6 +6,10 @@ import fonts from '../../styles/typography.module.css';
 import Close from '../../../public/icons/close.svg';
 import Ect from '../../../public/icons/ETC.svg';
 import UploadVideo from '../upload/UploadVideo';
+import { useRecoilValue } from 'recoil';
+import { userState } from '@/store/user';
+import { useMutation } from '@tanstack/react-query';
+import { postPortfolio } from '@/apis/my';
 
 interface portfolioUploadProps {
   isOpen: boolean;
@@ -17,6 +21,33 @@ export default function PortfolioUpload({
   closeModal,
 }: portfolioUploadProps) {
   const [video, setVideo] = useState<File | undefined>();
+
+  //api
+  const user = useRecoilValue(userState);
+  const accessToken = user.accessToken;
+
+  const portfolioUploadMutation = useMutation(postPortfolio, {
+    onSuccess: data => {
+      console.log(data);
+      closeModal;
+    },
+    onError: error => {
+      console.log(error);
+    },
+  });
+
+  const handleSubmit = () => {
+    const formData = new FormData();
+    if (video instanceof File) {
+      formData.append('videoFile', video);
+    }
+    for (const keyValue of formData) console.log(keyValue);
+
+    portfolioUploadMutation.mutate({
+      formData: formData,
+      accessToken: accessToken,
+    });
+  };
 
   return (
     <div style={{ display: isOpen ? 'block' : 'none' }}>
@@ -46,6 +77,7 @@ export default function PortfolioUpload({
           <div className={buttonStyles.buttonSpace}>
             {video !== null ? (
               <button
+                onClick={handleSubmit}
                 className={`${buttonStyles.CTA_Large} ${buttonStyles.before} ${fonts.body1_SemiBold}`}
               >
                 수업 올리기

@@ -19,6 +19,16 @@ export const postClassInfo = async (info: any) => {
   return response.data;
 };
 
+//포토폴리오 업로드
+export const postPortfolio = async (info: any) => {
+  const response = await client.post('/mypage/portfolio/video', info.formData, {
+    headers: {
+      Authorization: `Bearer ${info.accessToken}`,
+    },
+  });
+  return response.data;
+};
+
 //경력 조회
 export const getPortfolio = async (accessToken: any) => {
   const response = await client.get('/mypage/portfolio', {
