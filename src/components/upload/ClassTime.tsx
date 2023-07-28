@@ -18,9 +18,11 @@ export default function ClassTime({
 }: classTimeProps) {
   const startTimeChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setStartTime(e.target.value);
+    console.log(parseInt(startTime));
   };
   const endTimeChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEndTime(e.target.value);
+    console.log(parseInt(endTime));
   };
   return (
     <div className={styles.row_Between}>
