@@ -30,6 +30,7 @@ export default function HomePage() {
   };
 
   //api 로직 가져와서 사용하기
+  /*
   const { data: classList } = useQuery(['classList'], () => getClassList(), {
     onSuccess: data => {
       console.log(data);
@@ -38,6 +39,7 @@ export default function HomePage() {
       console.log(error);
     },
   });
+  */
 
   const getFilteredClassListMutation = useMutation(getFilteredClassList, {
     onSuccess: data => {

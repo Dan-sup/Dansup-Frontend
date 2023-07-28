@@ -10,6 +10,8 @@ import FilterBar from '@/components/FilterBar';
 import filterBarStyles from '../../styles/components/FilterBar.module.css';
 import DancerCard from '@/components/SearchResultPage/DancerCard';
 import ClassCard from '@/components/ClassCard';
+import { useRouter } from 'next/router';
+import Class from '@/components/profile/MyClass';
 
 export default function SearchResultPage() {
   const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
@@ -17,20 +19,32 @@ export default function SearchResultPage() {
   const [isDancerBtnClicked, setIsDancerBtnClicked] = useState<boolean>(false);
   const [isGenreIncluding, setIsGenreIncluding] = useState<boolean>(true);
 
+  const [typingFilteredClassList, setTypingFilteredClassList] = useState<
+    object[]
+  >([]);
+  const [bothFilteredClassList, setBothFilteredClassList] = useState<object[]>(
+    [],
+  );
+
   //api 로직 가져와서 사용하기
 
-  //타이핑만
+  const router = useRouter();
+  const { typingValue } = router.query;
+
+  //타이핑만 (완료)
   const getTypingFilteredClassListMutation = useMutation(getFilteredClassList, {
     onSuccess: data => {
       //여기로 typingFilteredClassList 오면 사용!
       console.log(data);
+      setTypingFilteredClassList(data.data);
+      console.log(typingFilteredClassList);
     },
     onError: error => {
       console.log(error);
     },
   });
 
-  //타이핑,필터 둘다
+  //타이핑,필터 둘다 (미완)
   const getBothFilteredClassListMutation = useMutation(getFilteredClassList, {
     onSuccess: data => {
       //여기로 bothFilteredClassList 오면 사용!
@@ -42,6 +56,7 @@ export default function SearchResultPage() {
   });
 
   /*
+  //타이핑 검색한 '댄서' 리스트 가져오기
   const { data: filteredDancerList } = useQuery(
     ['classList'],
     () => getFilteredDancerList(typingValue), //value 바꾸기
@@ -56,14 +71,14 @@ export default function SearchResultPage() {
   );
   */
 
-  /* 검색 페이지에서 입력한 input값을, 이 페이지로 넘겨서 처음에 typingFilteredClassList 보여주기
+  //검색 페이지에서 입력한 input값을, 이 페이지로 넘겨서 처음에 typingFilteredClassList 보여주기
   useEffect(() => {
+    console.log(typingValue);
     getTypingFilteredClassListMutation.mutate({
       typingValue: typingValue, //검색 페이지에서 입력한 input값 넣기! //value 바꾸기
       filterValue: null,
     });
-  }, []);
-  */
+  }, [typingValue]);
 
   /* 필터 적용하기 버튼 클릭하면 (타이핑,필터 둘다 적용된 상태)
     const handleFilterOn = () => {
@@ -84,8 +99,7 @@ export default function SearchResultPage() {
 
   return (
     <>
-      <SearchHeader />
-
+      <SearchHeader /> {/*인풋 안되는 걸로 고치기!*/}
       <div className={styles.container}>
         <div className={styles.selectBar}>
           <div
@@ -115,11 +129,13 @@ export default function SearchResultPage() {
             <span
               className={`${filterBarStyles.onNumberText} ${typoStyles.body2_Regular}`}
             >
-              8
+              {!isFilterOn
+                ? typingFilteredClassList.length
+                : bothFilteredClassList.length}
             </span>
             건
           </div>
-          {/* {!isFilterOn ? typingFilteredClassList.length : bothFilteredClassList.length} */}
+
           <div className={filterBarStyles.filterIcon}>
             <FilterIcon />
           </div>
@@ -131,11 +147,19 @@ export default function SearchResultPage() {
 
         {/* { isClassBtnClicked ? (isFilterOn이 false면 typingFilteredClassList, true면 bothFilteredClassList 보여주기!) : filteredDancerList } -> 중첩 조건문으로! */}
         {isClassBtnClicked ? (
-          <>
-            <ClassCard />
-            <ClassCard />
-            <ClassCard />
-          </>
+          !isFilterOn ? (
+            <>
+              {typingFilteredClassList.map((classInfo, idx) => (
+                <ClassCard key={idx} classInfo={classInfo} />
+              ))}
+            </>
+          ) : (
+            <>
+              {bothFilteredClassList.map((classInfo, idx) => (
+                <ClassCard key={idx} classInfo={classInfo} />
+              ))}
+            </>
+          )
         ) : (
           <div className={styles.classListBox}>
             <DancerCard isGenreIncluding={true} />

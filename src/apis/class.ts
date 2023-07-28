@@ -10,12 +10,12 @@ export const getClassList = async () => {
 export const getFilteredClassList = async (input: any) => {
   const response = await client.post(
     '/classes/filters',
+    { danceClassFilterDto: input.filterValue },
     {
       params: {
         title: input.typingValue,
       },
     },
-    { data: input.filterValue },
   );
   return response.data;
 };

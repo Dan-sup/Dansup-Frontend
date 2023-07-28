@@ -3,9 +3,27 @@ import BackIcon from '../../../../public/icons/back.svg';
 import SearchIcon from '../../../../public/icons/search.svg';
 import styles from '../../../styles/components/common/SearchHeader.module.css';
 import typoStyles from '../../../styles/typography.module.css';
+import { useState } from 'react';
 
 export default function SearchHeader() {
+  const [typingValue, setTypingValue] = useState('');
+
   const router = useRouter();
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+
+    if (typingValue.trim().length === 0) {
+      return;
+    }
+
+    router.push({
+      pathname: '/search-result',
+      query: { typingValue: typingValue },
+    });
+
+    //setTypingValue(''); //초기화
+  };
 
   return (
     <div className={styles.container}>
@@ -17,7 +35,14 @@ export default function SearchHeader() {
         <div className={styles.searchIcon}>
           <SearchIcon />
         </div>
-        <input className={`${styles.input} ${typoStyles.body2_Regular}`} />
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <input
+            className={`${styles.input} ${typoStyles.body2_Regular}`}
+            value={typingValue}
+            onChange={e => setTypingValue(e.target.value)}
+            required
+          />
+        </form>
       </div>
     </div>
   );
