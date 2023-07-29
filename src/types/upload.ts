@@ -8,6 +8,12 @@ export interface IList {
   name: string;
 }
 
+export interface ISelectList {
+  id: number;
+  name: string;
+  shortName: string;
+}
+
 export interface IGenreList {
   genre: string;
 }

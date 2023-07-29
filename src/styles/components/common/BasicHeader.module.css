@@ -13,7 +13,7 @@
 }
 
 .btn {
-  /*cursor: pointer; -> 웹에서만 필요*/
+  cursor: pointer; /*-> 웹에서만 필요*/
 
   display: flex;
   justify-content: center;

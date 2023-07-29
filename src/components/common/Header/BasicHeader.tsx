@@ -16,6 +16,13 @@ interface BasicHeaderProps {
 export default function BasicHeader({ type }: BasicHeaderProps) {
   const [profileImg, setProfileImg] = useState('');
   const user = useRecoilValue(userState);
+  const router = useRouter();
+
+  const onClickProfile = () => {
+    router.push('/my');
+  };
+
+  const onClickNoProfile = () => {};
 
   const router = useRouter();
 
@@ -49,7 +56,10 @@ export default function BasicHeader({ type }: BasicHeaderProps) {
         </div>
       )}
       {type !== 'register' && (
-        <div className={styles.btn}>
+        <div
+          className={styles.btn}
+          onClick={user.accessToken !== '' ? onClickProfile : onClickNoProfile}
+        >
           {!profileImg ? (
             <AvatarIcon />
           ) : (
