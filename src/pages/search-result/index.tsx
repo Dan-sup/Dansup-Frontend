@@ -91,16 +91,18 @@ export default function SearchResultPage() {
     });
   }, [typingValue]);
 
-  /* 필터 적용하기 버튼 클릭하면 (타이핑,필터 둘다 적용된 상태)
-    const handleFilterOn = () => {
-      getBothFilteredClassListMutation.mutate({
-        typingValue: typingValue, //value 바꾸기
-        filterValue: filterValue, //value 바꾸기
-      });
-  
-      setIsFilterOn(true);
-    };
-  */
+  //필터 적용하기 버튼 클릭하면 (타이핑,필터 둘다 적용된 상태)
+  const handleSearchFilterOn = (filterValue: any) => {
+    console.log(filterValue);
+
+    getBothFilteredClassListMutation.mutate({
+      typingValue: typingValue,
+      filterValue: filterValue,
+    });
+
+    setIsFilterOn(true);
+  };
+
   //초기화 버튼 누르면, setIsFilterOn(false); , getTypingFilteredClassListMutation
 
   const handleBtnClick = () => {
@@ -157,7 +159,11 @@ export default function SearchResultPage() {
               >
                 {!isFilterOn ? <FilterIcon /> : <FilterOnIcon />}
               </button>
-              <Filter isOpen={isModalOpen} closeModal={closeModal} />
+              <Filter
+                isOpen={isModalOpen}
+                closeModal={closeModal}
+                handleSearchFilterOn={handleSearchFilterOn}
+              />
             </>
           )}
         </div>

@@ -1,22 +1,22 @@
 export interface IFilter {
+  location: string | null;
+  genres: IGenre[] | [];
   days: {
-    fri: boolean;
     mon: boolean;
-    sat: boolean;
-    sun: boolean;
-    thu: boolean;
     tue: boolean;
     wed: boolean;
+    thu: boolean;
+    fri: boolean;
+    sat: boolean;
+    sun: boolean;
   };
-  difficulty: string | null;
-  genres: IGenre[];
-  location: string | null;
-  maxTuition: number | null;
-  minTuition: number | null;
-  method: string | null;
-  startTime: number | null;
-  endTime: number | null;
   time: string | null;
+  method: string | null;
+  difficulty: string | null;
+  minTuition: number | null;
+  maxTuition: number | null;
+  startTime: null;
+  endTime: null;
 }
 
 export interface IGenre {

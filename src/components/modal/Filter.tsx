@@ -15,13 +15,23 @@ import {
   classFeeList,
 } from '@/data/class-data';
 import Close from '../../../public/icons/close.svg';
+import { useRouter } from 'next/router';
+import { useRecoilState } from 'recoil';
+import { homeFilterState, searchFilterState } from '@/store/filter';
 
 interface filterProps {
   isOpen: boolean;
   closeModal: () => void;
+  handleHomeFilterOn?: any;
+  handleSearchFilterOn?: any;
 }
 
-export default function Filter({ isOpen, closeModal }: filterProps) {
+export default function Filter({
+  isOpen,
+  closeModal,
+  handleHomeFilterOn,
+  handleSearchFilterOn,
+}: filterProps) {
   const [locationList, setLocationList] = useState<IList[]>([
     { id: 0, name: '서울 전체' },
   ]);
@@ -134,6 +144,10 @@ export default function Filter({ isOpen, closeModal }: filterProps) {
     setClickedTime('전체');
   };
 
+  const router = useRouter();
+  const [homeFilter, setHomeFilter] = useRecoilState(homeFilterState);
+  const [searchFilter, setSearchFilter] = useRecoilState(searchFilterState);
+
   const newClassDayList = classDayList.map(item => item.name);
 
   let minTuition: any = null;
@@ -190,6 +204,58 @@ export default function Filter({ isOpen, closeModal }: filterProps) {
     console.log(minTuition);
     console.log(maxTuition);
     //startTime,endTime은 그냥 null로 보내기
+
+    if (router.pathname === '/') {
+      setHomeFilter({
+        ...homeFilter,
+        location:
+          locationList[0].name === '서울 전체' ? null : locationList[0].name,
+        genres: genreList,
+        days: {
+          mon: newClassDayList.includes('월'),
+          tue: newClassDayList.includes('화'),
+          wed: newClassDayList.includes('수'),
+          thu: newClassDayList.includes('목'),
+          fri: newClassDayList.includes('금'),
+          sat: newClassDayList.includes('토'),
+          sun: newClassDayList.includes('일'),
+        },
+        time: clickedTime === '전체' ? null : clickedTime,
+        method: classWay === '' ? null : classWay,
+        difficulty: classLevel === '' ? null : classLevel,
+        minTuition: minTuition,
+        maxTuition: maxTuition,
+        startTime: null,
+        endTime: null,
+      });
+
+      handleHomeFilterOn(homeFilter);
+    } else if (router.pathname === '/search-result') {
+      setSearchFilter({
+        ...searchFilter,
+        location:
+          locationList[0].name === '서울 전체' ? null : locationList[0].name,
+        genres: genreList,
+        days: {
+          mon: newClassDayList.includes('월'),
+          tue: newClassDayList.includes('화'),
+          wed: newClassDayList.includes('수'),
+          thu: newClassDayList.includes('목'),
+          fri: newClassDayList.includes('금'),
+          sat: newClassDayList.includes('토'),
+          sun: newClassDayList.includes('일'),
+        },
+        time: clickedTime === '전체' ? null : clickedTime,
+        method: classWay === '' ? null : classWay,
+        difficulty: classLevel === '' ? null : classLevel,
+        minTuition: minTuition,
+        maxTuition: maxTuition,
+        startTime: null,
+        endTime: null,
+      });
+
+      handleSearchFilterOn(searchFilter);
+    }
   };
 
   return (

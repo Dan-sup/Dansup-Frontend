@@ -56,16 +56,17 @@ export default function HomePage() {
     },
   });
 
-  /* 필터 적용하기 버튼 클릭하면
-  const handleFilterOn = () => {
+  const handleHomeFilterOn = (filterValue: any) => {
+    console.log(filterValue);
+
     getFilteredClassListMutation.mutate({
       typingValue: null,
-      filterValue: filterValue, //value 바꾸기
+      filterValue: filterValue,
     });
 
-    setIsFilterOn(true); //이거!
+    setIsFilterOn(true);
   };
-  */
+
   //초기화 버튼 누르면, setIsFilterOn(false); , getClassList
 
   return (
@@ -97,7 +98,11 @@ export default function HomePage() {
             <button className={styles.filterIcon} onClick={openModal}>
               <FilterIcon />
             </button>
-            <Filter isOpen={isModalOpen} closeModal={closeModal} />
+            <Filter
+              isOpen={isModalOpen}
+              closeModal={closeModal}
+              handleHomeFilterOn={handleHomeFilterOn}
+            />
           </div>
         ) : (
           <>
@@ -117,7 +122,11 @@ export default function HomePage() {
               <button className={styles.filterIcon} onClick={openModal}>
                 <FilterOnIcon />
               </button>
-              <Filter isOpen={isModalOpen} closeModal={closeModal} />
+              <Filter
+                isOpen={isModalOpen}
+                closeModal={closeModal}
+                handleHomeFilterOn={handleHomeFilterOn}
+              />
             </div>
             <div className={filterBarStyles.appliedFiltersBox}></div>
           </>

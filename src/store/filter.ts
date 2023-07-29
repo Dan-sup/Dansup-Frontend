@@ -1,27 +1,50 @@
 import { IFilter } from '@/types/filter';
 import { atom } from 'recoil';
-//import { IUser } from '@/types/user';
 
-export const userState = atom<IFilter>({
-  key: 'userState',
+export const homeFilterState = atom<IFilter>({
+  key: 'homeFilterState',
   default: {
+    location: null,
+    genres: [],
     days: {
-      fri: false,
       mon: false,
-      sat: false,
-      sun: false,
-      thu: false,
       tue: false,
       wed: false,
+      thu: false,
+      fri: false,
+      sat: false,
+      sun: false,
     },
-    difficulty: '',
-    genres: [],
-    location: '',
-    maxTuition: 30000,
+    time: null,
+    method: null,
+    difficulty: null,
     minTuition: 1000,
-    method: '',
+    maxTuition: 30000,
     startTime: null,
     endTime: null,
-    time: '',
+  },
+});
+
+export const searchFilterState = atom<IFilter>({
+  key: 'searchFilterState',
+  default: {
+    location: null,
+    genres: [],
+    days: {
+      mon: false,
+      tue: false,
+      wed: false,
+      thu: false,
+      fri: false,
+      sat: false,
+      sun: false,
+    },
+    time: null,
+    method: null,
+    difficulty: null,
+    minTuition: 1000,
+    maxTuition: 30000,
+    startTime: null,
+    endTime: null,
   },
 });
