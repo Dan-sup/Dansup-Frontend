@@ -4,19 +4,21 @@ import { useQuery, useMutation } from '@tanstack/react-query';
 import { getFilteredClassList } from '@/apis/class';
 import { getFilteredDancerList } from '../../apis/dancer';
 import FilterIcon from '../../../public/icons/filter.svg';
+import FilterOnIcon from '../../../public/icons/filter-on.svg';
 import typoStyles from '../../styles/typography.module.css';
 import styles from '../../styles/SearchResultPage.module.css';
 import FilterBar from '@/components/FilterBar';
 import filterBarStyles from '../../styles/components/FilterBar.module.css';
 import DancerCard from '@/components/SearchResultPage/DancerCard';
 import ClassCard from '@/components/ClassCard';
+import Filter from '@/components/modal/Filter';
 import { useRouter } from 'next/router';
 
 export default function SearchResultPage() {
   const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
   const [isClassBtnClicked, setIsClassBtnClicked] = useState<boolean>(true);
   const [isDancerBtnClicked, setIsDancerBtnClicked] = useState<boolean>(false);
-  const [isGenreIncluding, setIsGenreIncluding] = useState<boolean>(true);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const [typingFilteredClassList, setTypingFilteredClassList] = useState<
     object[]
@@ -24,6 +26,17 @@ export default function SearchResultPage() {
   const [bothFilteredClassList, setBothFilteredClassList] = useState<object[]>(
     [],
   );
+
+  /*modal*/
+  const openModal = () => {
+    setIsModalOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    document.body.style.overflow = 'unset';
+  };
 
   //api 로직 가져와서 사용하기
 
@@ -43,7 +56,7 @@ export default function SearchResultPage() {
     },
   });
 
-  //타이핑,필터 둘다 (미완)
+  //타이핑,필터 둘다 (미완!!!)
   const getBothFilteredClassListMutation = useMutation(getFilteredClassList, {
     onSuccess: data => {
       //여기로 bothFilteredClassList 오면 사용!
@@ -54,7 +67,7 @@ export default function SearchResultPage() {
     },
   });
 
-  //타이핑 검색한 '댄서' 리스트 가져오기
+  //타이핑 검색한 '댄서' 리스트 가져오기 (완료)
   const { data: filteredDancerList } = useQuery(
     ['classList', typingValue],
     () => getFilteredDancerList(typingValue), //value 바꾸기
@@ -137,9 +150,15 @@ export default function SearchResultPage() {
           </div>
 
           {isClassBtnClicked && (
-            <div className={filterBarStyles.filterIcon}>
-              <FilterIcon />
-            </div>
+            <>
+              <button
+                className={filterBarStyles.filterIcon}
+                onClick={openModal}
+              >
+                {!isFilterOn ? <FilterIcon /> : <FilterOnIcon />}
+              </button>
+              <Filter isOpen={isModalOpen} closeModal={closeModal} />
+            </>
           )}
         </div>
 

@@ -4,6 +4,7 @@ import { useQuery, useMutation } from '@tanstack/react-query';
 import { getClassList, getFilteredClassList } from '@/apis/class';
 import SearchIcon from '../../public/icons/search.svg';
 import FilterIcon from '../../public/icons/filter.svg';
+import FilterOnIcon from '../../public/icons/filter-on.svg';
 import typoStyles from '../styles/typography.module.css';
 import styles from '../styles/HomePage.module.css';
 import FilterBar from '@/components/FilterBar';
@@ -15,6 +16,8 @@ import { useRouter } from 'next/router';
 export default function HomePage() {
   const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const [filteredClassList, setfilteredClassList] = useState<object[]>([]);
 
   const router = useRouter();
 
@@ -30,21 +33,24 @@ export default function HomePage() {
   };
 
   //api 로직 가져와서 사용하기
-  /*
+
+  //전체 클래스 리스트
   const { data: classList } = useQuery(['classList'], () => getClassList(), {
     onSuccess: data => {
       console.log(data);
+      console.log(data.data);
     },
     onError: error => {
       console.log(error);
     },
   });
-  */
 
+  //필터링된 클래스 리스트(미완)
   const getFilteredClassListMutation = useMutation(getFilteredClassList, {
     onSuccess: data => {
       //여기로 filteredClassList 오면 사용!
       console.log(data);
+      setfilteredClassList(data.data);
     },
     onError: error => {
       console.log(error);
@@ -88,6 +94,7 @@ export default function HomePage() {
             >
               최근 업로드 된 수업
             </div>
+
             <button className={styles.filterIcon} onClick={openModal}>
               <FilterIcon />
             </button>
@@ -103,13 +110,13 @@ export default function HomePage() {
                 <span
                   className={`${filterBarStyles.onNumberText} ${typoStyles.body2_Regular}`}
                 >
-                  8
+                  {filteredClassList.length}
                 </span>
                 건
               </div>
-              {/* filteredClassList.length */}
+
               <button className={styles.filterIcon} onClick={openModal}>
-                <FilterIcon />
+                <FilterOnIcon />
               </button>
               <Filter isOpen={isModalOpen} closeModal={closeModal} />
             </div>
@@ -118,9 +125,19 @@ export default function HomePage() {
         )}
 
         {/* isFilterOn이 false면 classList, true면 filteredClassList 보여주기! */}
-        <ClassCard />
-        <ClassCard />
-        <ClassCard />
+        {!isFilterOn ? (
+          <>
+            {classList?.data.map((classInfo: any, idx: any) => (
+              <ClassCard key={idx} classInfo={classInfo} />
+            ))}
+          </>
+        ) : (
+          <>
+            {filteredClassList.map((classInfo, idx) => (
+              <ClassCard key={idx} classInfo={classInfo} />
+            ))}
+          </>
+        )}
       </div>
     </>
   );
