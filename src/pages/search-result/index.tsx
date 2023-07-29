@@ -56,7 +56,7 @@ export default function SearchResultPage() {
     },
   });
 
-  //타이핑,필터 둘다 (미완!!!)
+  //타이핑,필터 둘다 (완료)
   const getBothFilteredClassListMutation = useMutation(getFilteredClassList, {
     onSuccess: data => {
       //여기로 bothFilteredClassList 오면 사용!
@@ -86,8 +86,8 @@ export default function SearchResultPage() {
   useEffect(() => {
     console.log(typingValue);
     getTypingFilteredClassListMutation.mutate({
-      typingValue: typingValue, //검색 페이지에서 입력한 input값 넣기! //value 바꾸기
-      filterValue: null,
+      typingValue: typingValue, //검색 페이지에서 입력한 input값 넣기!
+      filterValue: {},
     });
   }, [typingValue]);
 

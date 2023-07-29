@@ -44,7 +44,7 @@ export default function HomePage() {
     },
   });
 
-  //필터링된 클래스 리스트(미완)
+  //필터링된 클래스 리스트
   const getFilteredClassListMutation = useMutation(getFilteredClassList, {
     onSuccess: data => {
       //여기로 filteredClassList 오면 사용!
