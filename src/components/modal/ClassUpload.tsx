@@ -21,6 +21,8 @@ import ToastMsg from '../upload/ToastMsg';
 import { levelList, wayList } from '@/data/class-data';
 import { postClassInfo } from '@/apis/my';
 import { useMutation } from '@tanstack/react-query';
+import { useRecoilValue } from 'recoil';
+import { userState } from '@/store/user';
 
 interface classUploadProps {
   isOpen: boolean;
@@ -30,7 +32,7 @@ interface classUploadProps {
 export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const [titleCount, setTitleCount] = useState<number>(0);
   const [title, setTitle] = useState<string>('');
-  const [genreList, setGenreList] = useState<IGenreList[]>([{ genre: '' }]);
+  const [genreList, setGenreList] = useState<IGenreList[]>([]);
   const [isGenreFull, setIsGenreFull] = useState<boolean>(false);
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [hashTag, setHashTag] = useState<string>('');
@@ -44,8 +46,8 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const [location, setLocation] = useState<IList>({ id: 0, name: '' });
   const [isOpenLocation, setIsOpenLocation] = useState<boolean>(false);
   const [classLevel, setClassLevel] = useState<string>('');
-  const [classFee, setClassFee] = useState<string>();
-  const [classAdmit, setClassAdmit] = useState<string>();
+  const [classFee, setClassFee] = useState<number>();
+  const [classAdmit, setClassAdmit] = useState<number>();
   const [classSong, setClassSong] = useState<string>('');
   const [selectWayClickIndex, setSelectWayClickIndex] = useState<number>(5);
   const [selectLevelClickIndex, setSelectLevelClickIndex] = useState<number>(5);
@@ -145,9 +147,9 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
 
   //수강료
   const handleChangeClassFee = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const currentClassFee = e.target.value;
+    const currentClassFee = Number(e.target.value);
     setClassFee(currentClassFee);
-    if (currentClassFee !== '') {
+    if (currentClassFee !== null) {
       setIsClassFeeChecked(true);
     } else {
       setIsClassFeeChecked(false);
@@ -156,9 +158,9 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
 
   //수용 인원
   const handleChangeClassAdmit = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const currentClassAdmit = e.target.value;
+    const currentClassAdmit = Number(e.target.value);
     setClassAdmit(currentClassAdmit);
-    if (currentClassAdmit !== '') {
+    if (currentClassAdmit !== null) {
       setIsClassAdmitChecked(true);
     } else {
       setIsClassAdmitChecked(false);
@@ -232,46 +234,87 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   }, [genreList, classLevel, video, classDayList]);
 
   //api
+  const user = useRecoilValue(userState);
+  const accessToken = user.accessToken;
+
   const classUploadMutation = useMutation(postClassInfo, {
     onSuccess: data => {
-      alert('수업이 업로드되었습니다.');
+      console.log(data);
       closeModal;
     },
     onError: error => {
-      alert('수업 업로드에 실패하였습니다.');
+      console.log(error);
     },
   });
 
   const handleSubmit = () => {
+    const formData = new FormData();
+    console.log(classDate);
+    console.log(monday);
+    console.log(tuesday);
+    console.log(location.name);
+    console.log(classContent);
+    console.log(classLevel);
+    console.log(endTime);
+    console.log(classFee);
+    console.log(classAdmit);
+    console.log(classWay);
+    console.log(classLink);
+
+    formData.append(
+      'createDanceClassDto',
+      new Blob(
+        [
+          JSON.stringify({
+            date: classDate,
+            days: {
+              monday: monday,
+              tuesday: tuesday,
+              wednesday: wednesday,
+              thursday: thursday,
+              friday: friday,
+              saturday: saturday,
+              sunday: sunday,
+            },
+            detail1: classContent,
+            detail2: classUser,
+            detail3: classIntro,
+            difficulty: classLevel,
+            endTime: endTime,
+            genre: genreList,
+            hashtag1:
+              hashTagList[1]?.name !== undefined
+                ? `#${hashTagList[1]?.name}`
+                : null,
+            hashtag2:
+              hashTagList[2]?.name !== undefined
+                ? `#${hashTagList[2]?.name}`
+                : null,
+            hashtag3:
+              hashTagList[3]?.name !== undefined
+                ? `#${hashTagList[3]?.name}`
+                : null,
+            location: location.name,
+            maxPeople: classAdmit,
+            method: classWay,
+            reserveLink: classLink,
+            song: classSong,
+            startTime: startTime,
+            title: title,
+            tuition: classFee,
+          }),
+        ],
+        { type: 'application/json' },
+      ),
+    );
+    if (video instanceof File) {
+      formData.append('videoFile', video);
+    }
+    for (const keyValue of formData) console.log(keyValue);
+
     classUploadMutation.mutate({
-      date: classDate,
-      days: {
-        monday: monday,
-        tuesday: tuesday,
-        wednesday: wednesday,
-        thursday: thursday,
-        friday: friday,
-        saturday: saturday,
-        sunday: sunday,
-      },
-      detail1: classContent,
-      detail2: classUser,
-      detail3: classIntro,
-      difficulty: classLevel,
-      endTime: endTime,
-      genre: [genreList],
-      hashTag1: hashTagList[0],
-      hashTag2: hashTagList[1],
-      hashTag3: hashTagList[2],
-      location: location,
-      maxPeople: classAdmit,
-      method: classWay,
-      reserveLink: classLink,
-      song: classSong,
-      startTime: startTime,
-      title: title,
-      tuition: classFee,
-      videoFile: video,
+      formData: formData,
+      accessToken: accessToken,
     });
   };
 
@@ -465,7 +508,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                   <input
                     className={`${styles.input} ${styles.long} ${fonts.body2_Regular}`}
                     placeholder="금액을 입력해주세요"
-                    type="text"
+                    type="number"
                     value={classFee}
                     onChange={handleChangeClassFee}
                   />
@@ -622,7 +665,6 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                 </button>
               ) : (
                 <button
-                  onClick={handleSubmit}
                   className={`${buttonStyles.CTA_Large} ${buttonStyles.after} ${fonts.body1_SemiBold}`}
                 >
                   수업 올리기

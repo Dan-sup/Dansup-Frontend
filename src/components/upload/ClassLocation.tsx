@@ -3,12 +3,12 @@ import fonts from '../../styles/typography.module.css';
 import styles from '../../styles/UploadPage.module.css';
 import { IList } from '@/types/upload';
 
-interface danceGenreProps {
+interface classLocationProps {
   list: IList[];
   setList: React.Dispatch<React.SetStateAction<IList[]>>;
 }
 
-export default function ClassLocation({ list, setList }: danceGenreProps) {
+export default function ClassLocation({ list, setList }: classLocationProps) {
   //location 선택
   const locationList = [
     { id: 0, name: '서울 전체', isShort: false },
@@ -46,21 +46,10 @@ export default function ClassLocation({ list, setList }: danceGenreProps) {
       id: nextId.current,
       name: e.target.value,
     };
-
-    if (
-      e.target.value == '서울 전체' ||
-      list.filter(item => item.name == '서울 전체').length == 1
-    ) {
+    if (list.length == 1) {
       nextId.current == 1;
       setList(list.filter(item => item.name === e.target.value));
       setList([newItem]);
-    } else {
-      if (list.filter(item => item.name == e.target.value).length !== 0) {
-        setList(list.filter(item => item.name !== e.target.value));
-      } else {
-        setList([...list, newItem]);
-        nextId.current += 1;
-      }
     }
   };
 
