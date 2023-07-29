@@ -8,15 +8,11 @@ export const getClassList = async () => {
 
 //필터링한 클래스 리스트 get
 export const getFilteredClassList = async (input: any) => {
-  const response = await client.post(
-    '/classes/filters',
-    { danceClassFilterDto: input.filterValue },
-    {
-      params: {
-        title: input.typingValue,
-      },
+  const response = await client.post('/classes/filters', input.filterValue, {
+    params: {
+      title: input.typingValue,
     },
-  );
+  });
   return response.data.data;
 };
 

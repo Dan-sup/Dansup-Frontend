@@ -206,6 +206,7 @@ export default function Filter({
     //startTime,endTime은 그냥 null로 보내기
 
     if (router.pathname === '/') {
+      /* 전역상태로 하면 한박자 밀림...
       setHomeFilter({
         ...homeFilter,
         location:
@@ -228,9 +229,31 @@ export default function Filter({
         startTime: null,
         endTime: null,
       });
+      */
 
-      handleHomeFilterOn(homeFilter);
+      handleHomeFilterOn({
+        location:
+          locationList[0].name === '서울 전체' ? null : locationList[0].name,
+        genres: genreList,
+        days: {
+          mon: newClassDayList.includes('월'),
+          tue: newClassDayList.includes('화'),
+          wed: newClassDayList.includes('수'),
+          thu: newClassDayList.includes('목'),
+          fri: newClassDayList.includes('금'),
+          sat: newClassDayList.includes('토'),
+          sun: newClassDayList.includes('일'),
+        },
+        time: clickedTime === '전체' ? null : clickedTime,
+        method: classWay === '' ? null : classWay,
+        difficulty: classLevel === '' ? null : classLevel,
+        minTuition: minTuition,
+        maxTuition: maxTuition,
+        startTime: null,
+        endTime: null,
+      });
     } else if (router.pathname === '/search-result') {
+      /* 전역상태로 하면 한박자 밀림...
       setSearchFilter({
         ...searchFilter,
         location:
@@ -253,8 +276,29 @@ export default function Filter({
         startTime: null,
         endTime: null,
       });
+      */
 
-      handleSearchFilterOn(searchFilter);
+      handleSearchFilterOn({
+        location:
+          locationList[0].name === '서울 전체' ? null : locationList[0].name,
+        genres: genreList,
+        days: {
+          mon: newClassDayList.includes('월'),
+          tue: newClassDayList.includes('화'),
+          wed: newClassDayList.includes('수'),
+          thu: newClassDayList.includes('목'),
+          fri: newClassDayList.includes('금'),
+          sat: newClassDayList.includes('토'),
+          sun: newClassDayList.includes('일'),
+        },
+        time: clickedTime === '전체' ? null : clickedTime,
+        method: classWay === '' ? null : classWay,
+        difficulty: classLevel === '' ? null : classLevel,
+        minTuition: minTuition,
+        maxTuition: maxTuition,
+        startTime: null,
+        endTime: null,
+      });
     }
   };
 
