@@ -7,7 +7,7 @@ export const getFilteredDancerList = async (typingValue: any) => {
       nickname: typingValue,
     },
   });
-  return response.data;
+  return response.data.data;
 };
 
 //댄서경력 조회

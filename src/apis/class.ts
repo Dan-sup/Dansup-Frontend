@@ -3,7 +3,7 @@ import client from './client';
 //클래스 리스트 get
 export const getClassList = async () => {
   const response = await client.get('/classes');
-  return response.data;
+  return response.data.data;
 };
 
 //필터링한 클래스 리스트 get
@@ -17,7 +17,7 @@ export const getFilteredClassList = async (input: any) => {
       },
     },
   );
-  return response.data;
+  return response.data.data;
 };
 
 //한 클래스 세부 get

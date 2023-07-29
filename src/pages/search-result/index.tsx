@@ -48,7 +48,7 @@ export default function SearchResultPage() {
     onSuccess: data => {
       //여기로 typingFilteredClassList 오면 사용!
       //console.log(data);
-      setTypingFilteredClassList(data.data);
+      setTypingFilteredClassList(data);
       //console.log(typingFilteredClassList);
     },
     onError: error => {
@@ -61,6 +61,7 @@ export default function SearchResultPage() {
     onSuccess: data => {
       //여기로 bothFilteredClassList 오면 사용!
       console.log(data);
+      setBothFilteredClassList(data);
     },
     onError: error => {
       console.log(error);
@@ -74,7 +75,6 @@ export default function SearchResultPage() {
     {
       onSuccess: data => {
         console.log(data);
-        console.log(data.data);
       },
       onError: error => {
         console.log(error);
@@ -144,7 +144,7 @@ export default function SearchResultPage() {
                 ? !isFilterOn
                   ? typingFilteredClassList.length
                   : bothFilteredClassList.length
-                : filteredDancerList.data.length}
+                : filteredDancerList.length}
             </span>
             건
           </div>
@@ -183,7 +183,7 @@ export default function SearchResultPage() {
           )
         ) : (
           <div className={styles.classListBox}>
-            {filteredDancerList.data.map((dancerInfo: any, idx: any) => (
+            {filteredDancerList.map((dancerInfo: any, idx: any) => (
               <DancerCard key={idx} dancerInfo={dancerInfo} />
             ))}
           </div>

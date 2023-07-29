@@ -38,7 +38,6 @@ export default function HomePage() {
   const { data: classList } = useQuery(['classList'], () => getClassList(), {
     onSuccess: data => {
       console.log(data);
-      console.log(data.data);
     },
     onError: error => {
       console.log(error);
@@ -50,7 +49,7 @@ export default function HomePage() {
     onSuccess: data => {
       //여기로 filteredClassList 오면 사용!
       console.log(data);
-      setfilteredClassList(data.data);
+      setfilteredClassList(data);
     },
     onError: error => {
       console.log(error);
@@ -127,7 +126,7 @@ export default function HomePage() {
         {/* isFilterOn이 false면 classList, true면 filteredClassList 보여주기! */}
         {!isFilterOn ? (
           <>
-            {classList?.data.map((classInfo: any, idx: any) => (
+            {classList?.map((classInfo: any, idx: any) => (
               <ClassCard key={idx} classInfo={classInfo} />
             ))}
           </>
