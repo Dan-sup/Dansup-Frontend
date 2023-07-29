@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import fonts from '../../styles/typography.module.css';
 import styles from '../../styles/UploadPage.module.css';
-import { IList } from '@/types/upload';
+import { ISelectList } from '@/types/upload';
 
 interface selectProps {
-  list: IList[];
+  list: ISelectList[];
   votedItem: string;
   setVotedItem: React.Dispatch<React.SetStateAction<string>>;
   clickIndex: number;
@@ -18,9 +18,9 @@ export default function Select({
   clickIndex,
   setClickIndex,
 }: selectProps) {
-  const onClick = (item: IList) => {
+  const onClick = (item: ISelectList) => {
     setClickIndex(item.id);
-    setVotedItem(item.name);
+    setVotedItem(item.shortName);
   };
 
   return (

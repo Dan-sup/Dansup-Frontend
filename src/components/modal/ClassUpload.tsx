@@ -256,6 +256,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
     console.log(classContent);
     console.log(classLevel);
     console.log(endTime);
+    console.log(parseInt(endTime));
     console.log(classFee);
     console.log(classAdmit);
     console.log(classWay);
@@ -281,6 +282,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
             detail3: classIntro,
             difficulty: classLevel,
             endTime: endTime,
+            endHour: parseInt(endTime),
             genre: genreList,
             hashtag1:
               hashTagList[1]?.name !== undefined
@@ -300,6 +302,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
             reserveLink: classLink,
             song: classSong,
             startTime: startTime,
+            startHour: parseInt(startTime),
             title: title,
             tuition: classFee,
           }),

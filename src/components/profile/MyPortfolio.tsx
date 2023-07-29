@@ -1,19 +1,46 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import fonts from '../../styles/typography.module.css';
 import styles from '../../styles/Profile.module.css';
-import myData from '../../jsons/myData.json';
 import DropDownBefore from '../../../public/icons/dropdown-before.svg';
 import DropDownAfter from '../../../public/icons/dropdown-after.svg';
 import ReactPlayer from 'react-player';
+import { useMutation } from '@tanstack/react-query';
+import { getPortfolio, getPortfolioVideo } from '@/apis/my';
 
-export default function Portfolio() {
-  const portfolios = myData.portfolio;
-  const portfolioVideo = myData.portfolioVideo;
+export default function Portfolio(accessToken: any) {
   const [isClicked, setIsClicked] = useState<boolean>(false);
+  const [portfolios, setPortfolios] = useState<any[]>([]);
+  const [video, setVideo] = useState<any[]>([]);
 
   const onClickDropDown = () => {
     setIsClicked(!isClicked);
   };
+
+  //api
+  const getPortfolioMutation = useMutation(getPortfolio, {
+    onSuccess: data => {
+      console.log(data.data);
+      setPortfolios(data.data);
+    },
+    onError: error => {
+      console.log(error);
+    },
+  });
+
+  const getPortfolioVideoMutation = useMutation(getPortfolioVideo, {
+    onSuccess: data => {
+      console.log(data.data);
+      setVideo(data.data);
+    },
+    onError: error => {
+      console.log(error);
+    },
+  });
+
+  useEffect(() => {
+    getPortfolioMutation.mutate(accessToken);
+    getPortfolioVideoMutation.mutate(accessToken);
+  }, [accessToken]);
 
   return (
     <div className={styles.container}>
@@ -26,7 +53,7 @@ export default function Portfolio() {
             <div className={`${styles.awardList} ${fonts.body2_Regular}`}>
               {isClicked ? (
                 <>
-                  {portfolios.map((data, idx) => (
+                  {portfolios.map((data: any, idx: any) => (
                     <div className={styles.awards} key={idx}>
                       <div className={styles.date}>{data.date}</div>
                       <div className={styles.award}>{data.detail}</div>
@@ -35,7 +62,7 @@ export default function Portfolio() {
                 </>
               ) : (
                 <>
-                  {portfolios.slice(0, 3).map((data, idx) => (
+                  {portfolios.slice(0, 3).map((data: any, idx: any) => (
                     <div className={styles.awards} key={idx}>
                       {data.date?.length == 0 ? (
                         <div className={styles.awardBlank}>
@@ -71,7 +98,7 @@ export default function Portfolio() {
       <div className={styles.divider} />
       <div className={styles.Part}>
         <div className={styles.paddingContainer}>
-          {portfolioVideo.map((data, idx) => (
+          {video.map((data, idx) => (
             <div key={idx}>
               {data.url.length == 0 ? (
                 <div className={styles.blank}>
