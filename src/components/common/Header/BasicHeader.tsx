@@ -22,9 +22,9 @@ export default function BasicHeader({ type }: BasicHeaderProps) {
     router.push('/my');
   };
 
-  const onClickNoProfile = () => {};
-
-  const router = useRouter();
+  const onClickNoProfile = () => {
+    router.push('/login');
+  };
 
   const getMyInfoMutation = useMutation(getMyInfo, {
     onSuccess: data => {

@@ -134,6 +134,64 @@ export default function Filter({ isOpen, closeModal }: filterProps) {
     setClickedTime('전체');
   };
 
+  const newClassDayList = classDayList.map(item => item.name);
+
+  let minTuition: any = null;
+  let maxTuition: any = null;
+
+  if (classFee === '전체 가격') {
+    minTuition = null;
+    maxTuition = null;
+  } else if (classFee === '1,000원 ~ 10,000원') {
+    minTuition = 1000;
+    maxTuition = 10000;
+  } else if (classFee === '10,000원 ~ 30,000원') {
+    minTuition = 10000;
+    maxTuition = 30000;
+  } else if (classFee === '30,000원 ~ 60,000원') {
+    minTuition = 30000;
+    maxTuition = 60000;
+  } else if (classFee === '60,000원 ~ 90,000원') {
+    minTuition = 60000;
+    maxTuition = 90000;
+  } else if (classFee === '100,000원 이상') {
+    minTuition = 100000;
+    maxTuition = null;
+  }
+
+  const handleSubmit = () => {
+    //console.log(locationList);
+    //console.log(genreList);
+    //console.log(classDayList);
+    //console.log(clickedTime);
+    //console.log(classWay);
+    //console.log(classLevel);
+    //console.log(classFee);
+
+    //console.log(classDayList.map(item => item.name)); //['', '수', '목', '금']
+    console.log(
+      locationList[0].name === '서울 전체' ? null : locationList[0].name,
+    );
+    console.log(genreList);
+    console.log({
+      days: {
+        mon: newClassDayList.includes('월'),
+        tue: newClassDayList.includes('화'),
+        wed: newClassDayList.includes('수'),
+        thu: newClassDayList.includes('목'),
+        fri: newClassDayList.includes('금'),
+        sat: newClassDayList.includes('토'),
+        sun: newClassDayList.includes('일'),
+      },
+    });
+    console.log(clickedTime === '전체' ? null : clickedTime);
+    console.log(classWay === '' ? null : classWay);
+    console.log(classLevel === '' ? null : classLevel);
+    console.log(minTuition);
+    console.log(maxTuition);
+    //startTime,endTime은 그냥 null로 보내기
+  };
+
   return (
     <div style={{ display: isOpen ? 'block' : 'none' }}>
       <div className={`${modalStyles.container} ${modalStyles.black}`}>
@@ -295,6 +353,7 @@ export default function Filter({ isOpen, closeModal }: filterProps) {
               ) : (
                 <button
                   className={`${buttonStyles.CTA_Large} ${buttonStyles.before} ${fonts.body1_SemiBold}`}
+                  onClick={handleSubmit}
                 >
                   필터 적용하기
                 </button>

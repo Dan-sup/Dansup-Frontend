@@ -37,7 +37,7 @@ export default function HomePage() {
   //전체 클래스 리스트
   const { data: classList } = useQuery(['classList'], () => getClassList(), {
     onSuccess: data => {
-      console.log(data);
+      //console.log(data);
     },
     onError: error => {
       console.log(error);
