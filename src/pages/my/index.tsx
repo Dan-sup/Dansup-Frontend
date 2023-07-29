@@ -5,13 +5,17 @@ import ClassUpload from '@/components/modal/ClassUpload';
 import PortfolioUpload from '@/components/modal/PortfolioUpload';
 import Portfolio from '@/components/profile/MyPortfolio';
 import Class from '@/components/profile/MyClass';
-import myData from '../../jsons/myData.json';
 import FloatingBtn from '../../../public/icons/floating-btn.svg';
 import PortfolioBtn from '../../../public/icons/portfolio-upload.svg';
 import ClassBtn from '../../../public/icons/class-upload.svg';
 import BlankImage from '../../../public/icons/blank-image.svg';
-import Image from 'next/image';
 import MyPageHeader from '@/components/common/Header/MyPageHeader';
+import { useRecoilValue } from 'recoil';
+import { useMutation } from '@tanstack/react-query';
+import { userState } from '@/store/user';
+import { getMyInfo } from '@/apis/my';
+import { useRouter } from 'next/router';
+import ReactPlayer from 'react-player';
 
 export default function MyPage() {
   const [isUploadBoxOpen, setIsUploadBoxOpen] = useState<boolean>(false);
@@ -19,8 +23,8 @@ export default function MyPage() {
   const [isPortfolioOpen, setIsPortfolioOpen] = useState<boolean>(false);
   const [isPortfolio, setIsPortfolio] = useState<boolean>(true);
   const [isHeader, setIsHeader] = useState<boolean>(true);
-  const profiles = myData.profile;
-  const image = myData.image;
+  const [profiles, setProfiles] = useState<any>([]);
+  const [genres, setGenres] = useState<any>([]);
 
   /*modal*/
   const openClassModal = () => {
@@ -55,12 +59,31 @@ export default function MyPage() {
   };
 
   useEffect(() => {
-    if (isClassOpen || isPortfolio) {
+    if (isClassOpen || isPortfolioOpen) {
       setIsHeader(false);
     } else {
       setIsHeader(true);
     }
   });
+
+  //api
+  const user = useRecoilValue(userState);
+  const accessToken = user.accessToken;
+
+  const getMyInfoMutation = useMutation(getMyInfo, {
+    onSuccess: data => {
+      console.log(data.data);
+      setProfiles(data.data);
+      setGenres(data.data.genres);
+    },
+    onError: error => {
+      console.log(error);
+    },
+  });
+
+  useEffect(() => {
+    getMyInfoMutation.mutate(accessToken);
+  }, [accessToken]);
 
   return (
     <>
@@ -68,56 +91,73 @@ export default function MyPage() {
         <MyPageHeader />
       </div>
       <div className={styles.container}>
-        {profiles.map((data, idx) => (
-          <div className={styles.profilePart} key={idx}>
+        <div className={styles.profilePart}>
+          {profiles.profileVideoUrl == '' ? (
             <div className={styles.backVideo}></div>
-            <div className={styles.paddingContainer}>
-              {image.map((data, idx) => (
-                <div key={idx}>
-                  {data.url == '' ? (
-                    <BlankImage
-                      alt="blank"
-                      className={styles.profileImg}
-                      width={100}
-                      heigth={100}
-                    />
-                  ) : (
-                    <Image
-                      className={styles.profileImg}
-                      src={data.url}
-                      alt={data.url}
-                      width={100}
-                      height={100}
-                    />
-                  )}
+          ) : (
+            <div className={styles.backVideoPlayer}>
+              <ReactPlayer url={profiles.profileVideoUrl} playing muted loop />
+            </div>
+          )}
+          <div className={styles.paddingContainer}>
+            {profiles.profileImageUrl == '' ? (
+              <BlankImage
+                alt="blank"
+                className={styles.profileImg}
+                width={100}
+                heigth={100}
+              />
+            ) : (
+              <img
+                className={styles.profileImg}
+                src={profiles.profileImageUrl}
+                alt={profiles.profileImageUrl}
+                width={100}
+                height={100}
+              />
+            )}
+            <div className={`${styles.genreList} ${fonts.body2_Regular}`}>
+              {genres.map((data: any, idx: any) => (
+                <div className={styles.genreBox} key={idx}>
+                  <div className={styles.genre}>{data.genre}</div>
                 </div>
               ))}
-              <div className={`${styles.genreList} ${fonts.body2_Regular}`}>
-                {data.genres.map(data => (
-                  <div className={styles.genreBox} key={data.genre}>
-                    <div className={styles.genre}>{data.genre}</div>
-                  </div>
-                ))}
-              </div>
-              <div className={`${styles.nickname} ${fonts.head1}`}>
-                {data.nickname}
-              </div>
-              <div className={`${styles.username} ${fonts.caption1_Regular}`}>
-                {data.username}
-              </div>
-              <div className={`${styles.intro} ${fonts.body2_Regular}`}>
-                {data.intro}
-              </div>
-              <div className={`${styles.hashTagList} ${fonts.body2_Regular}`}>
-                {data.hashtags.map((data, idx) => (
-                  <div className={styles.hashTagBox} key={idx}>
-                    <div className={styles.hashTag}>{data.hashtag}</div>
-                  </div>
-                ))}
-              </div>
+            </div>
+            <div className={`${styles.nickname} ${fonts.head1}`}>
+              {profiles.nickname}
+            </div>
+            <div className={`${styles.username} ${fonts.caption1_Regular}`}>
+              {profiles.username}
+            </div>
+            <div className={`${styles.intro} ${fonts.body2_Regular}`}>
+              {profiles.intro}
+            </div>
+            <div className={`${styles.hashTagList} ${fonts.body2_Regular}`}>
+              {profiles.hashtag1 !== null ? (
+                <div className={styles.hashTagBox}>
+                  <div className={styles.hashTag}>{profiles.hashtag1}</div>
+                </div>
+              ) : (
+                <></>
+              )}
+              {profiles.hashtag2 !== null ? (
+                <div className={styles.hashTagBox}>
+                  <div className={styles.hashTag}>{profiles.hashtag2}</div>
+                </div>
+              ) : (
+                <></>
+              )}
+              {profiles.hashtag3 !== null ? (
+                <div className={styles.hashTagBox}>
+                  <div className={styles.hashTag}>{profiles.hashtag3}</div>
+                </div>
+              ) : (
+                <></>
+              )}
             </div>
           </div>
-        ))}
+        </div>
+
         <div className={styles.buttonBox}>
           <div className={styles.buttons}>
             <button
@@ -142,7 +182,11 @@ export default function MyPage() {
             </button>
           </div>
         </div>
-        {isPortfolio ? <Portfolio /> : <Class />}
+        {isPortfolio ? (
+          <Portfolio accessToken={accessToken} />
+        ) : (
+          <Class accessToken={accessToken} />
+        )}
         <button onClick={() => setIsUploadBoxOpen(!isUploadBoxOpen)}>
           <FloatingBtn className={styles.floatingBtn} />
         </button>

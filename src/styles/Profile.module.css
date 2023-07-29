@@ -132,6 +132,13 @@
   position: relative;
 }
 
+.backVideoPlayer {
+  width: 100%;
+  height: 386px;
+  margin-bottom: 15px;
+  position: relative;
+}
+
 .profileImg {
   width: 100px;
   height: 100px;

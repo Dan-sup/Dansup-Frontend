@@ -23,7 +23,7 @@ interface filterProps {
 
 export default function Filter({ isOpen, closeModal }: filterProps) {
   const [locationList, setLocationList] = useState<IList[]>([
-    { id: 0, name: '' },
+    { id: 0, name: '서울 전체' },
   ]);
   const [isClickedLocation, setIsClickedLocation] = useState<boolean>(false);
   //Genre 박스 열기
@@ -35,13 +35,13 @@ export default function Filter({ isOpen, closeModal }: filterProps) {
   ]);
   const [selectWayClickIndex, setSelectWayClickIndex] = useState<number>(0);
   const [selectLevelClickIndex, setSelectLevelClickIndex] = useState<number>(0);
-  const [classWay, setClassWay] = useState<string>('전체');
-  const [classLevel, setClassLevel] = useState<string>('전체');
+  const [classWay, setClassWay] = useState<string>('');
+  const [classLevel, setClassLevel] = useState<string>('');
   const [classFee, setClassFee] = useState<string>('전체 가격');
 
   //목록 선택
   const [selectTimeClickIndex, SetSelectTimeClickIndex] = useState<number>(0);
-  const [clickedTime, setClickedTime] = useState<string>('');
+  const [clickedTime, setClickedTime] = useState<string>('전체');
 
   //우효성 검사 state (Checked => 형식)
   const [isLocationChecked, setIsLocationChecked] = useState<boolean>(false);
@@ -53,8 +53,6 @@ export default function Filter({ isOpen, closeModal }: filterProps) {
   const [isClassWayChecked, setIsClassWayChecked] = useState<boolean>(false);
   const [isSelectTimeChecked, setIsSelectTimeChecked] =
     useState<boolean>(false);
-  const [isStartTimeChecked, setIsStartTimeChecked] = useState<boolean>(false);
-  const [isEndTImeChecked, setIsEndTimeChecked] = useState<boolean>(false);
 
   //location 박스 열기
   const onClickOpenLocationBox = () => {
@@ -77,19 +75,19 @@ export default function Filter({ isOpen, closeModal }: filterProps) {
   };
 
   useEffect(() => {
-    if (locationList.length !== 1) {
+    if (locationList[0].name !== '서울 전체') {
       setIsLocationChecked(true);
     } else {
       setIsLocationChecked(false);
     }
 
-    if (genreList.length !== 1) {
+    if (genreList.length !== 0) {
       setIsGenreListChecked(true);
     } else {
       setIsGenreListChecked(false);
     }
 
-    if (classLevel !== '전체') {
+    if (classLevel !== '') {
       setIsClassLevelChecked(true);
     } else {
       setIsClassLevelChecked(false);
@@ -101,7 +99,7 @@ export default function Filter({ isOpen, closeModal }: filterProps) {
       setIsClassDayChecked(false);
     }
 
-    if (classWay !== '전체') {
+    if (classWay !== '') {
       setIsClassWayChecked(true);
     } else {
       setIsClassWayChecked(false);
@@ -123,17 +121,17 @@ export default function Filter({ isOpen, closeModal }: filterProps) {
 
   //초기화
   const onClickReset = () => {
-    setLocationList([{ id: 0, name: '' }]);
-    setGenreList([{ genre: '' }]);
+    setLocationList([{ id: 0, name: '서울 전체' }]);
+    setGenreList([]);
     setClassDayList([{ id: 0, name: '' }]);
     setSelectWayClickIndex(0);
-    setClassWay('전체');
+    setClassWay('');
     setClassFee('전체 가격');
     setIsClassFeeChecked(false);
     setSelectLevelClickIndex(0);
-    setClassLevel('전체');
+    setClassLevel('');
     SetSelectTimeClickIndex(0);
-    setClickedTime('');
+    setClickedTime('전체');
   };
 
   return (
@@ -279,30 +277,29 @@ export default function Filter({ isOpen, closeModal }: filterProps) {
               </form>
             </div>
           </div>
-        </div>
 
-        <div className={styles.bottom}>
-          <div className={buttonStyles.buttonSpace}>
-            {isLocationChecked ||
-            isClassDayChecked ||
-            isClassFeeChecked ||
-            isClassLevelChecked ||
-            isGenreListChecked ||
-            isClassWayChecked ||
-            isSelectTimeChecked ||
-            (isStartTimeChecked && isEndTImeChecked) ? (
-              <button
-                className={`${buttonStyles.CTA_Large} ${buttonStyles.before} ${fonts.body1_SemiBold}`}
-              >
-                필터 적용하기
-              </button>
-            ) : (
-              <button
-                className={`${buttonStyles.CTA_Large} ${buttonStyles.after} ${fonts.body1_SemiBold}`}
-              >
-                필터 적용하기
-              </button>
-            )}
+          <div className={styles.bottom}>
+            <div className={buttonStyles.buttonSpace}>
+              {!isLocationChecked &&
+              !isClassDayChecked &&
+              !isClassFeeChecked &&
+              !isClassLevelChecked &&
+              !isGenreListChecked &&
+              !isClassWayChecked &&
+              !isSelectTimeChecked ? (
+                <button
+                  className={`${buttonStyles.CTA_Large} ${buttonStyles.after} ${fonts.body1_SemiBold}`}
+                >
+                  필터 적용하기
+                </button>
+              ) : (
+                <button
+                  className={`${buttonStyles.CTA_Large} ${buttonStyles.before} ${fonts.body1_SemiBold}`}
+                >
+                  필터 적용하기
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>

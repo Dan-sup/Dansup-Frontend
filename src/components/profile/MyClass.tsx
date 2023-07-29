@@ -1,26 +1,42 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from '../../styles/Profile.module.css';
 import fonts from '../../styles/typography.module.css';
-import myData from '../../jsons/myData.json';
 import Date from '../../../public/icons/date.svg';
 import Location from '../../../public/icons/location.svg';
 import Dot from '../../../public/icons/dot.svg';
+import { useMutation } from '@tanstack/react-query';
+import { getClass } from '@/apis/class';
 
 type IOpenList = {
   isBtnOpen: boolean;
 };
 
-export default function Class() {
-  const classes = myData.class;
+export default function Class(accessToken: any) {
+  const [classes, setClasses] = useState<any>([]);
   const [isBtnOpenList, setIsBtnOpenList] = useState<IOpenList[]>([
     {
       isBtnOpen: false,
     },
   ]);
 
+  //api
+  const getClassMutation = useMutation(getClass, {
+    onSuccess: data => {
+      console.log(data.data);
+      setClasses(data.data);
+    },
+    onError: error => {
+      console.log(error);
+    },
+  });
+
+  useEffect(() => {
+    getClassMutation.mutate(accessToken);
+  }, [accessToken]);
+
   return (
     <div className={styles.container}>
-      {classes.map((data, idx) => {
+      {classes.map((data: any, idx: any) => {
         let location = data.location.substring(
           0,
           data.location.indexOf('구 ') + 1,

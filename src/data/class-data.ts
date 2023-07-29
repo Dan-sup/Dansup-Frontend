@@ -33,10 +33,10 @@ export const filterWayList = [
 ];
 
 export const classFeeList = [
-  { id: 0, name: '전체 가격', shortName: '' },
-  { id: 1, name: '1,000원 ~ 10,000원', shortName: '1000' },
-  { id: 2, name: '10,000원 ~ 30,000원', shortName: '10000' },
-  { id: 3, name: '30,000원 ~ 60,000원', shortName: '30000' },
-  { id: 4, name: '60,000원 ~ 90,000원', shortName: '60000' },
-  { id: 5, name: '100,000원 이상', shortName: '100000' },
+  { id: 0, name: '전체 가격' },
+  { id: 1, name: '1,000원 ~ 10,000원' },
+  { id: 2, name: '10,000원 ~ 30,000원' },
+  { id: 3, name: '30,000원 ~ 60,000원' },
+  { id: 4, name: '60,000원 ~ 90,000원' },
+  { id: 5, name: '100,000원 이상' },
 ];
