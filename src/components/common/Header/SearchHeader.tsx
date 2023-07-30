@@ -4,9 +4,12 @@ import SearchIcon from '../../../../public/icons/search.svg';
 import styles from '../../../styles/components/common/SearchHeader.module.css';
 import typoStyles from '../../../styles/typography.module.css';
 import { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { typingValueState } from '@/store/filter';
 
 export default function SearchHeader() {
-  const [typingValue, setTypingValue] = useState('');
+  //const [typingValue, setTypingValue] = useState('');
+  const [typingValue, setTypingValue] = useRecoilState(typingValueState);
 
   const router = useRouter();
 
@@ -27,7 +30,13 @@ export default function SearchHeader() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.backBtn} onClick={() => router.push('/')}>
+      <div
+        className={styles.backBtn}
+        onClick={() => {
+          setTypingValue('');
+          router.push('/');
+        }}
+      >
         <BackIcon />
       </div>
 
