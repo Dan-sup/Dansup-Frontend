@@ -56,15 +56,7 @@ export default function Portfolio() {
               공연 및 활동경력
             </div>
             <div className={`${styles.awardList} ${fonts.body2_Regular}`}>
-              {portfolios.length == 0 ? (
-                <div className={styles.awardBlank}>
-                  <div
-                    className={`${styles.blankText} ${fonts.body2_SemiBold}`}
-                  >
-                    공연 및 활동경력이 없어요
-                  </div>
-                </div>
-              ) : (
+              {portfolios.length !== 0 ? (
                 <>
                   {isClicked ? (
                     <>
@@ -86,6 +78,14 @@ export default function Portfolio() {
                     </>
                   )}
                 </>
+              ) : (
+                <div className={styles.awardBlank}>
+                  <div
+                    className={`${styles.blankText} ${fonts.body2_SemiBold}`}
+                  >
+                    공연 및 활동경력이 없어요
+                  </div>
+                </div>
               )}
             </div>
             {portfolios.length < 4 ? (

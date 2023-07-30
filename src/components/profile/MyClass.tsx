@@ -42,13 +42,7 @@ export default function Class() {
   return (
     <div className={styles.container}>
       <>
-        {classes.length == 0 ? (
-          <div className={styles.blank}>
-            <div className={`${styles.blankText} ${fonts.body2_SemiBold}`}>
-              운영중인 수업을 추가해주세요
-            </div>
-          </div>
-        ) : (
+        {classes.length !== 0 ? (
           <>
             {classes.map((data: any, idx: any) => {
               let location = data.location.substring(
@@ -145,6 +139,12 @@ export default function Class() {
               </>;
             })}
           </>
+        ) : (
+          <div className={styles.blank}>
+            <div className={`${styles.blankText} ${fonts.body2_SemiBold}`}>
+              운영중인 수업을 추가해주세요
+            </div>
+          </div>
         )}
       </>
     </div>

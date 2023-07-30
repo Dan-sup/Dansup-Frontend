@@ -245,7 +245,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const classUploadMutation = useMutation(postClassInfo, {
     onSuccess: data => {
       console.log(data);
-      closeModal;
+      alert('업로드 되었습니다');
     },
     onError: error => {
       console.log(error);
@@ -272,15 +272,14 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
       new Blob(
         [
           JSON.stringify({
-            date: classDate !== '' ? classDate : null,
             days: {
-              monday: monday,
-              tuesday: tuesday,
-              wednesday: wednesday,
-              thursday: thursday,
-              friday: friday,
-              saturday: saturday,
-              sunday: sunday,
+              fri: friday,
+              mon: monday,
+              sat: saturday,
+              sun: sunday,
+              thu: thursday,
+              tue: tuesday,
+              wed: wednesday,
             },
             detail1: classContent !== '' ? classContent : null,
             detail2: classUser !== '' ? classUser : null,
@@ -310,6 +309,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
             startTime: startTime !== '' ? startTime : null,
             title: title,
             tuition: classFee,
+            date: classDate !== '' ? classDate : null,
           }),
         ],
         { type: 'application/json' },
