@@ -75,7 +75,7 @@ export default function PortfolioUpload({
         </div>
         <div className={styles.bottom}>
           <div className={buttonStyles.buttonSpace}>
-            {video !== null ? (
+            {video !== undefined ? (
               <button
                 onClick={handleSubmit}
                 className={`${buttonStyles.CTA_Large} ${buttonStyles.before} ${fonts.body1_SemiBold}`}
