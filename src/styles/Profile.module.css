@@ -133,6 +133,8 @@
 }
 
 .backVideoPlayer {
+  display: flex;
+  justify-content: center;
   width: 100%;
   height: 386px;
   margin-bottom: 15px;

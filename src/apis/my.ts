@@ -50,7 +50,7 @@ export const getPortfolioVideo = async (accessToken: any) => {
 };
 
 //수업
-export const getClass = async (accessToken: any) => {
+export const getMyClass = async (accessToken: any) => {
   const response = await client.get('/mypage/class', {
     headers: {
       Authorization: `Bearer ${accessToken}`,

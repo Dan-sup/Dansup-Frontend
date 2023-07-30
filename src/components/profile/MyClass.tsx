@@ -4,14 +4,16 @@ import fonts from '../../styles/typography.module.css';
 import Date from '../../../public/icons/date.svg';
 import Location from '../../../public/icons/location.svg';
 import Dot from '../../../public/icons/dot.svg';
+import { useRecoilValue } from 'recoil';
+import { userState } from '@/store/user';
 import { useMutation } from '@tanstack/react-query';
-import { getClass } from '@/apis/class';
+import { getMyClass } from '@/apis/my';
 
 type IOpenList = {
   isBtnOpen: boolean;
 };
 
-export default function Class(accessToken: any) {
+export default function Class() {
   const [classes, setClasses] = useState<any>([]);
   const [isBtnOpenList, setIsBtnOpenList] = useState<IOpenList[]>([
     {
@@ -20,7 +22,10 @@ export default function Class(accessToken: any) {
   ]);
 
   //api
-  const getClassMutation = useMutation(getClass, {
+  const user = useRecoilValue(userState);
+  const accessToken = user.accessToken;
+
+  const getMyClassMutation = useMutation(getMyClass, {
     onSuccess: data => {
       console.log(data.data);
       setClasses(data.data);
@@ -31,25 +36,19 @@ export default function Class(accessToken: any) {
   });
 
   useEffect(() => {
-    getClassMutation.mutate(accessToken);
+    getMyClassMutation.mutate(accessToken);
   }, [accessToken]);
 
   return (
     <div className={styles.container}>
-      {classes.map((data: any, idx: any) => {
-        let location = data.location.substring(
-          0,
-          data.location.indexOf('구 ') + 1,
-        );
-        return (
+      <>
+        {classes.length !== 0 ? (
           <>
-            {data.title.length == 0 ? (
-              <div className={styles.blank}>
-                <div className={`${styles.blankText} ${fonts.body2_SemiBold}`}>
-                  운영중인 수업을 추가해주세요
-                </div>
-              </div>
-            ) : (
+            {classes.map((data: any, idx: any) => {
+              let location = data.location.substring(
+                0,
+                data.location.indexOf('구 ') + 1,
+              );
               <>
                 <div className={styles.classBox} key={idx}>
                   <div
@@ -137,11 +136,17 @@ export default function Class(accessToken: any) {
                   </div>
                 </div>
                 <div className={styles.divider} />
-              </>
-            )}
+              </>;
+            })}
           </>
-        );
-      })}
+        ) : (
+          <div className={styles.blank}>
+            <div className={`${styles.blankText} ${fonts.body2_SemiBold}`}>
+              운영중인 수업을 추가해주세요
+            </div>
+          </div>
+        )}
+      </>
     </div>
   );
 }

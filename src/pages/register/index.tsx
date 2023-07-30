@@ -6,7 +6,6 @@ import fonts from '../../styles/typography.module.css';
 import buttonStyles from '../../styles/Button.module.css';
 import BlankImage from '../../../public/icons/blank-image.svg';
 import Plus from '../../../public/icons/plus.svg';
-import Delete from '../../../public/icons/award-delete.svg';
 import { IAwardList, IList, IGenreList } from '../../types/upload';
 import UploadVideo from '../../components/upload/UploadVideo';
 import DanceGenre from '@/components/upload/DanceGenre';

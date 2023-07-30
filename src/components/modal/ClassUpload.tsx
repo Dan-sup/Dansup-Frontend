@@ -53,7 +53,9 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const [selectLevelClickIndex, setSelectLevelClickIndex] = useState<number>(5);
   const [classWay, setClassWay] = useState<string>('');
   const [classDate, setClassDate] = useState<string>('');
+  const [startHour, setStartHour] = useState<number>(0);
   const [startTime, setStartTime] = useState<string>('');
+  const [endHour, setEndHour] = useState<number>(0);
   const [endTime, setEndTime] = useState<string>('');
   const [classDayList, setClassDayList] = useState<IList[]>([
     { id: 0, name: '' },
@@ -231,7 +233,10 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
     if (classDayList.filter(item => item.name == '일').length !== 0) {
       setSunday(true);
     }
-  }, [genreList, classLevel, video, classDayList]);
+
+    setStartHour(parseInt(startTime));
+    setEndHour(parseInt(endTime));
+  }, [genreList, classLevel, video, classDayList, startTime, endTime]);
 
   //api
   const user = useRecoilValue(userState);
@@ -240,7 +245,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const classUploadMutation = useMutation(postClassInfo, {
     onSuccess: data => {
       console.log(data);
-      closeModal;
+      alert('업로드 되었습니다');
     },
     onError: error => {
       console.log(error);
@@ -256,7 +261,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
     console.log(classContent);
     console.log(classLevel);
     console.log(endTime);
-    console.log(parseInt(endTime));
+    console.log(startHour);
     console.log(classFee);
     console.log(classAdmit);
     console.log(classWay);
@@ -267,22 +272,21 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
       new Blob(
         [
           JSON.stringify({
-            date: classDate,
             days: {
-              monday: monday,
-              tuesday: tuesday,
-              wednesday: wednesday,
-              thursday: thursday,
-              friday: friday,
-              saturday: saturday,
-              sunday: sunday,
+              fri: friday,
+              mon: monday,
+              sat: saturday,
+              sun: sunday,
+              thu: thursday,
+              tue: tuesday,
+              wed: wednesday,
             },
-            detail1: classContent,
-            detail2: classUser,
-            detail3: classIntro,
+            detail1: classContent !== '' ? classContent : null,
+            detail2: classUser !== '' ? classUser : null,
+            detail3: classIntro !== '' ? classIntro : null,
             difficulty: classLevel,
-            endTime: endTime,
-            endHour: parseInt(endTime),
+            endHour: endHour !== undefined ? endHour : null,
+            endTime: endTime !== '' ? endTime : null,
             genre: genreList,
             hashtag1:
               hashTagList[1]?.name !== undefined
@@ -298,13 +302,14 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                 : null,
             location: location.name,
             maxPeople: classAdmit,
-            method: classWay,
+            method: classWay !== '' ? classWay : null,
             reserveLink: classLink,
-            song: classSong,
-            startTime: startTime,
-            startHour: parseInt(startTime),
+            song: classSong !== '' ? classSong : null,
+            startHour: startHour !== undefined ? startHour : null,
+            startTime: startTime !== '' ? startTime : null,
             title: title,
             tuition: classFee,
+            date: classDate !== '' ? classDate : null,
           }),
         ],
         { type: 'application/json' },
@@ -566,7 +571,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               </div>
               {classWay !== '' ? (
                 <>
-                  {classWay == '원데이' ? (
+                  {classWay == 'OD' ? (
                     <div className={styles.box}>
                       <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
                         수업 날짜
