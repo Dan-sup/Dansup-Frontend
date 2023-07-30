@@ -252,6 +252,8 @@ export default function Filter({
         startTime: null,
         endTime: null,
       });
+
+      closeModal();
     } else if (router.pathname === '/search-result') {
       /* 전역상태로 하면 한박자 밀림...
       setSearchFilter({
@@ -299,6 +301,8 @@ export default function Filter({
         startTime: null,
         endTime: null,
       });
+
+      closeModal();
     }
   };
 

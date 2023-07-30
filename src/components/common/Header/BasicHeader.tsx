@@ -28,13 +28,13 @@ export default function BasicHeader({ type }: BasicHeaderProps) {
 
   const getMyInfoMutation = useMutation(getMyInfo, {
     onSuccess: data => {
-      console.log(data);
-      console.log(data.data.profileImageUrl);
+      //console.log(data);
+      //console.log(data.data.profileImageUrl);
       setProfileImg(data.data.profileImageUrl);
-      console.log(profileImg);
+      //console.log(profileImg);
     },
     onError: error => {
-      console.log(error);
+      //console.log(error);
     },
   });
 
