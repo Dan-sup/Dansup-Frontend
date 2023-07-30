@@ -287,7 +287,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
             difficulty: classLevel,
             endHour: endTime !== '' ? endHour : null,
             endTime: endTime !== '' ? endTime : null,
-            genre: genreList,
+            genres: genreList,
             hashtag1:
               hashTagList[1]?.name !== undefined ? hashTagList[1]?.name : null,
             hashtag2:

@@ -128,7 +128,8 @@ export default function SearchResultPage() {
 
   return (
     <>
-      <SearchHeader /> {/*인풋 안되는 걸로 고치기!*/}
+      <SearchHeader />
+
       <div className={styles.container}>
         <div className={styles.selectBar}>
           <div
@@ -194,6 +195,7 @@ export default function SearchResultPage() {
         )}
 
         {/* { isClassBtnClicked ? (isFilterOn이 false면 typingFilteredClassList, true면 bothFilteredClassList 보여주기!) : filteredDancerList } -> 중첩 조건문으로! */}
+
         {isClassBtnClicked ? (
           !isSearchFilterOn ? (
             <>

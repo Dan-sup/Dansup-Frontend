@@ -4,12 +4,13 @@ import SearchIcon from '../../../../public/icons/search.svg';
 import styles from '../../../styles/components/common/SearchHeader.module.css';
 import typoStyles from '../../../styles/typography.module.css';
 import { useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { typingValueState } from '@/store/filter';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { isSearchFilterOnState, typingValueState } from '@/store/filter';
 
 export default function SearchHeader() {
   //const [typingValue, setTypingValue] = useState('');
   const [typingValue, setTypingValue] = useRecoilState(typingValueState);
+  const setIsSearchFilterOn = useSetRecoilState(isSearchFilterOnState);
 
   const router = useRouter();
 
@@ -19,6 +20,8 @@ export default function SearchHeader() {
     if (typingValue.trim().length === 0) {
       return;
     }
+
+    setIsSearchFilterOn(false);
 
     router.push({
       pathname: '/search-result',
