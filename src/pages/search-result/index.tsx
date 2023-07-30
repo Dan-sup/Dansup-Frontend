@@ -20,6 +20,7 @@ import {
   bothFilteredClassListState,
   typingFilteredClassListState,
 } from '@/store/class';
+import SearchFilter from '@/components/modal/SearchFilter';
 
 export default function SearchResultPage() {
   //const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
@@ -177,7 +178,7 @@ export default function SearchResultPage() {
               >
                 {!isSearchFilterOn ? <FilterIcon /> : <FilterOnIcon />}
               </button>
-              <Filter
+              <SearchFilter
                 isOpen={isModalOpen}
                 closeModal={closeModal}
                 handleSearchFilterOn={handleSearchFilterOn}

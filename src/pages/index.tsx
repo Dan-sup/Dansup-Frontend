@@ -16,6 +16,7 @@ import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 import { isHomeFilterOnState } from '@/store/filter';
 import { filteredClassListState } from '@/store/class';
+import HomeFilter from '@/components/modal/HomeFilter';
 
 export default function HomePage() {
   //const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
@@ -135,7 +136,7 @@ export default function HomePage() {
             </div>
           </>
         )}
-        <Filter
+        <HomeFilter
           isOpen={isModalOpen}
           closeModal={closeModal}
           handleHomeFilterOn={handleHomeFilterOn}
