@@ -19,15 +19,15 @@ import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 import { searchFilterState } from '@/store/filter';
 import {
-  classDayListState,
-  classFeeState,
-  classLevelState,
-  classWayState,
-  clickedTimeState,
-  genreListState,
-  isClickedGenreState,
-  isClickedLocationState,
-  locationListState,
+  classDayListSearchState,
+  classFeeSearchState,
+  classLevelSearchState,
+  classWaySearchState,
+  clickedTimeSearchState,
+  genreListSearchState,
+  isClickedGenreSearchState,
+  isClickedLocationSearchState,
+  locationListSearchState,
 } from '@/store/filter/searchFilter';
 
 interface filterProps {
@@ -41,25 +41,30 @@ export default function SearchFilter({
   closeModal,
   handleSearchFilterOn,
 }: filterProps) {
-  const [locationList, setLocationList] = useRecoilState(locationListState);
+  const [locationList, setLocationList] = useRecoilState(
+    locationListSearchState,
+  );
   const [isClickedLocation, setIsClickedLocation] = useRecoilState(
-    isClickedLocationState,
+    isClickedLocationSearchState,
   );
   //Genre 박스 열기
-  const [genreList, setGenreList] = useRecoilState(genreListState);
+  const [genreList, setGenreList] = useRecoilState(genreListSearchState);
   const [isGenreFull, setIsGenreFull] = useState<boolean>(false);
-  const [isClickedGenre, setIsClickedGenre] =
-    useRecoilState(isClickedGenreState);
-  const [classDayList, setClassDayList] = useRecoilState(classDayListState);
+  const [isClickedGenre, setIsClickedGenre] = useRecoilState(
+    isClickedGenreSearchState,
+  );
+  const [classDayList, setClassDayList] = useRecoilState(
+    classDayListSearchState,
+  );
   const [selectWayClickIndex, setSelectWayClickIndex] = useState<number>(0);
   const [selectLevelClickIndex, setSelectLevelClickIndex] = useState<number>(0);
-  const [classWay, setClassWay] = useRecoilState(classWayState);
-  const [classLevel, setClassLevel] = useRecoilState(classLevelState);
-  const [classFee, setClassFee] = useRecoilState(classFeeState);
+  const [classWay, setClassWay] = useRecoilState(classWaySearchState);
+  const [classLevel, setClassLevel] = useRecoilState(classLevelSearchState);
+  const [classFee, setClassFee] = useRecoilState(classFeeSearchState);
 
   //목록 선택
   const [selectTimeClickIndex, SetSelectTimeClickIndex] = useState<number>(0);
-  const [clickedTime, setClickedTime] = useRecoilState(clickedTimeState);
+  const [clickedTime, setClickedTime] = useRecoilState(clickedTimeSearchState);
 
   //우효성 검사 state (Checked => 형식)
   const [isLocationChecked, setIsLocationChecked] = useState<boolean>(false);

@@ -4,6 +4,7 @@ import { atom } from 'recoil';
 
 //const { persistAtom } = recoilPersist();
 
+//안쓸듯...
 export const homeFilterState = atom<IFilter>({
   key: 'homeFilterState',
   default: {
