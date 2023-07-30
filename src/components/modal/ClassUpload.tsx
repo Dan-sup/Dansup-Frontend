@@ -272,7 +272,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
       new Blob(
         [
           JSON.stringify({
-            date: classDate,
+            date: classDate !== '' ? classDate : null,
             days: {
               monday: monday,
               tuesday: tuesday,
@@ -286,8 +286,8 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
             detail2: classUser !== '' ? classUser : null,
             detail3: classIntro !== '' ? classIntro : null,
             difficulty: classLevel,
-            endHour: endHour,
-            endTime: endTime != '' ? endTime : null,
+            endHour: endHour !== undefined ? endHour : null,
+            endTime: endTime !== '' ? endTime : null,
             genre: genreList,
             hashtag1:
               hashTagList[1]?.name !== undefined
@@ -306,8 +306,8 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
             method: classWay !== '' ? classWay : null,
             reserveLink: classLink,
             song: classSong !== '' ? classSong : null,
-            startHour: startHour,
-            startTime: startTime != '' ? startTime : null,
+            startHour: startHour !== undefined ? startHour : null,
+            startTime: startTime !== '' ? startTime : null,
             title: title,
             tuition: classFee,
           }),
@@ -571,7 +571,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               </div>
               {classWay !== '' ? (
                 <>
-                  {classWay == '원데이' ? (
+                  {classWay == 'OD' ? (
                     <div className={styles.box}>
                       <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
                         수업 날짜
