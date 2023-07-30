@@ -10,7 +10,7 @@ interface DancerCardProps {
 export default function DancerCard({ dancerInfo }: DancerCardProps) {
   return (
     <div className={styles.container}>
-      {dancerInfo.genres && (
+      {!dancerInfo.genres && (
         <div className={styles.genreBox}>
           {dancerInfo.genres.map((item: any, idx: any) => (
             <div

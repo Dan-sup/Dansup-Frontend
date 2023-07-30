@@ -121,6 +121,7 @@ export default function HomePage() {
                 <span
                   className={`${filterBarStyles.onNumberText} ${typoStyles.body2_Regular}`}
                 >
+                  {' '}
                   {filteredClassList.length}
                 </span>
                 건

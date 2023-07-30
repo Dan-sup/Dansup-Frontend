@@ -159,6 +159,7 @@ export default function SearchResultPage() {
             <span
               className={`${filterBarStyles.onNumberText} ${typoStyles.body2_Regular}`}
             >
+              {' '}
               {isClassBtnClicked
                 ? !isSearchFilterOn
                   ? typingFilteredClassList.length
