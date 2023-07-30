@@ -336,6 +336,14 @@
   border-radius: 4px;
   background: var(--color-main-300);
   color: var(--color-main-100);
+  margin-right: 6px;
+}
+
+.classGenreBox {
+  display: flex;
+  align-items: center;
+  height: 29px;
+  width: 30%;
 }
 
 .classDetail {

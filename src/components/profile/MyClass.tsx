@@ -4,6 +4,8 @@ import fonts from '../../styles/typography.module.css';
 import Date from '../../../public/icons/date.svg';
 import Location from '../../../public/icons/location.svg';
 import Dot from '../../../public/icons/dot.svg';
+import Avatar from '../../../public/icons/avatar.svg';
+import ReactPlayer from 'react-player';
 import { useRecoilValue } from 'recoil';
 import { userState } from '@/store/user';
 import { useMutation } from '@tanstack/react-query';
@@ -14,7 +16,8 @@ type IOpenList = {
 };
 
 export default function Class() {
-  const [classes, setClasses] = useState<any>([]);
+  const [classes, setClasses] = useState<any[]>([]);
+  const [genres, setGenres] = useState<any>([]);
   const [isBtnOpenList, setIsBtnOpenList] = useState<IOpenList[]>([
     {
       isBtnOpen: false,
@@ -29,6 +32,7 @@ export default function Class() {
     onSuccess: data => {
       console.log(data.data);
       setClasses(data.data);
+      setGenres(data.data.genres);
     },
     onError: error => {
       console.log(error);
@@ -44,55 +48,39 @@ export default function Class() {
       <>
         {classes.length !== 0 ? (
           <>
-            {classes.map((data: any, idx: any) => {
-              let location = data.location.substring(
-                0,
-                data.location.indexOf('구 ') + 1,
-              );
+            {classes.map((data: any, idx: any) => (
               <>
                 <div className={styles.classBox} key={idx}>
                   <div
                     className={`${styles.classTitleBox} ${styles.paddingContainer}`}
                   >
                     <div className={styles.classProfileBox}>
-                      <div className={styles.classProfileImg}></div>
+                      {data.userProfileImage == '' ? (
+                        <Avatar
+                          alt="blank"
+                          className={styles.classProfileImg}
+                          width={42}
+                          heigth={42}
+                        />
+                      ) : (
+                        <img
+                          className={styles.classProfileImg}
+                          src={data.userProfileImage}
+                          alt={data.userProfileImage}
+                          width={42}
+                          height={42}
+                        />
+                      )}
                     </div>
                     <div className={styles.texts}>
                       <div
                         className={`${styles.classTitle} ${fonts.body1_Regular}`}
                       >
                         {data.title}
-                        <button
-                          className={styles.dot}
-                          onClick={e => {
-                            if (
-                              e.currentTarget.name ==
-                              data.danceClassId.toString()
-                            ) {
-                              const newItem = {
-                                isBtnOpen:
-                                  !isBtnOpenList[data.danceClassId]?.isBtnOpen,
-                              };
-                              setIsBtnOpenList([...isBtnOpenList, newItem]);
-                              console.log(e.currentTarget.value);
-                              console.log(data.danceClassId);
-                              console.log(newItem);
-                            } else {
-                              const newItem = {
-                                isBtnOpen:
-                                  isBtnOpenList[data.danceClassId]?.isBtnOpen,
-                              };
-                              setIsBtnOpenList([...isBtnOpenList, newItem]);
-                              console.log(e.currentTarget.value);
-                              console.log(data.danceClassId);
-                              console.log(newItem);
-                            }
-                          }}
-                          name={data.danceClassId.toString()}
-                        >
+                        <button className={styles.dot}>
                           <Dot />
                         </button>
-                        {isBtnOpenList[data.danceClassId]?.isBtnOpen ? (
+                        {isBtnOpenList[0].isBtnOpen ? (
                           <div className={styles.classBtnBox}>
                             <button
                               className={`${styles.upBtn} ${styles.classBtn} ${fonts.body2_SemiBold}`}
@@ -114,30 +102,78 @@ export default function Class() {
                       </div>
                     </div>
                   </div>
-                  <div className={styles.classVideoBox}></div>
+                  {data.videoUrl == '' ? (
+                    <div className={styles.classVideoBox}></div>
+                  ) : (
+                    <ReactPlayer
+                      url={data.videoUrl}
+                      playing={false}
+                      muted
+                      width="100%"
+                      height={210}
+                    />
+                  )}
                   <div
                     className={`${styles.classDetailBox} ${styles.paddingContainer} ${fonts.body2_Regular}`}
                   >
-                    <div
-                      className={`${styles.classGenre} ${fonts.caption1_Regular}`}
-                    >
-                      {data.genres}
+                    <div className={styles.classGenreBox} key={idx}>
+                      {genres?.map((data: any, idx: any) => (
+                        <>
+                          {data.genre !== '' ? (
+                            <div
+                              className={`${styles.classGenre} ${fonts.caption1_Regular}`}
+                            >
+                              {data.genre}
+                            </div>
+                          ) : (
+                            <></>
+                          )}
+                        </>
+                      ))}
                     </div>
+
                     <div className={styles.classDetail}>
                       <div className={styles.classLocation}>
                         <Location className={styles.icon} />
-                        {location}
+                        {data.location.substring(
+                          data.location.indexOf('시 ') + 1,
+                          data.location.indexOf('구 ') + 1,
+                        )}
                       </div>
                       <div className={styles.classDate}>
-                        <Date className={styles.icon} />
-                        {data.method} · {data.date}
+                        {data.method == null ? (
+                          <>
+                            {data.date == null ? (
+                              <></>
+                            ) : (
+                              <>
+                                <Date className={styles.icon} />
+                                {data.date}
+                              </>
+                            )}
+                          </>
+                        ) : (
+                          <>
+                            {data.date == null ? (
+                              <>
+                                <Date className={styles.icon} />
+                                {data.method}
+                              </>
+                            ) : (
+                              <>
+                                <Date className={styles.icon} />
+                                {data.method} · {data.date}
+                              </>
+                            )}
+                          </>
+                        )}
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className={styles.divider} />
-              </>;
-            })}
+              </>
+            ))}
           </>
         ) : (
           <div className={styles.blank}>

@@ -23,6 +23,7 @@ export default function DancerProfile() {
   };
 
   //api
+
   const { data: getProfile } = useQuery(['dancer-profile'], getDancerProfile, {
     onSuccess: data => {
       console.log(data.data);
@@ -39,7 +40,14 @@ export default function DancerProfile() {
             <div className={styles.backVideo}></div>
           ) : (
             <div className={styles.backVideoPlayer}>
-              <ReactPlayer url={profiles.profileVideoUrl} playing muted loop />
+              <ReactPlayer
+                url={profiles.profileVideoUrl}
+                playing
+                muted
+                loop
+                width="100%"
+                height={386}
+              />
             </div>
           )}
           <div className={styles.paddingContainer}>

@@ -102,33 +102,33 @@ export default function Portfolio() {
       </div>
       <div className={styles.divider} />
       <div className={styles.Part}>
-        <div className={styles.paddingContainer}>
-          {video.length == 0 ? (
+        {video.length == 0 ? (
+          <div className={styles.paddingContainer}>
             <div className={styles.blank}>
               <div className={`${styles.blankText} ${fonts.body2_SemiBold}`}>
                 나를 소개할 수 있는 포트폴리오 영상을 추가해주세요
               </div>
             </div>
-          ) : (
-            <>
-              {video.map((data, idx) => (
-                <div key={idx}>
-                  <div className="video">
-                    <ReactPlayer
-                      url={data.url}
-                      muted
-                      playing={false}
-                      className={styles.video}
-                      width="100%"
-                      height={210}
-                      controls
-                    />
-                  </div>
+          </div>
+        ) : (
+          <>
+            {video.map((data, idx) => (
+              <div key={idx}>
+                <div className="video">
+                  <ReactPlayer
+                    url={data.url}
+                    muted
+                    playing={false}
+                    className={styles.video}
+                    width="100%"
+                    height={210}
+                    controls
+                  />
                 </div>
-              ))}
-            </>
-          )}
-        </div>
+              </div>
+            ))}
+          </>
+        )}
       </div>
     </div>
   );

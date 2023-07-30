@@ -96,7 +96,14 @@ export default function MyPage() {
             <div className={styles.backVideo}></div>
           ) : (
             <div className={styles.backVideoPlayer}>
-              <ReactPlayer url={profiles.profileVideoUrl} playing muted loop />
+              <ReactPlayer
+                url={profiles.profileVideoUrl}
+                playing
+                muted
+                loop
+                width="100%"
+                height={386}
+              />
             </div>
           )}
           <div className={styles.paddingContainer}>
@@ -119,7 +126,11 @@ export default function MyPage() {
             <div className={`${styles.genreList} ${fonts.body2_Regular}`}>
               {genres.map((data: any, idx: any) => (
                 <div className={styles.genreBox} key={idx}>
-                  <div className={styles.genre}>{data.genre}</div>
+                  {data.genre !== '' ? (
+                    <div className={styles.genre}>{data.genre}</div>
+                  ) : (
+                    <></>
+                  )}
                 </div>
               ))}
             </div>

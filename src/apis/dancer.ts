@@ -12,24 +12,24 @@ export const getFilteredDancerList = async (typingValue: any) => {
 
 //댄서 프로필 조회
 export const getDancerProfile = async (id: any) => {
-  const response = await client.get('/profile/${id}');
+  const response = await client.get(`/profile/${id}`);
   return response.data;
 };
 
 //댄서경력 조회
 export const getDancerPortfolio = async (id: any) => {
-  const response = await client.get('/profile/${id}/portfolio');
+  const response = await client.get(`/profile/${id}/portfolio`);
   return response.data;
 };
 
 //댄서 포트폴리오 영상
 export const getDancerPortfolioVideo = async (id: any) => {
-  const response = await client.get('/profile/${id}/portfolio/video');
+  const response = await client.get(`/profile/${id}/portfolio/video`);
   return response.data;
 };
 
 //댄서 수업
 export const getDancerClass = async (id: any) => {
-  const response = await client.get('/profile/${id}/class');
+  const response = await client.get(`/profile/${id}/class`);
   return response.data;
 };
