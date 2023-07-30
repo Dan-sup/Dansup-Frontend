@@ -105,11 +105,6 @@ export default function HomePage() {
             <button className={styles.filterIcon} onClick={openModal}>
               <FilterIcon />
             </button>
-            <Filter
-              isOpen={isModalOpen}
-              closeModal={closeModal}
-              handleHomeFilterOn={handleHomeFilterOn}
-            />
           </div>
         ) : (
           <>
@@ -130,11 +125,6 @@ export default function HomePage() {
               <button className={styles.filterIcon} onClick={openModal}>
                 <FilterOnIcon />
               </button>
-              <Filter
-                isOpen={isModalOpen}
-                closeModal={closeModal}
-                handleHomeFilterOn={handleHomeFilterOn}
-              />
             </div>
 
             <div className={filterBarStyles.appliedFiltersBox}>
@@ -145,6 +135,11 @@ export default function HomePage() {
             </div>
           </>
         )}
+        <Filter
+          isOpen={isModalOpen}
+          closeModal={closeModal}
+          handleHomeFilterOn={handleHomeFilterOn}
+        />
 
         {/* isFilterOn이 false면 classList, true면 filteredClassList 보여주기! */}
         {!isHomeFilterOn ? (
