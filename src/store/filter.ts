@@ -1,5 +1,8 @@
 import { IFilter } from '@/types/filter';
 import { atom } from 'recoil';
+//import { recoilPersist } from 'recoil-persist';
+
+//const { persistAtom } = recoilPersist();
 
 export const homeFilterState = atom<IFilter>({
   key: 'homeFilterState',
@@ -48,3 +51,19 @@ export const searchFilterState = atom<IFilter>({
     endTime: null,
   },
 });
+
+export const isHomeFilterOnState = atom<boolean>({
+  key: 'isHomeFilterOnState',
+  default: false,
+  //effects_UNSTABLE: [persistAtom],
+});
+
+export const isSearchFilterOnState = atom<boolean>({
+  key: 'isSearchFilterOnState',
+  default: false,
+  //effects_UNSTABLE: [persistAtom],
+});
+
+/*
+페이지 리프레쉬해도 값 유지되도록 전역상태가 localstorage에 저장되게 하는 'recoil-persist'는 나중에!
+*/

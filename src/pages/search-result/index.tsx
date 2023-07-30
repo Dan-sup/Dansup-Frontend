@@ -13,18 +13,35 @@ import DancerCard from '@/components/SearchResultPage/DancerCard';
 import ClassCard from '@/components/ClassCard';
 import Filter from '@/components/modal/Filter';
 import { useRouter } from 'next/router';
+import { useRecoilState } from 'recoil';
+import { isSearchFilterOnState } from '@/store/filter';
+import {
+  bothFilteredClassListState,
+  typingFilteredClassListState,
+} from '@/store/class';
 
 export default function SearchResultPage() {
-  const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
+  //const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
+  const [isSearchFilterOn, setIsSearchFilterOn] = useRecoilState(
+    isSearchFilterOnState,
+  );
   const [isClassBtnClicked, setIsClassBtnClicked] = useState<boolean>(true);
   const [isDancerBtnClicked, setIsDancerBtnClicked] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
+  /*
   const [typingFilteredClassList, setTypingFilteredClassList] = useState<
     object[]
   >([]);
   const [bothFilteredClassList, setBothFilteredClassList] = useState<object[]>(
     [],
+  );
+  */
+  const [typingFilteredClassList, setTypingFilteredClassList] = useRecoilState(
+    typingFilteredClassListState,
+  );
+  const [bothFilteredClassList, setBothFilteredClassList] = useRecoilState(
+    bothFilteredClassListState,
   );
 
   /*modal*/
@@ -100,7 +117,7 @@ export default function SearchResultPage() {
       filterValue: filterValue,
     });
 
-    setIsFilterOn(true);
+    setIsSearchFilterOn(true);
   };
 
   //초기화 버튼 누르면, setIsFilterOn(false); , getTypingFilteredClassListMutation
@@ -143,7 +160,7 @@ export default function SearchResultPage() {
               className={`${filterBarStyles.onNumberText} ${typoStyles.body2_Regular}`}
             >
               {isClassBtnClicked
-                ? !isFilterOn
+                ? !isSearchFilterOn
                   ? typingFilteredClassList.length
                   : bothFilteredClassList.length
                 : filteredDancerList.length}
@@ -157,7 +174,7 @@ export default function SearchResultPage() {
                 className={filterBarStyles.filterIcon}
                 onClick={openModal}
               >
-                {!isFilterOn ? <FilterIcon /> : <FilterOnIcon />}
+                {!isSearchFilterOn ? <FilterIcon /> : <FilterOnIcon />}
               </button>
               <Filter
                 isOpen={isModalOpen}
@@ -168,13 +185,13 @@ export default function SearchResultPage() {
           )}
         </div>
 
-        {isFilterOn && (
+        {isSearchFilterOn && (
           <div className={filterBarStyles.appliedFiltersBox}></div>
         )}
 
         {/* { isClassBtnClicked ? (isFilterOn이 false면 typingFilteredClassList, true면 bothFilteredClassList 보여주기!) : filteredDancerList } -> 중첩 조건문으로! */}
         {isClassBtnClicked ? (
-          !isFilterOn ? (
+          !isSearchFilterOn ? (
             <>
               {typingFilteredClassList.map((classInfo, idx) => (
                 <ClassCard key={idx} classInfo={classInfo} />

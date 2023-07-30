@@ -12,12 +12,20 @@ import filterBarStyles from '../styles/components/FilterBar.module.css';
 import ClassCard from '@/components/ClassCard';
 import Filter from '../components/modal/Filter';
 import { useRouter } from 'next/router';
+import { useRecoilState } from 'recoil';
+import { isHomeFilterOnState } from '@/store/filter';
+import { filteredClassListState } from '@/store/class';
 
 export default function HomePage() {
-  const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
+  //const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
+  const [isHomeFilterOn, setIsHomeFilterOn] =
+    useRecoilState(isHomeFilterOnState);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  const [filteredClassList, setfilteredClassList] = useState<object[]>([]);
+  //const [filteredClassList, setfilteredClassList] = useState<object[]>([]);
+  const [filteredClassList, setfilteredClassList] = useRecoilState(
+    filteredClassListState,
+  );
 
   const router = useRouter();
 
@@ -64,10 +72,10 @@ export default function HomePage() {
       filterValue: filterValue,
     });
 
-    setIsFilterOn(true);
+    setIsHomeFilterOn(true);
   };
 
-  //초기화 버튼 누르면, setIsFilterOn(false); , getClassList
+  //초기화 버튼 누르면, setIsHomeFilterOn(false);
 
   return (
     <>
@@ -87,7 +95,7 @@ export default function HomePage() {
         </div>
 
         {/*<FilterBar isFilterOn={isFilterOn} />*/}
-        {!isFilterOn ? (
+        {!isHomeFilterOn ? (
           <div className={filterBarStyles.bar}>
             <div
               className={`${filterBarStyles.barText} ${typoStyles.body1_SemiBold}`}
@@ -128,12 +136,13 @@ export default function HomePage() {
                 handleHomeFilterOn={handleHomeFilterOn}
               />
             </div>
+
             <div className={filterBarStyles.appliedFiltersBox}></div>
           </>
         )}
 
         {/* isFilterOn이 false면 classList, true면 filteredClassList 보여주기! */}
-        {!isFilterOn ? (
+        {!isHomeFilterOn ? (
           <>
             {classList?.map((classInfo: any, idx: any) => (
               <ClassCard key={idx} classInfo={classInfo} />
@@ -141,7 +150,7 @@ export default function HomePage() {
           </>
         ) : (
           <>
-            {filteredClassList.map((classInfo, idx) => (
+            {filteredClassList.map((classInfo: any, idx: any) => (
               <ClassCard key={idx} classInfo={classInfo} />
             ))}
           </>
