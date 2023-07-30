@@ -182,11 +182,7 @@ export default function MyPage() {
             </button>
           </div>
         </div>
-        {isPortfolio ? (
-          <Portfolio accessToken={accessToken} />
-        ) : (
-          <Class accessToken={accessToken} />
-        )}
+        {isPortfolio ? <Portfolio /> : <Class />}
         <button onClick={() => setIsUploadBoxOpen(!isUploadBoxOpen)}>
           <FloatingBtn className={styles.floatingBtn} />
         </button>
