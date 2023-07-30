@@ -200,7 +200,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
       setIsClassLevelChecked(false);
     }
 
-    if (video !== null) {
+    if (video !== undefined) {
       setIsVideoChecked(true);
     } else {
       setIsVideoChecked(false);
@@ -261,7 +261,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
     console.log(classContent);
     console.log(classLevel);
     console.log(endTime);
-    console.log(startHour);
+    console.log(startTime !== '' ? startHour : null);
     console.log(classFee);
     console.log(classAdmit);
     console.log(classWay);
@@ -285,27 +285,21 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
             detail2: classUser !== '' ? classUser : null,
             detail3: classIntro !== '' ? classIntro : null,
             difficulty: classLevel,
-            endHour: endHour !== undefined ? endHour : null,
+            endHour: endTime !== '' ? endHour : null,
             endTime: endTime !== '' ? endTime : null,
             genre: genreList,
             hashtag1:
-              hashTagList[1]?.name !== undefined
-                ? `#${hashTagList[1]?.name}`
-                : null,
+              hashTagList[1]?.name !== undefined ? hashTagList[1]?.name : null,
             hashtag2:
-              hashTagList[2]?.name !== undefined
-                ? `#${hashTagList[2]?.name}`
-                : null,
+              hashTagList[2]?.name !== undefined ? hashTagList[2]?.name : null,
             hashtag3:
-              hashTagList[3]?.name !== undefined
-                ? `#${hashTagList[3]?.name}`
-                : null,
+              hashTagList[3]?.name !== undefined ? hashTagList[3]?.name : null,
             location: location.name,
             maxPeople: classAdmit,
             method: classWay !== '' ? classWay : null,
             reserveLink: classLink,
             song: classSong !== '' ? classSong : null,
-            startHour: startHour !== undefined ? startHour : null,
+            startHour: startTime !== '' ? startHour : null,
             startTime: startTime !== '' ? startTime : null,
             title: title,
             tuition: classFee,

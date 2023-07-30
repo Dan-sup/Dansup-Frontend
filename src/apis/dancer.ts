@@ -10,6 +10,12 @@ export const getFilteredDancerList = async (typingValue: any) => {
   return response.data;
 };
 
+//댄서 프로필 조회
+export const getDancerProfile = async (id: any) => {
+  const response = await client.get('/profile/${id}');
+  return response.data;
+};
+
 //댄서경력 조회
 export const getDancerPortfolio = async (id: any) => {
   const response = await client.get('/profile/${id}/portfolio');
