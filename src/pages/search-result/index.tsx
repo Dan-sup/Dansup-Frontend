@@ -5,6 +5,7 @@ import { getFilteredClassList } from '@/apis/class';
 import { getFilteredDancerList } from '../../apis/dancer';
 import FilterIcon from '../../../public/icons/filter.svg';
 import FilterOnIcon from '../../../public/icons/filter-on.svg';
+import ResetIcon from '../../../public/icons/reset.svg';
 import typoStyles from '../../styles/typography.module.css';
 import styles from '../../styles/SearchResultPage.module.css';
 import FilterBar from '@/components/FilterBar';
@@ -120,8 +121,6 @@ export default function SearchResultPage() {
     setIsSearchFilterOn(true);
   };
 
-  //초기화 버튼 누르면, setIsFilterOn(false); , getTypingFilteredClassListMutation
-
   const handleBtnClick = () => {
     setIsClassBtnClicked(!isClassBtnClicked);
     setIsDancerBtnClicked(!isDancerBtnClicked);
@@ -186,7 +185,12 @@ export default function SearchResultPage() {
         </div>
 
         {isSearchFilterOn && (
-          <div className={filterBarStyles.appliedFiltersBox}></div>
+          <div className={filterBarStyles.appliedFiltersBox}>
+            <ResetIcon
+              className={filterBarStyles.resetIcon}
+              onClick={() => setIsSearchFilterOn(false)}
+            />
+          </div>
         )}
 
         {/* { isClassBtnClicked ? (isFilterOn이 false면 typingFilteredClassList, true면 bothFilteredClassList 보여주기!) : filteredDancerList } -> 중첩 조건문으로! */}

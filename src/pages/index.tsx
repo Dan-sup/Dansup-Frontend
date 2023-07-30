@@ -5,6 +5,7 @@ import { getClassList, getFilteredClassList } from '@/apis/class';
 import SearchIcon from '../../public/icons/search.svg';
 import FilterIcon from '../../public/icons/filter.svg';
 import FilterOnIcon from '../../public/icons/filter-on.svg';
+import ResetIcon from '../../public/icons/reset.svg';
 import typoStyles from '../styles/typography.module.css';
 import styles from '../styles/HomePage.module.css';
 import FilterBar from '@/components/FilterBar';
@@ -75,8 +76,6 @@ export default function HomePage() {
     setIsHomeFilterOn(true);
   };
 
-  //초기화 버튼 누르면, setIsHomeFilterOn(false);
-
   return (
     <>
       <BasicHeader type="home" />
@@ -137,7 +136,12 @@ export default function HomePage() {
               />
             </div>
 
-            <div className={filterBarStyles.appliedFiltersBox}></div>
+            <div className={filterBarStyles.appliedFiltersBox}>
+              <ResetIcon
+                className={filterBarStyles.resetIcon}
+                onClick={() => setIsHomeFilterOn(false)}
+              />
+            </div>
           </>
         )}
 
