@@ -13,8 +13,6 @@
   height: 42px;
   border-radius: 50%;
 
-  background-color: gray;
-
   margin-right: 8px;
 }
 
@@ -45,6 +43,12 @@
   align-items: center;
 }
 
+.genreBox {
+  height: 22px;
+  display: flex;
+  align-items: center;
+}
+
 .genre {
   height: 22px;
   padding: 0 6px;
@@ -55,6 +59,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  margin-right: 6px;
 }
 
 .rightBox {

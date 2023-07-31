@@ -1,22 +1,31 @@
 import typoStyles from '../styles/typography.module.css';
+import AvatarIcon from '../../public/icons/ClassCard/avatar.svg';
 import DateIcon from '../../public/icons/date.svg';
 import LocationIcon from '../../public/icons/location.svg';
 import styles from '../styles/components/ClassCard.module.css';
 
-export default function ClassCard() {
+interface ClassCardProps {
+  classInfo: any;
+}
+
+export default function ClassCard({ classInfo }: ClassCardProps) {
   return (
     <>
       <div className={styles.titleBox}>
-        <div className={styles.profileImg}></div>
+        {!classInfo.userProfileImage ? (
+          <AvatarIcon className={styles.profileImg} />
+        ) : (
+          <img src={classInfo.userProfileImage} className={styles.profileImg} />
+        )}
 
         <div className={styles.textBox}>
           <div className={`${styles.classTitle} ${typoStyles.body1_Regular}`}>
-            임댄서와 함께 배우는 락킹 기초
+            {classInfo.title}
           </div>
           <div
             className={`${styles.dancerName} ${typoStyles.caption1_Regular}`}
           >
-            임댄서
+            {classInfo.userNickname}
           </div>
         </div>
       </div>
@@ -24,9 +33,17 @@ export default function ClassCard() {
       <div className={styles.video}></div>
 
       <div className={`${styles.InfoBox} ${typoStyles.body2_Regular}`}>
-        <div className={`${styles.genre} ${typoStyles.caption1_Regular}`}>
-          락킹
+        <div className={styles.genreBox}>
+          {classInfo.genres.map((item: any, idx: any) => (
+            <div
+              className={`${styles.genre} ${typoStyles.caption1_Regular}`}
+              key={idx}
+            >
+              {item.genre}
+            </div>
+          ))}
         </div>
+
         <div className={styles.rightBox}>
           <div className={styles.detailBox}>
             <LocationIcon className={styles.icon} />
@@ -34,7 +51,7 @@ export default function ClassCard() {
           </div>
           <div className={styles.detailBox}>
             <DateIcon className={styles.icon} />
-            원데이 6월 28일
+            {classInfo.method} 6월 28일
           </div>
         </div>
       </div>

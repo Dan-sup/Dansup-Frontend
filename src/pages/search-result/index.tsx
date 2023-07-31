@@ -4,78 +4,123 @@ import { useQuery, useMutation } from '@tanstack/react-query';
 import { getFilteredClassList } from '@/apis/class';
 import { getFilteredDancerList } from '../../apis/dancer';
 import FilterIcon from '../../../public/icons/filter.svg';
+import FilterOnIcon from '../../../public/icons/filter-on.svg';
+import ResetIcon from '../../../public/icons/reset.svg';
 import typoStyles from '../../styles/typography.module.css';
 import styles from '../../styles/SearchResultPage.module.css';
 import FilterBar from '@/components/FilterBar';
 import filterBarStyles from '../../styles/components/FilterBar.module.css';
 import DancerCard from '@/components/SearchResultPage/DancerCard';
 import ClassCard from '@/components/ClassCard';
+import Filter from '@/components/modal/Filter';
+import { useRouter } from 'next/router';
+import { useRecoilState } from 'recoil';
+import { isSearchFilterOnState } from '@/store/filter';
+import {
+  bothFilteredClassListState,
+  typingFilteredClassListState,
+} from '@/store/class';
+import SearchFilter from '@/components/modal/SearchFilter';
 
 export default function SearchResultPage() {
-  const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
+  //const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
+  const [isSearchFilterOn, setIsSearchFilterOn] = useRecoilState(
+    isSearchFilterOnState,
+  );
   const [isClassBtnClicked, setIsClassBtnClicked] = useState<boolean>(true);
   const [isDancerBtnClicked, setIsDancerBtnClicked] = useState<boolean>(false);
-  const [isGenreIncluding, setIsGenreIncluding] = useState<boolean>(true);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  /*
+  const [typingFilteredClassList, setTypingFilteredClassList] = useState<
+    object[]
+  >([]);
+  const [bothFilteredClassList, setBothFilteredClassList] = useState<object[]>(
+    [],
+  );
+  */
+  const [typingFilteredClassList, setTypingFilteredClassList] = useRecoilState(
+    typingFilteredClassListState,
+  );
+  const [bothFilteredClassList, setBothFilteredClassList] = useRecoilState(
+    bothFilteredClassListState,
+  );
+
+  /*modal*/
+  const openModal = () => {
+    setIsModalOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    document.body.style.overflow = 'unset';
+  };
 
   //api 로직 가져와서 사용하기
 
-  //타이핑만
+  const router = useRouter();
+  const { typingValue } = router.query;
+
+  //타이핑만 (완료)
   const getTypingFilteredClassListMutation = useMutation(getFilteredClassList, {
     onSuccess: data => {
       //여기로 typingFilteredClassList 오면 사용!
-      console.log(data);
+      //console.log(data);
+      setTypingFilteredClassList(data);
+      //console.log(typingFilteredClassList);
     },
     onError: error => {
-      alert('결과를 가져오는데 실패했습니다.');
+      console.log(error);
     },
   });
 
-  //타이핑,필터 둘다
+  //타이핑,필터 둘다 (완료)
   const getBothFilteredClassListMutation = useMutation(getFilteredClassList, {
     onSuccess: data => {
       //여기로 bothFilteredClassList 오면 사용!
       console.log(data);
+      setBothFilteredClassList(data);
     },
     onError: error => {
-      alert('결과를 가져오는데 실패했습니다.');
+      console.log(error);
     },
   });
 
-  /*
+  //타이핑 검색한 '댄서' 리스트 가져오기 (완료)
   const { data: filteredDancerList } = useQuery(
-    ['classList'],
-    () => getFilteredDancerList(typingValue), //value 바꾸기
+    ['classList', typingValue],
+    () => getFilteredDancerList(typingValue),
     {
       onSuccess: data => {
         console.log(data);
       },
       onError: error => {
-        alert('결과를 가져오는데 실패했습니다.');
+        console.log(error);
       },
     },
   );
-  */
 
-  /* 검색 페이지에서 입력한 input값을, 이 페이지로 넘겨서 처음에 typingFilteredClassList 보여주기
+  //검색 페이지에서 입력한 input값을, 이 페이지로 넘겨서 처음에 typingFilteredClassList 보여주기
   useEffect(() => {
+    console.log(typingValue);
     getTypingFilteredClassListMutation.mutate({
-      typingValue: typingValue, //검색 페이지에서 입력한 input값 넣기! //value 바꾸기
-      filterValue: null,
+      typingValue: typingValue, //검색 페이지에서 입력한 input값 넣기!
+      filterValue: {},
     });
-  }, []);
-  */
+  }, [typingValue]);
 
-  /* 필터 적용하기 버튼 클릭하면 (타이핑,필터 둘다 적용된 상태)
-    const handleFilterOn = () => {
-      getBothFilteredClassListMutation.mutate({
-        typingValue: typingValue, //value 바꾸기
-        filterValue: filterValue, //value 바꾸기
-      });
-  
-      setIsFilterOn(true);
-    };
-  */
-  //초기화 버튼 누르면, setIsFilterOn(false); , getTypingFilteredClassListMutation
+  //필터 적용하기 버튼 클릭하면 (타이핑,필터 둘다 적용된 상태)
+  const handleSearchFilterOn = (filterValue: any) => {
+    console.log(filterValue);
+
+    getBothFilteredClassListMutation.mutate({
+      typingValue: typingValue,
+      filterValue: filterValue,
+    });
+
+    setIsSearchFilterOn(true);
+  };
 
   const handleBtnClick = () => {
     setIsClassBtnClicked(!isClassBtnClicked);
@@ -115,32 +160,63 @@ export default function SearchResultPage() {
             <span
               className={`${filterBarStyles.onNumberText} ${typoStyles.body2_Regular}`}
             >
-              8
+              {' '}
+              {isClassBtnClicked
+                ? !isSearchFilterOn
+                  ? typingFilteredClassList.length
+                  : bothFilteredClassList.length
+                : filteredDancerList.length}
             </span>
             건
           </div>
-          {/* {!isFilterOn ? typingFilteredClassList.length : bothFilteredClassList.length} */}
-          <div className={filterBarStyles.filterIcon}>
-            <FilterIcon />
-          </div>
+
+          {isClassBtnClicked && (
+            <>
+              <button
+                className={filterBarStyles.filterIcon}
+                onClick={openModal}
+              >
+                {!isSearchFilterOn ? <FilterIcon /> : <FilterOnIcon />}
+              </button>
+              <SearchFilter
+                isOpen={isModalOpen}
+                closeModal={closeModal}
+                handleSearchFilterOn={handleSearchFilterOn}
+              />
+            </>
+          )}
         </div>
 
-        {isFilterOn && (
-          <div className={filterBarStyles.appliedFiltersBox}></div>
+        {isSearchFilterOn && (
+          <div className={filterBarStyles.appliedFiltersBox}>
+            <ResetIcon
+              className={filterBarStyles.resetIcon}
+              onClick={() => setIsSearchFilterOn(false)}
+            />
+          </div>
         )}
 
         {/* { isClassBtnClicked ? (isFilterOn이 false면 typingFilteredClassList, true면 bothFilteredClassList 보여주기!) : filteredDancerList } -> 중첩 조건문으로! */}
+
         {isClassBtnClicked ? (
-          <>
-            <ClassCard />
-            <ClassCard />
-            <ClassCard />
-          </>
+          !isSearchFilterOn ? (
+            <>
+              {typingFilteredClassList.map((classInfo, idx) => (
+                <ClassCard key={idx} classInfo={classInfo} />
+              ))}
+            </>
+          ) : (
+            <>
+              {bothFilteredClassList.map((classInfo, idx) => (
+                <ClassCard key={idx} classInfo={classInfo} />
+              ))}
+            </>
+          )
         ) : (
           <div className={styles.classListBox}>
-            <DancerCard isGenreIncluding={true} />
-            <DancerCard isGenreIncluding={false} />
-            <DancerCard isGenreIncluding={true} />
+            {filteredDancerList.map((dancerInfo: any, idx: any) => (
+              <DancerCard key={idx} dancerInfo={dancerInfo} />
+            ))}
           </div>
         )}
       </div>

@@ -22,17 +22,19 @@ export default function BasicHeader({ type }: BasicHeaderProps) {
     router.push('/my');
   };
 
-  const onClickNoProfile = () => {};
+  const onClickNoProfile = () => {
+    router.push('/login');
+  };
 
   const getMyInfoMutation = useMutation(getMyInfo, {
     onSuccess: data => {
-      console.log(data);
-      console.log(data.data.profileImageUrl);
+      //console.log(data);
+      //console.log(data.data.profileImageUrl);
       setProfileImg(data.data.profileImageUrl);
-      console.log(profileImg);
+      //console.log(profileImg);
     },
     onError: error => {
-      console.log(error);
+      //console.log(error);
     },
   });
 
@@ -49,7 +51,7 @@ export default function BasicHeader({ type }: BasicHeaderProps) {
         </div>
       )}
       {type !== 'register' && (
-        <div className={styles.btn}>
+        <div className={styles.btn} onClick={() => router.push('/')}>
           <DansupLogo />
         </div>
       )}
