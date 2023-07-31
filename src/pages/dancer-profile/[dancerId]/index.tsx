@@ -5,13 +5,15 @@ import Portfolio from '@/components/profile/Portfolio';
 import Class from '@/components/profile/Class';
 import BlankImage from '../../../../public/icons/blank-image.svg';
 import ReactPlayer from 'react-player';
+import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getDancerProfile } from '@/apis/dancer';
 
-export default function DancerProfile() {
+export default function DancerProfile(props: any) {
   const [isPortfolio, setIsPortfolio] = useState<boolean>(true);
   const [profiles, setProfiles] = useState<any>([]);
   const [genres, setGenres] = useState<any>([]);
+  const { dancerId } = useParams();
 
   /*button*/
   const onClickPortfolio = () => {
@@ -23,14 +25,17 @@ export default function DancerProfile() {
   };
 
   //api
-
-  const { data: getProfile } = useQuery(['dancer-profile'], getDancerProfile, {
-    onSuccess: data => {
-      console.log(data.data);
-      setProfiles(data.data);
-      setGenres(data.data.genres);
+  const { data: getProfile } = useQuery(
+    ['dancer-profile', dancerId],
+    getDancerProfile,
+    {
+      onSuccess: data => {
+        console.log(data.data);
+        setProfiles(data.data);
+        setGenres(data.data.genres);
+      },
     },
-  });
+  );
 
   return (
     <div className={styles.container}>
