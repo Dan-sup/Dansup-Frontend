@@ -28,6 +28,9 @@ import {
   isClickedGenreSearchState,
   isClickedLocationSearchState,
   locationListSearchState,
+  selectLevelClickIndexSearchState,
+  selectTimeClickIndexSearchState,
+  selectWayClickIndexSearchState,
 } from '@/store/filter/searchFilter';
 
 interface filterProps {
@@ -56,14 +59,20 @@ export default function SearchFilter({
   const [classDayList, setClassDayList] = useRecoilState(
     classDayListSearchState,
   );
-  const [selectWayClickIndex, setSelectWayClickIndex] = useState<number>(0);
-  const [selectLevelClickIndex, setSelectLevelClickIndex] = useState<number>(0);
+  const [selectWayClickIndex, setSelectWayClickIndex] = useRecoilState(
+    selectWayClickIndexSearchState,
+  );
+  const [selectLevelClickIndex, setSelectLevelClickIndex] = useRecoilState(
+    selectLevelClickIndexSearchState,
+  );
   const [classWay, setClassWay] = useRecoilState(classWaySearchState);
   const [classLevel, setClassLevel] = useRecoilState(classLevelSearchState);
   const [classFee, setClassFee] = useRecoilState(classFeeSearchState);
 
   //목록 선택
-  const [selectTimeClickIndex, SetSelectTimeClickIndex] = useState<number>(0);
+  const [selectTimeClickIndex, SetSelectTimeClickIndex] = useRecoilState(
+    selectTimeClickIndexSearchState,
+  );
   const [clickedTime, setClickedTime] = useRecoilState(clickedTimeSearchState);
 
   //우효성 검사 state (Checked => 형식)
@@ -90,11 +99,6 @@ export default function SearchFilter({
   //classfee
   const handleChangeClassFee = (e: React.ChangeEvent<HTMLInputElement>) => {
     setClassFee(e.target.value);
-    if (e.target.value == '전체 가격') {
-      setIsClassFeeChecked(false);
-    } else {
-      setIsClassFeeChecked(true);
-    }
   };
 
   useEffect(() => {
@@ -133,6 +137,12 @@ export default function SearchFilter({
     } else {
       setIsSelectTimeChecked(false);
     }
+
+    if (classFee !== '전체 가격') {
+      setIsClassFeeChecked(true);
+    } else {
+      setIsClassFeeChecked(false);
+    }
   }, [
     locationList,
     genreList,
@@ -140,6 +150,7 @@ export default function SearchFilter({
     classDayList,
     classWay,
     clickedTime,
+    classFee,
   ]);
 
   //초기화
@@ -150,7 +161,6 @@ export default function SearchFilter({
     setSelectWayClickIndex(0);
     setClassWay('');
     setClassFee('전체 가격');
-    setIsClassFeeChecked(false);
     setSelectLevelClickIndex(0);
     setClassLevel('');
     SetSelectTimeClickIndex(0);

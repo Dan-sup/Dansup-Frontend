@@ -17,6 +17,7 @@ import { useRecoilState } from 'recoil';
 import { isHomeFilterOnState } from '@/store/filter';
 import { filteredClassListState } from '@/store/class';
 import HomeFilter from '@/components/modal/HomeFilter';
+import { useResetFilter } from '@/components/hooks/useResetFilter';
 
 export default function HomePage() {
   //const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
@@ -30,6 +31,8 @@ export default function HomePage() {
   );
 
   const router = useRouter();
+
+  const { resetHomeFilter } = useResetFilter();
 
   /*modal*/
   const openModal = () => {
@@ -131,7 +134,10 @@ export default function HomePage() {
             <div className={filterBarStyles.appliedFiltersBox}>
               <ResetIcon
                 className={filterBarStyles.resetIcon}
-                onClick={() => setIsHomeFilterOn(false)}
+                onClick={() => {
+                  setIsHomeFilterOn(false);
+                  resetHomeFilter();
+                }}
               />
             </div>
           </>
