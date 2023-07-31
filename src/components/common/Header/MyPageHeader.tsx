@@ -4,10 +4,12 @@ import DotIcon from '../../../../public/icons/dot.svg';
 import styles from '../../../styles/components/common/MyPageHeader.module.css';
 import fonts from '../../../styles/typography.module.css';
 import Modal from '../Modal';
+import { useRouter } from 'next/router';
 
 export default function MyPageHeader() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const router = useRouter();
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -20,11 +22,15 @@ export default function MyPageHeader() {
     document.body.style.overflow = 'unset';
   };
 
+  const onclickBack = () => {
+    router.back();
+  };
+
   return (
     <>
       <div className={styles.container}>
         <div className={styles.containerBtn}>
-          <div className={styles.btn}>
+          <div className={styles.btn} onClick={onclickBack}>
             <BackIcon />
           </div>
           <div
