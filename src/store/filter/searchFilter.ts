@@ -45,3 +45,18 @@ export const classFeeSearchState = atom<string>({
   key: 'classFeeSearchState',
   default: '전체 가격',
 });
+
+export const selectWayClickIndexSearchState = atom<number>({
+  key: 'selectWayClickIndexSearchState',
+  default: 0,
+});
+
+export const selectLevelClickIndexSearchState = atom<number>({
+  key: 'selectLevelClickIndexSearchState',
+  default: 0,
+});
+
+export const selectTimeClickIndexSearchState = atom<number>({
+  key: 'selectTimeClickIndexSearchState',
+  default: 0,
+});

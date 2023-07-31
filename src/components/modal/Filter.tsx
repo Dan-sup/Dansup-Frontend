@@ -77,11 +77,6 @@ export default function Filter({
   //classfee
   const handleChangeClassFee = (e: React.ChangeEvent<HTMLInputElement>) => {
     setClassFee(e.target.value);
-    if (e.target.value == '전체 가격') {
-      setIsClassFeeChecked(false);
-    } else {
-      setIsClassFeeChecked(true);
-    }
   };
 
   useEffect(() => {
@@ -120,6 +115,12 @@ export default function Filter({
     } else {
       setIsSelectTimeChecked(false);
     }
+
+    if (classFee !== '전체 가격') {
+      setIsClassFeeChecked(true);
+    } else {
+      setIsClassFeeChecked(false);
+    }
   }, [
     locationList,
     genreList,
@@ -127,6 +128,7 @@ export default function Filter({
     classDayList,
     classWay,
     clickedTime,
+    classFee,
   ]);
 
   //초기화
@@ -137,7 +139,6 @@ export default function Filter({
     setSelectWayClickIndex(0);
     setClassWay('');
     setClassFee('전체 가격');
-    setIsClassFeeChecked(false);
     setSelectLevelClickIndex(0);
     setClassLevel('');
     SetSelectTimeClickIndex(0);

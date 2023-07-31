@@ -21,6 +21,7 @@ import {
   typingFilteredClassListState,
 } from '@/store/class';
 import SearchFilter from '@/components/modal/SearchFilter';
+import { useResetFilter } from '@/hooks/useResetFilter';
 
 export default function SearchResultPage() {
   //const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
@@ -45,6 +46,8 @@ export default function SearchResultPage() {
   const [bothFilteredClassList, setBothFilteredClassList] = useRecoilState(
     bothFilteredClassListState,
   );
+
+  const { resetSearchFilter } = useResetFilter();
 
   /*modal*/
   const openModal = () => {
@@ -191,7 +194,10 @@ export default function SearchResultPage() {
           <div className={filterBarStyles.appliedFiltersBox}>
             <ResetIcon
               className={filterBarStyles.resetIcon}
-              onClick={() => setIsSearchFilterOn(false)}
+              onClick={() => {
+                setIsSearchFilterOn(false);
+                resetSearchFilter();
+              }}
             />
           </div>
         )}

@@ -2,14 +2,20 @@ import typoStyles from '../../styles/typography.module.css';
 import styles from '../../styles/components/SearchResultPage/DancerCard.module.css';
 import AvatarIcon from '../../../public/icons/avatar-dancercard.svg';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 interface DancerCardProps {
   dancerInfo: any;
 }
 
 export default function DancerCard({ dancerInfo }: DancerCardProps) {
+  const router = useRouter();
+
   return (
-    <div className={styles.container}>
+    <div
+      className={styles.container}
+      onClick={() => router.push(`dancer-profile/${dancerInfo.profileId}`)}
+    >
       {!dancerInfo.genres && (
         <div className={styles.genreBox}>
           {dancerInfo.genres.map((item: any, idx: any) => (

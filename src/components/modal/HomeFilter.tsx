@@ -28,6 +28,9 @@ import {
   isClickedGenreState,
   isClickedLocationState,
   locationListState,
+  selectLevelClickIndexState,
+  selectTimeClickIndexState,
+  selectWayClickIndexState,
 } from '@/store/filter/homeFilter';
 
 interface filterProps {
@@ -51,14 +54,20 @@ export default function HomeFilter({
   const [isClickedGenre, setIsClickedGenre] =
     useRecoilState(isClickedGenreState);
   const [classDayList, setClassDayList] = useRecoilState(classDayListState);
-  const [selectWayClickIndex, setSelectWayClickIndex] = useState<number>(0);
-  const [selectLevelClickIndex, setSelectLevelClickIndex] = useState<number>(0);
+  const [selectWayClickIndex, setSelectWayClickIndex] = useRecoilState(
+    selectWayClickIndexState,
+  );
+  const [selectLevelClickIndex, setSelectLevelClickIndex] = useRecoilState(
+    selectLevelClickIndexState,
+  );
   const [classWay, setClassWay] = useRecoilState(classWayState);
   const [classLevel, setClassLevel] = useRecoilState(classLevelState);
   const [classFee, setClassFee] = useRecoilState(classFeeState);
 
   //목록 선택
-  const [selectTimeClickIndex, SetSelectTimeClickIndex] = useState<number>(0);
+  const [selectTimeClickIndex, SetSelectTimeClickIndex] = useRecoilState(
+    selectTimeClickIndexState,
+  );
   const [clickedTime, setClickedTime] = useRecoilState(clickedTimeState);
 
   //우효성 검사 state (Checked => 형식)
@@ -85,11 +94,6 @@ export default function HomeFilter({
   //classfee
   const handleChangeClassFee = (e: React.ChangeEvent<HTMLInputElement>) => {
     setClassFee(e.target.value);
-    if (e.target.value == '전체 가격') {
-      setIsClassFeeChecked(false);
-    } else {
-      setIsClassFeeChecked(true);
-    }
   };
 
   useEffect(() => {
@@ -128,6 +132,12 @@ export default function HomeFilter({
     } else {
       setIsSelectTimeChecked(false);
     }
+
+    if (classFee !== '전체 가격') {
+      setIsClassFeeChecked(true);
+    } else {
+      setIsClassFeeChecked(false);
+    }
   }, [
     locationList,
     genreList,
@@ -135,6 +145,7 @@ export default function HomeFilter({
     classDayList,
     classWay,
     clickedTime,
+    classFee,
   ]);
 
   //초기화
@@ -145,7 +156,6 @@ export default function HomeFilter({
     setSelectWayClickIndex(0);
     setClassWay('');
     setClassFee('전체 가격');
-    setIsClassFeeChecked(false);
     setSelectLevelClickIndex(0);
     setClassLevel('');
     SetSelectTimeClickIndex(0);

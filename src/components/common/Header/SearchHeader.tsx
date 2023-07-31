@@ -6,6 +6,7 @@ import typoStyles from '../../../styles/typography.module.css';
 import { useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { isSearchFilterOnState, typingValueState } from '@/store/filter';
+import { useResetFilter } from '@/hooks/useResetFilter';
 
 export default function SearchHeader() {
   //const [typingValue, setTypingValue] = useState('');
@@ -13,6 +14,8 @@ export default function SearchHeader() {
   const setIsSearchFilterOn = useSetRecoilState(isSearchFilterOnState);
 
   const router = useRouter();
+
+  const { resetSearchFilter } = useResetFilter();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -22,6 +25,7 @@ export default function SearchHeader() {
     }
 
     setIsSearchFilterOn(false);
+    resetSearchFilter();
 
     router.push({
       pathname: '/search-result',
