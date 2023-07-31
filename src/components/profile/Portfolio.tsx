@@ -4,40 +4,18 @@ import styles from '../../styles/Profile.module.css';
 import DropDownBefore from '../../../public/icons/dropdown-before.svg';
 import DropDownAfter from '../../../public/icons/dropdown-after.svg';
 import ReactPlayer from 'react-player';
-import { useQuery } from '@tanstack/react-query';
-import { getDancerPortfolio, getDancerPortfolioVideo } from '@/apis/dancer';
 
-export default function Portfolio() {
-  const [portfolios, setPortfolios] = useState<any[]>([]);
-  const [portfolioVideo, setPortfolioVideo] = useState<any[]>([]);
+interface portfolioProps {
+  portfolios: any;
+  video: any;
+}
+
+export default function Portfolio({ portfolios, video }: portfolioProps) {
   const [isClicked, setIsClicked] = useState<boolean>(false);
 
   const onClickDropDown = () => {
     setIsClicked(!isClicked);
   };
-
-  //api
-  const { data: getPortfolio } = useQuery(
-    ['dancer-portfolio'],
-    getDancerPortfolio,
-    {
-      onSuccess: data => {
-        console.log(data.data);
-        setPortfolios(data.data);
-      },
-    },
-  );
-
-  const { data: getPortfolioVideo } = useQuery(
-    ['dancer-portfolioVideo'],
-    getDancerPortfolioVideo,
-    {
-      onSuccess: data => {
-        console.log(data.data);
-        setPortfolioVideo(data.data);
-      },
-    },
-  );
 
   return (
     <div className={styles.container}>
@@ -52,7 +30,7 @@ export default function Portfolio() {
                 <>
                   {isClicked ? (
                     <>
-                      {portfolios.map((data, idx) => (
+                      {portfolios.map((data: any, idx: any) => (
                         <div className={styles.awards} key={idx}>
                           <div className={styles.date}>{data.date}</div>
                           <div className={styles.award}>{data.detail}</div>
@@ -61,7 +39,7 @@ export default function Portfolio() {
                     </>
                   ) : (
                     <>
-                      {portfolios.slice(0, 3).map((data, idx) => (
+                      {portfolios.slice(0, 3).map((data: any, idx: any) => (
                         <div className={styles.awards} key={idx}>
                           <div className={styles.date}>{data.date}</div>
                           <div className={styles.award}>{data.detail}</div>
@@ -95,7 +73,7 @@ export default function Portfolio() {
       <div className={styles.divider} />
       <div className={styles.Part}>
         <div className={styles.paddingContainer}>
-          {portfolioVideo.length == 0 ? (
+          {video.length == 0 ? (
             <div className={styles.blank}>
               <div className={`${styles.blankText} ${fonts.body2_SemiBold}`}>
                 포트폴리오 영상이 없어요
@@ -103,7 +81,7 @@ export default function Portfolio() {
             </div>
           ) : (
             <>
-              {portfolioVideo.map((data, idx) => (
+              {video.map((data: any, idx: any) => (
                 <div key={idx}>
                   <div className="video">
                     <ReactPlayer
