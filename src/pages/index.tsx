@@ -17,7 +17,7 @@ import { useRecoilState } from 'recoil';
 import { isHomeFilterOnState } from '@/store/filter';
 import { filteredClassListState } from '@/store/class';
 import HomeFilter from '@/components/modal/HomeFilter';
-import { useResetFilter } from '@/components/hooks/useResetFilter';
+import { useResetFilter } from '@/hooks/useResetFilter';
 
 export default function HomePage() {
   //const [isFilterOn, setIsFilterOn] = useState<boolean>(false);

@@ -6,7 +6,7 @@ import typoStyles from '../../../styles/typography.module.css';
 import { useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { isSearchFilterOnState, typingValueState } from '@/store/filter';
-import { useResetFilter } from '@/components/hooks/useResetFilter';
+import { useResetFilter } from '@/hooks/useResetFilter';
 
 export default function SearchHeader() {
   //const [typingValue, setTypingValue] = useState('');

@@ -21,7 +21,7 @@ import {
   typingFilteredClassListState,
 } from '@/store/class';
 import SearchFilter from '@/components/modal/SearchFilter';
-import { useResetFilter } from '@/components/hooks/useResetFilter';
+import { useResetFilter } from '@/hooks/useResetFilter';
 
 export default function SearchResultPage() {
   //const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
