@@ -43,3 +43,29 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.resetIcon {
+}
+
+.filterValueListBox {
+  display: flex;
+  align-items: center;
+
+  white-space: nowrap;
+  overflow-x: scroll;
+}
+
+.filterValueBox {
+  color: white;
+  background-color: var(--color-gray-400);
+
+  height: 26px;
+  padding: 4px 8px;
+  border-radius: 51px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-right: 6px;
+}
