@@ -5,6 +5,7 @@ import LocationIcon from '../../public/icons/location.svg';
 import styles from '../styles/components/ClassCard.module.css';
 import { useRouter } from 'next/router';
 import { changeDateForm, changeDayForm } from '@/utils/date';
+import ReactPlayer from 'react-player';
 
 interface ClassCardProps {
   classInfo: any;
@@ -37,7 +38,15 @@ export default function ClassCard({ classInfo }: ClassCardProps) {
         </div>
       </div>
 
-      <div className={styles.video}></div>
+      <ReactPlayer
+        url={classInfo?.videoUrl}
+        muted
+        playing={false}
+        className={styles.video}
+        width="100%"
+        height={210}
+        controls
+      />
 
       <div className={`${styles.InfoBox} ${typoStyles.body2_Regular}`}>
         <div className={styles.genreBox}>
