@@ -3,14 +3,15 @@ import fonts from '../../../styles/typography.module.css';
 import styles from '../../../styles/Profile.module.css';
 import Portfolio from '@/components/profile/Portfolio';
 import Class from '@/components/profile/Class';
-import dancerData from '../../../jsons/dancerData.json';
 import BlankImage from '../../../../public/icons/blank-image.svg';
-import Image from 'next/image';
+import ReactPlayer from 'react-player';
+import { useQuery } from '@tanstack/react-query';
+import { getDancerProfile } from '@/apis/dancer';
 
 export default function DancerProfile() {
   const [isPortfolio, setIsPortfolio] = useState<boolean>(true);
-  const profiles = dancerData.profile;
-  const image = dancerData.image;
+  const [profiles, setProfiles] = useState<any>([]);
+  const [genres, setGenres] = useState<any>([]);
 
   /*button*/
   const onClickPortfolio = () => {
@@ -21,35 +22,54 @@ export default function DancerProfile() {
     setIsPortfolio(false);
   };
 
+  //api
+
+  const { data: getProfile } = useQuery(['dancer-profile'], getDancerProfile, {
+    onSuccess: data => {
+      console.log(data.data);
+      setProfiles(data.data);
+      setGenres(data.data.genres);
+    },
+  });
+
   return (
     <div className={styles.container}>
-      {profiles.map((data, idx) => (
+      {profiles.map((data: any, idx: any) => (
         <div className={styles.profilePart} key={idx}>
-          <div className={styles.backVideo}></div>
+          {profiles.profileVideoUrl == '' ? (
+            <div className={styles.backVideo}></div>
+          ) : (
+            <div className={styles.backVideoPlayer}>
+              <ReactPlayer
+                url={profiles.profileVideoUrl}
+                playing
+                muted
+                loop
+                width="100%"
+                height={386}
+              />
+            </div>
+          )}
           <div className={styles.paddingContainer}>
-            {image.map((data, idx) => (
-              <div key={idx}>
-                {data.url == '' ? (
-                  <BlankImage
-                    alt="blank"
-                    className={styles.profileImg}
-                    width={100}
-                    heigth={100}
-                  />
-                ) : (
-                  <Image
-                    className={styles.profileImg}
-                    src={data.url}
-                    alt={data.url}
-                    width={100}
-                    height={100}
-                  />
-                )}
-              </div>
-            ))}
+            {profiles.profileImageUrl == '' ? (
+              <BlankImage
+                alt="blank"
+                className={styles.profileImg}
+                width={100}
+                heigth={100}
+              />
+            ) : (
+              <img
+                className={styles.profileImg}
+                src={profiles.profileImageUrl}
+                alt={profiles.profileImageUrl}
+                width={100}
+                height={100}
+              />
+            )}
             <div className={`${styles.genreList} ${fonts.body2_Regular}`}>
-              {data.genres.map(data => (
-                <div className={styles.genreBox} key={data.genre}>
+              {genres.map((data: any, idx: any) => (
+                <div className={styles.genreBox} key={idx}>
                   <div className={styles.genre}>{data.genre}</div>
                 </div>
               ))}
@@ -64,11 +84,27 @@ export default function DancerProfile() {
               {data.intro}
             </div>
             <div className={`${styles.hashTagList} ${fonts.body2_Regular}`}>
-              {data.hashtags.map((data, idx) => (
-                <div className={styles.hashTagBox} key={idx}>
-                  <div className={styles.hashTag}>{data.hashtag}</div>
+              {profiles.hashtag1 !== null ? (
+                <div className={styles.hashTagBox}>
+                  <div className={styles.hashTag}>{profiles.hashtag1}</div>
                 </div>
-              ))}
+              ) : (
+                <></>
+              )}
+              {profiles.hashtag2 !== null ? (
+                <div className={styles.hashTagBox}>
+                  <div className={styles.hashTag}>{profiles.hashtag2}</div>
+                </div>
+              ) : (
+                <></>
+              )}
+              {profiles.hashtag3 !== null ? (
+                <div className={styles.hashTagBox}>
+                  <div className={styles.hashTag}>{profiles.hashtag3}</div>
+                </div>
+              ) : (
+                <></>
+              )}
             </div>
           </div>
         </div>
