@@ -286,7 +286,7 @@ export default function HomeFilter({
       endTime: null,
     });
 
-    //closeModal();
+    closeModal();
   };
 
   return (
