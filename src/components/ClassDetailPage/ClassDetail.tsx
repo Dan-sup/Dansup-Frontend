@@ -15,6 +15,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { getClass } from '@/apis/class';
 import { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
+import { changeDateForm, changeDayForm } from '@/utils/date';
 
 export default function ClassDetail() {
   const router = useRouter();
@@ -125,15 +126,25 @@ export default function ClassDetail() {
 
       <InfoBox
         title="수업 일정"
-        text="월요일,화요일,수요일  오후 8:00 ~ 오후 10:00"
+        text={`${
+          classInfo?.method == '원데이'
+            ? changeDateForm(classInfo?.date)
+            : changeDayForm(
+                classInfo?.mon,
+                classInfo?.tue,
+                classInfo?.wed,
+                classInfo?.thu,
+                classInfo?.fri,
+                classInfo?.sat,
+                classInfo?.sun,
+              )
+        }      ${classInfo?.startTime}~${classInfo?.endTime}`}
       />
       <InfoBox title="수업 위치" text={classInfo?.location} />
       <InfoBox title="수업 총원" text={`${classInfo?.maxPeople} 명`} />
       <InfoBox
         title="수업 노래"
-        text={`${classInfo?.song == null ? '' : '🎵'} ${
-          classInfo?.song == null ? '' : classInfo?.song
-        }`}
+        text={classInfo?.song == null ? '정보 없음' : `🎵 ${classInfo?.song}`}
       />
       <div className={styles.additionalInfo}>
         <div
