@@ -19,5 +19,5 @@ export const getFilteredClassList = async (input: any) => {
 //한 클래스 세부 get
 export const getClass = async (classId: number) => {
   const response = await client.get(`/classes/${classId}`);
-  return response.data;
+  return response.data.data;
 };

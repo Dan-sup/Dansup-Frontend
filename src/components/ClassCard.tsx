@@ -3,15 +3,21 @@ import AvatarIcon from '../../public/icons/ClassCard/avatar.svg';
 import DateIcon from '../../public/icons/date.svg';
 import LocationIcon from '../../public/icons/location.svg';
 import styles from '../styles/components/ClassCard.module.css';
+import { useRouter } from 'next/router';
 
 interface ClassCardProps {
   classInfo: any;
 }
 
 export default function ClassCard({ classInfo }: ClassCardProps) {
+  const router = useRouter();
+
   return (
     <>
-      <div className={styles.titleBox}>
+      <div
+        className={styles.titleBox}
+        onClick={() => router.push(`class/${classInfo.danceClassId}`)}
+      >
         {!classInfo.userProfileImage ? (
           <AvatarIcon className={styles.profileImg} />
         ) : (

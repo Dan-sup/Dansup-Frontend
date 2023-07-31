@@ -10,8 +10,48 @@ import Hashtag from './Hashtag';
 import Kind from './Kind';
 import InfoBox from './InfoBox';
 import DescriptionBox from './DescriptionBox';
+import { useRouter } from 'next/router';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { getClass } from '@/apis/class';
+import { useEffect } from 'react';
 
 export default function ClassDetail() {
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!router.isReady) return;
+    const { classId } = router.query;
+    //console.log(classId);
+    const classIdNumber = Number(classId);
+    //console.log(classIdNumber);
+
+    getClassMutation.mutate(classIdNumber);
+  }, [router.isReady]);
+
+  /* useQuery 말고, useMutation 사용!!
+  const { data: classInfo } = useQuery(
+    ['classInfo'],
+    classId => getClass(classIdNumber),
+    {
+      onSuccess: data => {
+        console.log(data);
+      },
+      onError: error => {
+        console.log(error);
+      },
+    },
+  );
+  */
+
+  const getClassMutation = useMutation(getClass, {
+    onSuccess: data => {
+      console.log(data);
+    },
+    onError: error => {
+      console.log(error);
+    },
+  });
+
   return (
     <>
       <div className={styles.video}></div>
