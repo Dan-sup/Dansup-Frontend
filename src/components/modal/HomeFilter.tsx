@@ -181,6 +181,16 @@ export default function HomeFilter({
   }
 
   const handleSubmit = () => {
+    console.log(
+      locationList[0].name === '서울 전체' ? null : locationList[0].name,
+    );
+    console.log(genreList.map(item => item.genre));
+    console.log(classDayList.map(item => item.name));
+    console.log(clickedTime === '전체' ? null : clickedTime);
+    console.log(classWay === '' ? null : classWay);
+    console.log(classLevel === '' ? null : classLevel);
+    console.log(classFee === '전체 가격' ? null : classFee);
+
     /* 전역상태로 하면 한박자 밀림...
       setHomeFilter({
         ...homeFilter,
@@ -228,7 +238,7 @@ export default function HomeFilter({
       endTime: null,
     });
 
-    closeModal();
+    //closeModal();
   };
 
   return (
