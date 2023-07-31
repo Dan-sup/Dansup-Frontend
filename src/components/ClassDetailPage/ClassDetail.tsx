@@ -92,7 +92,10 @@ export default function ClassDetail() {
 
         <div className={styles.kindContainer}>
           <Kind icon={<PulseIcon />} text={classInfo?.genres[0].genre} />
-          <Kind icon={<LocationIcon />} text="강남구" />
+          <Kind
+            icon={<LocationIcon />}
+            text={classInfo?.location.split(' ')[1]}
+          />
           <Kind icon={<ClockIcon />} text={classInfo?.method} />
           <Kind icon={<TrailIcon />} text={classInfo?.difficulty} />
         </div>
@@ -126,7 +129,12 @@ export default function ClassDetail() {
       />
       <InfoBox title="수업 위치" text={classInfo?.location} />
       <InfoBox title="수업 총원" text={`${classInfo?.maxPeople} 명`} />
-      <InfoBox title="수업 노래" text={`🎵 ${classInfo?.song}`} />
+      <InfoBox
+        title="수업 노래"
+        text={`${classInfo?.song == null ? '' : '🎵'} ${
+          classInfo?.song == null ? '' : classInfo?.song
+        }`}
+      />
       <div className={styles.additionalInfo}>
         <div
           className={`${styles.additionalInfoTitle} ${typoStyles.body1_SemiBold}`}

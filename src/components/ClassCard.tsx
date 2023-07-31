@@ -53,7 +53,7 @@ export default function ClassCard({ classInfo }: ClassCardProps) {
         <div className={styles.rightBox}>
           <div className={styles.detailBox}>
             <LocationIcon className={styles.icon} />
-            서울시 마포구
+            {classInfo.location.split(' ')[1]}
           </div>
           <div className={styles.detailBox}>
             <DateIcon className={styles.icon} />
