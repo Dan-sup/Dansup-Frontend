@@ -7,49 +7,22 @@ import Dot from '../../../public/icons/dot.svg';
 import Avatar from '../../../public/icons/avatar.svg';
 import ReactPlayer from 'react-player';
 import { useRouter } from 'next/router';
-import { useRecoilValue } from 'recoil';
-import { userState } from '@/store/user';
-import { useMutation } from '@tanstack/react-query';
-import { getMyClass } from '@/apis/my';
 
 type IOpenList = {
   isBtnOpen: boolean;
 };
 
-export default function Class() {
+interface classProps {
+  classes: any;
+}
+
+export default function Class({ classes }: classProps) {
   const router = useRouter();
-  const [classes, setClasses] = useState<any[]>([]);
-  const [genres, setGenres] = useState<any>([]);
-  const [classId, setClassId] = useState<number>(0);
   const [isBtnOpenList, setIsBtnOpenList] = useState<IOpenList[]>([
     {
       isBtnOpen: false,
     },
   ]);
-
-  //api
-  const user = useRecoilValue(userState);
-  const accessToken = user.accessToken;
-
-  const getMyClassMutation = useMutation(getMyClass, {
-    onSuccess: data => {
-      console.log(data.data);
-      setClasses(data.data);
-      setGenres(data.data.genres);
-      setClassId(data.data.danceClassId);
-    },
-    onError: error => {
-      console.log(error);
-    },
-  });
-
-  useEffect(() => {
-    getMyClassMutation.mutate(accessToken);
-  }, [accessToken]);
-
-  const onClickClass = () => {
-    router.push(`/my-class/${classId}`);
-  };
 
   return (
     <div className={styles.container}>
@@ -61,7 +34,7 @@ export default function Class() {
                 <div
                   className={styles.classBox}
                   key={idx}
-                  onClick={onClickClass}
+                  onClick={() => router.push(`class/${data.danceClassId}`)}
                 >
                   <div
                     className={`${styles.classTitleBox} ${styles.paddingContainer}`}
@@ -129,13 +102,15 @@ export default function Class() {
                     className={`${styles.classDetailBox} ${styles.paddingContainer} ${fonts.body2_Regular}`}
                   >
                     <div className={styles.classGenreBox} key={idx}>
-                      {genres?.map((data: any, idx: any) => (
+                      {data.genres.map((data: any, idx: any) => (
                         <>
                           {data.genre !== '' ? (
                             <div
                               className={`${styles.classGenre} ${fonts.caption1_Regular}`}
                             >
-                              {data.genre}
+                              <div className={styles.classGenreText}>
+                                {data.genre}
+                              </div>
                             </div>
                           ) : (
                             <></>

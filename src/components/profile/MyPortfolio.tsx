@@ -4,48 +4,17 @@ import styles from '../../styles/Profile.module.css';
 import DropDownBefore from '../../../public/icons/dropdown-before.svg';
 import DropDownAfter from '../../../public/icons/dropdown-after.svg';
 import ReactPlayer from 'react-player';
-import { useRecoilValue } from 'recoil';
-import { userState } from '@/store/user';
-import { useMutation } from '@tanstack/react-query';
-import { getPortfolio, getPortfolioVideo } from '@/apis/my';
 
-export default function Portfolio() {
+interface portfolioProps {
+  portfolios: any;
+  video: any;
+}
+export default function Portfolio({ portfolios, video }: portfolioProps) {
   const [isClicked, setIsClicked] = useState<boolean>(false);
-  const [portfolios, setPortfolios] = useState<any[]>([]);
-  const [video, setVideo] = useState<any[]>([]);
 
   const onClickDropDown = () => {
     setIsClicked(!isClicked);
   };
-
-  //api
-  const user = useRecoilValue(userState);
-  const accessToken = user.accessToken;
-
-  const getPortfolioMutation = useMutation(getPortfolio, {
-    onSuccess: data => {
-      console.log(data.data);
-      setPortfolios(data.data);
-    },
-    onError: error => {
-      console.log(error);
-    },
-  });
-
-  const getPortfolioVideoMutation = useMutation(getPortfolioVideo, {
-    onSuccess: data => {
-      console.log(data.data);
-      setVideo(data.data);
-    },
-    onError: error => {
-      console.log(error);
-    },
-  });
-
-  useEffect(() => {
-    getPortfolioMutation.mutate(accessToken);
-    getPortfolioVideoMutation.mutate(accessToken);
-  }, [accessToken]);
 
   return (
     <div className={styles.container}>
@@ -112,7 +81,7 @@ export default function Portfolio() {
           </div>
         ) : (
           <>
-            {video.map((data, idx) => (
+            {video.map((data: any, idx: any) => (
               <div key={idx}>
                 <div className="video">
                   <ReactPlayer

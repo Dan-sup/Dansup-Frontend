@@ -330,7 +330,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 33px;
   height: 22px;
   border: none;
   border-radius: 4px;
@@ -339,11 +338,15 @@
   margin-right: 6px;
 }
 
+.classGenreText {
+  padding: 0 6px 0 6px;
+}
+
 .classGenreBox {
   display: flex;
   align-items: center;
   height: 29px;
-  width: 30%;
+  width: 35%;
 }
 
 .classDetail {

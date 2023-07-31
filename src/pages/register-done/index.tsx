@@ -13,18 +13,15 @@ export default function RegisterDonePage() {
         <RegisterDone />
         <div className={styles.registerTexts}>
           <div className={fonts.head0}>회원가입이 완료되었습니다.</div>
-          <div className={`${fonts.body1_Regular} ${styles.registerSmallText}`}>
-            홈으로 돌아가서 로그인해주세요!
-          </div>
         </div>
         <div className={styles.paddingContainer}>
           <div className={styles.bottom}>
             <div className={buttonStyles.buttonSpace}>
               <button
                 className={`${buttonStyles.CTA_Large} ${buttonStyles.before} ${fonts.body1_SemiBold}`}
-                onClick={() => router.push('/')}
+                onClick={() => router.push('/login')}
               >
-                홈으로
+                로그인하기
               </button>
             </div>
           </div>

@@ -365,7 +365,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                     <div className={`${styles.smallText} ${styles.spacing}`}>
                       최대
                     </div>
-                    <div className={styles.pointText}>5</div>
+                    <div className={styles.pointText}>2</div>
                     <div className={styles.smallText}>개</div>
                   </div>
                 </div>
@@ -383,7 +383,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                       setList={setGenreList}
                       isFull={isGenreFull}
                       setIsFull={setIsGenreFull}
-                      limit={6}
+                      limit={3}
                     />
                   </>
                 ) : (
@@ -628,7 +628,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
           <ToastMsg
             isOpen={isGenreFull}
             setIsOpen={setIsGenreFull}
-            msg="나의 장르는 최대 5개까지 선택 가능합니다."
+            msg="나의 장르는 최대 2개까지 선택 가능합니다."
           />
 
           <ToastMsg

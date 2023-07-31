@@ -13,7 +13,12 @@ import MyPageHeader from '@/components/common/Header/MyPageHeader';
 import { useRecoilValue } from 'recoil';
 import { useMutation } from '@tanstack/react-query';
 import { userState } from '@/store/user';
-import { getMyInfo } from '@/apis/my';
+import {
+  getMyInfo,
+  getMyClass,
+  getPortfolio,
+  getPortfolioVideo,
+} from '@/apis/my';
 import { useRouter } from 'next/router';
 import ReactPlayer from 'react-player';
 
@@ -25,6 +30,9 @@ export default function MyPage() {
   const [isHeader, setIsHeader] = useState<boolean>(true);
   const [profiles, setProfiles] = useState<any>([]);
   const [genres, setGenres] = useState<any>([]);
+  const [classes, setClasses] = useState<any[]>([]);
+  const [portfolios, setPortfolios] = useState<any[]>([]);
+  const [video, setVideo] = useState<any[]>([]);
 
   /*modal*/
   const openClassModal = () => {
@@ -70,6 +78,7 @@ export default function MyPage() {
   const user = useRecoilValue(userState);
   const accessToken = user.accessToken;
 
+  //profile
   const getMyInfoMutation = useMutation(getMyInfo, {
     onSuccess: data => {
       console.log(data.data);
@@ -81,8 +90,43 @@ export default function MyPage() {
     },
   });
 
+  //class
+  const getMyClassMutation = useMutation(getMyClass, {
+    onSuccess: data => {
+      console.log(data.data);
+      setClasses(data.data);
+    },
+    onError: error => {
+      console.log(error);
+    },
+  });
+
+  //portfolio
+  const getPortfolioMutation = useMutation(getPortfolio, {
+    onSuccess: data => {
+      console.log(data.data);
+      setPortfolios(data.data);
+    },
+    onError: error => {
+      console.log(error);
+    },
+  });
+
+  const getPortfolioVideoMutation = useMutation(getPortfolioVideo, {
+    onSuccess: data => {
+      console.log(data.data);
+      setVideo(data.data);
+    },
+    onError: error => {
+      console.log(error);
+    },
+  });
+
   useEffect(() => {
     getMyInfoMutation.mutate(accessToken);
+    getMyClassMutation.mutate(accessToken);
+    getPortfolioMutation.mutate(accessToken);
+    getPortfolioVideoMutation.mutate(accessToken);
   }, [accessToken]);
 
   return (
@@ -193,7 +237,11 @@ export default function MyPage() {
             </button>
           </div>
         </div>
-        {isPortfolio ? <Portfolio /> : <Class />}
+        {isPortfolio ? (
+          <Portfolio portfolios={portfolios} video={video} />
+        ) : (
+          <Class classes={classes} />
+        )}
         <button onClick={() => setIsUploadBoxOpen(!isUploadBoxOpen)}>
           <FloatingBtn className={styles.floatingBtn} />
         </button>
