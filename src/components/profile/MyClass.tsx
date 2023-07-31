@@ -6,6 +6,7 @@ import Location from '../../../public/icons/location.svg';
 import Dot from '../../../public/icons/dot.svg';
 import Avatar from '../../../public/icons/avatar.svg';
 import ReactPlayer from 'react-player';
+import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
 import { userState } from '@/store/user';
 import { useMutation } from '@tanstack/react-query';
@@ -16,8 +17,10 @@ type IOpenList = {
 };
 
 export default function Class() {
+  const router = useRouter();
   const [classes, setClasses] = useState<any[]>([]);
   const [genres, setGenres] = useState<any>([]);
+  const [classId, setClassId] = useState<number>(0);
   const [isBtnOpenList, setIsBtnOpenList] = useState<IOpenList[]>([
     {
       isBtnOpen: false,
@@ -33,6 +36,7 @@ export default function Class() {
       console.log(data.data);
       setClasses(data.data);
       setGenres(data.data.genres);
+      setClassId(data.data.danceClassId);
     },
     onError: error => {
       console.log(error);
@@ -43,6 +47,10 @@ export default function Class() {
     getMyClassMutation.mutate(accessToken);
   }, [accessToken]);
 
+  const onClickClass = () => {
+    router.push(`/my-class/${classId}`);
+  };
+
   return (
     <div className={styles.container}>
       <>
@@ -50,7 +58,11 @@ export default function Class() {
           <>
             {classes.map((data: any, idx: any) => (
               <>
-                <div className={styles.classBox} key={idx}>
+                <div
+                  className={styles.classBox}
+                  key={idx}
+                  onClick={onClickClass}
+                >
                   <div
                     className={`${styles.classTitleBox} ${styles.paddingContainer}`}
                   >
