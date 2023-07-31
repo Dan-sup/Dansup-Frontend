@@ -188,7 +188,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
 
   //GenreList & ClassLevel check
   useEffect(() => {
-    if (genreList.length !== 1) {
+    if (genreList.length !== 0) {
       setIsGenreListChecked(true);
     } else {
       setIsGenreListChecked(false);
@@ -254,18 +254,6 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
 
   const handleSubmit = () => {
     const formData = new FormData();
-    console.log(classDate);
-    console.log(monday);
-    console.log(tuesday);
-    console.log(location.name);
-    console.log(classContent);
-    console.log(classLevel);
-    console.log(endTime);
-    console.log(startTime !== '' ? startHour : null);
-    console.log(classFee);
-    console.log(classAdmit);
-    console.log(classWay);
-    console.log(classLink);
 
     formData.append(
       'createDanceClassDto',
@@ -287,7 +275,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
             difficulty: classLevel,
             endHour: endTime !== '' ? endHour : null,
             endTime: endTime !== '' ? endTime : null,
-            genre: genreList,
+            genres: genreList,
             hashtag1:
               hashTagList[1]?.name !== undefined ? hashTagList[1]?.name : null,
             hashtag2:

@@ -1,15 +1,25 @@
+import { useState } from 'react';
 import styles from '../../styles/Profile.module.css';
 import fonts from '../../styles/typography.module.css';
-import dancerData from '../../jsons/dancerData.json';
 import Date from '../../../public/icons/date.svg';
 import Location from '../../../public/icons/location.svg';
+import { useQuery } from '@tanstack/react-query';
+import { getDancerClass } from '@/apis/dancer';
 
 export default function Class() {
-  const classes = dancerData.class;
+  const [classes, setClasses] = useState<any[]>([]);
+
+  //api
+  const { data: getClass } = useQuery(['dancer-class'], getDancerClass, {
+    onSuccess: data => {
+      console.log(data.data);
+      setClasses(data.data);
+    },
+  });
 
   return (
     <div className={styles.container}>
-      {classes.map((data, idx) => {
+      {classes.map((data: any, idx: any) => {
         let location = data.location.substring(
           0,
           data.location.indexOf('구 ') + 1,

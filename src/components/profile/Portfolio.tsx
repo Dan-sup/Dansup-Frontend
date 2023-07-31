@@ -4,7 +4,7 @@ import styles from '../../styles/Profile.module.css';
 import DropDownBefore from '../../../public/icons/dropdown-before.svg';
 import DropDownAfter from '../../../public/icons/dropdown-after.svg';
 import ReactPlayer from 'react-player';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { getDancerPortfolio, getDancerPortfolioVideo } from '@/apis/dancer';
 
 export default function Portfolio() {
