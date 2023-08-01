@@ -177,6 +177,10 @@
   margin: 6px 0 0 6px;
 }
 
+.genreBlankBox {
+  height: 29px;
+}
+
 .genre {
   margin: 0 8px 0 8px;
   color: var(--color-main-100);
@@ -312,6 +316,8 @@
   justify-content: space-between;
   margin-left: 8px;
   color: var(--color-white);
+  white-space: nowrap;
+  overflow-x: scroll;
 }
 
 .classTitle {
