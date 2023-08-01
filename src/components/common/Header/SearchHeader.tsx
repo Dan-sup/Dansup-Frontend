@@ -57,6 +57,7 @@ export default function SearchHeader() {
             value={typingValue}
             onChange={e => setTypingValue(e.target.value)}
             required
+            autoFocus={router.pathname == '/search' ? true : false}
           />
         </form>
       </div>
