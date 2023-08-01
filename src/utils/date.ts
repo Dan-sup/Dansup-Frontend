@@ -1,7 +1,11 @@
 export const changeDateForm = (date: any) => {
   const dateList = date !== null ? date.split('-') : '';
 
-  return `${dateList[1]}/${dateList[2]}`;
+  if (date !== null) {
+    return `${dateList[1]}/${dateList[2]}`;
+  } else {
+    return;
+  }
 };
 
 export const changeDayForm = (
