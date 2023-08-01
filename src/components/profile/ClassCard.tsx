@@ -136,7 +136,7 @@ export default function ClassCard({ classes, isMyPage }: ClassCardProps) {
                       ) : (
                         <>
                           <Date className={styles.icon} />
-                          {data.date}
+                          {data.date.replaceAll('-', '/')}
                         </>
                       )}
                     </>
@@ -150,7 +150,7 @@ export default function ClassCard({ classes, isMyPage }: ClassCardProps) {
                       ) : (
                         <>
                           <Date className={styles.icon} />
-                          {data.method} · {data.date}
+                          {data.method} · {data.date.replaceAll('-', '/')}
                         </>
                       )}
                     </>

@@ -288,7 +288,6 @@
   width: 42px;
   height: 42px;
   border-radius: 100%;
-  background: var(--color-gray-100);
 }
 
 .classBox {
@@ -312,6 +311,7 @@
   height: 41px;
   justify-content: space-between;
   margin-left: 8px;
+  color: var(--color-white);
 }
 
 .classTitle {
@@ -356,7 +356,6 @@
   display: flex;
   align-items: center;
   height: 29px;
-  width: 35%;
 }
 
 .classDetail {
