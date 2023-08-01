@@ -13,6 +13,9 @@
   */
 }
 
+.loginBgBox {
+}
+
 .a {
   width: 100%;
   padding: 0 18px;
@@ -22,7 +25,7 @@
   justify-content: center;
 
   z-index: 100; /*배경 이미지보다 앞으로*/
-  top: 745px;
+  top: 700px;
 }
 
 .loginBtn {
