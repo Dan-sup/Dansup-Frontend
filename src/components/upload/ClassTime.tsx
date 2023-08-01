@@ -1,4 +1,3 @@
-import DatePicker from 'react-datepicker';
 import fonts from '../../styles/typography.module.css';
 import styles from '../../styles/UploadPage.module.css';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -18,12 +17,11 @@ export default function ClassTime({
 }: classTimeProps) {
   const startTimeChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setStartTime(e.target.value);
-    console.log(parseInt(startTime));
   };
   const endTimeChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEndTime(e.target.value);
-    console.log(parseInt(endTime));
   };
+
   return (
     <div className={styles.row_Between}>
       <input
