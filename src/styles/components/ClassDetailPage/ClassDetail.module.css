@@ -1,8 +1,6 @@
 .video {
   width: 100%;
   height: 210px;
-
-  background-color: gray;
 }
 
 .topContainer {
@@ -68,6 +66,10 @@
 
 .dancerImg {
   margin-right: 14px;
+
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
 }
 
 .dancerName {

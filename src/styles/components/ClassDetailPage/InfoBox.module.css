@@ -13,4 +13,6 @@
 
 .text {
   color: var(--color-gray-100);
+
+  white-space: pre-wrap; /*글자 사이에 원하는 길이만큼 공백 넣기*/
 }

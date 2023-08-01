@@ -60,3 +60,9 @@ export const selectTimeClickIndexSearchState = atom<number>({
   key: 'selectTimeClickIndexSearchState',
   default: 0,
 });
+
+//SearchFilter에 적용된 값 리스트 -> 필터 바에 넣을 것들
+export const homeFilterValueListSearchState = atom({
+  key: 'homeFilterValueListSearchState',
+  default: [],
+});

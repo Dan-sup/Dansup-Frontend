@@ -16,7 +16,7 @@ import {
 } from '@/data/class-data';
 import Close from '../../../public/icons/close.svg';
 import { useRouter } from 'next/router';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { searchFilterState } from '@/store/filter';
 import {
   classDayListSearchState,
@@ -25,6 +25,7 @@ import {
   classWaySearchState,
   clickedTimeSearchState,
   genreListSearchState,
+  homeFilterValueListSearchState,
   isClickedGenreSearchState,
   isClickedLocationSearchState,
   locationListSearchState,
@@ -32,6 +33,7 @@ import {
   selectTimeClickIndexSearchState,
   selectWayClickIndexSearchState,
 } from '@/store/filter/searchFilter';
+import { changeClassWayToK, changeClassLevelToK } from '@/utils/filter';
 
 interface filterProps {
   isOpen: boolean;
@@ -85,6 +87,10 @@ export default function SearchFilter({
   const [isClassWayChecked, setIsClassWayChecked] = useState<boolean>(false);
   const [isSelectTimeChecked, setIsSelectTimeChecked] =
     useState<boolean>(false);
+
+  const setSearchFilterValueList = useSetRecoilState<any>(
+    homeFilterValueListSearchState,
+  );
 
   //location 박스 열기
   const onClickOpenLocationBox = () => {
@@ -195,7 +201,34 @@ export default function SearchFilter({
     maxTuition = null;
   }
 
+  const locationValue =
+    locationList[0].name === '서울 전체' ? null : locationList[0].name;
+  const genreListValue = genreList.map(item => item.genre);
+  const classDayListValue = classDayList
+    .map(item => item.name)
+    .filter(item => item !== '');
+  const clickedTimeValue = clickedTime === '전체' ? null : clickedTime;
+  const classWayValue = classWay === '' ? null : changeClassWayToK(classWay);
+  const classLevelValue =
+    classLevel === '' ? null : changeClassLevelToK(classLevel);
+  const classFeeValue = classFee === '전체 가격' ? null : classFee;
+
+  //SearchFilter에 적용된 값 리스트 -> 필터 바에 넣을 것들
+  const valueList = [
+    locationValue,
+    genreListValue,
+    classDayListValue,
+    clickedTimeValue,
+    classWayValue,
+    classLevelValue,
+    classFeeValue,
+  ]
+    .flat()
+    .filter(item => item !== null);
+
   const handleSubmit = () => {
+    setSearchFilterValueList(valueList);
+
     /* 전역상태로 하면 한박자 밀림...
       setSearchFilter({
         ...searchFilter,

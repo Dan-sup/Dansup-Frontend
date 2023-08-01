@@ -14,7 +14,7 @@ import DancerCard from '@/components/SearchResultPage/DancerCard';
 import ClassCard from '@/components/ClassCard';
 import Filter from '@/components/modal/Filter';
 import { useRouter } from 'next/router';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { isSearchFilterOnState } from '@/store/filter';
 import {
   bothFilteredClassListState,
@@ -22,6 +22,7 @@ import {
 } from '@/store/class';
 import SearchFilter from '@/components/modal/SearchFilter';
 import { useResetFilter } from '@/hooks/useResetFilter';
+import { homeFilterValueListSearchState } from '@/store/filter/searchFilter';
 
 export default function SearchResultPage() {
   //const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
@@ -46,6 +47,8 @@ export default function SearchResultPage() {
   const [bothFilteredClassList, setBothFilteredClassList] = useRecoilState(
     bothFilteredClassListState,
   );
+
+  const searchFilterValueList = useRecoilValue(homeFilterValueListSearchState);
 
   const { resetSearchFilter } = useResetFilter();
 
@@ -192,6 +195,17 @@ export default function SearchResultPage() {
 
         {isSearchFilterOn && (
           <div className={filterBarStyles.appliedFiltersBox}>
+            <div className={filterBarStyles.filterValueListBox}>
+              {searchFilterValueList.map((value: any, idx: any) => (
+                <div
+                  className={`${filterBarStyles.filterValueBox} ${typoStyles.caption1_Regular}`}
+                  key={idx}
+                >
+                  {value}
+                </div>
+              ))}
+            </div>
+
             <ResetIcon
               className={filterBarStyles.resetIcon}
               onClick={() => {

@@ -16,7 +16,7 @@ import {
 } from '@/data/class-data';
 import Close from '../../../public/icons/close.svg';
 import { useRouter } from 'next/router';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { homeFilterState } from '@/store/filter';
 import {
   classDayListState,
@@ -25,6 +25,7 @@ import {
   classWayState,
   clickedTimeState,
   genreListState,
+  homeFilterValueListState,
   isClickedGenreState,
   isClickedLocationState,
   locationListState,
@@ -32,6 +33,7 @@ import {
   selectTimeClickIndexState,
   selectWayClickIndexState,
 } from '@/store/filter/homeFilter';
+import { changeClassWayToK, changeClassLevelToK } from '@/utils/filter';
 
 interface filterProps {
   isOpen: boolean;
@@ -80,6 +82,10 @@ export default function HomeFilter({
   const [isClassWayChecked, setIsClassWayChecked] = useState<boolean>(false);
   const [isSelectTimeChecked, setIsSelectTimeChecked] =
     useState<boolean>(false);
+
+  const setHomeFilterValueList = useSetRecoilState<any>(
+    homeFilterValueListState,
+  );
 
   //location 박스 열기
   const onClickOpenLocationBox = () => {
@@ -190,16 +196,48 @@ export default function HomeFilter({
     maxTuition = null;
   }
 
+  const locationValue =
+    locationList[0].name === '서울 전체' ? null : locationList[0].name;
+  const genreListValue = genreList.map(item => item.genre);
+  const classDayListValue = classDayList
+    .map(item => item.name)
+    .filter(item => item !== '');
+  const clickedTimeValue = clickedTime === '전체' ? null : clickedTime;
+  const classWayValue = classWay === '' ? null : changeClassWayToK(classWay);
+  const classLevelValue =
+    classLevel === '' ? null : changeClassLevelToK(classLevel);
+  const classFeeValue = classFee === '전체 가격' ? null : classFee;
+
+  //HomeFilter에 적용된 값 리스트 -> 필터 바에 넣을 것들
+  const valueList = [
+    locationValue,
+    genreListValue,
+    classDayListValue,
+    clickedTimeValue,
+    classWayValue,
+    classLevelValue,
+    classFeeValue,
+  ]
+    .flat()
+    .filter(item => item !== null);
+
   const handleSubmit = () => {
+    /*
     console.log(
       locationList[0].name === '서울 전체' ? null : locationList[0].name,
     );
     console.log(genreList.map(item => item.genre));
-    console.log(classDayList.map(item => item.name));
+    console.log(
+      classDayList.map(item => item.name).filter(item => item !== ''),
+    );
     console.log(clickedTime === '전체' ? null : clickedTime);
-    console.log(classWay === '' ? null : classWay);
-    console.log(classLevel === '' ? null : classLevel);
+    console.log(classWay === '' ? null : changeClassWayToK(classWay));
+    console.log(classLevel === '' ? null : changeClassLevelToK(classLevel));
     console.log(classFee === '전체 가격' ? null : classFee);
+    */
+
+    console.log(valueList);
+    setHomeFilterValueList(valueList);
 
     /* 전역상태로 하면 한박자 밀림...
       setHomeFilter({
@@ -248,7 +286,7 @@ export default function HomeFilter({
       endTime: null,
     });
 
-    //closeModal();
+    closeModal();
   };
 
   return (

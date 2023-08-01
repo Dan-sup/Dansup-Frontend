@@ -13,11 +13,12 @@ import filterBarStyles from '../styles/components/FilterBar.module.css';
 import ClassCard from '@/components/ClassCard';
 import Filter from '../components/modal/Filter';
 import { useRouter } from 'next/router';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { isHomeFilterOnState } from '@/store/filter';
 import { filteredClassListState } from '@/store/class';
 import HomeFilter from '@/components/modal/HomeFilter';
 import { useResetFilter } from '@/hooks/useResetFilter';
+import { homeFilterValueListState } from '@/store/filter/homeFilter';
 
 export default function HomePage() {
   //const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
@@ -29,6 +30,8 @@ export default function HomePage() {
   const [filteredClassList, setfilteredClassList] = useRecoilState(
     filteredClassListState,
   );
+
+  const homeFilterValueList = useRecoilValue(homeFilterValueListState);
 
   const router = useRouter();
 
@@ -132,6 +135,17 @@ export default function HomePage() {
             </div>
 
             <div className={filterBarStyles.appliedFiltersBox}>
+              <div className={filterBarStyles.filterValueListBox}>
+                {homeFilterValueList.map((value: any, idx: any) => (
+                  <div
+                    className={`${filterBarStyles.filterValueBox} ${typoStyles.caption1_Regular}`}
+                    key={idx}
+                  >
+                    {value}
+                  </div>
+                ))}
+              </div>
+
               <ResetIcon
                 className={filterBarStyles.resetIcon}
                 onClick={() => {

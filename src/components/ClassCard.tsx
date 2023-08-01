@@ -3,15 +3,23 @@ import AvatarIcon from '../../public/icons/ClassCard/avatar.svg';
 import DateIcon from '../../public/icons/date.svg';
 import LocationIcon from '../../public/icons/location.svg';
 import styles from '../styles/components/ClassCard.module.css';
+import { useRouter } from 'next/router';
+import { changeDateForm, changeDayForm } from '@/utils/date';
+import ReactPlayer from 'react-player';
 
 interface ClassCardProps {
   classInfo: any;
 }
 
 export default function ClassCard({ classInfo }: ClassCardProps) {
+  const router = useRouter();
+
   return (
     <>
-      <div className={styles.titleBox}>
+      <div
+        className={styles.titleBox}
+        onClick={() => router.push(`class/${classInfo.danceClassId}`)}
+      >
         {!classInfo.userProfileImage ? (
           <AvatarIcon className={styles.profileImg} />
         ) : (
@@ -30,7 +38,15 @@ export default function ClassCard({ classInfo }: ClassCardProps) {
         </div>
       </div>
 
-      <div className={styles.video}></div>
+      <ReactPlayer
+        url={classInfo?.videoUrl}
+        muted
+        playing={false}
+        className={styles.video}
+        width="100%"
+        height={210}
+        controls
+      />
 
       <div className={`${styles.InfoBox} ${typoStyles.body2_Regular}`}>
         <div className={styles.genreBox}>
@@ -47,11 +63,22 @@ export default function ClassCard({ classInfo }: ClassCardProps) {
         <div className={styles.rightBox}>
           <div className={styles.detailBox}>
             <LocationIcon className={styles.icon} />
-            서울시 마포구
+            {classInfo.location.split(' ')[1]}
           </div>
           <div className={styles.detailBox}>
             <DateIcon className={styles.icon} />
-            {classInfo.method} 6월 28일
+            {classInfo.method}{' '}
+            {classInfo.method == '원데이'
+              ? changeDateForm(classInfo.date)
+              : changeDayForm(
+                  classInfo.mon,
+                  classInfo.tue,
+                  classInfo.wed,
+                  classInfo.thu,
+                  classInfo.fri,
+                  classInfo.sat,
+                  classInfo.sun,
+                )}
           </div>
         </div>
       </div>

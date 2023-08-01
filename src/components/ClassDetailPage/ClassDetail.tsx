@@ -10,20 +10,73 @@ import Hashtag from './Hashtag';
 import Kind from './Kind';
 import InfoBox from './InfoBox';
 import DescriptionBox from './DescriptionBox';
+import { useRouter } from 'next/router';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { getClass } from '@/apis/class';
+import { useEffect, useState } from 'react';
+import ReactPlayer from 'react-player';
+import { changeDateForm, changeDayForm } from '@/utils/date';
 
 export default function ClassDetail() {
+  const router = useRouter();
+
+  const [classInfo, setClassInfo] = useState<any>();
+
+  useEffect(() => {
+    if (!router.isReady) return;
+    const { classId } = router.query;
+    //console.log(classId);
+    const classIdNumber = Number(classId);
+    //console.log(classIdNumber);
+
+    getClassMutation.mutate(classIdNumber);
+  }, [router.isReady]);
+
+  /* useQuery 말고, useMutation 사용!!
+  const { data: classInfo } = useQuery(
+    ['classInfo'],
+    classIdNumber => getClass(classIdNumber),
+    {
+      onSuccess: data => {
+        console.log(data);
+      },
+      onError: error => {
+        console.log(error);
+      },
+    },
+  );
+  */
+
+  const getClassMutation = useMutation(getClass, {
+    onSuccess: data => {
+      console.log(data);
+      setClassInfo(data);
+    },
+    onError: error => {
+      console.log(error);
+    },
+  });
+
   return (
     <>
-      <div className={styles.video}></div>
+      <ReactPlayer
+        url={classInfo?.videoUrl}
+        muted
+        playing={false}
+        className={styles.video}
+        width="100%"
+        height={210}
+        controls
+      />
 
       <div className={styles.topContainer}>
         <div className={`${styles.title} ${typoStyles.head2_SemiBold}`}>
-          임댄서와 함께하는 재즈 입문
+          {classInfo?.title}
         </div>
 
         <div className={styles.priceBox}>
           <div className={`${styles.price} ${typoStyles.head2_SemiBold}`}>
-            22,800원
+            {classInfo?.tuition}원
           </div>
           <div className={`${styles.oneTime} ${typoStyles.body2_Regular}`}>
             (1회당)
@@ -31,25 +84,37 @@ export default function ClassDetail() {
         </div>
 
         <div className={styles.hashtagBox}>
-          <Hashtag text="#선위주의" />
-          <Hashtag text="#허니제이같은" />
-          <Hashtag text="#빠른" />
+          {[classInfo?.hashtag1, classInfo?.hashtag2, classInfo?.hashtag3].map(
+            (hashtag: any, idx: any) => (
+              <Hashtag text={hashtag} key={idx} />
+            ),
+          )}
         </div>
 
         <div className={styles.kindContainer}>
-          <Kind icon={<PulseIcon />} text="재즈" />
-          <Kind icon={<LocationIcon />} text="강남구" />
-          <Kind icon={<ClockIcon />} text="정규반" />
-          <Kind icon={<TrailIcon />} text="초중급" />
+          <Kind icon={<PulseIcon />} text={classInfo?.genres[0].genre} />
+          <Kind
+            icon={<LocationIcon />}
+            text={classInfo?.location.split(' ')[1]}
+          />
+          <Kind icon={<ClockIcon />} text={classInfo?.method} />
+          <Kind icon={<TrailIcon />} text={classInfo?.difficulty} />
         </div>
 
         <div className={styles.dancerContainer}>
           <div className={styles.dancerBox}>
-            <AvatarIcon className={styles.dancerImg} />
+            {classInfo?.userProfileImage ? (
+              <img
+                src={classInfo?.userProfileImage}
+                className={styles.dancerImg}
+              />
+            ) : (
+              <AvatarIcon className={styles.dancerImg} />
+            )}
             <div
               className={`${styles.dancerName} ${typoStyles.body1_SemiBold}`}
             >
-              임댄서
+              {classInfo?.userNickname}
             </div>
           </div>
 
@@ -61,11 +126,26 @@ export default function ClassDetail() {
 
       <InfoBox
         title="수업 일정"
-        text="월요일,화요일,수요일  오후 8:00 ~ 오후 10:00"
+        text={`${
+          classInfo?.method == '원데이'
+            ? changeDateForm(classInfo?.date)
+            : changeDayForm(
+                classInfo?.mon,
+                classInfo?.tue,
+                classInfo?.wed,
+                classInfo?.thu,
+                classInfo?.fri,
+                classInfo?.sat,
+                classInfo?.sun,
+              )
+        }      ${classInfo?.startTime}~${classInfo?.endTime}`}
       />
-      <InfoBox title="수업 위치" text="서울특별시 강남구 00로 13길 165-13" />
-      <InfoBox title="수업 총원" text="8-10 명" />
-      <InfoBox title="수업 노래" text="🎵 Reveal - The Boyz" />
+      <InfoBox title="수업 위치" text={classInfo?.location} />
+      <InfoBox title="수업 총원" text={`${classInfo?.maxPeople} 명`} />
+      <InfoBox
+        title="수업 노래"
+        text={classInfo?.song == null ? '정보 없음' : `🎵 ${classInfo?.song}`}
+      />
       <div className={styles.additionalInfo}>
         <div
           className={`${styles.additionalInfoTitle} ${typoStyles.body1_SemiBold}`}
@@ -74,21 +154,13 @@ export default function ClassDetail() {
         </div>
         <DescriptionBox
           title="이런 것들을 배울 거예요"
-          text="안녕하세요! 이 수업에선 재즈를 배웁니다.
-안무는 코레오로 창작이라 쉽게 배울 수 있습니다"
+          text={classInfo?.detail1}
         />
         <DescriptionBox
           title="이런 분들을 위한 레슨이에요"
-          text="배워보고 싶은데 혼자 배워보고 싶으신 분들!
-시간이 안맞아서 배우질 못했던 직장인 분들!"
+          text={classInfo?.detail2}
         />
-        <DescriptionBox
-          title="드리는 인사말"
-          text="안녕하세요. 임댄서입니다
-저에게 신청해주시는 분들 한 분 한 분 너무 소중해요.
-제가 차근차근 알려드릴게요.
-재밌게 배워보아요!"
-        />
+        <DescriptionBox title="드리는 인사말" text={classInfo?.detail3} />
       </div>
 
       <div className={styles.bottomBtnBox}>
