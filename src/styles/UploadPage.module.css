@@ -56,27 +56,25 @@
   border-bottom: 1px solid var(--color-white);
 }
 
-.timeInput {
-  height: 42px;
-  border: 1px solid var(--color-gray-300);
-  border-radius: 5px;
-  width: 45%;
-}
-
-.timeInput:focus {
+.timeInput[type='time']:focus {
   border: 1px solid var(--color-white);
 }
 
 .timeInput[type='time'] {
   position: relative;
   background: url(../../public/icons/time.svg) no-repeat right 10px center;
+  height: 42px;
+  border: 1px solid var(--color-gray-300);
+  border-radius: 5px;
+  width: 45%;
 }
 
+/*
 .timeInput[type='time']::before {
   content: attr(data-placeholder);
   color: #b4b8bb;
   margin-left: 13px;
-}
+}*/
 
 .timeInput[type='time']::-webkit-calendar-picker-indicator {
   position: absolute;
@@ -89,6 +87,7 @@
   cursor: pointer;
 }
 
+/*
 .timeInput[type='time']::-webkit-datetime-edit-text {
   -webkit-appearance: none;
   display: none;
@@ -104,7 +103,7 @@
 .timeInput[type='time']::-webkit-datetime-edit-ampm-field {
   -webkit-appearance: none;
   display: none;
-}
+}*/
 
 .textarea {
   resize: none;
@@ -419,10 +418,16 @@
   cursor: pointer;
 }
 
+.datePicker[type='date']::before {
+  content: attr(data-placeholder);
+  color: var(--color-gray-400);
+}
+
 .datePicker[type='date']:valid::before {
   display: none;
 }
 
+/*
 .datePicker[type='date']::-webkit-datetime-edit-text {
   -webkit-appearance: none;
   display: none;
@@ -438,7 +443,7 @@
 .datePicker[type='date']::-webkit-datetime-edit-year-field {
   -webkit-appearance: none;
   display: none;
-}
+}*/
 
 /*classDay*/
 .dayBoxs {
