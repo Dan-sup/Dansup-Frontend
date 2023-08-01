@@ -101,17 +101,23 @@ export default function Class({ classes }: classProps) {
                       <div className={styles.classDate}>
                         <Date className={styles.icon} />
                         {data.method}{' '}
-                        {data.method == '원데이'
-                          ? changeDateForm(data.date)
-                          : changeDayForm(
-                              data.mon,
-                              data.tue,
-                              data.wed,
-                              data.thu,
-                              data.fri,
-                              data.sat,
-                              data.sun,
-                            )}
+                        {data.method == '원데이' ? (
+                          data.date == null ? (
+                            <></>
+                          ) : (
+                            changeDateForm(data.date)
+                          )
+                        ) : (
+                          changeDayForm(
+                            data.mon,
+                            data.tue,
+                            data.wed,
+                            data.thu,
+                            data.fri,
+                            data.sat,
+                            data.sun,
+                          )
+                        )}
                       </div>
                     </div>
                   </div>
