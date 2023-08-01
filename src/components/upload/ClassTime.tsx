@@ -26,30 +26,18 @@ export default function ClassTime({
     <div className={styles.row_Between}>
       <input
         className={`${styles.input} ${styles.timeInput} ${fonts.body2_Regular}`}
-        type="text"
+        type="time"
         id="startTime"
-        placeholder="시작시간"
+        data-placeholder="시작시간"
         onChange={startTimeChangeHandler}
-        onFocus={(e: React.ChangeEvent<HTMLInputElement>) =>
-          (e.target.type = 'time')
-        }
-        onBlur={(e: React.ChangeEvent<HTMLInputElement>) =>
-          (e.target.type = 'text')
-        }
       />
       <div className={styles.timeText}>~</div>
       <input
         className={`${styles.input} ${styles.timeInput} ${fonts.body2_Regular}`}
-        type="text"
+        type="time"
         id="endTime"
-        placeholder="종료시간"
+        data-placeholder="종료시간"
         onChange={endTimeChangeHandler}
-        onFocus={(e: React.ChangeEvent<HTMLInputElement>) =>
-          (e.target.type = 'time')
-        }
-        onBlur={(e: React.ChangeEvent<HTMLInputElement>) =>
-          (e.target.type = 'text')
-        }
       />
     </div>
   );
