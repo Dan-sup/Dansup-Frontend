@@ -258,7 +258,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const classUploadMutation = useMutation(postClassInfo, {
     onSuccess: data => {
       console.log(data);
-      alert('업로드 되었습니다');
+      closeModal();
     },
     onError: error => {
       console.log(error);

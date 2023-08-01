@@ -19,7 +19,6 @@ import {
   getPortfolio,
   getPortfolioVideo,
 } from '@/apis/my';
-import { useRouter } from 'next/router';
 import ReactPlayer from 'react-player';
 
 export default function MyPage() {
