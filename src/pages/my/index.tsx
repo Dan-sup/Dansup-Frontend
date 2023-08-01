@@ -169,13 +169,15 @@ export default function MyPage() {
             )}
             <div className={`${styles.genreList} ${fonts.body2_Regular}`}>
               {genres.map((data: any, idx: any) => (
-                <div className={styles.genreBox} key={idx}>
-                  {data.genre !== '' ? (
-                    <div className={styles.genre}>{data.genre}</div>
+                <>
+                  {data.genre !== null ? (
+                    <div className={styles.genreBox} key={idx}>
+                      <div className={styles.genre}>{data.genre}</div>
+                    </div>
                   ) : (
-                    <></>
+                    <div className={styles.genreBlankBox} key={idx}></div>
                   )}
-                </div>
+                </>
               ))}
             </div>
             <div className={`${styles.nickname} ${fonts.head1}`}>
