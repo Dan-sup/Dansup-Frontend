@@ -8,12 +8,17 @@
   align-items: center;
 }
 
+.profileImgBox {
+  width: 42px;
+  height: 42px;
+
+  margin-right: 8px;
+}
+
 .profileImg {
   width: 42px;
   height: 42px;
   border-radius: 50%;
-
-  margin-right: 8px;
 }
 
 .textBox {
@@ -23,6 +28,9 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  white-space: nowrap;
+  overflow-x: scroll;
 }
 
 .video {

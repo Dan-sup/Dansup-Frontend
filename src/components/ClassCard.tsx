@@ -20,11 +20,16 @@ export default function ClassCard({ classInfo }: ClassCardProps) {
         className={styles.titleBox}
         onClick={() => router.push(`class/${classInfo.danceClassId}`)}
       >
-        {!classInfo.userProfileImage ? (
-          <AvatarIcon className={styles.profileImg} />
-        ) : (
-          <img src={classInfo.userProfileImage} className={styles.profileImg} />
-        )}
+        <div className={styles.profileImgBox}>
+          {!classInfo.userProfileImage ? (
+            <AvatarIcon className={styles.profileImg} />
+          ) : (
+            <img
+              src={classInfo.userProfileImage}
+              className={styles.profileImg}
+            />
+          )}
+        </div>
 
         <div className={styles.textBox}>
           <div className={`${styles.classTitle} ${typoStyles.body1_Regular}`}>
