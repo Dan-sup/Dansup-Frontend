@@ -26,6 +26,10 @@ export default function BasicHeader({ type }: BasicHeaderProps) {
     router.push('/login');
   };
 
+  const onclickBack = () => {
+    router.back();
+  };
+
   const getMyInfoMutation = useMutation(getMyInfo, {
     onSuccess: data => {
       //console.log(data);
@@ -46,7 +50,7 @@ export default function BasicHeader({ type }: BasicHeaderProps) {
   return (
     <div className={styles.container}>
       {type !== 'home' && (
-        <div className={styles.btn}>
+        <div className={styles.btn} onClick={onclickBack}>
           <BackIcon />
         </div>
       )}
