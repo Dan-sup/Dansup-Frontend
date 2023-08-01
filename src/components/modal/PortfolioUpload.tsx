@@ -29,7 +29,7 @@ export default function PortfolioUpload({
   const portfolioUploadMutation = useMutation(postPortfolio, {
     onSuccess: data => {
       console.log(data);
-      alert('업로드 되었습니다');
+      closeModal();
     },
     onError: error => {
       console.log(error);

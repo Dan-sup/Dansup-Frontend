@@ -18,16 +18,10 @@ export default function ClassDate({
   return (
     <input
       className={`${styles.input} ${styles.datePicker} ${fonts.body2_Regular}`}
-      type="text"
+      type="date"
       id="date"
-      placeholder="수업 날짜를 선택해주세요"
+      date-placeholder="수업 날짜를 선택해주세요"
       onChange={dateChangeHandler}
-      onFocus={(e: React.ChangeEvent<HTMLInputElement>) =>
-        (e.target.type = 'date')
-      }
-      onBlur={(e: React.ChangeEvent<HTMLInputElement>) =>
-        (e.target.type = 'text')
-      }
     />
   );
 }

@@ -83,9 +83,6 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const [isLinkChecked, setIsLinkChecked] = useState<boolean>(false);
   const [isVideoChecked, setIsVideoChecked] = useState<boolean>(false);
   const [isClassWayChecked, setIsClassWayChecked] = useState<boolean>(false);
-  const [isClassDateChecked, setIsClassDateChecked] = useState<boolean>(false);
-  const [isClassDayChecked, setIsClassDayChecked] = useState<boolean>(false);
-  const [isClassTimeChecked, setIsClassTimeChecked] = useState<boolean>(false);
 
   //수업 제목
   const handleChangeTitle = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -243,27 +240,6 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
     } else {
       setIsClassWayChecked(false);
     }
-
-    if (classDayList.length !== 1) {
-      setIsClassDayChecked(true);
-    } else {
-      setIsClassDayChecked(false);
-    }
-
-    if (classDate !== '') {
-      setIsClassDateChecked(true);
-    } else {
-      setIsClassDateChecked(false);
-    }
-
-    setStartHour(parseInt(startTime));
-    setEndHour(parseInt(endTime));
-
-    if (startTime !== '' && endTime != '') {
-      setIsClassTimeChecked(true);
-    } else {
-      setIsClassTimeChecked(false);
-    }
   }, [
     genreList,
     classLevel,
@@ -282,7 +258,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const classUploadMutation = useMutation(postClassInfo, {
     onSuccess: data => {
       console.log(data);
-      alert('업로드 되었습니다');
+      closeModal();
     },
     onError: error => {
       console.log(error);
@@ -597,14 +573,12 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                   {classWay == 'OD' ? (
                     <>
                       <div className={styles.box}>
-                        <div className={styles.row}>
-                          <div
-                            className={`${styles.text} ${fonts.body1_SemiBold}`}
-                          >
-                            수업 날짜
-                          </div>
-                          <div className={styles.pointText}>*</div>
+                        <div
+                          className={`${styles.text} ${fonts.body1_SemiBold}`}
+                        >
+                          수업 날짜
                         </div>
+
                         <ClassDate
                           selectDate={classDate}
                           setSelectDate={setClassDate}
@@ -613,24 +587,18 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                     </>
                   ) : (
                     <div className={styles.box}>
-                      <div className={styles.row}>
-                        <div
-                          className={`${styles.text} ${fonts.body1_SemiBold}`}
-                        >
-                          수업 요일
-                        </div>
-                        <div className={styles.pointText}>*</div>
+                      <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                        수업 요일
                       </div>
+
                       <ClassDay list={classDayList} setList={setClassDayList} />
                     </div>
                   )}
                   <div className={styles.box}>
-                    <div className={styles.row}>
-                      <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
-                        수업 시간
-                      </div>
-                      <div className={styles.pointText}>*</div>
+                    <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                      수업 시간
                     </div>
+
                     <ClassTime
                       startTime={startTime}
                       setStartTime={setStartTime}
@@ -698,8 +666,6 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               isClassFeeChecked &&
               isClassAdmitChecked &&
               isClassWayChecked &&
-              (isClassDateChecked || isClassDayChecked) &&
-              isClassTimeChecked &&
               isLinkChecked &&
               isVideoChecked ? (
                 <button

@@ -2,7 +2,7 @@ import styles from '../../styles/Profile.module.css';
 import fonts from '../../styles/typography.module.css';
 import Date from '../../../public/icons/date.svg';
 import Location from '../../../public/icons/location.svg';
-import Avatar from '../../../public/icons/avatar.svg';
+import Avatar from '../../../public/icons/ClassCard/avatar.svg';
 import ReactPlayer from 'react-player';
 import { changeDateForm, changeDayForm } from '@/utils/date';
 import { useRouter } from 'next/router';

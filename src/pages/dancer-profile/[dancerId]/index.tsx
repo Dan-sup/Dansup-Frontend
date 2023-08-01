@@ -130,9 +130,15 @@ export default function DancerProfile() {
           <div className={styles.paddingContainer}>
             <div className={`${styles.genreList} ${fonts.body2_Regular}`}>
               {genres.map((data: any, idx: any) => (
-                <div className={styles.genreBox} key={idx}>
-                  <div className={styles.genre}>{data.genre}</div>
-                </div>
+                <>
+                  {data.genre !== null ? (
+                    <div className={styles.genreBox} key={idx}>
+                      <div className={styles.genre}>{data.genre}</div>
+                    </div>
+                  ) : (
+                    <div className={styles.genreBlankBox} key={idx}></div>
+                  )}
+                </>
               ))}
             </div>
             <div className={`${styles.nickname} ${fonts.head1}`}>
