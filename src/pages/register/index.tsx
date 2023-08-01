@@ -234,11 +234,17 @@ export default function ProfileUpload() {
         { type: 'application/json' },
       ),
     );
+
     if (image instanceof File) {
       formData.append('profileImage', image);
+    } else {
+      formData.append('profileImage', '');
     }
+
     if (video instanceof File) {
       formData.append('profileVideo', video);
+    } else {
+      formData.append('profileVideo', '');
     }
 
     for (const keyValue of formData) console.log(keyValue);

@@ -27,7 +27,11 @@ export default function BasicHeader({ type }: BasicHeaderProps) {
   };
 
   const onclickBack = () => {
-    router.back();
+    if (router.pathname === '/register') {
+      router.push('/');
+    } else {
+      router.back();
+    }
   };
 
   const getMyInfoMutation = useMutation(getMyInfo, {
