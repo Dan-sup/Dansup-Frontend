@@ -1,0 +1,15 @@
+.hashtag {
+  height: 29px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-right: 6px;
+
+  color: var(--color-gray-100);
+  background-color: var(--color-gray-500-card);
+  border: 1px var(--color-gray-300) solid;
+  border-radius: 51px;
+
+  padding: 0 11px;
+}
