@@ -128,7 +128,17 @@ export default function ClassDetail() {
         title="수업 일정"
         text={`${
           classInfo?.method == '원데이'
-            ? changeDateForm(classInfo?.date)
+            ? classInfo?.date == null
+              ? '날짜 정보 없음'
+              : changeDateForm(classInfo?.date)
+            : classInfo?.mon == false &&
+              classInfo?.tue == false &&
+              classInfo?.wed == false &&
+              classInfo?.thu == false &&
+              classInfo?.fri == false &&
+              classInfo?.sat == false &&
+              classInfo?.sun == false
+            ? '요일 정보 없음'
             : changeDayForm(
                 classInfo?.mon,
                 classInfo?.tue,

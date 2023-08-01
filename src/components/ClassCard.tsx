@@ -67,17 +67,31 @@ export default function ClassCard({ classInfo }: ClassCardProps) {
           <div className={styles.detailBox}>
             <DateIcon className={styles.icon} />
             {classInfo.method}{' '}
-            {classInfo.method == '원데이'
-              ? changeDateForm(classInfo.date)
-              : changeDayForm(
-                  classInfo.mon,
-                  classInfo.tue,
-                  classInfo.wed,
-                  classInfo.thu,
-                  classInfo.fri,
-                  classInfo.sat,
-                  classInfo.sun,
-                )}
+            {classInfo.method == '원데이' ? (
+              classInfo.date == null ? (
+                <></>
+              ) : (
+                changeDateForm(classInfo.date)
+              )
+            ) : classInfo.mon == false &&
+              classInfo.tue == false &&
+              classInfo.wed == false &&
+              classInfo.thu == false &&
+              classInfo.fri == false &&
+              classInfo.sat == false &&
+              classInfo.sun == false ? (
+              <></>
+            ) : (
+              changeDayForm(
+                classInfo.mon,
+                classInfo.tue,
+                classInfo.wed,
+                classInfo.thu,
+                classInfo.fri,
+                classInfo.sat,
+                classInfo.sun,
+              )
+            )}
           </div>
         </div>
       </div>
