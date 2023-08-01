@@ -20,11 +20,16 @@ export default function ClassCard({ classInfo }: ClassCardProps) {
         className={styles.titleBox}
         onClick={() => router.push(`class/${classInfo.danceClassId}`)}
       >
-        {!classInfo.userProfileImage ? (
-          <AvatarIcon className={styles.profileImg} />
-        ) : (
-          <img src={classInfo.userProfileImage} className={styles.profileImg} />
-        )}
+        <div className={styles.profileImgBox}>
+          {!classInfo.userProfileImage ? (
+            <AvatarIcon className={styles.profileImg} />
+          ) : (
+            <img
+              src={classInfo.userProfileImage}
+              className={styles.profileImg}
+            />
+          )}
+        </div>
 
         <div className={styles.textBox}>
           <div className={`${styles.classTitle} ${typoStyles.body1_Regular}`}>
@@ -45,7 +50,7 @@ export default function ClassCard({ classInfo }: ClassCardProps) {
         className={styles.video}
         width="100%"
         height={210}
-        controls
+        onClick={() => router.push(`class/${classInfo.danceClassId}`)}
       />
 
       <div className={`${styles.InfoBox} ${typoStyles.body2_Regular}`}>
@@ -68,17 +73,31 @@ export default function ClassCard({ classInfo }: ClassCardProps) {
           <div className={styles.detailBox}>
             <DateIcon className={styles.icon} />
             {classInfo.method}{' '}
-            {classInfo.method == '원데이'
-              ? changeDateForm(classInfo.date)
-              : changeDayForm(
-                  classInfo.mon,
-                  classInfo.tue,
-                  classInfo.wed,
-                  classInfo.thu,
-                  classInfo.fri,
-                  classInfo.sat,
-                  classInfo.sun,
-                )}
+            {classInfo.method == '원데이' ? (
+              classInfo.date == null ? (
+                <></>
+              ) : (
+                changeDateForm(classInfo.date)
+              )
+            ) : classInfo.mon == false &&
+              classInfo.tue == false &&
+              classInfo.wed == false &&
+              classInfo.thu == false &&
+              classInfo.fri == false &&
+              classInfo.sat == false &&
+              classInfo.sun == false ? (
+              <></>
+            ) : (
+              changeDayForm(
+                classInfo.mon,
+                classInfo.tue,
+                classInfo.wed,
+                classInfo.thu,
+                classInfo.fri,
+                classInfo.sat,
+                classInfo.sun,
+              )
+            )}
           </div>
         </div>
       </div>

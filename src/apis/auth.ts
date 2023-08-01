@@ -21,3 +21,10 @@ export const logout = async (token: any) => {
   );
   return response.data;
 };
+
+export const tokenRefresh = async (refreshToken: any) => {
+  const response = await client.post('/auth/reissuance', {
+    refreshToken: refreshToken,
+  });
+  return response.data.data;
+};

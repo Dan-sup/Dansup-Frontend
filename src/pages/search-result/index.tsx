@@ -23,6 +23,7 @@ import {
 import SearchFilter from '@/components/modal/SearchFilter';
 import { useResetFilter } from '@/hooks/useResetFilter';
 import { homeFilterValueListSearchState } from '@/store/filter/searchFilter';
+import NoInfo from '@/components/common/NoInfo';
 
 export default function SearchResultPage() {
   //const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
@@ -193,7 +194,7 @@ export default function SearchResultPage() {
           )}
         </div>
 
-        {isSearchFilterOn && (
+        {isSearchFilterOn && isClassBtnClicked && (
           <div className={filterBarStyles.appliedFiltersBox}>
             <div className={filterBarStyles.filterValueListBox}>
               {searchFilterValueList.map((value: any, idx: any) => (
@@ -206,13 +207,15 @@ export default function SearchResultPage() {
               ))}
             </div>
 
-            <ResetIcon
-              className={filterBarStyles.resetIcon}
-              onClick={() => {
-                setIsSearchFilterOn(false);
-                resetSearchFilter();
-              }}
-            />
+            <div className={filterBarStyles.resetIconBox}>
+              <ResetIcon
+                className={filterBarStyles.resetIcon}
+                onClick={() => {
+                  setIsSearchFilterOn(false);
+                  resetSearchFilter();
+                }}
+              />
+            </div>
           </div>
         )}
 
@@ -220,11 +223,17 @@ export default function SearchResultPage() {
 
         {isClassBtnClicked ? (
           !isSearchFilterOn ? (
-            <>
-              {typingFilteredClassList.map((classInfo, idx) => (
-                <ClassCard key={idx} classInfo={classInfo} />
-              ))}
-            </>
+            typingFilteredClassList.length == 0 ? (
+              <NoInfo />
+            ) : (
+              <>
+                {typingFilteredClassList.map((classInfo, idx) => (
+                  <ClassCard key={idx} classInfo={classInfo} />
+                ))}
+              </>
+            )
+          ) : bothFilteredClassList.length == 0 ? (
+            <NoInfo />
           ) : (
             <>
               {bothFilteredClassList.map((classInfo, idx) => (
@@ -232,6 +241,8 @@ export default function SearchResultPage() {
               ))}
             </>
           )
+        ) : filteredDancerList.length == 0 ? (
+          <NoInfo />
         ) : (
           <div className={styles.classListBox}>
             {filteredDancerList.map((dancerInfo: any, idx: any) => (
