@@ -146,13 +146,15 @@ export default function HomePage() {
                 ))}
               </div>
 
-              <ResetIcon
-                className={filterBarStyles.resetIcon}
-                onClick={() => {
-                  setIsHomeFilterOn(false);
-                  resetHomeFilter();
-                }}
-              />
+              <div className={filterBarStyles.resetIconBox}>
+                <ResetIcon
+                  className={filterBarStyles.resetIcon}
+                  onClick={() => {
+                    setIsHomeFilterOn(false);
+                    resetHomeFilter();
+                  }}
+                />
+              </div>
             </div>
           </>
         )}

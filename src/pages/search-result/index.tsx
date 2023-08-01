@@ -206,13 +206,15 @@ export default function SearchResultPage() {
               ))}
             </div>
 
-            <ResetIcon
-              className={filterBarStyles.resetIcon}
-              onClick={() => {
-                setIsSearchFilterOn(false);
-                resetSearchFilter();
-              }}
-            />
+            <div className={filterBarStyles.resetIconBox}>
+              <ResetIcon
+                className={filterBarStyles.resetIcon}
+                onClick={() => {
+                  setIsSearchFilterOn(false);
+                  resetSearchFilter();
+                }}
+              />
+            </div>
           </div>
         )}
 

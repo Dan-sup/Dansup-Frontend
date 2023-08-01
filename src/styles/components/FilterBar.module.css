@@ -44,6 +44,17 @@
   align-items: center;
 }
 
+.resetIconBox {
+  width: 24px;
+  height: 24px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-left: 10px;
+}
+
 .resetIcon {
 }
 
