@@ -50,6 +50,7 @@ export default function ClassCard({ classInfo }: ClassCardProps) {
         className={styles.video}
         width="100%"
         height={210}
+        onClick={() => router.push(`class/${classInfo.danceClassId}`)}
       />
 
       <div className={`${styles.InfoBox} ${typoStyles.body2_Regular}`}>
