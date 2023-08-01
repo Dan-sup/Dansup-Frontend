@@ -19,6 +19,7 @@ import { filteredClassListState } from '@/store/class';
 import HomeFilter from '@/components/modal/HomeFilter';
 import { useResetFilter } from '@/hooks/useResetFilter';
 import { homeFilterValueListState } from '@/store/filter/homeFilter';
+import NoInfo from '@/components/common/NoInfo';
 
 export default function HomePage() {
   //const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
@@ -171,6 +172,8 @@ export default function HomePage() {
               <ClassCard key={idx} classInfo={classInfo} />
             ))}
           </>
+        ) : filteredClassList.length == 0 ? (
+          <NoInfo />
         ) : (
           <>
             {filteredClassList.map((classInfo: any, idx: any) => (
