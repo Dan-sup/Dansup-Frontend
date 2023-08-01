@@ -82,6 +82,10 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
     useState<boolean>(false);
   const [isLinkChecked, setIsLinkChecked] = useState<boolean>(false);
   const [isVideoChecked, setIsVideoChecked] = useState<boolean>(false);
+  const [isClassWayChecked, setIsClassWayChecked] = useState<boolean>(false);
+  const [isClassDateChecked, setIsClassDateChecked] = useState<boolean>(false);
+  const [isClassDayChecked, setIsClassDayChecked] = useState<boolean>(false);
+  const [isClassTimeChecked, setIsClassTimeChecked] = useState<boolean>(false);
 
   //수업 제목
   const handleChangeTitle = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -234,9 +238,42 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
       setSunday(true);
     }
 
+    if (classWay !== '') {
+      setIsClassWayChecked(true);
+    } else {
+      setIsClassWayChecked(false);
+    }
+
+    if (classDayList.length !== 1) {
+      setIsClassDayChecked(true);
+    } else {
+      setIsClassDayChecked(false);
+    }
+
+    if (classDate !== '') {
+      setIsClassDateChecked(true);
+    } else {
+      setIsClassDateChecked(false);
+    }
+
     setStartHour(parseInt(startTime));
     setEndHour(parseInt(endTime));
-  }, [genreList, classLevel, video, classDayList, startTime, endTime]);
+
+    if (startTime !== '' && endTime != '') {
+      setIsClassTimeChecked(true);
+    } else {
+      setIsClassTimeChecked(false);
+    }
+  }, [
+    genreList,
+    classLevel,
+    video,
+    classDayList,
+    startTime,
+    endTime,
+    classDate,
+    classWay,
+  ]);
 
   //api
   const user = useRecoilValue(userState);
@@ -476,6 +513,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                   <div className={fonts.body1_SemiBold}>수업 난이도</div>
                   <div className={styles.pointText}>*</div>
                 </div>
+
                 <Select
                   list={levelList}
                   votedItem={classLevel}
@@ -542,7 +580,10 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                 수업방식 & 수업날짜를 선택해주세요
               </div>
               <div className={styles.box}>
-                <div className={fonts.body1_SemiBold}>수업 방식</div>
+                <div className={styles.row}>
+                  <div className={fonts.body1_SemiBold}>수업 방식</div>
+                  <div className={styles.pointText}>*</div>
+                </div>
                 <Select
                   list={wayList}
                   votedItem={classWay}
@@ -554,37 +595,48 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               {classWay !== '' ? (
                 <>
                   {classWay == 'OD' ? (
-                    <div className={styles.box}>
-                      <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
-                        수업 날짜
-                      </div>
-                      <div onClick={() => console.log(classDate)}>
+                    <>
+                      <div className={styles.box}>
+                        <div className={styles.row}>
+                          <div
+                            className={`${styles.text} ${fonts.body1_SemiBold}`}
+                          >
+                            수업 날짜
+                          </div>
+                          <div className={styles.pointText}>*</div>
+                        </div>
                         <ClassDate
                           selectDate={classDate}
                           setSelectDate={setClassDate}
                         />
                       </div>
-                    </div>
+                    </>
                   ) : (
                     <div className={styles.box}>
-                      <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
-                        수업 요일
+                      <div className={styles.row}>
+                        <div
+                          className={`${styles.text} ${fonts.body1_SemiBold}`}
+                        >
+                          수업 요일
+                        </div>
+                        <div className={styles.pointText}>*</div>
                       </div>
                       <ClassDay list={classDayList} setList={setClassDayList} />
                     </div>
                   )}
                   <div className={styles.box}>
-                    <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
-                      수업 시간
+                    <div className={styles.row}>
+                      <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                        수업 시간
+                      </div>
+                      <div className={styles.pointText}>*</div>
                     </div>
-                    <div onClick={() => console.log(startTime)}>
-                      <ClassTime
-                        startTime={startTime}
-                        setStartTime={setStartTime}
-                        endTime={endTime}
-                        setEndTime={setEndTime}
-                      />
-                    </div>
+                    <ClassTime
+                      startTime={startTime}
+                      setStartTime={setStartTime}
+                      endTime={endTime}
+                      setEndTime={setEndTime}
+                    />
                   </div>
                 </>
               ) : null}
@@ -645,6 +697,9 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               isClassLevelChecked &&
               isClassFeeChecked &&
               isClassAdmitChecked &&
+              isClassWayChecked &&
+              (isClassDateChecked || isClassDayChecked) &&
+              isClassTimeChecked &&
               isLinkChecked &&
               isVideoChecked ? (
                 <button
