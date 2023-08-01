@@ -101,7 +101,10 @@ export default function ClassDetail() {
           <Kind icon={<TrailIcon />} text={classInfo?.difficulty} />
         </div>
 
-        <div className={styles.dancerContainer}>
+        <div
+          className={styles.dancerContainer}
+          onClick={() => router.push(`/dancer-profile/${classInfo?.profileId}`)}
+        >
           <div className={styles.dancerBox}>
             {classInfo?.userProfileImage ? (
               <img
