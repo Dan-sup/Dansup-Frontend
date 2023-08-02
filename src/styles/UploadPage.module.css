@@ -150,6 +150,10 @@
   margin-bottom: 14px;
 }
 
+.halfText {
+  margin-bottom: 7px;
+}
+
 .sectionText {
   margin: 4px 0 18px 0;
 }
@@ -407,6 +411,7 @@
   background: transparent;
   color: transparent;
   cursor: pointer;
+  padding-left: 0;
 }
 
 /*
@@ -438,6 +443,7 @@
   width: 42px;
   border-radius: 5px;
   margin-right: 7px;
+  margin-top: 7px;
 }
 
 .check {

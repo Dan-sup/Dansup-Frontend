@@ -53,9 +53,9 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const [selectLevelClickIndex, setSelectLevelClickIndex] = useState<number>(5);
   const [classWay, setClassWay] = useState<string>('');
   const [classDate, setClassDate] = useState<string>('');
-  const [startHour, setStartHour] = useState<number>(0);
+  const [startHour, setStartHour] = useState<number>();
   const [startTime, setStartTime] = useState<string>('');
-  const [endHour, setEndHour] = useState<number>(0);
+  const [endHour, setEndHour] = useState<number>();
   const [endTime, setEndTime] = useState<string>('');
   const [classDayList, setClassDayList] = useState<IList[]>([
     { id: 0, name: '' },
@@ -212,6 +212,9 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
     } else {
       setIsClassWayChecked(false);
     }
+
+    setStartHour(parseInt(startTime));
+    setEndHour(parseInt(endTime));
   }, [genreList, classLevel, video, startTime, endTime, classDate, classWay]);
 
   //api
@@ -236,8 +239,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
     console.log(endTime !== '' ? endTime : null);
     console.log(startTime !== '' ? startHour : null);
     console.log(startTime !== '' ? startTime : null);
-    */
-
+*/
     const formData = new FormData();
 
     formData.append(
@@ -555,7 +557,9 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                     </div>
                   ) : (
                     <div className={styles.box}>
-                      <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                      <div
+                        className={`${styles.halfText} ${fonts.body1_SemiBold}`}
+                      >
                         수업 요일
                       </div>
                       <ClassDay list={classDayList} setList={setClassDayList} />
