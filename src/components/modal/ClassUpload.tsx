@@ -406,14 +406,14 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                     onChange={handleChangeClassContent}
                   />
                   <input
-                    className={`${styles.input} ${styles.long} ${fonts.body2_Regular}`}
+                    className={`${styles.input} ${styles.long} ${styles.inputMargin} ${fonts.body2_Regular}`}
                     placeholder="이런 분들을 위한 레슨이에요"
                     type="text"
                     value={classUser}
                     onChange={handleChangeClassUser}
                   />
                   <input
-                    className={`${styles.input} ${styles.long} ${fonts.body2_Regular}`}
+                    className={`${styles.input} ${styles.long} ${styles.inputMargin} ${fonts.body2_Regular}`}
                     placeholder="드리는 인사말"
                     type="text"
                     value={classIntro}
