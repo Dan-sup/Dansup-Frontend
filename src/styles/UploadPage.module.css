@@ -48,7 +48,6 @@
   border-bottom: 1px solid var(--color-gray-300);
   outline: none;
   background: transparent;
-  padding-left: 0;
 }
 
 .input::placeholder {
