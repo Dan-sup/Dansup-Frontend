@@ -176,8 +176,10 @@ export default function ProfileUpload() {
     onSuccess: data => {
       console.log(data);
 
-      if (data.code == 400) {
+      if (data.message == '잘못된 요청입니다.') {
         alert('회원가입에 실패했습니다');
+      } else if (data.message == '중복된 사용자 계정명입니다.') {
+        alert('이미 사용 중인 사용자 계정명입니다');
       } else {
         router.push('/register-done');
       }
