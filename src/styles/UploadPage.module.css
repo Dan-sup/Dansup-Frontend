@@ -37,7 +37,6 @@
 
 /*각 input*/
 .input {
-  -webkit-appearance: none;
   -webkit-border-radius: 0;
   display: flex;
   justify-content: left;
@@ -49,7 +48,6 @@
   border-bottom: 1px solid var(--color-gray-300);
   outline: none;
   background: transparent;
-  caret-color: white;
 }
 
 .input::placeholder {
