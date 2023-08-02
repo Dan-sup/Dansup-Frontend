@@ -175,7 +175,12 @@ export default function ProfileUpload() {
   const registerMutation = useMutation(register, {
     onSuccess: data => {
       console.log(data);
-      router.push('/register-done');
+
+      if (data.code == 400) {
+        alert('회원가입에 실패했습니다');
+      } else {
+        router.push('/register-done');
+      }
     },
     onError: error => {
       console.log(error);
