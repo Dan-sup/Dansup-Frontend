@@ -571,7 +571,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               {classWay !== '' ? (
                 <>
                   {classWay == 'OD' ? (
-                    <>
+                    <form>
                       <div className={styles.box}>
                         <div
                           className={`${styles.text} ${fonts.body1_SemiBold}`}
@@ -584,28 +584,51 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                           setSelectDate={setClassDate}
                         />
                       </div>
-                    </>
-                  ) : (
-                    <div className={styles.box}>
-                      <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
-                        수업 요일
+                      <div className={styles.box}>
+                        <div
+                          className={`${styles.text} ${fonts.body1_SemiBold}`}
+                        >
+                          수업 시간
+                        </div>
+
+                        <ClassTime
+                          startTime={startTime}
+                          setStartTime={setStartTime}
+                          endTime={endTime}
+                          setEndTime={setEndTime}
+                        />
                       </div>
+                    </form>
+                  ) : (
+                    <form>
+                      <div className={styles.box}>
+                        <div
+                          className={`${styles.text} ${fonts.body1_SemiBold}`}
+                        >
+                          수업 요일
+                        </div>
 
-                      <ClassDay list={classDayList} setList={setClassDayList} />
-                    </div>
+                        <ClassDay
+                          list={classDayList}
+                          setList={setClassDayList}
+                        />
+                      </div>
+                      <div className={styles.box}>
+                        <div
+                          className={`${styles.text} ${fonts.body1_SemiBold}`}
+                        >
+                          수업 시간
+                        </div>
+
+                        <ClassTime
+                          startTime={startTime}
+                          setStartTime={setStartTime}
+                          endTime={endTime}
+                          setEndTime={setEndTime}
+                        />
+                      </div>
+                    </form>
                   )}
-                  <div className={styles.box}>
-                    <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
-                      수업 시간
-                    </div>
-
-                    <ClassTime
-                      startTime={startTime}
-                      setStartTime={setStartTime}
-                      endTime={endTime}
-                      setEndTime={setEndTime}
-                    />
-                  </div>
                 </>
               ) : null}
             </div>

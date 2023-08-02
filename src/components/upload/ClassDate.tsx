@@ -20,7 +20,7 @@ export default function ClassDate({
       className={`${styles.input} ${styles.datePicker} ${fonts.body2_Regular}`}
       type="date"
       id="date"
-      date-placeholder="수업 날짜를 선택해주세요"
+      placeholder="수업 날짜를 선택해주세요"
       onChange={dateChangeHandler}
     />
   );
