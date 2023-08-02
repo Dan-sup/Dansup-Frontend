@@ -207,51 +207,12 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
       setIsVideoChecked(false);
     }
 
-    setClassDayList(classDayList);
-
-    if (classDayList.filter(item => item.name == '월').length !== 0) {
-      setMonday(true);
-    }
-
-    if (classDayList.filter(item => item.name == '화').length !== 0) {
-      setTuesday(true);
-    }
-
-    if (classDayList.filter(item => item.name == '수').length !== 0) {
-      setWednesday(true);
-    }
-
-    if (classDayList.filter(item => item.name == '목').length !== 0) {
-      setThursday(true);
-    }
-
-    if (classDayList.filter(item => item.name == '금').length !== 0) {
-      setFriday(true);
-    }
-
-    if (classDayList.filter(item => item.name == '토').length !== 0) {
-      setSaturday(true);
-    }
-
-    if (classDayList.filter(item => item.name == '일').length !== 0) {
-      setSunday(true);
-    }
-
     if (classWay !== '') {
       setIsClassWayChecked(true);
     } else {
       setIsClassWayChecked(false);
     }
-  }, [
-    genreList,
-    classLevel,
-    video,
-    classDayList,
-    startTime,
-    endTime,
-    classDate,
-    classWay,
-  ]);
+  }, [genreList, classLevel, video, startTime, endTime, classDate, classWay]);
 
   //api
   const user = useRecoilValue(userState);
@@ -267,7 +228,16 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
     },
   });
 
+  const newClassDayList = classDayList.map(item => item.name);
+
   const handleSubmit = () => {
+    /*
+    console.log(endTime !== '' ? endHour : null);
+    console.log(endTime !== '' ? endTime : null);
+    console.log(startTime !== '' ? startHour : null);
+    console.log(startTime !== '' ? startTime : null);
+    */
+
     const formData = new FormData();
 
     formData.append(
@@ -276,13 +246,13 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
         [
           JSON.stringify({
             days: {
-              fri: friday,
-              mon: monday,
-              sat: saturday,
-              sun: sunday,
-              thu: thursday,
-              tue: tuesday,
-              wed: wednesday,
+              fri: newClassDayList.includes('금'),
+              mon: newClassDayList.includes('월'),
+              sat: newClassDayList.includes('토'),
+              sun: newClassDayList.includes('일'),
+              thu: newClassDayList.includes('목'),
+              tue: newClassDayList.includes('화'),
+              wed: newClassDayList.includes('수'),
             },
             detail1: classContent !== '' ? classContent : null,
             detail2: classUser !== '' ? classUser : null,
