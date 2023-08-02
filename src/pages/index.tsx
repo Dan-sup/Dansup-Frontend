@@ -11,7 +11,6 @@ import styles from '../styles/HomePage.module.css';
 import FilterBar from '@/components/FilterBar';
 import filterBarStyles from '../styles/components/FilterBar.module.css';
 import ClassCard from '@/components/ClassCard';
-import Filter from '../components/modal/Filter';
 import { useRouter } from 'next/router';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { isHomeFilterOnState } from '@/store/filter';
