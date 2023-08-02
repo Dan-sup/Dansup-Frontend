@@ -123,6 +123,14 @@ export default function Class({ classes }: classProps) {
                           ) : (
                             changeDateForm(data.date)
                           )
+                        ) : data.mon == false &&
+                          data.tue == false &&
+                          data.wed == false &&
+                          data.thu == false &&
+                          data.fri == false &&
+                          data.sat == false &&
+                          data.sun == false ? (
+                          <></>
                         ) : (
                           changeDayForm(
                             data.mon,
