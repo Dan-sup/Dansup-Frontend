@@ -45,10 +45,10 @@
   align-items: center;
   height: 30px;
   color: var(--color-white);
-  border: hidden;
+  border: none;
   border-radius: 0%;
   border-bottom: 1px solid var(--color-gray-300);
-  outline: hidden;
+  outline: none;
   background: transparent;
 }
 
@@ -57,8 +57,8 @@
 }
 
 .input:focus {
-  border: hidden;
-  outline: hidden;
+  border: none;
+  outline: none;
   border-bottom: 1px solid var(--color-white);
 }
 
