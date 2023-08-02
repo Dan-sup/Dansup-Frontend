@@ -53,6 +53,7 @@
 }
 
 .input:focus {
+  border: hidden;
   border-bottom: 1px solid var(--color-white);
 }
 
@@ -74,6 +75,10 @@
   content: attr(data-placeholder);
   color: #b4b8bb;
   margin-left: 13px;
+}
+
+.timeInput[type='time']:valid::before {
+  display: none;
 }*/
 
 .timeInput[type='time']::-webkit-calendar-picker-indicator {
@@ -86,24 +91,6 @@
   color: transparent;
   cursor: pointer;
 }
-
-/*
-.timeInput[type='time']::-webkit-datetime-edit-text {
-  -webkit-appearance: none;
-  display: none;
-}
-.timeInput[type='time']::-webkit-datetime-edit-hour-field {
-  -webkit-appearance: none;
-  display: none;
-}
-.timeInput[type='time']::-webkit-datetime-edit-minute-field {
-  -webkit-appearance: none;
-  display: none;
-}
-.timeInput[type='time']::-webkit-datetime-edit-ampm-field {
-  -webkit-appearance: none;
-  display: none;
-}*/
 
 .textarea {
   resize: none;
@@ -396,11 +383,6 @@
   margin: 10px 10px 0 0;
 }
 
-/*classDate*/
-.datePicker {
-  width: 100%;
-}
-
 .datePicker[type='date'] {
   position: relative;
   width: 100%;
@@ -418,30 +400,13 @@
   cursor: pointer;
 }
 
+/*
 .datePicker[type='date']::before {
   content: attr(data-placeholder);
-  color: var(--color-gray-400);
+  width: 100%;
 }
 
 .datePicker[type='date']:valid::before {
-  display: none;
-}
-
-/*
-.datePicker[type='date']::-webkit-datetime-edit-text {
-  -webkit-appearance: none;
-  display: none;
-}
-.datePicker[type='date']::-webkit-datetime-edit-month-field {
-  -webkit-appearance: none;
-  display: none;
-}
-.datePicker[type='date']::-webkit-datetime-edit-day-field {
-  -webkit-appearance: none;
-  display: none;
-}
-.datePicker[type='date']::-webkit-datetime-edit-year-field {
-  -webkit-appearance: none;
   display: none;
 }*/
 
