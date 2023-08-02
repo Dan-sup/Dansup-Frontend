@@ -15,7 +15,13 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { getClass } from '@/apis/class';
 import { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
-import { changeDateForm, changeDayForm, changeTimeForm } from '@/utils/date';
+import {
+  changeDateForm,
+  changeDateNoDotForm,
+  changeDayForm,
+  changeDayNoDotForm,
+  changeTimeForm,
+} from '@/utils/date';
 
 export default function ClassDetail() {
   const router = useRouter();
@@ -133,7 +139,7 @@ export default function ClassDetail() {
           classInfo?.method == '원데이'
             ? classInfo?.date == null
               ? '날짜 정보 없음'
-              : changeDateForm(classInfo?.date)
+              : changeDateNoDotForm(classInfo?.date)
             : classInfo?.mon == false &&
               classInfo?.tue == false &&
               classInfo?.wed == false &&
@@ -142,7 +148,7 @@ export default function ClassDetail() {
               classInfo?.sat == false &&
               classInfo?.sun == false
             ? '요일 정보 없음'
-            : changeDayForm(
+            : changeDayNoDotForm(
                 classInfo?.mon,
                 classInfo?.tue,
                 classInfo?.wed,
