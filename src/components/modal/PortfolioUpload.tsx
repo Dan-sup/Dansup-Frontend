@@ -81,13 +81,13 @@ export default function PortfolioUpload({
                 onClick={handleSubmit}
                 className={`${buttonStyles.CTA_Large} ${buttonStyles.before} ${fonts.body1_SemiBold}`}
               >
-                수업 올리기
+                포트폴리오 올리기
               </button>
             ) : (
               <button
                 className={`${buttonStyles.CTA_Large} ${buttonStyles.after} ${fonts.body1_SemiBold}`}
               >
-                수업 올리기
+                포트폴리오 올리기
               </button>
             )}
           </div>
