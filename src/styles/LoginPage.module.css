@@ -22,12 +22,12 @@
   width: 100%;
   padding: 0 18px;
 
-  position: absolute;
+  position: fixed;
   display: flex;
   justify-content: center;
 
   z-index: 100; /*배경 이미지보다 앞으로*/
-  top: 770px;
+  bottom: 20px;
 }
 
 .loginBtn {
