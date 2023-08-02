@@ -4,7 +4,7 @@ import KakaoLogo from '../../../public/icons/kakao-logo.svg';
 import LoginBg from '../../../public/icons/login-bg-big.svg';
 
 export default function LoginPage() {
-  const KAKAO_AUTH_URL = `https://takgyun.shop/oauth2/authorization/kakao`;
+  const KAKAO_AUTH_URL = `https://dan-sup.com/oauth2/authorization/kakao`;
 
   return (
     <div className={styles.container}>
