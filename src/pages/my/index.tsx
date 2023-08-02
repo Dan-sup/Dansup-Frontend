@@ -264,7 +264,7 @@ export default function MyPage() {
               className={`${styles.downBtn} ${styles.modalBtn} ${fonts.body1_SemiBold}`}
             >
               <ClassBtn />
-              <div className={styles.modalText}>내수업 올리기</div>
+              <div className={styles.modalText}>내 수업 올리기</div>
             </button>
             <ClassUpload isOpen={isClassOpen} closeModal={closeClassModal} />
           </div>
