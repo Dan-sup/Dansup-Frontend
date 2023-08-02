@@ -30,7 +30,7 @@ export default function PortfolioUpload({
     onSuccess: data => {
       console.log(data);
       closeModal();
-      window.location.replace('my');
+      window.location.replace('/my');
     },
     onError: error => {
       console.log(error);

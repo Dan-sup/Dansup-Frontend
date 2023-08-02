@@ -237,7 +237,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
     onSuccess: data => {
       console.log(data);
       closeModal();
-      window.location.replace('my');
+      window.location.replace('/my');
     },
     onError: error => {
       console.log(error);
