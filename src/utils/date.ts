@@ -17,3 +17,7 @@ export const changeDayForm = (
     thu ? '목' : ''
   }${fri ? '금' : ''}${sat ? '토' : ''}${sun ? '일' : ''}`;
 };
+
+export const changeTimeForm = (startTime: any, endTime: any) => {
+  return `${startTime}~${endTime}`;
+};
