@@ -233,8 +233,12 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const classUploadMutation = useMutation(postClassInfo, {
     onSuccess: data => {
       console.log(data);
-      closeModal();
-      window.location.replace('/my');
+      if (data.code == 400) {
+        alert('업로드 실패했습니다');
+      } else {
+        closeModal();
+        window.location.replace('/my');
+      }
     },
     onError: error => {
       console.log(error);
@@ -514,7 +518,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                   <input
                     className={`${styles.input} ${styles.long} ${fonts.body2_Regular}`}
                     placeholder="수업 총원을 입력해주세요"
-                    type="text"
+                    type="number"
                     value={classAdmit}
                     onChange={handleChangeClassAdmit}
                   />
