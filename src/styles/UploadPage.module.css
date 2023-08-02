@@ -38,8 +38,7 @@
 /*각 input*/
 .input {
   -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+  -webkit-border-radius: 0;
   display: flex;
   justify-content: left;
   align-items: center;
