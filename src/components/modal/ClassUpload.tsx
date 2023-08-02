@@ -207,8 +207,6 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
       setIsVideoChecked(false);
     }
 
-    setClassDayList(classDayList);
-
     if (classDayList.filter(item => item.name == '월').length !== 0) {
       setMonday(true);
     }
