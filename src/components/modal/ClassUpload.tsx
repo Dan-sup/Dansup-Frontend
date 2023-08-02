@@ -207,32 +207,34 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
       setIsVideoChecked(false);
     }
 
+    setClassDayList(classDayList);
+
     if (classDayList.filter(item => item.name == '월').length !== 0) {
-      setMonday(!monday);
+      setMonday(true);
     }
 
     if (classDayList.filter(item => item.name == '화').length !== 0) {
-      setTuesday(!tuesday);
+      setTuesday(true);
     }
 
     if (classDayList.filter(item => item.name == '수').length !== 0) {
-      setWednesday(!wednesday);
+      setWednesday(true);
     }
 
     if (classDayList.filter(item => item.name == '목').length !== 0) {
-      setThursday(!thursday);
+      setThursday(true);
     }
 
     if (classDayList.filter(item => item.name == '금').length !== 0) {
-      setFriday(!friday);
+      setFriday(true);
     }
 
     if (classDayList.filter(item => item.name == '토').length !== 0) {
-      setSaturday(!saturday);
+      setSaturday(true);
     }
 
     if (classDayList.filter(item => item.name == '일').length !== 0) {
-      setSunday(!sunday);
+      setSunday(true);
     }
 
     if (classWay !== '') {
