@@ -213,8 +213,17 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
       setIsClassWayChecked(false);
     }
 
-    setStartHour(parseInt(startTime));
-    setEndHour(parseInt(endTime));
+    if (
+      parseInt(startTime) > 12 &&
+      parseInt(startTime) <= 24 &&
+      parseInt(endTime) < 13
+    ) {
+      setStartHour(parseInt(startTime));
+      setEndHour(parseInt(endTime) + 24);
+    } else {
+      setStartHour(parseInt(startTime));
+      setEndHour(parseInt(endTime));
+    }
   }, [genreList, classLevel, video, startTime, endTime, classDate, classWay]);
 
   //api
