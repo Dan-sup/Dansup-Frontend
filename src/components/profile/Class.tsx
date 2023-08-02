@@ -33,7 +33,7 @@ export default function Class({ classes }: classProps) {
                     className={`${styles.classTitleBox} ${styles.paddingContainer}`}
                   >
                     <div className={styles.classProfileBox}>
-                      {data.userProfileImage == '' ? (
+                      {data.userProfileImage == null ? (
                         <Avatar
                           alt="blank"
                           className={styles.classProfileImg}
