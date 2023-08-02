@@ -135,7 +135,7 @@ export default function MyPage() {
       </div>
       <div className={styles.container}>
         <div className={styles.profilePart}>
-          {profiles.profileVideoUrl == '' ? (
+          {profiles.profileVideoUrl == null ? (
             <div className={styles.backVideo}></div>
           ) : (
             <div className={styles.backVideoPlayer}>
@@ -150,7 +150,7 @@ export default function MyPage() {
             </div>
           )}
           <div className={styles.paddingContainer}>
-            {profiles.profileImageUrl == '' ? (
+            {profiles.profileImageUrl == null ? (
               <BlankImage
                 alt="blank"
                 className={styles.profileImg}
