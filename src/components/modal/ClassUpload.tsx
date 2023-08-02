@@ -207,6 +207,8 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
       setIsVideoChecked(false);
     }
 
+    setClassDayList(classDayList);
+
     if (classDayList.filter(item => item.name == '월').length !== 0) {
       setMonday(true);
     }
@@ -571,64 +573,37 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               {classWay !== '' ? (
                 <>
                   {classWay == 'OD' ? (
-                    <form>
-                      <div className={styles.box}>
-                        <div
-                          className={`${styles.text} ${fonts.body1_SemiBold}`}
-                        >
-                          수업 날짜
-                        </div>
-
-                        <ClassDate
-                          selectDate={classDate}
-                          setSelectDate={setClassDate}
-                        />
+                    <div className={styles.box}>
+                      <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                        수업 날짜
                       </div>
-                      <div className={styles.box}>
-                        <div
-                          className={`${styles.text} ${fonts.body1_SemiBold}`}
-                        >
-                          수업 시간
-                        </div>
 
-                        <ClassTime
-                          startTime={startTime}
-                          setStartTime={setStartTime}
-                          endTime={endTime}
-                          setEndTime={setEndTime}
-                        />
-                      </div>
-                    </form>
+                      <ClassDate
+                        selectDate={classDate}
+                        setSelectDate={setClassDate}
+                      />
+                    </div>
                   ) : (
-                    <form>
-                      <div className={styles.box}>
-                        <div
-                          className={`${styles.text} ${fonts.body1_SemiBold}`}
-                        >
-                          수업 요일
-                        </div>
-
-                        <ClassDay
-                          list={classDayList}
-                          setList={setClassDayList}
-                        />
+                    <div className={styles.box}>
+                      <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                        수업 요일
                       </div>
-                      <div className={styles.box}>
-                        <div
-                          className={`${styles.text} ${fonts.body1_SemiBold}`}
-                        >
-                          수업 시간
-                        </div>
-
-                        <ClassTime
-                          startTime={startTime}
-                          setStartTime={setStartTime}
-                          endTime={endTime}
-                          setEndTime={setEndTime}
-                        />
-                      </div>
-                    </form>
+                      <ClassDay list={classDayList} setList={setClassDayList} />
+                    </div>
                   )}
+
+                  <div className={styles.box}>
+                    <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                      수업 시간
+                    </div>
+
+                    <ClassTime
+                      startTime={startTime}
+                      setStartTime={setStartTime}
+                      endTime={endTime}
+                      setEndTime={setEndTime}
+                    />
+                  </div>
                 </>
               ) : null}
             </div>
