@@ -23,7 +23,6 @@ import { postClassInfo } from '@/apis/my';
 import { useMutation } from '@tanstack/react-query';
 import { useRecoilValue } from 'recoil';
 import { userState } from '@/store/user';
-import { useRouter } from 'next/router';
 
 interface classUploadProps {
   isOpen: boolean;
@@ -230,8 +229,6 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   //api
   const user = useRecoilValue(userState);
   const accessToken = user.accessToken;
-
-  const router = useRouter();
 
   const classUploadMutation = useMutation(postClassInfo, {
     onSuccess: data => {
