@@ -141,9 +141,8 @@ export default function MyPage() {
             <div className={styles.backVideoPlayer}>
               <ReactPlayer
                 url={profiles.profileVideoUrl}
-                playing
+                playing={false}
                 muted
-                loop
                 width="100%"
                 height={386}
                 controls
