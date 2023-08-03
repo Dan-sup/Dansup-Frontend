@@ -100,11 +100,11 @@ export default function DancerProfile() {
               <div className={styles.backVideoPlayer}>
                 <ReactPlayer
                   url={profiles.profileVideoUrl}
-                  playing={false}
+                  playing
+                  loop
                   muted
                   width="100%"
                   height={386}
-                  controls
                 />
               </div>
             )}
