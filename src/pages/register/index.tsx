@@ -312,7 +312,7 @@ export default function ProfileUpload() {
             </div>
             <input
               className={`${styles.input} ${styles.long} ${fonts.body2_Regular}`}
-              placeholder="영문, 숫자, 밑줄 및 마침표만 입력 가능합니다"
+              placeholder="ex.dansup12 / 영문, 숫자, 밑줄 및 마침표만 입력 가능합니다"
               type="text"
               value={userId}
               onChange={handleChangeUserId}
