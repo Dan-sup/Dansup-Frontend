@@ -1,4 +1,6 @@
-import BasicHeader from '@/components/common/Header/BasicHeader';
+import dynamic from 'next/dynamic';
+
+const BasicHeader = dynamic(import('@/components/common/Header/BasicHeader'));
 import { useState } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { getClassList, getFilteredClassList } from '@/apis/class';
@@ -8,17 +10,17 @@ import FilterOnIcon from '../../public/icons/filter-on.svg';
 import ResetIcon from '../../public/icons/reset.svg';
 import typoStyles from '../styles/typography.module.css';
 import styles from '../styles/HomePage.module.css';
-import FilterBar from '@/components/FilterBar';
 import filterBarStyles from '../styles/components/FilterBar.module.css';
-import ClassCard from '@/components/ClassCard';
+const FilterBar = dynamic(import('@/components/FilterBar'));
+const ClassCard = dynamic(import('@/components/ClassCard'));
 import { useRouter } from 'next/router';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { isHomeFilterOnState } from '@/store/filter';
 import { filteredClassListState } from '@/store/class';
-import HomeFilter from '@/components/modal/HomeFilter';
+const HomeFilter = dynamic(import('@/components/modal/HomeFilter'));
+const NoInfo = dynamic(import('@/components/common/NoInfo'));
 import { useResetFilter } from '@/hooks/useResetFilter';
 import { homeFilterValueListState } from '@/store/filter/homeFilter';
-import NoInfo from '@/components/common/NoInfo';
 
 export default function HomePage() {
   //const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
