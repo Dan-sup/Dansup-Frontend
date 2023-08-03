@@ -105,6 +105,7 @@ export default function DancerProfile() {
                   loop
                   width="100%"
                   height={386}
+                  controls
                 />
               </div>
             )}

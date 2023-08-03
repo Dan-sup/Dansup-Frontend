@@ -146,6 +146,7 @@ export default function MyPage() {
                 loop
                 width="100%"
                 height={386}
+                controls
               />
             </div>
           )}

@@ -67,7 +67,6 @@ export default function ClassDetail() {
     <>
       <ReactPlayer
         url={classInfo?.videoUrl}
-        muted
         playing={false}
         className={styles.video}
         width="100%"
