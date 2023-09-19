@@ -7,6 +7,7 @@ import Avatar from '../../../public/icons/ClassCard/avatar.svg';
 import ReactPlayer from 'react-player';
 import { useRouter } from 'next/router';
 import { changeDateForm, changeDayForm } from '@/utils/date';
+import { useState } from 'react';
 
 interface classProps {
   classes: any;
@@ -14,6 +15,8 @@ interface classProps {
 
 export default function Class({ classes }: classProps) {
   const router = useRouter();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
   return (
     <div className={styles.container}>
       <>
@@ -52,10 +55,15 @@ export default function Class({ classes }: classProps) {
                         className={`${styles.classTitle} ${fonts.body1_Regular}`}
                       >
                         {data.title}
-                        {/*<button className={styles.dot}>
+                        <button
+                          className={styles.dot}
+                          onClick={() => {
+                            setIsOpen(true);
+                          }}
+                        >
                           <Dot />
                         </button>
-                        {? (
+                        {isOpen ? (
                           <div className={styles.classBtnBox}>
                             <button
                               className={`${styles.upBtn} ${styles.classBtn} ${fonts.body2_SemiBold}`}
@@ -70,7 +78,7 @@ export default function Class({ classes }: classProps) {
                           </div>
                         ) : (
                           <></>
-                        )}*/}
+                        )}
                       </div>
                       <div className={fonts.caption1_Regular}>
                         {data.userNickname}
