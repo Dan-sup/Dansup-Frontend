@@ -26,7 +26,7 @@ export default function Portfolio({ portfolios, video }: portfolioProps) {
               공연 및 활동경력
             </div>
             <div className={`${styles.awardList} ${fonts.body2_Regular}`}>
-              {portfolios.length !== 0 ? (
+              {portfolios?.length !== 0 ? (
                 <>
                   {isClicked ? (
                     <>
@@ -39,7 +39,7 @@ export default function Portfolio({ portfolios, video }: portfolioProps) {
                     </>
                   ) : (
                     <>
-                      {portfolios.slice(0, 3).map((data: any, idx: any) => (
+                      {portfolios?.slice(0, 3).map((data: any, idx: any) => (
                         <div className={styles.awards} key={idx}>
                           <div className={styles.date}>{data.date}</div>
                           <div className={styles.award}>{data.detail}</div>
@@ -58,7 +58,7 @@ export default function Portfolio({ portfolios, video }: portfolioProps) {
                 </div>
               )}
             </div>
-            {portfolios.length < 4 ? (
+            {portfolios?.length < 4 ? (
               <></>
             ) : (
               <button className={styles.dragDown}>
@@ -73,7 +73,7 @@ export default function Portfolio({ portfolios, video }: portfolioProps) {
       <div className={styles.divider} />
       <div className={styles.Part}>
         <div className={styles.paddingContainer}>
-          {video.length == 0 ? (
+          {video?.length == 0 ? (
             <div className={styles.blank}>
               <div className={`${styles.blankText} ${fonts.body2_SemiBold}`}>
                 포트폴리오 영상이 없어요
@@ -81,7 +81,7 @@ export default function Portfolio({ portfolios, video }: portfolioProps) {
             </div>
           ) : (
             <>
-              {video.map((data: any, idx: any) => (
+              {video?.map((data: any, idx: any) => (
                 <div key={idx}>
                   <div className="video">
                     <ReactPlayer
