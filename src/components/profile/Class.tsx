@@ -6,7 +6,7 @@ import Avatar from '../../../public/icons/ClassCard/avatar.svg';
 import ReactPlayer from 'react-player';
 import { changeDateForm, changeDayForm } from '@/utils/date';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Dot from '../../../public/icons/dot.svg';
 
 type IOpenList = {
@@ -19,7 +19,8 @@ interface classProps {
 
 export default function Class({ classes }: classProps) {
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState<boolean[]>([]);
+  const fillIsOpen = Array.from({ length: classes.length }, () => true);
+  const [isOpen, setIsOpen] = useState<boolean[]>(fillIsOpen);
   const [clickedClass, setClickedClass] = useState<string[]>(['']);
 
   return (
@@ -32,7 +33,7 @@ export default function Class({ classes }: classProps) {
               console.log(isOpen);
 
               const changeDot = () => {
-                setIsOpen(prevClass => [...prevClass, false]);
+                setIsOpen(fillIsOpen);
               };
 
               const clickDot = () => {
@@ -41,8 +42,8 @@ export default function Class({ classes }: classProps) {
                     ...prevClickedClass,
                     data.title,
                   ]);
-                isOpen[clickedClass.indexOf(data.title, 0)] =
-                  !isOpen[clickedClass.indexOf(data.title, 0)];
+                isOpen[clickedClass.indexOf(data.title, 0) - 1] =
+                  !isOpen[clickedClass.indexOf(data.title, 0) - 1];
                 setIsOpen(prevClass => [...prevClass]);
               };
 
@@ -51,7 +52,6 @@ export default function Class({ classes }: classProps) {
                   <div
                     className={styles.classBox}
                     key={idx}
-                    onChange={changeDot}
                     /*onClick={() => router.push(`/class/${data.danceClassId}`)}*/
                   >
                     <div
@@ -83,7 +83,7 @@ export default function Class({ classes }: classProps) {
                           <div className={styles.dot} onClick={clickDot}>
                             <Dot />
                           </div>
-                          {isOpen[clickedClass.indexOf(data.title, 0)] ? (
+                          {isOpen[clickedClass.indexOf(data.title, 0) - 1] ? (
                             <div className={styles.classBtnBox}>
                               <button
                                 className={`${styles.upBtn} ${styles.classBtn} ${fonts.body2_SemiBold}`}
