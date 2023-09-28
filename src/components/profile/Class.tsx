@@ -8,10 +8,7 @@ import { changeDateForm, changeDayForm } from '@/utils/date';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import Dot from '../../../public/icons/dot.svg';
-
-type IOpenList = {
-  isBtnOpen: boolean;
-};
+import Modal from '../common/Modal';
 
 interface classProps {
   classes: any;
@@ -20,8 +17,14 @@ interface classProps {
 export default function Class({ classes }: classProps) {
   const router = useRouter();
   const fillIsOpen = Array.from({ length: classes.length }, () => true);
+  const fillIsModalOpen = Array.from({ length: classes.length }, () => false);
   const [isOpen, setIsOpen] = useState<boolean[]>(fillIsOpen);
   const [clickedClass, setClickedClass] = useState<string[]>(['']);
+  const [isCloseModalOpen, setIsCloseModalOpen] = useState<boolean[]>([]);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean[]>([]);
+
+  console.log(isCloseModalOpen);
+  console.log(isDeleteModalOpen);
 
   return (
     <div className={styles.container}>
@@ -29,13 +32,6 @@ export default function Class({ classes }: classProps) {
         {classes.length !== 0 ? (
           <>
             {classes.map((data: any, idx: any) => {
-              console.log(clickedClass);
-              console.log(isOpen);
-
-              const changeDot = () => {
-                setIsOpen(fillIsOpen);
-              };
-
               const clickDot = () => {
                 if (!clickedClass.includes(data.title))
                   setClickedClass(prevClickedClass => [
@@ -45,6 +41,40 @@ export default function Class({ classes }: classProps) {
                 isOpen[clickedClass.indexOf(data.title, 0) - 1] =
                   !isOpen[clickedClass.indexOf(data.title, 0) - 1];
                 setIsOpen(prevClass => [...prevClass]);
+              };
+
+              //마감 모달
+              const openCloseModal = () => {
+                isCloseModalOpen[clickedClass.indexOf(data.title, 0) - 1] =
+                  true;
+                setIsCloseModalOpen(prevCloseModal => [...prevCloseModal]);
+                isOpen[clickedClass.indexOf(data.title, 0) - 1] = false;
+                setIsOpen(prevClass => [...prevClass]);
+                document.body.style.overflow = 'hidden';
+              };
+
+              const closeCloseModal = () => {
+                isCloseModalOpen[clickedClass.indexOf(data.title, 0) - 1] =
+                  false;
+                setIsCloseModalOpen(prevCloseModal => [...prevCloseModal]);
+                document.body.style.overflow = 'unset';
+              };
+
+              //삭제 모달
+              const openDeleteModal = () => {
+                isDeleteModalOpen[clickedClass.indexOf(data.title, 0) - 1] =
+                  true;
+                setIsDeleteModalOpen(prevDeleteModal => [...prevDeleteModal]);
+                isOpen[clickedClass.indexOf(data.title, 0) - 1] = false;
+                setIsOpen(prevClass => [...prevClass]);
+                document.body.style.overflow = 'hidden';
+              };
+
+              const closeDeleteModal = () => {
+                isDeleteModalOpen[clickedClass.indexOf(data.title, 0) - 1] =
+                  false;
+                setIsDeleteModalOpen(prevDeleteModal => [...prevDeleteModal]);
+                document.body.style.overflow = 'unset';
               };
 
               return (
@@ -87,15 +117,41 @@ export default function Class({ classes }: classProps) {
                             <div className={styles.classBtnBox}>
                               <button
                                 className={`${styles.upBtn} ${styles.classBtn} ${fonts.body2_SemiBold}`}
+                                onClick={openCloseModal}
                               >
                                 수업 마감하기
                               </button>
                               <button
                                 className={`${styles.downBtn} ${styles.classBtn} ${fonts.body2_SemiBold}`}
+                                onClick={openDeleteModal}
                               >
                                 수업 삭제하기
                               </button>
                             </div>
+                          ) : (
+                            <></>
+                          )}
+                          {isCloseModalOpen[
+                            clickedClass.indexOf(data.title, 0) - 1
+                          ] ? (
+                            <Modal
+                              question=" 수업을 마감할까요?"
+                              requestion="더 이상 수강인원을 받지 않아요"
+                              button="마감하기"
+                              closeModal={closeCloseModal}
+                            />
+                          ) : (
+                            <></>
+                          )}
+                          {isDeleteModalOpen[
+                            clickedClass.indexOf(data.title, 0) - 1
+                          ] ? (
+                            <Modal
+                              question="수업을 삭제할까요?"
+                              requestion="수업을 아예 목록에서 지울게요"
+                              button="삭제하기"
+                              closeModal={closeDeleteModal}
+                            />
                           ) : (
                             <></>
                           )}
