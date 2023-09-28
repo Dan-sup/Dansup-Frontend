@@ -17,7 +17,6 @@ interface classProps {
 export default function Class({ classes }: classProps) {
   const router = useRouter();
   const fillIsOpen = Array.from({ length: classes.length }, () => true);
-  const fillIsModalOpen = Array.from({ length: classes.length }, () => false);
   const [isOpen, setIsOpen] = useState<boolean[]>(fillIsOpen);
   const [clickedClass, setClickedClass] = useState<string[]>(['']);
   const [isCloseModalOpen, setIsCloseModalOpen] = useState<boolean[]>([]);
@@ -79,11 +78,7 @@ export default function Class({ classes }: classProps) {
 
               return (
                 <>
-                  <div
-                    className={styles.classBox}
-                    key={idx}
-                    /*onClick={() => router.push(`/class/${data.danceClassId}`)}*/
-                  >
+                  <div className={styles.classBox} key={idx}>
                     <div
                       className={`${styles.classTitleBox} ${styles.paddingContainer}`}
                     >
@@ -161,71 +156,75 @@ export default function Class({ classes }: classProps) {
                         </div>
                       </div>
                     </div>
-                    {data.videoUrl == '' ? (
-                      <div className={styles.classVideoBox}></div>
-                    ) : (
-                      <ReactPlayer
-                        url={data.videoUrl}
-                        playing={false}
-                        muted
-                        width="100%"
-                        height={210}
-                      />
-                    )}
                     <div
-                      className={`${styles.classDetailBox} ${styles.paddingContainer} ${fonts.body2_Regular}`}
+                      onClick={() => router.push(`/class/${data.danceClassId}`)}
                     >
-                      <div className={styles.classGenreBox} key={idx}>
-                        {data.genres.map((data: any, idx: any) => (
-                          <>
-                            {data.genre !== '' ? (
-                              <div
-                                className={`${styles.classGenre} ${fonts.caption1_Regular}`}
-                              >
-                                <div className={styles.classGenreText}>
-                                  {data.genre}
+                      {data.videoUrl == '' ? (
+                        <div className={styles.classVideoBox}></div>
+                      ) : (
+                        <ReactPlayer
+                          url={data.videoUrl}
+                          playing={false}
+                          muted
+                          width="100%"
+                          height={210}
+                        />
+                      )}
+                      <div
+                        className={`${styles.classDetailBox} ${styles.paddingContainer} ${fonts.body2_Regular}`}
+                      >
+                        <div className={styles.classGenreBox} key={idx}>
+                          {data.genres.map((data: any, idx: any) => (
+                            <>
+                              {data.genre !== '' ? (
+                                <div
+                                  className={`${styles.classGenre} ${fonts.caption1_Regular}`}
+                                >
+                                  <div className={styles.classGenreText}>
+                                    {data.genre}
+                                  </div>
                                 </div>
-                              </div>
-                            ) : (
-                              <></>
-                            )}
-                          </>
-                        ))}
-                      </div>
-
-                      <div className={styles.classDetail}>
-                        <div className={styles.classLocation}>
-                          <Location className={styles.icon} />
-                          {data.location.split(' ')[1]}
+                              ) : (
+                                <></>
+                              )}
+                            </>
+                          ))}
                         </div>
-                        <div className={styles.classDate}>
-                          <Date className={styles.icon} />
-                          {data.method}{' '}
-                          {data.method == '원데이' ? (
-                            data.date == null ? (
+
+                        <div className={styles.classDetail}>
+                          <div className={styles.classLocation}>
+                            <Location className={styles.icon} />
+                            {data.location.split(' ')[1]}
+                          </div>
+                          <div className={styles.classDate}>
+                            <Date className={styles.icon} />
+                            {data.method}{' '}
+                            {data.method == '원데이' ? (
+                              data.date == null ? (
+                                <></>
+                              ) : (
+                                changeDateForm(data.date)
+                              )
+                            ) : data.mon == false &&
+                              data.tue == false &&
+                              data.wed == false &&
+                              data.thu == false &&
+                              data.fri == false &&
+                              data.sat == false &&
+                              data.sun == false ? (
                               <></>
                             ) : (
-                              changeDateForm(data.date)
-                            )
-                          ) : data.mon == false &&
-                            data.tue == false &&
-                            data.wed == false &&
-                            data.thu == false &&
-                            data.fri == false &&
-                            data.sat == false &&
-                            data.sun == false ? (
-                            <></>
-                          ) : (
-                            changeDayForm(
-                              data.mon,
-                              data.tue,
-                              data.wed,
-                              data.thu,
-                              data.fri,
-                              data.sat,
-                              data.sun,
-                            )
-                          )}
+                              changeDayForm(
+                                data.mon,
+                                data.tue,
+                                data.wed,
+                                data.thu,
+                                data.fri,
+                                data.sat,
+                                data.sun,
+                              )
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>
