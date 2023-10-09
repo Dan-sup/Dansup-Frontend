@@ -43,7 +43,7 @@ export default function DancerProfile() {
       onSuccess: data => {
         console.log(data.data);
         setProfiles(data.data);
-        setGenres(data.data.genres);
+        setGenres(data.data?.genres);
       },
       onError: error => {
         console.log(error);
@@ -94,7 +94,7 @@ export default function DancerProfile() {
       <div className={styles.container}>
         <div className={styles.profilePart}>
           <div className={styles.files}>
-            {profiles.profileVideoUrl == null ? (
+            {profiles?.profileVideoUrl == null ? (
               <div className={styles.backVideo}></div>
             ) : (
               <div className={styles.backVideoPlayer}>
@@ -109,7 +109,7 @@ export default function DancerProfile() {
               </div>
             )}
             <div className={styles.paddingContainer}>
-              {profiles.profileImageUrl == null ? (
+              {profiles?.profileImageUrl == null ? (
                 <BlankImage
                   alt="blank"
                   className={styles.profileImg}
@@ -129,7 +129,7 @@ export default function DancerProfile() {
           </div>
           <div className={styles.paddingContainer}>
             <div className={`${styles.genreList} ${fonts.body2_Regular}`}>
-              {genres.map((data: any, idx: any) => (
+              {genres?.map((data: any, idx: any) => (
                 <>
                   {data.genre !== null ? (
                     <div className={styles.genreBox} key={idx}>
@@ -142,32 +142,32 @@ export default function DancerProfile() {
               ))}
             </div>
             <div className={`${styles.nickname} ${fonts.head1}`}>
-              {profiles.nickname}
+              {profiles?.nickname}
             </div>
             <div className={`${styles.username} ${fonts.caption1_Regular}`}>
-              {profiles.username}
+              {profiles?.username}
             </div>
             <div className={`${styles.intro} ${fonts.body2_Regular}`}>
-              {profiles.intro}
+              {profiles?.intro}
             </div>
             <div className={`${styles.hashTagList} ${fonts.body2_Regular}`}>
-              {profiles.hashtag1 !== null ? (
+              {profiles?.hashtag1 !== null ? (
                 <div className={styles.hashTagBox}>
-                  <div className={styles.hashTag}>{profiles.hashtag1}</div>
+                  <div className={styles.hashTag}>{profiles?.hashtag1}</div>
                 </div>
               ) : (
                 <></>
               )}
-              {profiles.hashtag2 !== null ? (
+              {profiles?.hashtag2 !== null ? (
                 <div className={styles.hashTagBox}>
-                  <div className={styles.hashTag}>{profiles.hashtag2}</div>
+                  <div className={styles.hashTag}>{profiles?.hashtag2}</div>
                 </div>
               ) : (
                 <></>
               )}
-              {profiles.hashtag3 !== null ? (
+              {profiles?.hashtag3 !== null ? (
                 <div className={styles.hashTagBox}>
-                  <div className={styles.hashTag}>{profiles.hashtag3}</div>
+                  <div className={styles.hashTag}>{profiles?.hashtag3}</div>
                 </div>
               ) : (
                 <></>
