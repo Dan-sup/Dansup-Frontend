@@ -8,7 +8,7 @@ import BlankImage from '../../../public/icons/blank-image.svg';
 import Plus from '../../../public/icons/plus.svg';
 import { IAwardList, IList, IGenreList } from '../../types/upload';
 import UploadVideo from '../../components/upload/UploadVideo';
-import DanceGenre from '@/components/upload/DanceGenre';
+import DanceGenre from '@/components/upload/DuplicationSelect';
 import HashTag from '@/components/upload/HashTag';
 import ToastMsg from '@/components/upload/ToastMsg';
 import BasicHeader from '@/components/common/Header/BasicHeader';

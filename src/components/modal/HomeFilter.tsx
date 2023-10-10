@@ -3,11 +3,11 @@ import styles from '../../styles/UploadPage.module.css';
 import modalStyles from '../../styles/Modal.module.css';
 import buttonStyles from '../../styles/Button.module.css';
 import fonts from '../../styles/typography.module.css';
-import { IList, IGenreList } from '@/types/upload';
-import DanceGenre from '@/components/upload/DanceGenre';
+import { IList, IDuplicationList } from '@/types/upload';
+import { allLocationList, allGenreList } from '@/data/upload-data';
+import DuplicationSelect from '@/components/upload/DuplicationSelect';
 import Select from '@/components/upload/Select';
 import ClassDay from '@/components/upload/ClassDay';
-import ClassLocation from '@/components/upload/ClassLocation';
 import SelectTime from '@/components/upload/SelectTime';
 import {
   filterLevelList,
@@ -47,6 +47,7 @@ export default function HomeFilter({
   handleHomeFilterOn,
 }: filterProps) {
   const [locationList, setLocationList] = useRecoilState(locationListState);
+  const [isLocationFull, setIsLocationFull] = useState<boolean>(false);
   const [isClickedLocation, setIsClickedLocation] = useRecoilState(
     isClickedLocationState,
   );
@@ -103,7 +104,7 @@ export default function HomeFilter({
   };
 
   useEffect(() => {
-    if (locationList[0].name !== '서울 전체') {
+    if (locationList.length !== 0) {
       setIsLocationChecked(true);
     } else {
       setIsLocationChecked(false);
@@ -156,7 +157,7 @@ export default function HomeFilter({
 
   //초기화
   const onClickReset = () => {
-    setLocationList([{ id: 0, name: '서울 전체' }]);
+    setLocationList([]);
     setGenreList([]);
     setClassDayList([{ id: 0, name: '' }]);
     setSelectWayClickIndex(0);
@@ -196,9 +197,8 @@ export default function HomeFilter({
     maxTuition = null;
   }
 
-  const locationValue =
-    locationList[0].name === '서울 전체' ? null : locationList[0].name;
-  const genreListValue = genreList.map(item => item.genre);
+  const locationValue = locationList.map(item => item.name);
+  const genreListValue = genreList.map(item => item.name);
   const classDayListValue = classDayList
     .map(item => item.name)
     .filter(item => item !== '');
@@ -265,8 +265,7 @@ export default function HomeFilter({
       */
 
     handleHomeFilterOn({
-      location:
-        locationList[0].name === '서울 전체' ? null : locationList[0].name,
+      location: locationList,
       genres: genreList,
       days: {
         mon: newClassDayList.includes('월'),
@@ -321,9 +320,13 @@ export default function HomeFilter({
                   >
                     지역명을 선택해주세요
                   </button>
-                  <ClassLocation
+                  <DuplicationSelect
+                    allList={allLocationList}
                     list={locationList}
                     setList={setLocationList}
+                    isFull={isLocationFull}
+                    setIsFull={setIsLocationFull}
+                    limit={25}
                   />
                 </>
               ) : (
@@ -349,7 +352,8 @@ export default function HomeFilter({
                   >
                     댄스 장르를 선택해주세요
                   </button>
-                  <DanceGenre
+                  <DuplicationSelect
+                    allList={allGenreList}
                     list={genreList}
                     setList={setGenreList}
                     isFull={isGenreFull}

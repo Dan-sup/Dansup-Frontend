@@ -4,7 +4,7 @@ import modalStyles from '../../styles/Modal.module.css';
 import buttonStyles from '../../styles/Button.module.css';
 import fonts from '../../styles/typography.module.css';
 import { IList, IGenreList } from '@/types/upload';
-import DanceGenre from '@/components/upload/DanceGenre';
+import DanceGenre from '@/components/upload/DuplicationSelect';
 import Select from '@/components/upload/Select';
 import ClassDay from '@/components/upload/ClassDay';
 import ClassLocation from '@/components/upload/ClassLocation';

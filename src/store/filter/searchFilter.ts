@@ -1,9 +1,9 @@
-import { IGenreList, IList } from '@/types/upload';
+import { IDuplicationList, IList } from '@/types/upload';
 import { atom } from 'recoil';
 
-export const locationListSearchState = atom<IList[]>({
+export const locationListSearchState = atom<IDuplicationList[]>({
   key: 'locationListSearchState',
-  default: [{ id: 0, name: '서울 전체' }],
+  default: [],
 });
 
 export const isClickedLocationSearchState = atom<boolean>({
@@ -11,7 +11,7 @@ export const isClickedLocationSearchState = atom<boolean>({
   default: false,
 });
 
-export const genreListSearchState = atom<IGenreList[]>({
+export const genreListSearchState = atom<IDuplicationList[]>({
   key: 'genreListSearchState',
   default: [],
 });
