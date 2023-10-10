@@ -3,12 +3,16 @@ import styles from '../../styles/UploadPage.module.css';
 import modalStyles from '../../styles/Modal.module.css';
 import buttonStyles from '../../styles/Button.module.css';
 import fonts from '../../styles/typography.module.css';
-import { IList, IGenreList } from '@/types/upload';
+import { IList, IDuplicationList } from '@/types/upload';
+import DuplicationSelect from '@/components/upload/DuplicationSelect';
+import {
+  allLocationList,
+  allGenreList,
+  allTimeSelect,
+} from '@/data/class-data';
 import DanceGenre from '@/components/upload/DuplicationSelect';
 import Select from '@/components/upload/Select';
 import ClassDay from '@/components/upload/ClassDay';
-import ClassLocation from '@/components/upload/ClassLocation';
-import SelectTime from '@/components/upload/SelectTime';
 import {
   filterLevelList,
   filterWayList,
@@ -30,7 +34,7 @@ import {
   isClickedLocationSearchState,
   locationListSearchState,
   selectLevelClickIndexSearchState,
-  selectTimeClickIndexSearchState,
+  selectTimeListSearchState,
   selectWayClickIndexSearchState,
 } from '@/store/filter/searchFilter';
 import { changeClassWayToK, changeClassLevelToK } from '@/utils/filter';
@@ -49,6 +53,7 @@ export default function SearchFilter({
   const [locationList, setLocationList] = useRecoilState(
     locationListSearchState,
   );
+  const [isLocationFull, setIsLocationFull] = useState<boolean>(false);
   const [isClickedLocation, setIsClickedLocation] = useRecoilState(
     isClickedLocationSearchState,
   );
@@ -72,10 +77,10 @@ export default function SearchFilter({
   const [classFee, setClassFee] = useRecoilState(classFeeSearchState);
 
   //목록 선택
-  const [selectTimeClickIndex, SetSelectTimeClickIndex] = useRecoilState(
-    selectTimeClickIndexSearchState,
+  const [selectTimeList, setSelectTimeList] = useRecoilState(
+    selectTimeListSearchState,
   );
-  const [clickedTime, setClickedTime] = useRecoilState(clickedTimeSearchState);
+  const [isSelectTimeFull, setIsSelectTimeFull] = useState<boolean>(false);
 
   //우효성 검사 state (Checked => 형식)
   const [isLocationChecked, setIsLocationChecked] = useState<boolean>(false);
@@ -108,7 +113,7 @@ export default function SearchFilter({
   };
 
   useEffect(() => {
-    if (locationList[0].name !== '서울 전체') {
+    if (locationList.length !== 0) {
       setIsLocationChecked(true);
     } else {
       setIsLocationChecked(false);
@@ -138,7 +143,7 @@ export default function SearchFilter({
       setIsClassWayChecked(false);
     }
 
-    if (clickedTime !== '전체') {
+    if (selectTimeList.length != 0) {
       setIsSelectTimeChecked(true);
     } else {
       setIsSelectTimeChecked(false);
@@ -155,13 +160,13 @@ export default function SearchFilter({
     classLevel,
     classDayList,
     classWay,
-    clickedTime,
+    selectTimeList,
     classFee,
   ]);
 
   //초기화
   const onClickReset = () => {
-    setLocationList([{ id: 0, name: '서울 전체' }]);
+    setLocationList([]);
     setGenreList([]);
     setClassDayList([{ id: 0, name: '' }]);
     setSelectWayClickIndex(0);
@@ -169,8 +174,7 @@ export default function SearchFilter({
     setClassFee('전체 가격');
     setSelectLevelClickIndex(0);
     setClassLevel('');
-    SetSelectTimeClickIndex(0);
-    setClickedTime('전체');
+    setSelectTimeList([]);
   };
 
   const router = useRouter();
@@ -201,13 +205,12 @@ export default function SearchFilter({
     maxTuition = null;
   }
 
-  const locationValue =
-    locationList[0].name === '서울 전체' ? null : locationList[0].name;
-  const genreListValue = genreList.map(item => item.genre);
+  const locationValue = locationList.map(item => item.name);
+  const genreListValue = genreList.map(item => item.name);
   const classDayListValue = classDayList
     .map(item => item.name)
     .filter(item => item !== '');
-  const clickedTimeValue = clickedTime === '전체' ? null : clickedTime;
+  const selectTimeValue = selectTimeList.map(item => item.name);
   const classWayValue = classWay === '' ? null : changeClassWayToK(classWay);
   const classLevelValue =
     classLevel === '' ? null : changeClassLevelToK(classLevel);
@@ -218,7 +221,7 @@ export default function SearchFilter({
     locationValue,
     genreListValue,
     classDayListValue,
-    clickedTimeValue,
+    selectTimeValue,
     classWayValue,
     classLevelValue,
     classFeeValue,
@@ -255,8 +258,7 @@ export default function SearchFilter({
       */
 
     handleSearchFilterOn({
-      location:
-        locationList[0].name === '서울 전체' ? null : locationList[0].name,
+      location: locationList,
       genres: genreList,
       days: {
         mon: newClassDayList.includes('월'),
@@ -267,7 +269,7 @@ export default function SearchFilter({
         sat: newClassDayList.includes('토'),
         sun: newClassDayList.includes('일'),
       },
-      time: clickedTime === '전체' ? null : clickedTime,
+      time: selectTimeList,
       method: classWay === '' ? null : classWay,
       difficulty: classLevel === '' ? null : classLevel,
       minTuition: minTuition,
@@ -311,9 +313,13 @@ export default function SearchFilter({
                   >
                     지역명을 선택해주세요
                   </button>
-                  <ClassLocation
+                  <DuplicationSelect
+                    allList={allLocationList}
                     list={locationList}
                     setList={setLocationList}
+                    isFull={isLocationFull}
+                    setIsFull={setIsLocationFull}
+                    limit={25}
                   />
                 </>
               ) : (
@@ -339,7 +345,8 @@ export default function SearchFilter({
                   >
                     댄스 장르를 선택해주세요
                   </button>
-                  <DanceGenre
+                  <DuplicationSelect
+                    allList={allGenreList}
                     list={genreList}
                     setList={setGenreList}
                     isFull={isGenreFull}
@@ -368,11 +375,13 @@ export default function SearchFilter({
               <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
                 수업 시간
               </div>
-              <SelectTime
-                votedItem={clickedTime}
-                setVotedItem={setClickedTime}
-                clickIndex={selectTimeClickIndex}
-                setClickIndex={SetSelectTimeClickIndex}
+              <DuplicationSelect
+                allList={allTimeSelect}
+                list={selectTimeList}
+                setList={setSelectTimeList}
+                isFull={isSelectTimeFull}
+                setIsFull={setIsSelectTimeFull}
+                limit={8}
               />
             </div>
             <div className={styles.box}>

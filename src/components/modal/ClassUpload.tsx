@@ -9,7 +9,7 @@ import buttonStyles from '../../styles/Button.module.css';
 import modalStyles from '../../styles/Modal.module.css';
 import styles from '../../styles/UploadPage.module.css';
 import { IList, IDuplicationList } from '@/types/upload';
-import { allGenreList } from '@/data/upload-data';
+import { allGenreList } from '@/data/class-data';
 import DanceGenre from '../upload/DuplicationSelect';
 import DaumPostcode, { Address } from 'react-daum-postcode';
 import HashTag from '../upload/HashTag';

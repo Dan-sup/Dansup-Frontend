@@ -8,7 +8,7 @@ import {
   allLocationList,
   allGenreList,
   allTimeSelect,
-} from '@/data/upload-data';
+} from '@/data/class-data';
 import DuplicationSelect from '@/components/upload/DuplicationSelect';
 import Select from '@/components/upload/Select';
 import ClassDay from '@/components/upload/ClassDay';
