@@ -47,3 +47,14 @@ export const allGenreList = [
   { id: 17, name: '프리스타일', isShort: false },
   { id: 18, name: '기타', isShort: true },
 ];
+
+export const allTimeSelect = [
+  { id: 0, name: '오전', isShort: true },
+  { id: 1, name: '오후', isShort: true },
+  { id: 2, name: '저녁', isShort: true },
+  { id: 3, name: '새벽', isShort: true },
+  { id: 4, name: '오전-오후', isShort: false },
+  { id: 5, name: '오후-저녁', isShort: false },
+  { id: 6, name: '저녁-새벽', isShort: false },
+  { id: 7, name: '새벽-오전', isShort: false },
+];

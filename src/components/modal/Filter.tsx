@@ -4,11 +4,14 @@ import modalStyles from '../../styles/Modal.module.css';
 import buttonStyles from '../../styles/Button.module.css';
 import fonts from '../../styles/typography.module.css';
 import { IList, IDuplicationList } from '@/types/upload';
-import { allLocationList, allGenreList } from '@/data/upload-data';
+import {
+  allLocationList,
+  allGenreList,
+  allTimeSelect,
+} from '@/data/upload-data';
 import DuplicationSelect from '@/components/upload/DuplicationSelect';
 import Select from '@/components/upload/Select';
 import ClassDay from '@/components/upload/ClassDay';
-import SelectTime from '@/components/upload/SelectTime';
 import {
   filterLevelList,
   filterWayList,
@@ -49,8 +52,8 @@ export default function Filter({
   const [classFee, setClassFee] = useState<string>('전체 가격');
 
   //목록 선택
-  const [selectTimeClickIndex, SetSelectTimeClickIndex] = useState<number>(0);
-  const [clickedTime, setClickedTime] = useState<string>('전체');
+  const [selectTimeList, setSelectTimeList] = useState<IDuplicationList[]>([]);
+  const [isSelectTimeFull, setIsSelectTimeFull] = useState<boolean>(false);
 
   //우효성 검사 state (Checked => 형식)
   const [isLocationChecked, setIsLocationChecked] = useState<boolean>(false);
@@ -109,7 +112,7 @@ export default function Filter({
       setIsClassWayChecked(false);
     }
 
-    if (clickedTime !== '전체') {
+    if (selectTimeList.length !== 0) {
       setIsSelectTimeChecked(true);
     } else {
       setIsSelectTimeChecked(false);
@@ -126,7 +129,7 @@ export default function Filter({
     classLevel,
     classDayList,
     classWay,
-    clickedTime,
+    selectTimeList,
     classFee,
   ]);
 
@@ -140,8 +143,7 @@ export default function Filter({
     setClassFee('전체 가격');
     setSelectLevelClickIndex(0);
     setClassLevel('');
-    SetSelectTimeClickIndex(0);
-    setClickedTime('전체');
+    setSelectTimeList([]);
   };
 
   const router = useRouter();
@@ -196,7 +198,7 @@ export default function Filter({
         sun: newClassDayList.includes('일'),
       },
     });
-    console.log(clickedTime === '전체' ? null : clickedTime);
+    console.log(selectTimeList);
     console.log(classWay === '' ? null : classWay);
     console.log(classLevel === '' ? null : classLevel);
     console.log(minTuition);
@@ -241,7 +243,7 @@ export default function Filter({
           sat: newClassDayList.includes('토'),
           sun: newClassDayList.includes('일'),
         },
-        time: clickedTime === '전체' ? null : clickedTime,
+        time: selectTimeList,
         method: classWay === '' ? null : classWay,
         difficulty: classLevel === '' ? null : classLevel,
         minTuition: minTuition,
@@ -289,7 +291,7 @@ export default function Filter({
           sat: newClassDayList.includes('토'),
           sun: newClassDayList.includes('일'),
         },
-        time: clickedTime === '전체' ? null : clickedTime,
+        time: selectTimeList,
         method: classWay === '' ? null : classWay,
         difficulty: classLevel === '' ? null : classLevel,
         minTuition: minTuition,
@@ -396,11 +398,13 @@ export default function Filter({
               <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
                 수업 시간
               </div>
-              <SelectTime
-                votedItem={clickedTime}
-                setVotedItem={setClickedTime}
-                clickIndex={selectTimeClickIndex}
-                setClickIndex={SetSelectTimeClickIndex}
+              <DuplicationSelect
+                allList={allTimeSelect}
+                list={selectTimeList}
+                setList={setSelectTimeList}
+                isFull={isSelectTimeFull}
+                setIsFull={setIsSelectTimeFull}
+                limit={8}
               />
             </div>
             <div className={styles.box}>

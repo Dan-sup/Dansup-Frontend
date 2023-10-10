@@ -56,9 +56,9 @@ export const selectLevelClickIndexSearchState = atom<number>({
   default: 0,
 });
 
-export const selectTimeClickIndexSearchState = atom<number>({
-  key: 'selectTimeClickIndexSearchState',
-  default: 0,
+export const selectTimeListSearchState = atom<IDuplicationList[]>({
+  key: 'selectTimeListClickIndexSearchState',
+  default: [],
 });
 
 //SearchFilter에 적용된 값 리스트 -> 필터 바에 넣을 것들

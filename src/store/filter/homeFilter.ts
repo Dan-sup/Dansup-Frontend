@@ -56,9 +56,9 @@ export const selectLevelClickIndexState = atom<number>({
   default: 0,
 });
 
-export const selectTimeClickIndexState = atom<number>({
-  key: 'selectTimeClickIndexState',
-  default: 0,
+export const selectTimeListState = atom<IDuplicationList[]>({
+  key: 'selectTimeListState',
+  default: [],
 });
 
 //HomeFilter에 적용된 값 리스트 -> 필터 바에 넣을 것들

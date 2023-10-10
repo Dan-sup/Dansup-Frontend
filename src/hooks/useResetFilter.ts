@@ -9,7 +9,7 @@ import {
   isClickedLocationState,
   locationListState,
   selectLevelClickIndexState,
-  selectTimeClickIndexState,
+  selectTimeListState,
   selectWayClickIndexState,
 } from '@/store/filter/homeFilter';
 import {
@@ -23,7 +23,7 @@ import {
   isClickedLocationSearchState,
   locationListSearchState,
   selectLevelClickIndexSearchState,
-  selectTimeClickIndexSearchState,
+  selectTimeListSearchState,
   selectWayClickIndexSearchState,
 } from '@/store/filter/searchFilter';
 import { useResetRecoilState } from 'recoil';
@@ -44,9 +44,7 @@ export const useResetFilter = () => {
   const resetSelectLevelClickIndex = useResetRecoilState(
     selectLevelClickIndexState,
   );
-  const resetSelectTimeClickIndex = useResetRecoilState(
-    selectTimeClickIndexState,
-  );
+  const resetSelectTimeClickIndex = useResetRecoilState(selectTimeListState);
 
   const resetLocationListSearch = useResetRecoilState(locationListSearchState);
   const resetIsClickedLocationSearch = useResetRecoilState(
@@ -68,7 +66,7 @@ export const useResetFilter = () => {
     selectLevelClickIndexSearchState,
   );
   const resetSelectTimeClickIndexSearch = useResetRecoilState(
-    selectTimeClickIndexSearchState,
+    selectTimeListSearchState,
   );
 
   const resetHomeFilter = () => {
