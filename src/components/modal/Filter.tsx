@@ -8,15 +8,12 @@ import {
   allLocationList,
   allGenreList,
   allTimeSelect,
-} from '@/data/class-data';
-import DuplicationSelect from '@/components/upload/DuplicationSelect';
-import Select from '@/components/upload/Select';
-import ClassDay from '@/components/upload/ClassDay';
-import {
-  filterLevelList,
-  filterWayList,
+  levelList,
+  wayList,
   classFeeList,
 } from '@/data/class-data';
+import DuplicationSelect from '@/components/upload/DuplicationSelect';
+import ClassDay from '@/components/upload/ClassDay';
 import Close from '../../../public/icons/close.svg';
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
@@ -45,10 +42,10 @@ export default function Filter({
   const [classDayList, setClassDayList] = useState<IList[]>([
     { id: 0, name: '' },
   ]);
-  const [selectWayClickIndex, setSelectWayClickIndex] = useState<number>(0);
-  const [selectLevelClickIndex, setSelectLevelClickIndex] = useState<number>(0);
-  const [classWay, setClassWay] = useState<string>('');
-  const [classLevel, setClassLevel] = useState<string>('');
+  const [classWayList, setClassWayList] = useState<IDuplicationList[]>([]);
+  const [classLevelList, setClassLevelList] = useState<IDuplicationList[]>([]);
+  const [isClassWayFull, setIsClassWayFull] = useState<boolean>(false);
+  const [isClassLevelFull, setIsClassLevelFull] = useState<boolean>(false);
   const [classFee, setClassFee] = useState<string>('전체 가격');
 
   //목록 선택
@@ -94,7 +91,7 @@ export default function Filter({
       setIsGenreListChecked(false);
     }
 
-    if (classLevel !== '') {
+    if (classLevelList.length !== 0) {
       setIsClassLevelChecked(true);
     } else {
       setIsClassLevelChecked(false);
@@ -106,7 +103,7 @@ export default function Filter({
       setIsClassDayChecked(false);
     }
 
-    if (classWay !== '') {
+    if (classWayList.length !== 0) {
       setIsClassWayChecked(true);
     } else {
       setIsClassWayChecked(false);
@@ -126,9 +123,9 @@ export default function Filter({
   }, [
     locationList,
     genreList,
-    classLevel,
+    classLevelList,
     classDayList,
-    classWay,
+    classWayList,
     selectTimeList,
     classFee,
   ]);
@@ -138,11 +135,9 @@ export default function Filter({
     setLocationList([]);
     setGenreList([]);
     setClassDayList([{ id: 0, name: '' }]);
-    setSelectWayClickIndex(0);
-    setClassWay('');
+    setClassWayList([]);
     setClassFee('전체 가격');
-    setSelectLevelClickIndex(0);
-    setClassLevel('');
+    setClassLevelList([]);
     setSelectTimeList([]);
   };
 
@@ -199,8 +194,8 @@ export default function Filter({
       },
     });
     console.log(selectTimeList);
-    console.log(classWay === '' ? null : classWay);
-    console.log(classLevel === '' ? null : classLevel);
+    console.log(classWayList);
+    console.log(classLevelList);
     console.log(minTuition);
     console.log(maxTuition);
     //startTime,endTime은 그냥 null로 보내기
@@ -244,8 +239,8 @@ export default function Filter({
           sun: newClassDayList.includes('일'),
         },
         time: selectTimeList,
-        method: classWay === '' ? null : classWay,
-        difficulty: classLevel === '' ? null : classLevel,
+        method: classWayList,
+        difficulty: classLevelList,
         minTuition: minTuition,
         maxTuition: maxTuition,
         startTime: null,
@@ -292,8 +287,8 @@ export default function Filter({
           sun: newClassDayList.includes('일'),
         },
         time: selectTimeList,
-        method: classWay === '' ? null : classWay,
-        difficulty: classLevel === '' ? null : classLevel,
+        method: classWayList,
+        difficulty: classLevelList,
         minTuition: minTuition,
         maxTuition: maxTuition,
         startTime: null,
@@ -342,7 +337,7 @@ export default function Filter({
                     setList={setLocationList}
                     isFull={isLocationFull}
                     setIsFull={setIsLocationFull}
-                    limit={25}
+                    limit={26}
                   />
                 </>
               ) : (
@@ -404,27 +399,29 @@ export default function Filter({
                 setList={setSelectTimeList}
                 isFull={isSelectTimeFull}
                 setIsFull={setIsSelectTimeFull}
-                limit={8}
+                limit={9}
               />
             </div>
             <div className={styles.box}>
               <div className={fonts.body1_SemiBold}>수업 방식</div>
-              <Select
-                list={filterWayList}
-                votedItem={classWay}
-                setVotedItem={setClassWay}
-                clickIndex={selectWayClickIndex}
-                setClickIndex={setSelectWayClickIndex}
+              <DuplicationSelect
+                allList={wayList}
+                list={classWayList}
+                setList={setClassWayList}
+                isFull={isClassWayFull}
+                setIsFull={setIsClassWayFull}
+                limit={8}
               />
             </div>
             <div className={styles.box}>
               <div className={fonts.body1_SemiBold}>수업 난이도</div>
-              <Select
-                list={filterLevelList}
-                votedItem={classLevel}
-                setVotedItem={setClassLevel}
-                clickIndex={selectLevelClickIndex}
-                setClickIndex={setSelectLevelClickIndex}
+              <DuplicationSelect
+                allList={levelList}
+                list={classLevelList}
+                setList={setClassLevelList}
+                isFull={isClassLevelFull}
+                setIsFull={setIsClassLevelFull}
+                limit={6}
               />
             </div>
             <div className={styles.box}>

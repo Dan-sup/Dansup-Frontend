@@ -8,9 +8,7 @@ import {
   isClickedGenreState,
   isClickedLocationState,
   locationListState,
-  selectLevelClickIndexState,
   selectTimeListState,
-  selectWayClickIndexState,
 } from '@/store/filter/homeFilter';
 import {
   classDayListSearchState,
@@ -22,9 +20,7 @@ import {
   isClickedGenreSearchState,
   isClickedLocationSearchState,
   locationListSearchState,
-  selectLevelClickIndexSearchState,
   selectTimeListSearchState,
-  selectWayClickIndexSearchState,
 } from '@/store/filter/searchFilter';
 import { useResetRecoilState } from 'recoil';
 
@@ -38,12 +34,6 @@ export const useResetFilter = () => {
   const resetClassWay = useResetRecoilState(classWayState);
   const resetClassLevel = useResetRecoilState(classLevelState);
   const resetClassFee = useResetRecoilState(classFeeState);
-  const resetSelectWayClickIndex = useResetRecoilState(
-    selectWayClickIndexState,
-  );
-  const resetSelectLevelClickIndex = useResetRecoilState(
-    selectLevelClickIndexState,
-  );
   const resetSelectTimeClickIndex = useResetRecoilState(selectTimeListState);
 
   const resetLocationListSearch = useResetRecoilState(locationListSearchState);
@@ -59,12 +49,6 @@ export const useResetFilter = () => {
   const resetClassWaySearch = useResetRecoilState(classWaySearchState);
   const resetClassLevelSearch = useResetRecoilState(classLevelSearchState);
   const resetClassFeeSearch = useResetRecoilState(classFeeSearchState);
-  const resetSelectWayClickIndexSearch = useResetRecoilState(
-    selectWayClickIndexSearchState,
-  );
-  const resetSelectLevelClickIndexSearch = useResetRecoilState(
-    selectLevelClickIndexSearchState,
-  );
   const resetSelectTimeClickIndexSearch = useResetRecoilState(
     selectTimeListSearchState,
   );
@@ -79,8 +63,6 @@ export const useResetFilter = () => {
     resetClassWay();
     resetClassLevel();
     resetClassFee();
-    resetSelectWayClickIndex();
-    resetSelectLevelClickIndex();
     resetSelectTimeClickIndex();
   };
 
@@ -94,8 +76,7 @@ export const useResetFilter = () => {
     resetClassWaySearch();
     resetClassLevelSearch();
     resetClassFeeSearch();
-    resetSelectWayClickIndexSearch();
-    resetSelectLevelClickIndexSearch();
+
     resetSelectTimeClickIndexSearch();
   };
 

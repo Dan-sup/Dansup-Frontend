@@ -23,3 +23,10 @@ export interface IAllList {
   name: string;
   isShort: boolean;
 }
+
+export interface IAllList_two {
+  id: number;
+  name: string;
+  shortName: string;
+  isShort: boolean;
+}

@@ -1,40 +1,24 @@
 export const levelList = [
-  { id: 0, name: '베이직', shortName: 'BA' },
-  { id: 1, name: '초급', shortName: 'BE' },
-  { id: 2, name: '초중급', shortName: 'BM' },
-  { id: 3, name: '중급', shortName: 'M' },
-  { id: 4, name: '고급', shortName: 'A' },
+  { id: 0, name: '베이직', shortName: 'BA', isShort: false },
+  { id: 1, name: '초급', shortName: 'BE', isShort: false },
+  { id: 2, name: '초중급', shortName: 'BM', isShort: false },
+  { id: 3, name: '중급', shortName: 'M', isShort: false },
+  { id: 4, name: '고급', shortName: 'A', isShort: false },
 ];
 
 export const wayList = [
-  { id: 0, name: '원데이', shortName: 'OD' },
-  { id: 1, name: '정규반', shortName: 'R' },
-  { id: 2, name: '공연반', shortName: 'P' },
-  { id: 3, name: '전문반', shortName: 'M' },
-  { id: 4, name: '세션', shortName: 'S' },
-];
-
-export const filterLevelList = [
-  { id: 0, name: '전체', shortName: '' },
-  { id: 1, name: '베이직', shortName: 'BA' },
-  { id: 2, name: '초급', shortName: 'BE' },
-  { id: 3, name: '초중급', shortName: 'BM' },
-  { id: 4, name: '중급', shortName: 'M' },
-  { id: 5, name: '고급', shortName: 'A' },
-];
-
-export const filterWayList = [
-  { id: 0, name: '전체', shortName: '' },
-  { id: 1, name: '원데이', shortName: 'OD' },
-  { id: 2, name: '정규반', shortName: 'R' },
-  { id: 3, name: '공연반', shortName: 'P' },
-  { id: 4, name: '전문반', shortName: 'M' },
-  { id: 5, name: '세션', shortName: 'S' },
+  { id: 0, name: '정규반', shortName: 'OD', isShort: false },
+  { id: 1, name: '전문반', shortName: 'R', isShort: false },
+  { id: 2, name: '공연반', shortName: 'P', isShort: false },
+  { id: 3, name: '팝업', shortName: 'M', isShort: false },
+  { id: 4, name: '개인레슨', shortName: 'S', isShort: false },
+  { id: 5, name: '세션', shortName: 'S', isShort: false },
+  { id: 6, name: '쉐어', shortName: 'S', isShort: false },
 ];
 
 export const classFeeList = [
   { id: 0, name: '전체 가격' },
-  { id: 1, name: '0원 ~ 10,000원' },
+  { id: 1, name: '10,000원 이하' },
   { id: 2, name: '10,000원 ~ 30,000원' },
   { id: 3, name: '30,000원 ~ 60,000원' },
   { id: 4, name: '60,000원 ~ 90,000원' },
@@ -84,11 +68,13 @@ export const allGenreList = [
   { id: 11, name: '크럼프', isShort: false },
   { id: 12, name: '하우스', isShort: false },
   { id: 13, name: '코레오', isShort: false },
-  { id: 14, name: '컨템', isShort: true },
-  { id: 15, name: '보깅', isShort: true },
-  { id: 16, name: '소울', isShort: true },
-  { id: 17, name: '프리스타일', isShort: false },
-  { id: 18, name: '기타', isShort: true },
+  { id: 14, name: '보깅', isShort: true },
+  { id: 15, name: '소울', isShort: true },
+  { id: 16, name: '발레', isShort: true },
+  { id: 17, name: '현대무용', isShort: false },
+  { id: 18, name: '한국무용', isShort: false },
+  { id: 19, name: '프리스타일', isShort: false },
+  { id: 20, name: '기타', isShort: true },
 ];
 
 export const allTimeSelect = [

@@ -31,29 +31,19 @@ export const clickedTimeState = atom<string>({
   default: '전체',
 });
 
-export const classWayState = atom<string>({
+export const classWayState = atom<IDuplicationList[]>({
   key: 'classWayState',
-  default: '',
+  default: [],
 });
 
-export const classLevelState = atom<string>({
+export const classLevelState = atom<IDuplicationList[]>({
   key: 'classLevelState',
-  default: '',
+  default: [],
 });
 
 export const classFeeState = atom<string>({
   key: 'classFeeState',
   default: '전체 가격',
-});
-
-export const selectWayClickIndexState = atom<number>({
-  key: 'selectWayClickIndexState',
-  default: 0,
-});
-
-export const selectLevelClickIndexState = atom<number>({
-  key: 'selectLevelClickIndexState',
-  default: 0,
 });
 
 export const selectTimeListState = atom<IDuplicationList[]>({
