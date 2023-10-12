@@ -156,6 +156,7 @@ export default function HomeFilter({
     setClassWayList([]);
     setClassFee('전체 가격');
     setClassWayList([]);
+    setClassLevelList([]);
     setSelectTimeList([]);
   };
 

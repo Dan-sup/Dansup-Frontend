@@ -49,7 +49,7 @@ export default function DanceGenre({
                 className={
                   data.isShort
                     ? `${styles.genreBox} ${styles.clickedAfterBox} ${styles.shortBox} ${fonts.body2_Regular}`
-                    : `${styles.genreBox} ${styles.clickedBeforeBox} ${styles.shortBox}  ${fonts.body2_Regular}`
+                    : `${styles.genreBox} ${styles.clickedAfterBox} ${styles.longBox} ${fonts.body2_Regular}`
                 }
                 key={data.id}
                 onClick={handleChangeGenre}
@@ -57,11 +57,15 @@ export default function DanceGenre({
               >
                 {data.name}
               </button>
-
+            </>
+          );
+        } else {
+          return (
+            <>
               <button
                 className={
                   data.isShort
-                    ? `${styles.genreBox} ${styles.clickedAfterBox} ${styles.longBox} ${fonts.body2_Regular}`
+                    ? `${styles.genreBox} ${styles.clickedBeforeBox} ${styles.shortBox}  ${fonts.body2_Regular}`
                     : `${styles.genreBox} ${styles.clickedBeforeBox} ${styles.longBox}  ${fonts.body2_Regular}`
                 }
                 key={data.id}
