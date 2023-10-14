@@ -6,9 +6,10 @@ import fonts from '../../styles/typography.module.css';
 import buttonStyles from '../../styles/Button.module.css';
 import BlankImage from '../../../public/icons/blank-image.svg';
 import Plus from '../../../public/icons/plus.svg';
-import { IAwardList, IList, IGenreList } from '../../types/upload';
+import { IAwardList, IList, IDuplicationList } from '../../types/upload';
+import { allGenreList } from '@/data/class-data';
 import UploadVideo from '../../components/upload/UploadVideo';
-import DanceGenre from '@/components/upload/DuplicationSelect';
+import DuplicationSelect from '@/components/upload/DuplicationSelect';
 import HashTag from '@/components/upload/HashTag';
 import ToastMsg from '@/components/upload/ToastMsg';
 import BasicHeader from '@/components/common/Header/BasicHeader';
@@ -29,7 +30,7 @@ export default function ProfileUpload() {
     { id: 0, name: '' },
   ]);
   const [isHashTagFull, setIsHashTagFull] = useState<boolean>(false);
-  const [genreList, setGenreList] = useState<IGenreList[]>([]);
+  const [genreList, setGenreList] = useState<IDuplicationList[]>([]);
   const [isGenreFull, setIsGenreFull] = useState<boolean>(false);
   const [awardList, setAwardList] = useState<IAwardList[]>([]);
   const [isClicked, setIsClicked] = useState<boolean>(false);
@@ -387,12 +388,13 @@ export default function ProfileUpload() {
                 >
                   나의 댄스 장르를 선택해주세요
                 </button>
-                <DanceGenre
+                <DuplicationSelect
+                  allList={allGenreList}
                   list={genreList}
                   setList={setGenreList}
                   isFull={isGenreFull}
                   setIsFull={setIsGenreFull}
-                  limit={4}
+                  limit={20}
                 />
               </>
             ) : (
