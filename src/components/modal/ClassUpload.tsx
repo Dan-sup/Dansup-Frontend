@@ -8,8 +8,9 @@ import fonts from '../../styles/typography.module.css';
 import buttonStyles from '../../styles/Button.module.css';
 import modalStyles from '../../styles/Modal.module.css';
 import styles from '../../styles/UploadPage.module.css';
-import { IList, IGenreList } from '@/types/upload';
-import DanceGenre from '../upload/DanceGenre';
+import { IList, IDuplicationList } from '@/types/upload';
+import { allGenreList } from '@/data/class-data';
+import DanceGenre from '../upload/DuplicationSelect';
 import DaumPostcode, { Address } from 'react-daum-postcode';
 import HashTag from '../upload/HashTag';
 import Select from '../upload/Select';
@@ -32,7 +33,7 @@ interface classUploadProps {
 export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const [titleCount, setTitleCount] = useState<number>(0);
   const [title, setTitle] = useState<string>('');
-  const [genreList, setGenreList] = useState<IGenreList[]>([]);
+  const [genreList, setGenreList] = useState<IDuplicationList[]>([]);
   const [isGenreFull, setIsGenreFull] = useState<boolean>(false);
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [hashTag, setHashTag] = useState<string>('');
@@ -380,6 +381,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                     </button>
 
                     <DanceGenre
+                      allList={allGenreList}
                       list={genreList}
                       setList={setGenreList}
                       isFull={isGenreFull}

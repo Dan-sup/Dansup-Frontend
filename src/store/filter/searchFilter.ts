@@ -1,9 +1,9 @@
-import { IGenreList, IList } from '@/types/upload';
+import { IDuplicationList, IList } from '@/types/upload';
 import { atom } from 'recoil';
 
-export const locationListSearchState = atom<IList[]>({
+export const locationListSearchState = atom<IDuplicationList[]>({
   key: 'locationListSearchState',
-  default: [{ id: 0, name: '서울 전체' }],
+  default: [],
 });
 
 export const isClickedLocationSearchState = atom<boolean>({
@@ -11,7 +11,7 @@ export const isClickedLocationSearchState = atom<boolean>({
   default: false,
 });
 
-export const genreListSearchState = atom<IGenreList[]>({
+export const genreListSearchState = atom<IDuplicationList[]>({
   key: 'genreListSearchState',
   default: [],
 });
@@ -31,14 +31,14 @@ export const clickedTimeSearchState = atom<string>({
   default: '전체',
 });
 
-export const classWaySearchState = atom<string>({
+export const classWaySearchState = atom<IDuplicationList[]>({
   key: 'classWaySearchState',
-  default: '',
+  default: [],
 });
 
-export const classLevelSearchState = atom<string>({
+export const classLevelSearchState = atom<IDuplicationList[]>({
   key: 'classLevelSearchState',
-  default: '',
+  default: [],
 });
 
 export const classFeeSearchState = atom<string>({
@@ -46,19 +46,9 @@ export const classFeeSearchState = atom<string>({
   default: '전체 가격',
 });
 
-export const selectWayClickIndexSearchState = atom<number>({
-  key: 'selectWayClickIndexSearchState',
-  default: 0,
-});
-
-export const selectLevelClickIndexSearchState = atom<number>({
-  key: 'selectLevelClickIndexSearchState',
-  default: 0,
-});
-
-export const selectTimeClickIndexSearchState = atom<number>({
-  key: 'selectTimeClickIndexSearchState',
-  default: 0,
+export const selectTimeListSearchState = atom<IDuplicationList[]>({
+  key: 'selectTimeListClickIndexSearchState',
+  default: [],
 });
 
 //SearchFilter에 적용된 값 리스트 -> 필터 바에 넣을 것들
