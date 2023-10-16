@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic';
+import Bottom from '../components/common/Footer';
 
 const BasicHeader = dynamic(import('@/components/common/Header/BasicHeader'));
 import { useState } from 'react';
