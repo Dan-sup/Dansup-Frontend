@@ -22,6 +22,7 @@ const HomeFilter = dynamic(import('@/components/modal/HomeFilter'));
 const NoInfo = dynamic(import('@/components/common/NoInfo'));
 import { useResetFilter } from '@/hooks/useResetFilter';
 import { homeFilterValueListState } from '@/store/filter/homeFilter';
+import Footer from '../components/common/Footer';
 
 export default function HomePage() {
   //const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
@@ -184,6 +185,7 @@ export default function HomePage() {
           </>
         )}
       </div>
+      <Footer />
     </>
   );
 }
