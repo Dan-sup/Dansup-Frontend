@@ -8,6 +8,7 @@ import { userState } from '@/store/user';
 import styles from '../../styles/components/common/Footer.module.css';
 import typoStyles from '../../styles/typography.module.css';
 import { useState } from 'react';
+import Link from 'next/link';
 
 export default function Footer() {
   const user = useRecoilValue(userState);
@@ -41,6 +42,8 @@ export default function Footer() {
       iconB: HomeIcon,
       iconA: HomeIcon,
       click: onclickHome,
+      linkB: '/',
+      linkA: '/',
     },
     {
       id: 1,
@@ -48,6 +51,8 @@ export default function Footer() {
       iconB: CommunityIcon,
       iconA: CommunityIcon,
       click: onclickCommunity,
+      linkB: '/',
+      linkA: '/',
     },
     {
       id: 2,
@@ -55,6 +60,8 @@ export default function Footer() {
       iconB: ScrapIcon,
       iconA: ScrapIcon,
       click: onclickScrap,
+      linkB: '/',
+      linkA: '/',
     },
     {
       id: 3,
@@ -62,6 +69,8 @@ export default function Footer() {
       iconB: MyPageIconBLogin,
       iconA: MyPageIconALogin,
       click: onclickMyPage,
+      linkB: '/login',
+      linkA: '/my',
     },
   ];
 
@@ -69,7 +78,12 @@ export default function Footer() {
     <div className={styles.container}>
       {barList.map(data => {
         return (
-          <div key={data.id} className={styles.button} onClick={data.click}>
+          <Link
+            href={`${user.accessToken == '' ? data.linkB : data.linkA}`}
+            key={data.id}
+            className={styles.button}
+            onClick={data.click}
+          >
             {user.accessToken == '' ? (
               <>
                 {clickIndex == data.id ? (
@@ -98,7 +112,7 @@ export default function Footer() {
                 {data.name}
               </div>
             )}
-          </div>
+          </Link>
         );
       })}
     </div>
