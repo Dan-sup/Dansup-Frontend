@@ -3,37 +3,104 @@ import CommunityIcon from '../../../public/icons/Footer/communityIcon.svg';
 import ScrapIcon from '../../../public/icons/Footer/scrapIcon.svg';
 import MyPageIconBLogin from '../../../public/icons/Footer/MyPageIconBLogin.svg';
 import MyPageIconALogin from '../../../public/icons/Footer/MyPageIconALogin.svg';
-
+import { useRecoilValue } from 'recoil';
+import { userState } from '@/store/user';
 import styles from '../../styles/components/common/Footer.module.css';
 import typoStyles from '../../styles/typography.module.css';
+import { useState } from 'react';
 
 export default function Footer() {
+  const user = useRecoilValue(userState);
+  const [clickIndex, setClickIndex] = useState<number>(0);
+  const [isHomeClick, setIsHomeClick] = useState<boolean>(false);
+  const [isCommunityClick, setIsCommunityClick] = useState<boolean>(false);
+  const [isScrapClick, setIsScrapClick] = useState<boolean>(false);
+  const [isMyPageClick, setIsMyPageClick] = useState<boolean>(false);
+
+  const onclickHome = () => {
+    setIsHomeClick(!isHomeClick);
+    setClickIndex(0);
+  };
+  const onclickCommunity = () => {
+    setIsCommunityClick(!isCommunityClick);
+    setClickIndex(1);
+  };
+  const onclickScrap = () => {
+    setIsScrapClick(!isScrapClick);
+    setClickIndex(2);
+  };
+  const onclickMyPage = () => {
+    setIsMyPageClick(!isMyPageClick);
+    setClickIndex(3);
+  };
+
+  const barList = [
+    {
+      id: 0,
+      name: '홈',
+      iconB: HomeIcon,
+      iconA: HomeIcon,
+      click: onclickHome,
+    },
+    {
+      id: 1,
+      name: '커뮤니티',
+      iconB: CommunityIcon,
+      iconA: CommunityIcon,
+      click: onclickCommunity,
+    },
+    {
+      id: 2,
+      name: '스크랩',
+      iconB: ScrapIcon,
+      iconA: ScrapIcon,
+      click: onclickScrap,
+    },
+    {
+      id: 3,
+      name: '마이페이지',
+      iconB: MyPageIconBLogin,
+      iconA: MyPageIconALogin,
+      click: onclickMyPage,
+    },
+  ];
+
   return (
     <div className={styles.container}>
-      <div className={styles.icon}>
-        <HomeIcon className={styles.homeIcon} />
-        <div className={`${styles.text} ${typoStyles.caption1_Regular}`}>
-          홈
-        </div>
-      </div>
-      <div className={styles.icon}>
-        <CommunityIcon className={styles.communityIcon} />
-        <div className={`${styles.text} ${typoStyles.caption1_Regular}`}>
-          커뮤니티
-        </div>
-      </div>
-      <div className={styles.icon}>
-        <ScrapIcon className={styles.scrapIcon} />
-        <div className={`${styles.text} ${typoStyles.caption1_Regular}`}>
-          스크랩
-        </div>
-      </div>
-      <div className={styles.icon}>
-        <MyPageIconBLogin className={styles.MyPageIconBLogin} />
-        <div className={`${styles.text} ${typoStyles.caption1_Regular}`}>
-          마이페이지
-        </div>
-      </div>
+      {barList.map(data => {
+        return (
+          <div key={data.id} className={styles.button} onClick={data.click}>
+            {user.accessToken == '' ? (
+              <>
+                {clickIndex == data.id ? (
+                  <data.iconB className={styles.clickedIcon} />
+                ) : (
+                  <data.iconB className={styles.icon} />
+                )}
+              </>
+            ) : (
+              <>
+                {clickIndex == data.id ? (
+                  <data.iconA className={styles.clickedIcon} />
+                ) : (
+                  <data.iconA className={styles.icon} />
+                )}
+              </>
+            )}
+            {clickIndex == data.id ? (
+              <div
+                className={`${styles.clickedIcon} ${typoStyles.caption1_Regular}`}
+              >
+                {data.name}
+              </div>
+            ) : (
+              <div className={`${styles.icon} ${typoStyles.caption1_Regular}`}>
+                {data.name}
+              </div>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 }

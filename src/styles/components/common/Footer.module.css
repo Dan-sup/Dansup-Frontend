@@ -11,47 +11,20 @@
   flex-direction: row;
 }
 
-.icon {
+.button {
   display: flex;
   flex-direction: column;
   flex-basis: 25%;
   align-items: center;
   height: 50px;
   justify-content: space-around;
+  cursor: pointer;
 }
 
-.text {
+.icon {
   color: var(--color-gray-200);
 }
 
-.homeIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 17.945px;
-  height: 19.525px;
-}
-
-.communityIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 15.75px;
-  height: 18px;
-}
-
-.scrapIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 15.3px;
-  height: 19.273px;
-}
-
-.myPageIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 20px;
+.clickedIcon {
+  color: var(--color-main-100);
 }
