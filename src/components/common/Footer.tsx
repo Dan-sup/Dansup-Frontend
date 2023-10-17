@@ -3,11 +3,13 @@ import CommunityIcon from '../../../public/icons/Footer/communityIcon.svg';
 import ScrapIcon from '../../../public/icons/Footer/scrapIcon.svg';
 import MyPageIconBLogin from '../../../public/icons/Footer/MyPageIconBLogin.svg';
 import MyPageIconALogin from '../../../public/icons/Footer/MyPageIconALogin.svg';
+import { useMutation } from '@tanstack/react-query';
+import { getMyInfo } from '@/apis/my';
+import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { userState } from '@/store/user';
 import styles from '../../styles/components/common/Footer.module.css';
 import typoStyles from '../../styles/typography.module.css';
-import { useState } from 'react';
 import Link from 'next/link';
 
 export default function Footer() {
@@ -17,6 +19,24 @@ export default function Footer() {
   const [isCommunityClick, setIsCommunityClick] = useState<boolean>(false);
   const [isScrapClick, setIsScrapClick] = useState<boolean>(false);
   const [isMyPageClick, setIsMyPageClick] = useState<boolean>(false);
+  const [profileImg, setProfileImg] = useState<string>('');
+
+  const getMyInfoMutation = useMutation(getMyInfo, {
+    onSuccess: data => {
+      //console.log(data);
+      //console.log(data.data.profileImageUrl);
+      setProfileImg(data.data.profileImageUrl);
+      //console.log(profileImg);
+    },
+    onError: error => {
+      //console.log(error);
+    },
+  });
+
+  useEffect(() => {
+    console.log(user.accessToken);
+    getMyInfoMutation.mutate(user.accessToken);
+  }, [user.accessToken]); //토큰 재발급 구현하면 다시 보자!!!
 
   const onclickHome = () => {
     setIsHomeClick(!isHomeClick);
@@ -85,33 +105,34 @@ export default function Footer() {
             onClick={data.click}
           >
             {user.accessToken == '' ? (
-              <>
-                {clickIndex == data.id ? (
-                  <data.iconB className={styles.clickedIcon} />
-                ) : (
-                  <data.iconB className={styles.icon} />
-                )}
-              </>
+              <data.iconB
+                className={`${
+                  clickIndex == data.id ? styles.clickedIcon : styles.icon
+                }`}
+              />
             ) : (
               <>
-                {clickIndex == data.id ? (
-                  <data.iconA className={styles.clickedIcon} />
+                {profileImg == '' ? (
+                  <data.iconA
+                    className={`${
+                      clickIndex == data.id ? styles.clickedIcon : styles.icon
+                    }`}
+                  />
                 ) : (
-                  <data.iconA className={styles.icon} />
+                  <img src={profileImg} className={styles.profile} />
                 )}
               </>
             )}
-            {clickIndex == data.id ? (
-              <div
-                className={`${styles.clickedIcon} ${typoStyles.caption1_Regular}`}
-              >
-                {data.name}
-              </div>
-            ) : (
-              <div className={`${styles.icon} ${typoStyles.caption1_Regular}`}>
-                {data.name}
-              </div>
-            )}
+
+            <div
+              className={`${
+                clickIndex == data.id
+                  ? `${styles.clickedIcon} ${typoStyles.caption1_Regular}`
+                  : `${styles.icon} ${typoStyles.caption1_Regular}`
+              }`}
+            >
+              {data.name}
+            </div>
           </Link>
         );
       })}

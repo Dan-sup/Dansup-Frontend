@@ -28,3 +28,10 @@
 .clickedIcon {
   color: var(--color-main-100);
 }
+
+.profile {
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  border: none;
+}
