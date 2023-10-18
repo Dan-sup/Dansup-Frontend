@@ -24,7 +24,7 @@ import SearchFilter from '@/components/modal/SearchFilter';
 import { useResetFilter } from '@/hooks/useResetFilter';
 import { homeFilterValueListSearchState } from '@/store/filter/searchFilter';
 import NoInfo from '@/components/common/NoInfo';
-import Bar from '@/components/common/Footer';
+import Footer from '@/components/common/Footer';
 
 export default function SearchResultPage() {
   //const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
@@ -252,7 +252,7 @@ export default function SearchResultPage() {
           </div>
         )}
       </div>
-      <Bar />
+      <Footer />
     </>
   );
 }
