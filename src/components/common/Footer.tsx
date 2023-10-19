@@ -1,8 +1,8 @@
 import HomeIcon from '../../../public/icons/Footer/homeIcon.svg';
 import CommunityIcon from '../../../public/icons/Footer/communityIcon.svg';
 import ScrapIcon from '../../../public/icons/Footer/scrapIcon.svg';
-import MyPageIconBLogin from '../../../public/icons/Footer/MyPageIconBLogin.svg';
-import MyPageIconALogin from '../../../public/icons/Footer/MyPageIconALogin.svg';
+import MyPageIconBLogin from '../../../public/icons/Footer/myPageIconBLogin.svg';
+import MyPageIconALogin from '../../../public/icons/Footer/myPageIconALogin.svg';
 import { useMutation } from '@tanstack/react-query';
 import { getMyInfo } from '@/apis/my';
 import { useEffect, useState } from 'react';
