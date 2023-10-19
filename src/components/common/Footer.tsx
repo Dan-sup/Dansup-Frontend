@@ -79,7 +79,7 @@ export default function Footer() {
             key={data.id}
             className={styles.button}
           >
-            {user.accessToken == '' ? (
+            {user.accessToken == '' && data.name !== '마이페이지' ? (
               <data.iconB
                 className={`${
                   pathname == data.linkA ? styles.clickedIcon : styles.icon
@@ -87,7 +87,7 @@ export default function Footer() {
               />
             ) : (
               <>
-                {profileImg == '' && data.name == '마이페이지' ? (
+                {profileImg == '' ? (
                   <data.iconA
                     className={`${
                       pathname == data.linkA ? styles.clickedIcon : styles.icon
