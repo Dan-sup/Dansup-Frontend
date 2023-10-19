@@ -20,6 +20,7 @@ import {
   getPortfolioVideo,
 } from '@/apis/my';
 import ReactPlayer from 'react-player';
+import Footer from '@/components/common/Footer';
 
 export default function MyPage() {
   const [isUploadBoxOpen, setIsUploadBoxOpen] = useState<boolean>(false);
@@ -133,7 +134,7 @@ export default function MyPage() {
       <div style={{ display: isHeader ? 'block' : 'none' }}>
         <MyPageHeader />
       </div>
-      <div className={styles.container}>
+      <div className={styles.myContainer}>
         <div className={styles.profilePart}>
           {profiles.profileVideoUrl == null ? (
             <div className={styles.backVideo}></div>
@@ -272,6 +273,7 @@ export default function MyPage() {
           <></>
         )}
       </div>
+      <Footer />
     </>
   );
 }
