@@ -87,26 +87,14 @@ export default function Footer() {
               />
             ) : (
               <>
-                {profileImg == '' ? (
+                {data.name == '마이페이지' && profileImg !== '' ? (
+                  <img src={profileImg} className={styles.profile} />
+                ) : (
                   <data.iconA
                     className={`${
                       pathname == data.linkA ? styles.clickedIcon : styles.icon
                     }`}
                   />
-                ) : (
-                  <>
-                    {data.name == '마이페이지' ? (
-                      <img src={profileImg} className={styles.profile} />
-                    ) : (
-                      <data.iconA
-                        className={`${
-                          pathname == data.linkA
-                            ? styles.clickedIcon
-                            : styles.icon
-                        }`}
-                      />
-                    )}
-                  </>
                 )}
               </>
             )}
