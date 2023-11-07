@@ -25,6 +25,7 @@ import { useResetFilter } from '@/hooks/useResetFilter';
 import { homeFilterValueListSearchState } from '@/store/filter/searchFilter';
 import NoInfo from '@/components/common/NoInfo';
 import Footer from '@/components/common/Footer';
+import SelectBar from '@/components/common/SelectBar';
 
 export default function SearchResultPage() {
   //const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
@@ -140,24 +141,11 @@ export default function SearchResultPage() {
       <SearchHeader />
 
       <div className={styles.container}>
-        <div className={styles.selectBar}>
-          <div
-            className={`${isClassBtnClicked ? styles.clickedBtn : styles.btn} ${
-              typoStyles.head2_SemiBold
-            }`}
-            onClick={handleBtnClick}
-          >
-            수업
-          </div>
-          <div
-            className={`${
-              isDancerBtnClicked ? styles.clickedBtn : styles.btn
-            } ${typoStyles.head2_SemiBold}`}
-            onClick={handleBtnClick}
-          >
-            댄서
-          </div>
-        </div>
+        <SelectBar
+          isClassBtnClicked={isClassBtnClicked}
+          isDancerBtnClicked={isDancerBtnClicked}
+          handleBtnClick={handleBtnClick}
+        />
 
         {/*<FilterBar isFilterOn={isFilterOn} />*/}
         <div className={filterBarStyles.bar}>

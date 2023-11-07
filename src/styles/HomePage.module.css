@@ -41,3 +41,11 @@
 
   color: var(--color-gray-200);
 }
+
+.selectBar {
+  width: 100%;
+
+  display: flex;
+
+  padding-right: 18px;
+}
