@@ -14,6 +14,19 @@ export interface ISelectList {
   shortName: string;
 }
 
-export interface IGenreList {
-  genre: string;
+export interface IDuplicationList {
+  name: string;
+}
+
+export interface IAllList {
+  id: number;
+  name: string;
+  isShort: boolean;
+}
+
+export interface IAllList_two {
+  id: number;
+  name: string;
+  shortName: string;
+  isShort: boolean;
 }
