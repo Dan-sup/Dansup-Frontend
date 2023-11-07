@@ -33,13 +33,11 @@ export default function DanceGenre({
     { id: 11, name: '크럼프', isShort: false },
     { id: 12, name: '하우스', isShort: false },
     { id: 13, name: '코레오', isShort: false },
-    { id: 14, name: '보깅', isShort: true },
-    { id: 15, name: '소울', isShort: true },
-    { id: 16, name: '프리스타일', isShort: false },
-    { id: 17, name: '현대무용', isShort: false },
-    { id: 18, name: '한국무용', isShort: false },
-    { id: 19, name: '발레', isShort: true },
-    { id: 20, name: '기타', isShort: true },
+    { id: 14, name: '컨템', isShort: true },
+    { id: 15, name: '보깅', isShort: true },
+    { id: 16, name: '소울', isShort: true },
+    { id: 17, name: '프리스타일', isShort: false },
+    { id: 18, name: '기타', isShort: true },
   ];
 
   const handleChangeGenre = (e: any) => {
