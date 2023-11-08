@@ -141,11 +141,13 @@ export default function SearchResultPage() {
       <SearchHeader />
 
       <div className={styles.container}>
-        <SelectBar
-          isClassBtnClicked={isClassBtnClicked}
-          isDancerBtnClicked={isDancerBtnClicked}
-          handleBtnClick={handleBtnClick}
-        />
+        <div className={styles.selectBar}>
+          <SelectBar
+            isClassBtnClicked={isClassBtnClicked}
+            isDancerBtnClicked={isDancerBtnClicked}
+            handleBtnClick={handleBtnClick}
+          />
+        </div>
 
         {/*<FilterBar isFilterOn={isFilterOn} />*/}
         <div className={filterBarStyles.bar}>
