@@ -31,15 +31,8 @@ export default function ClassCard({ classInfo }: ClassCardProps) {
           )}
         </div>
 
-        <div className={styles.textBox}>
-          <div className={`${styles.classTitle} ${typoStyles.body1_Regular}`}>
-            {classInfo.title}
-          </div>
-          <div
-            className={`${styles.dancerName} ${typoStyles.caption1_Regular}`}
-          >
-            {classInfo.userNickname}
-          </div>
+        <div className={`${styles.dancerName} ${typoStyles.caption1_SemiBold}`}>
+          {classInfo.userNickname}
         </div>
       </div>
 
@@ -49,7 +42,7 @@ export default function ClassCard({ classInfo }: ClassCardProps) {
         playing={false}
         className={styles.video}
         width="100%"
-        height={210}
+        height={271}
         onClick={() => router.push(`class/${classInfo.danceClassId}`)}
       />
 
@@ -65,12 +58,16 @@ export default function ClassCard({ classInfo }: ClassCardProps) {
           ))}
         </div>
 
-        <div className={styles.rightBox}>
-          <div className={styles.detailBox}>
+        <div className={`${styles.classTitle} ${typoStyles.head1}`}>
+          {classInfo.title}
+        </div>
+
+        <div className={styles.bottomLineBox}>
+          <div className={`${styles.detailBox} ${typoStyles.caption1_Regular}`}>
             <LocationIcon className={styles.icon} />
             {classInfo.location.split(' ')[1]}
           </div>
-          <div className={styles.detailBox}>
+          <div className={`${styles.detailBox} ${typoStyles.caption1_Regular}`}>
             <DateIcon className={styles.icon} />
             {classInfo.method}{' '}
             {classInfo.method == '원데이' ? (
