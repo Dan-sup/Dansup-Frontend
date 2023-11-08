@@ -2,6 +2,7 @@ import typoStyles from '../styles/typography.module.css';
 import AvatarIcon from '../../public/icons/ClassCard/avatar.svg';
 import DateIcon from '../../public/icons/date.svg';
 import LocationIcon from '../../public/icons/location.svg';
+import ScrapIcon from '../../public/icons/scrap-small.svg';
 import styles from '../styles/components/ClassCard.module.css';
 import { useRouter } from 'next/router';
 import { changeDateForm, changeDayForm } from '@/utils/date';
@@ -20,19 +21,27 @@ export default function ClassCard({ classInfo }: ClassCardProps) {
         className={styles.titleBox}
         onClick={() => router.push(`class/${classInfo.danceClassId}`)}
       >
-        <div className={styles.profileImgBox}>
-          {!classInfo.userProfileImage ? (
-            <AvatarIcon className={styles.profileImg} />
-          ) : (
-            <img
-              src={classInfo.userProfileImage}
-              className={styles.profileImg}
-            />
-          )}
+        <div className={styles.leftBox}>
+          <div className={styles.profileImgBox}>
+            {!classInfo.userProfileImage ? (
+              <AvatarIcon className={styles.profileImg} />
+            ) : (
+              <img
+                src={classInfo.userProfileImage}
+                className={styles.profileImg}
+              />
+            )}
+          </div>
+
+          <div
+            className={`${styles.dancerName} ${typoStyles.caption1_SemiBold}`}
+          >
+            {classInfo.userNickname}
+          </div>
         </div>
 
-        <div className={`${styles.dancerName} ${typoStyles.caption1_SemiBold}`}>
-          {classInfo.userNickname}
+        <div className={styles.scrapIconBox}>
+          <ScrapIcon />
         </div>
       </div>
 
