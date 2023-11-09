@@ -41,6 +41,8 @@ export default function Footer() {
           setIsLoggedIn(false);
         },
       });
+    } else {
+      setIsLoggedIn(false);
     }
   }, [user.accessToken]); //토큰 재발급 구현하면 다시 보자!!!
 
@@ -88,8 +90,23 @@ export default function Footer() {
             key={data.id}
             className={styles.button}
           >
-            {isLoggedIn === null ? (
-              <></>
+            {isLoggedIn === false ? (
+              <>
+                <data.iconB
+                  className={`${
+                    pathname == data.linkA ? styles.clickedIcon : styles.icon
+                  }`}
+                />
+                <div
+                  className={`${
+                    pathname == data.linkA
+                      ? `${styles.clickedIcon} ${typoStyles.caption1_Regular}`
+                      : `${styles.icon} ${typoStyles.caption1_Regular}`
+                  }`}
+                >
+                  {data.name}
+                </div>
+              </>
             ) : (
               <>
                 {data.name == '마이페이지' ? (
