@@ -6,6 +6,7 @@ import PortfolioUpload from '@/components/modal/PortfolioUpload';
 import Portfolio from '@/components/profile/MyPortfolio';
 import Class from '@/components/profile/MyClass';
 import FloatingBtn from '../../../public/icons/floating-btn.svg';
+import FloatingBtnX from '../../../public/icons/floating-btnX.svg';
 import PortfolioBtn from '../../../public/icons/portfolio-upload.svg';
 import ClassBtn from '../../../public/icons/class-upload.svg';
 import BlankImage from '../../../public/icons/blank-image.svg';
@@ -245,7 +246,11 @@ export default function MyPage() {
           <Class classes={classes} />
         )}
         <button onClick={() => setIsUploadBoxOpen(!isUploadBoxOpen)}>
-          <FloatingBtn className={styles.floatingBtn} />
+          {isUploadBoxOpen ? (
+            <FloatingBtnX className={styles.floatingBtn} />
+          ) : (
+            <FloatingBtn className={styles.floatingBtn} />
+          )}
         </button>
         {isUploadBoxOpen ? (
           <div className={styles.modalBox}>

@@ -54,13 +54,13 @@
 
 .floatingBtn {
   position: fixed;
-  bottom: 106px;
+  bottom: 107px;
   right: 0;
 }
 
 .modalBox {
   position: fixed;
-  bottom: 130px;
+  bottom: 200px;
   right: 18px;
 }
 
