@@ -17,7 +17,6 @@ export default function Footer() {
   const user = useRecoilValue(userState);
   const pathname = usePathname();
   const [profileImg, setProfileImg] = useState<string>('');
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
 
   const getMyInfoMutation = useMutation(getMyInfo, {
     onSuccess: data => {
@@ -33,18 +32,9 @@ export default function Footer() {
 
   useEffect(() => {
     if (user.accessToken !== '') {
-      getMyInfoMutation.mutate(user.accessToken, {
-        onSuccess: () => {
-          setIsLoggedIn(true);
-        },
-        onError: () => {
-          setIsLoggedIn(false);
-        },
-      });
-    } else {
-      setIsLoggedIn(false);
+      getMyInfoMutation.mutate(user.accessToken);
     }
-  }, [user.accessToken]); //토큰 재발급 구현하면 다시 보자!!!
+  }, [user.accessToken, profileImg]); //토큰 재발급 구현하면 다시 보자!!!
 
   const barList = [
     {
@@ -86,47 +76,22 @@ export default function Footer() {
       {barList.map(data => {
         return (
           <Link
-            href={`${isLoggedIn ? data.linkA : data.linkB}`}
+            href={`${
+              getMyInfoMutation.isLoading || getMyInfoMutation.isSuccess
+                ? data.linkA
+                : data.linkB
+            }`}
             key={data.id}
             className={styles.button}
           >
-            {isLoggedIn === false ? (
-              <>
-                <data.iconB
-                  className={`${
-                    pathname == data.linkA ? styles.clickedIcon : styles.icon
-                  }`}
-                />
-                <div
-                  className={`${
-                    pathname == data.linkA
-                      ? `${styles.clickedIcon} ${typoStyles.caption1_Regular}`
-                      : `${styles.icon} ${typoStyles.caption1_Regular}`
-                  }`}
-                >
-                  {data.name}
-                </div>
-              </>
-            ) : (
+            {getMyInfoMutation.isLoading || getMyInfoMutation.isSuccess ? (
               <>
                 {data.name == '마이페이지' ? (
                   <>
-                    {isLoggedIn ? (
-                      <>
-                        {profileImg !== '' ? (
-                          <img src={profileImg} className={styles.profile} />
-                        ) : (
-                          <data.iconA
-                            className={`${
-                              pathname == data.linkA
-                                ? styles.clickedIcon
-                                : styles.icon
-                            }`}
-                          />
-                        )}
-                      </>
+                    {profileImg !== '' ? (
+                      <img src={profileImg} className={styles.profile} />
                     ) : (
-                      <data.iconB
+                      <data.iconA
                         className={`${
                           pathname == data.linkA
                             ? styles.clickedIcon
@@ -151,6 +116,23 @@ export default function Footer() {
                 >
                   {data.name}
                 </div>{' '}
+              </>
+            ) : (
+              <>
+                <data.iconB
+                  className={`${
+                    pathname == data.linkA ? styles.clickedIcon : styles.icon
+                  }`}
+                />
+                <div
+                  className={`${
+                    pathname == data.linkA
+                      ? `${styles.clickedIcon} ${typoStyles.caption1_Regular}`
+                      : `${styles.icon} ${typoStyles.caption1_Regular}`
+                  }`}
+                >
+                  {data.name}
+                </div>
               </>
             )}
           </Link>
