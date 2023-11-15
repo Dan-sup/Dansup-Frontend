@@ -29,9 +29,16 @@
   color: var(--color-main-100);
 }
 
-.profile {
+.clickedProfile {
   width: 20px;
   height: 20px;
   border-radius: 100%;
   border: 0.8px solid var(--color-main-100);
+}
+
+.profile {
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  border: none;
 }
