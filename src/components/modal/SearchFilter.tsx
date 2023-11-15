@@ -357,7 +357,9 @@ export default function SearchFilter({
               )}
             </div>
             <div className={styles.box}>
-              <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+              <div
+                className={`${styles.textWithDayBox} ${fonts.body1_SemiBold}`}
+              >
                 수업 요일
               </div>
               <ClassDay list={classDayList} setList={setClassDayList} />
@@ -376,7 +378,11 @@ export default function SearchFilter({
               />
             </div>
             <div className={styles.box}>
-              <div className={fonts.body1_SemiBold}>수업 방식</div>
+              <div
+                className={`${styles.textWithClickedBox} ${fonts.body1_SemiBold}`}
+              >
+                수업 방식
+              </div>
               <DuplicationSelect
                 allList={wayList}
                 list={classWayList}
@@ -387,7 +393,11 @@ export default function SearchFilter({
               />
             </div>
             <div className={styles.box}>
-              <div className={fonts.body1_SemiBold}>수업 난이도</div>
+              <div
+                className={`${styles.textWithClickedBox} ${fonts.body1_SemiBold}`}
+              >
+                수업 난이도
+              </div>
               <DuplicationSelect
                 allList={levelList}
                 list={classLevelList}

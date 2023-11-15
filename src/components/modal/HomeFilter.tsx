@@ -32,6 +32,7 @@ import {
   selectTimeListState,
 } from '@/store/filter/homeFilter';
 import { changeClassWayToK, changeClassLevelToK } from '@/utils/filter';
+import ClassTime from '../upload/ClassTime';
 
 interface filterProps {
   isOpen: boolean;
@@ -49,7 +50,6 @@ export default function HomeFilter({
   const [isClickedLocation, setIsClickedLocation] = useRecoilState(
     isClickedLocationState,
   );
-  //Genre 박스 열기
   const [genreList, setGenreList] = useRecoilState(genreListState);
   const [isGenreFull, setIsGenreFull] = useState<boolean>(false);
   const [isClickedGenre, setIsClickedGenre] =
@@ -62,9 +62,14 @@ export default function HomeFilter({
   const [classFee, setClassFee] = useRecoilState(classFeeState);
 
   //목록 선택
+  const [isSelectWay, setIsSelectWay] = useState<boolean>(true);
   const [selectTimeList, setSelectTimeList] =
     useRecoilState(selectTimeListState);
   const [isSelectTimeFull, setIsSelectTimeFull] = useState<boolean>(false);
+  const [startHour, setStartHour] = useState<number>();
+  const [startTime, setStartTime] = useState<string>('');
+  const [endHour, setEndHour] = useState<number>();
+  const [endTime, setEndTime] = useState<string>('');
 
   //우효성 검사 state (Checked => 형식)
   const [isLocationChecked, setIsLocationChecked] = useState<boolean>(false);
@@ -363,7 +368,9 @@ export default function HomeFilter({
               )}
             </div>
             <div className={styles.box}>
-              <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+              <div
+                className={`${styles.textWithDayBox} ${fonts.body1_SemiBold}`}
+              >
                 수업 요일
               </div>
               <ClassDay list={classDayList} setList={setClassDayList} />
@@ -372,17 +379,55 @@ export default function HomeFilter({
               <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
                 수업 시간
               </div>
-              <DuplicationSelect
-                allList={allTimeSelect}
-                list={selectTimeList}
-                setList={setSelectTimeList}
-                isFull={isSelectTimeFull}
-                setIsFull={setIsSelectTimeFull}
-                limit={9}
-              />
+              <div className={`${styles.selectWayBox} ${fonts.body2_Regular}`}>
+                <div
+                  className={
+                    isSelectWay
+                      ? `${styles.selectWay} ${styles.selectWayLeft} ${styles.selectedWay}`
+                      : `${styles.selectWay} ${styles.selectWayLeft} ${styles.normalWay}`
+                  }
+                  onClick={() => setIsSelectWay(true)}
+                >
+                  목록에서 선택
+                </div>
+                <div className={`${styles.midLine}`}></div>
+                <div
+                  className={
+                    isSelectWay
+                      ? `${styles.selectWay} ${styles.selectWayRight} ${styles.normalWay}`
+                      : `${styles.selectWay} ${styles.selectWayRight} ${styles.selectedWay}`
+                  }
+                  onClick={() => setIsSelectWay(false)}
+                >
+                  직접 선택
+                </div>
+              </div>
+              {isSelectWay ? (
+                <DuplicationSelect
+                  allList={allTimeSelect}
+                  list={selectTimeList}
+                  setList={setSelectTimeList}
+                  isFull={isSelectTimeFull}
+                  setIsFull={setIsSelectTimeFull}
+                  limit={9}
+                />
+              ) : (
+                <div className={styles.selfTimeSelect}>
+                  <ClassTime
+                    startTime={startTime}
+                    setStartTime={setStartTime}
+                    endTime={endTime}
+                    setEndTime={setEndTime}
+                  />
+                </div>
+              )}
             </div>
             <div className={styles.box}>
-              <div className={fonts.body1_SemiBold}>수업 방식</div>
+              <div
+                className={`${styles.textWithClickedBox} ${fonts.body1_SemiBold}`}
+              >
+                수업 방식
+              </div>
               <DuplicationSelect
                 allList={wayList}
                 list={classWayList}
@@ -393,7 +438,11 @@ export default function HomeFilter({
               />
             </div>
             <div className={styles.box}>
-              <div className={fonts.body1_SemiBold}>수업 난이도</div>
+              <div
+                className={`${styles.textWithClickedBox} ${fonts.body1_SemiBold}`}
+              >
+                수업 난이도
+              </div>
               <DuplicationSelect
                 allList={levelList}
                 list={classLevelList}
