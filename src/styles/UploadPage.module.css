@@ -70,6 +70,7 @@
 
 .timeInput[type='time']:focus {
   border: 1px solid var(--color-white);
+  color: var(--color-white);
 }
 
 .timeInput[type='time'] {
@@ -79,18 +80,23 @@
   border: 1px solid var(--color-gray-300);
   border-radius: 5px;
   width: 45%;
+  color: transparent;
+  padding-left: 13px;
 }
 
-/*
 .timeInput[type='time']::before {
   content: attr(data-placeholder);
   color: #b4b8bb;
-  margin-left: 13px;
-
+}
 
 .timeInput[type='time']:valid::before {
   display: none;
-}*/
+  color: var(--color-white);
+}
+
+.timeInput[type='time']:valid {
+  color: var(--color-white);
+}
 
 .timeInput[type='time']::-webkit-calendar-picker-indicator {
   position: absolute;
@@ -440,15 +446,16 @@
   padding-left: 0;
 }
 
-/*
 .datePicker[type='date']::before {
   content: attr(data-placeholder);
   width: 100%;
+  color: var(--color-gray-400);
 }
 
+.datePicker[type='date']:focus::before,
 .datePicker[type='date']:valid::before {
   display: none;
-}*/
+}
 
 /*classDay*/
 .dayBoxs {
