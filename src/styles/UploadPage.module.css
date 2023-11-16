@@ -140,6 +140,7 @@
   width: 100%;
   height: auto;
   cursor: pointer;
+  column-gap: 10px;
 }
 
 /*click 전후*/
@@ -335,7 +336,7 @@
   align-items: center;
   height: 41px;
   border-radius: 5px;
-  margin: 10px 10px 0 0;
+  margin: 10px 0 0 0;
 }
 
 .shortBox {
@@ -414,7 +415,7 @@
   height: 37px;
   width: 106px;
   border-radius: 5px;
-  margin: 10px 10px 0 0;
+  margin: 10px 0 0 0;
 }
 
 .datePicker {
@@ -457,6 +458,7 @@
   justify-content: flex-start;
   width: 100%;
   height: auto;
+  column-gap: 7px;
 }
 
 .dayBox {
@@ -467,7 +469,7 @@
   height: 57px;
   width: 42px;
   border-radius: 5px;
-  margin: 7px 7px 0 0;
+  margin: 7px 0 0 0;
 }
 
 .check {
