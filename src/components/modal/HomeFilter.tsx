@@ -132,7 +132,7 @@ export default function HomeFilter({
       setIsClassWayChecked(false);
     }
 
-    if (selectTimeList.length !== 0) {
+    if (selectTimeList.length !== 0 || (startTime !== '' && endTime !== '')) {
       setIsSelectTimeChecked(true);
     } else {
       setIsSelectTimeChecked(false);
@@ -151,6 +151,8 @@ export default function HomeFilter({
     classWayList,
     selectTimeList,
     classFee,
+    startTime,
+    endTime,
   ]);
 
   //초기화
@@ -163,6 +165,8 @@ export default function HomeFilter({
     setClassWayList([]);
     setClassLevelList([]);
     setSelectTimeList([]);
+    setStartTime('');
+    setEndTime('');
   };
 
   const router = useRouter();

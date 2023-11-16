@@ -4,6 +4,7 @@ import modalStyles from '../../styles/Modal.module.css';
 import buttonStyles from '../../styles/Button.module.css';
 import fonts from '../../styles/typography.module.css';
 import { IList, IDuplicationList } from '@/types/upload';
+import ClassTime from '../upload/ClassTime';
 import DuplicationSelect from '@/components/upload/DuplicationSelect';
 import {
   allLocationList,
@@ -71,6 +72,7 @@ export default function SearchFilter({
   const [classFee, setClassFee] = useRecoilState(classFeeSearchState);
 
   //목록 선택
+  const [isSelectWay, setIsSelectWay] = useState<boolean>(true);
   const [selectTimeList, setSelectTimeList] = useRecoilState(
     selectTimeListSearchState,
   );
@@ -86,6 +88,10 @@ export default function SearchFilter({
   const [isClassWayChecked, setIsClassWayChecked] = useState<boolean>(false);
   const [isSelectTimeChecked, setIsSelectTimeChecked] =
     useState<boolean>(false);
+  const [startHour, setStartHour] = useState<number>();
+  const [startTime, setStartTime] = useState<string>('');
+  const [endHour, setEndHour] = useState<number>();
+  const [endTime, setEndTime] = useState<string>('');
 
   const setSearchFilterValueList = useSetRecoilState<any>(
     homeFilterValueListSearchState,
@@ -137,7 +143,7 @@ export default function SearchFilter({
       setIsClassWayChecked(false);
     }
 
-    if (selectTimeList.length != 0) {
+    if (selectTimeList.length != 0 || (startTime !== '' && endTime !== '')) {
       setIsSelectTimeChecked(true);
     } else {
       setIsSelectTimeChecked(false);
@@ -156,6 +162,8 @@ export default function SearchFilter({
     classWayList,
     selectTimeList,
     classFee,
+    startTime,
+    endTime,
   ]);
 
   //초기화
@@ -167,6 +175,8 @@ export default function SearchFilter({
     setClassFee('전체 가격');
     setClassLevelList([]);
     setSelectTimeList([]);
+    setStartTime('');
+    setEndTime('');
   };
 
   const router = useRouter();
@@ -368,14 +378,48 @@ export default function SearchFilter({
               <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
                 수업 시간
               </div>
-              <DuplicationSelect
-                allList={allTimeSelect}
-                list={selectTimeList}
-                setList={setSelectTimeList}
-                isFull={isSelectTimeFull}
-                setIsFull={setIsSelectTimeFull}
-                limit={9}
-              />
+              <div className={`${styles.selectWayBox} ${fonts.body2_Regular}`}>
+                <div
+                  className={
+                    isSelectWay
+                      ? `${styles.selectWay} ${styles.selectWayLeft} ${styles.selectedWay}`
+                      : `${styles.selectWay} ${styles.selectWayLeft} ${styles.normalWay}`
+                  }
+                  onClick={() => setIsSelectWay(true)}
+                >
+                  목록에서 선택
+                </div>
+                <div className={`${styles.midLine}`}></div>
+                <div
+                  className={
+                    isSelectWay
+                      ? `${styles.selectWay} ${styles.selectWayRight} ${styles.normalWay}`
+                      : `${styles.selectWay} ${styles.selectWayRight} ${styles.selectedWay}`
+                  }
+                  onClick={() => setIsSelectWay(false)}
+                >
+                  직접 선택
+                </div>
+              </div>
+              {isSelectWay ? (
+                <DuplicationSelect
+                  allList={allTimeSelect}
+                  list={selectTimeList}
+                  setList={setSelectTimeList}
+                  isFull={isSelectTimeFull}
+                  setIsFull={setIsSelectTimeFull}
+                  limit={9}
+                />
+              ) : (
+                <div className={styles.selfTimeSelect}>
+                  <ClassTime
+                    startTime={startTime}
+                    setStartTime={setStartTime}
+                    endTime={endTime}
+                    setEndTime={setEndTime}
+                  />
+                </div>
+              )}
             </div>
             <div className={styles.box}>
               <div

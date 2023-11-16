@@ -70,7 +70,7 @@
 
 .timeInput[type='time']:focus {
   border: 1px solid var(--color-white);
-  color: var(--color-white);
+  color: transparent;
 }
 
 .timeInput[type='time'] {
@@ -91,7 +91,6 @@
 
 .timeInput[type='time']:valid::before {
   display: none;
-  color: var(--color-white);
 }
 
 .timeInput[type='time']:valid {

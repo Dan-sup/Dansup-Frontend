@@ -4,6 +4,7 @@ import modalStyles from '../../styles/Modal.module.css';
 import buttonStyles from '../../styles/Button.module.css';
 import fonts from '../../styles/typography.module.css';
 import { IList, IDuplicationList } from '@/types/upload';
+import ClassTime from '../upload/ClassTime';
 import {
   allLocationList,
   allGenreList,
@@ -49,8 +50,13 @@ export default function Filter({
   const [classFee, setClassFee] = useState<string>('전체 가격');
 
   //목록 선택
+  const [isSelectWay, setIsSelectWay] = useState<boolean>(true);
   const [selectTimeList, setSelectTimeList] = useState<IDuplicationList[]>([]);
   const [isSelectTimeFull, setIsSelectTimeFull] = useState<boolean>(false);
+  const [startHour, setStartHour] = useState<number>();
+  const [startTime, setStartTime] = useState<string>('');
+  const [endHour, setEndHour] = useState<number>();
+  const [endTime, setEndTime] = useState<string>('');
 
   //우효성 검사 state (Checked => 형식)
   const [isLocationChecked, setIsLocationChecked] = useState<boolean>(false);
@@ -395,14 +401,48 @@ export default function Filter({
               <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
                 수업 시간
               </div>
-              <DuplicationSelect
-                allList={allTimeSelect}
-                list={selectTimeList}
-                setList={setSelectTimeList}
-                isFull={isSelectTimeFull}
-                setIsFull={setIsSelectTimeFull}
-                limit={9}
-              />
+              <div className={`${styles.selectWayBox} ${fonts.body2_Regular}`}>
+                <div
+                  className={
+                    isSelectWay
+                      ? `${styles.selectWay} ${styles.selectWayLeft} ${styles.selectedWay}`
+                      : `${styles.selectWay} ${styles.selectWayLeft} ${styles.normalWay}`
+                  }
+                  onClick={() => setIsSelectWay(true)}
+                >
+                  목록에서 선택
+                </div>
+                <div className={`${styles.midLine}`}></div>
+                <div
+                  className={
+                    isSelectWay
+                      ? `${styles.selectWay} ${styles.selectWayRight} ${styles.normalWay}`
+                      : `${styles.selectWay} ${styles.selectWayRight} ${styles.selectedWay}`
+                  }
+                  onClick={() => setIsSelectWay(false)}
+                >
+                  직접 선택
+                </div>
+              </div>
+              {isSelectWay ? (
+                <DuplicationSelect
+                  allList={allTimeSelect}
+                  list={selectTimeList}
+                  setList={setSelectTimeList}
+                  isFull={isSelectTimeFull}
+                  setIsFull={setIsSelectTimeFull}
+                  limit={9}
+                />
+              ) : (
+                <div className={styles.selfTimeSelect}>
+                  <ClassTime
+                    startTime={startTime}
+                    setStartTime={setStartTime}
+                    endTime={endTime}
+                    setEndTime={setEndTime}
+                  />
+                </div>
+              )}
             </div>
             <div className={styles.box}>
               <div
