@@ -9,7 +9,6 @@ import buttonStyles from '../../styles/Button.module.css';
 import modalStyles from '../../styles/Modal.module.css';
 import styles from '../../styles/UploadPage.module.css';
 import { IList, IDuplicationList } from '@/types/upload';
-import { allGenreList } from '@/data/class-data';
 import DanceGenre from '../upload/DuplicationSelect';
 import DaumPostcode, { Address } from 'react-daum-postcode';
 import HashTag from '../upload/HashTag';
@@ -19,7 +18,12 @@ import ClassDate from '../upload/ClassDate';
 import ClassDay from '../upload/ClassDay';
 import ClassTime from '../upload/ClassTime';
 import ToastMsg from '../upload/ToastMsg';
-import { levelList, wayList } from '@/data/class-data';
+import {
+  levelList,
+  wayList,
+  allGenreList,
+  feeWayList,
+} from '@/data/class-data';
 import { postClassInfo } from '@/apis/my';
 import { useMutation } from '@tanstack/react-query';
 import { useRecoilValue } from 'recoil';
@@ -69,6 +73,9 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const [saturday, setSaturday] = useState<boolean>(false);
   const [sunday, setSunday] = useState<boolean>(false);
 
+  const [feeWay, setFeeWay] = useState<string>('');
+  const [selectFeeWayClickIndex, setSelectFeeWayClickIndex] =
+    useState<number>(2);
   const [video, setVideo] = useState<File | undefined>();
   const [classLink, setClassLink] = useState<string>('');
 
@@ -541,7 +548,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               </div>
             </div>
             <div>
-              <IndicatorSecond />
+              <IndicatorSecond className={styles.sectionIcon} />
               <div className={`${styles.sectionText} ${fonts.head1}`}>
                 수업방식 & 수업날짜를 선택해주세요
               </div>
@@ -598,7 +605,22 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               ) : null}
             </div>
             <div>
-              <IndicatorThird />
+              <IndicatorThird className={styles.sectionIcon} />
+              <div className={`${styles.sectionTextforFee}  ${fonts.head1}`}>
+                수업 결제 방식을 선택해주세요
+              </div>
+              <div className={styles.box}>
+                <Select
+                  list={feeWayList}
+                  votedItem={feeWay}
+                  setVotedItem={setFeeWay}
+                  clickIndex={selectFeeWayClickIndex}
+                  setClickIndex={setSelectFeeWayClickIndex}
+                />
+              </div>
+            </div>
+            <div>
+              <IndicatorThird className={styles.sectionIcon} />
               <div
                 className={`${styles.sectionText} ${styles.sectionTextWidth} ${fonts.head1}`}
               >
