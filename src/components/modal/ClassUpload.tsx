@@ -4,6 +4,7 @@ import Close from '../../../public/icons/close.svg';
 import IndicatorFirst from '../../../public/icons/indicator-first.svg';
 import IndicatorSecond from '../../../public/icons/indicator-second.svg';
 import IndicatorThird from '../../../public/icons/indicator-third.svg';
+import IndicatorFourth from '../../../public/icons/indicator-fourth.svg';
 import fonts from '../../styles/typography.module.css';
 import buttonStyles from '../../styles/Button.module.css';
 import modalStyles from '../../styles/Modal.module.css';
@@ -620,7 +621,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               </div>
             </div>
             <div>
-              <IndicatorThird className={styles.sectionIcon} />
+              <IndicatorFourth className={styles.sectionIcon} />
               <div
                 className={`${styles.sectionText} ${styles.sectionTextWidth} ${fonts.head1}`}
               >
