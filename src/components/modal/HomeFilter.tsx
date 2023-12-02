@@ -57,6 +57,7 @@ export default function HomeFilter({
   const [classDayList, setClassDayList] = useRecoilState(classDayListState);
   const [classWayList, setClassWayList] = useRecoilState(classWayState);
   const [classLevelList, setClassLevelList] = useRecoilState(classLevelState);
+  const [classLevel,setClassLevel] = useRecoilState(classLevelState);
   const [isClassWayFull, setIsClassWayFull] = useState<boolean>(false);
   const [isClassLevelFull, setIsClassLevelFull] = useState<boolean>(false);
   const [classFee, setClassFee] = useRecoilState(classFeeState);
@@ -143,6 +144,24 @@ export default function HomeFilter({
     } else {
       setIsClassFeeChecked(false);
     }
+
+    if (
+      parseInt(startTime) > 12 &&
+      parseInt(startTime) <= 24 &&
+      parseInt(endTime) < 13
+    ) {
+      setStartHour(parseInt(startTime));
+      setEndHour(parseInt(endTime) + 24);
+    } else {
+      setStartHour(parseInt(startTime));
+      setEndHour(parseInt(endTime));
+    }
+
+    for(var i=0;i<5;i++){
+      if(levelList[i]?.name === classLevelList[0]?.name ){
+       classLevel[0].name = levelList[i].shortName;
+      }
+    }
   }, [
     locationList,
     genreList,
@@ -206,6 +225,17 @@ export default function HomeFilter({
   const classWayValue = classWayList.map(item => item.name);
   const classLevelValue = classLevelList.map(item => item.name);
   const classFeeValue = classFee === '전체 가격' ? null : classFee;
+
+  const onClickinList = () => {
+    setIsSelectWay(true);
+    setStartTime('');
+    setEndTime('');
+  };
+
+  const onClickSelf = () => {
+    setIsSelectWay(false);
+    setSelectTimeList([]);
+  };
 
   //HomeFilter에 적용된 값 리스트 -> 필터 바에 넣을 것들
   const valueList = [
@@ -280,8 +310,8 @@ export default function HomeFilter({
       difficulty: classLevelList,
       minTuition: minTuition,
       maxTuition: maxTuition,
-      startTime: null,
-      endTime: null,
+      startHour: startHour,
+      endHour: endHour,
     });
 
     closeModal();
@@ -325,7 +355,7 @@ export default function HomeFilter({
                     setList={setLocationList}
                     isFull={isLocationFull}
                     setIsFull={setIsLocationFull}
-                    limit={26}
+                    limit={2}
                   />
                 </>
               ) : (
@@ -357,7 +387,7 @@ export default function HomeFilter({
                     setList={setGenreList}
                     isFull={isGenreFull}
                     setIsFull={setIsGenreFull}
-                    limit={20}
+                    limit={2}
                   />
                 </>
               ) : (
@@ -390,7 +420,7 @@ export default function HomeFilter({
                       ? `${styles.selectWay} ${styles.selectWayLeft} ${styles.selectedWay}`
                       : `${styles.selectWay} ${styles.selectWayLeft} ${styles.normalWay}`
                   }
-                  onClick={() => setIsSelectWay(true)}
+                  onClick={onClickinList}
                 >
                   목록에서 선택
                 </div>
@@ -401,7 +431,7 @@ export default function HomeFilter({
                       ? `${styles.selectWay} ${styles.selectWayRight} ${styles.normalWay}`
                       : `${styles.selectWay} ${styles.selectWayRight} ${styles.selectedWay}`
                   }
-                  onClick={() => setIsSelectWay(false)}
+                  onClick={onClickSelf}
                 >
                   직접 선택
                 </div>
@@ -413,7 +443,7 @@ export default function HomeFilter({
                   setList={setSelectTimeList}
                   isFull={isSelectTimeFull}
                   setIsFull={setIsSelectTimeFull}
-                  limit={9}
+                  limit={2}
                 />
               ) : (
                 <div className={styles.selfTimeSelect}>
@@ -438,7 +468,7 @@ export default function HomeFilter({
                 setList={setClassWayList}
                 isFull={isClassWayFull}
                 setIsFull={setIsClassWayFull}
-                limit={8}
+                limit={2}
               />
             </div>
             <div className={styles.box}>
@@ -453,7 +483,7 @@ export default function HomeFilter({
                 setList={setClassLevelList}
                 isFull={isClassLevelFull}
                 setIsFull={setIsClassLevelFull}
-                limit={6}
+                limit={2}
               />
             </div>
             <div className={styles.box}>
@@ -484,8 +514,7 @@ export default function HomeFilter({
             </div>
           </div>
 
-          <div className={styles.bottom}>
-            <div className={buttonStyles.buttonSpace}>
+          <div className={styles.bottom}>     
               {!isLocationChecked &&
               !isClassDayChecked &&
               !isClassFeeChecked &&
@@ -510,6 +539,5 @@ export default function HomeFilter({
           </div>
         </div>
       </div>
-    </div>
   );
 }

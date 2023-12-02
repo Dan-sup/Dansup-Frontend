@@ -84,6 +84,17 @@ export default function Filter({
     setClassFee(e.target.value);
   };
 
+  const onClickinList = () => {
+    setIsSelectWay(true);
+    setStartTime('');
+    setEndTime('');
+  };
+
+  const onClickSelf = () => {
+    setIsSelectWay(false);
+    setSelectTimeList([]);
+  };
+
   useEffect(() => {
     if (locationList.length !== 0) {
       setIsLocationChecked(true);
@@ -408,7 +419,7 @@ export default function Filter({
                       ? `${styles.selectWay} ${styles.selectWayLeft} ${styles.selectedWay}`
                       : `${styles.selectWay} ${styles.selectWayLeft} ${styles.normalWay}`
                   }
-                  onClick={() => setIsSelectWay(true)}
+                  onClick={onClickinList}
                 >
                   목록에서 선택
                 </div>
@@ -419,7 +430,7 @@ export default function Filter({
                       ? `${styles.selectWay} ${styles.selectWayRight} ${styles.normalWay}`
                       : `${styles.selectWay} ${styles.selectWayRight} ${styles.selectedWay}`
                   }
-                  onClick={() => setIsSelectWay(false)}
+                  onClick={onClickSelf}
                 >
                   직접 선택
                 </div>

@@ -112,6 +112,17 @@ export default function SearchFilter({
     setClassFee(e.target.value);
   };
 
+  const onClickinList = () => {
+    setIsSelectWay(true);
+    setStartTime('');
+    setEndTime('');
+  };
+
+  const onClickSelf = () => {
+    setIsSelectWay(false);
+    setSelectTimeList([]);
+  };
+
   useEffect(() => {
     if (locationList.length !== 0) {
       setIsLocationChecked(true);
@@ -153,6 +164,19 @@ export default function SearchFilter({
       setIsClassFeeChecked(true);
     } else {
       setIsClassFeeChecked(false);
+    }
+
+    if (
+      parseInt(startTime) > 12 &&
+      parseInt(startTime) <= 24 &&
+      parseInt(endTime) < 13
+    ) {
+      setStartHour(parseInt(startTime));
+      setEndHour(parseInt(endTime) + 24);
+    } else {
+      setStartHour(parseInt(startTime));
+      setEndHour(parseInt(endTime));
+
     }
   }, [
     locationList,
@@ -259,8 +283,8 @@ export default function SearchFilter({
       */
 
     handleSearchFilterOn({
-      location: locationList,
-      genres: genreList,
+      location: locationList[0].name,
+      genres: genreList[0].name,
       days: {
         mon: newClassDayList.includes('월'),
         tue: newClassDayList.includes('화'),
@@ -270,13 +294,13 @@ export default function SearchFilter({
         sat: newClassDayList.includes('토'),
         sun: newClassDayList.includes('일'),
       },
-      time: selectTimeList,
-      method: classWayList,
-      difficulty: classLevelList,
+      time: selectTimeList[0].name,
+      method: classWayList[0].name,
+      difficulty: classLevelList[0].name,
       minTuition: minTuition,
       maxTuition: maxTuition,
-      startTime: null,
-      endTime: null,
+      startHour: startHour,
+      endHour: endHour,
     });
 
     closeModal();
@@ -320,7 +344,7 @@ export default function SearchFilter({
                     setList={setLocationList}
                     isFull={isLocationFull}
                     setIsFull={setIsLocationFull}
-                    limit={26}
+                    limit={2}
                   />
                 </>
               ) : (
@@ -352,7 +376,7 @@ export default function SearchFilter({
                     setList={setGenreList}
                     isFull={isGenreFull}
                     setIsFull={setIsGenreFull}
-                    limit={20}
+                    limit={2}
                   />
                 </>
               ) : (
@@ -385,7 +409,7 @@ export default function SearchFilter({
                       ? `${styles.selectWay} ${styles.selectWayLeft} ${styles.selectedWay}`
                       : `${styles.selectWay} ${styles.selectWayLeft} ${styles.normalWay}`
                   }
-                  onClick={() => setIsSelectWay(true)}
+                  onClick={onClickinList}
                 >
                   목록에서 선택
                 </div>
@@ -396,7 +420,7 @@ export default function SearchFilter({
                       ? `${styles.selectWay} ${styles.selectWayRight} ${styles.normalWay}`
                       : `${styles.selectWay} ${styles.selectWayRight} ${styles.selectedWay}`
                   }
-                  onClick={() => setIsSelectWay(false)}
+                  onClick={onClickSelf}
                 >
                   직접 선택
                 </div>
@@ -408,7 +432,7 @@ export default function SearchFilter({
                   setList={setSelectTimeList}
                   isFull={isSelectTimeFull}
                   setIsFull={setIsSelectTimeFull}
-                  limit={9}
+                  limit={2}
                 />
               ) : (
                 <div className={styles.selfTimeSelect}>
@@ -433,7 +457,7 @@ export default function SearchFilter({
                 setList={setClassWayList}
                 isFull={isClassWayFull}
                 setIsFull={setIsClassWayFull}
-                limit={8}
+                limit={2}
               />
             </div>
             <div className={styles.box}>
@@ -448,7 +472,7 @@ export default function SearchFilter({
                 setList={setClassLevelList}
                 isFull={isClassLevelFull}
                 setIsFull={setIsClassLevelFull}
-                limit={6}
+                limit={2}
               />
             </div>
             <div className={styles.box}>
