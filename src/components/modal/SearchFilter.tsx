@@ -176,7 +176,6 @@ export default function SearchFilter({
     } else {
       setStartHour(parseInt(startTime));
       setEndHour(parseInt(endTime));
-
     }
   }, [
     locationList,
@@ -231,14 +230,28 @@ export default function SearchFilter({
     maxTuition = null;
   }
 
-  const locationValue = locationList.map(item => item.name);
-  const genreListValue = genreList.map(item => item.name);
+  const locationValue =
+    /*locationList.map(item => item.name)*/ locationList[0] === null
+      ? null
+      : locationList[0]?.name;
+  const genreListValue = /*genreList.map(item => item.name)*/ genreList.map(
+    item => item.name,
+  );
   const classDayListValue = classDayList
     .map(item => item.name)
     .filter(item => item !== '');
-  const selectTimeValue = selectTimeList.map(item => item.name);
-  const classWayValue = classWayList.map(item => item.name);
-  const classLevelValue = classLevelList.map(item => item.name);
+  const classTimeValue =
+    /*selectTimeList.map(item => item.name)*/ selectTimeList[0] === null
+      ? null
+      : selectTimeList[0]?.name;
+  const classWayValue =
+    /*classWayList.map(item => item.name)*/ classWayList[0] === null
+      ? null
+      : classWayList[0]?.name;
+  const classLevelValue =
+    /*classLevelList.map(item => item.name)*/ classLevelList[0] === null
+      ? null
+      : classLevelList[0]?.name;
   const classFeeValue = classFee === '전체 가격' ? null : classFee;
 
   //SearchFilter에 적용된 값 리스트 -> 필터 바에 넣을 것들
@@ -246,7 +259,7 @@ export default function SearchFilter({
     locationValue,
     genreListValue,
     classDayListValue,
-    selectTimeValue,
+    classTimeValue,
     classWayValue,
     classLevelValue,
     classFeeValue,
@@ -283,8 +296,8 @@ export default function SearchFilter({
       */
 
     handleSearchFilterOn({
-      location: locationList[0].name,
-      genres: genreList[0].name,
+      location: locationList[0] === null ? null : locationList[0]?.name,
+      genres: genreList.map(item => item.name),
       days: {
         mon: newClassDayList.includes('월'),
         tue: newClassDayList.includes('화'),
@@ -294,9 +307,15 @@ export default function SearchFilter({
         sat: newClassDayList.includes('토'),
         sun: newClassDayList.includes('일'),
       },
-      time: selectTimeList[0].name,
-      method: classWayList[0].name,
-      difficulty: classLevelList[0].name,
+      time: selectTimeList[0] === null ? null : selectTimeList[0]?.name,
+      method:
+        classWayList[0] === null
+          ? null
+          : changeClassWayToK(classWayList[0]?.name),
+      difficulty:
+        classLevelList[0] === null
+          ? null
+          : changeClassLevelToK(classLevelList[0]?.name),
       minTuition: minTuition,
       maxTuition: maxTuition,
       startHour: startHour,
@@ -376,7 +395,7 @@ export default function SearchFilter({
                     setList={setGenreList}
                     isFull={isGenreFull}
                     setIsFull={setIsGenreFull}
-                    limit={2}
+                    limit={22}
                   />
                 </>
               ) : (

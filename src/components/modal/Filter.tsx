@@ -19,6 +19,7 @@ import Close from '../../../public/icons/close.svg';
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 import { homeFilterState, searchFilterState } from '@/store/filter';
+import { changeClassLevelToK, changeClassWayToK } from '@/utils/filter';
 
 interface filterProps {
   isOpen: boolean;
@@ -244,8 +245,8 @@ export default function Filter({
       */
 
       handleHomeFilterOn({
-        location: locationList,
-        genres: genreList,
+        location: locationList[0] === null ? null : locationList[0]?.name,
+        genres: genreList.map(item => item.name),
         days: {
           mon: newClassDayList.includes('월'),
           tue: newClassDayList.includes('화'),
@@ -255,13 +256,19 @@ export default function Filter({
           sat: newClassDayList.includes('토'),
           sun: newClassDayList.includes('일'),
         },
-        time: selectTimeList,
-        method: classWayList,
-        difficulty: classLevelList,
+        time: selectTimeList[0] === null ? null : selectTimeList[0]?.name,
+        method:
+          classWayList[0] === null
+            ? null
+            : changeClassWayToK(classWayList[0]?.name),
+        difficulty:
+          classLevelList[0] === null
+            ? null
+            : changeClassLevelToK(classLevelList[0]?.name),
         minTuition: minTuition,
         maxTuition: maxTuition,
-        startTime: null,
-        endTime: null,
+        startHour: startHour,
+        endHour: endHour,
       });
 
       closeModal();
@@ -354,7 +361,7 @@ export default function Filter({
                     setList={setLocationList}
                     isFull={isLocationFull}
                     setIsFull={setIsLocationFull}
-                    limit={26}
+                    limit={2}
                   />
                 </>
               ) : (
@@ -386,7 +393,7 @@ export default function Filter({
                     setList={setGenreList}
                     isFull={isGenreFull}
                     setIsFull={setIsGenreFull}
-                    limit={20}
+                    limit={22}
                   />
                 </>
               ) : (
@@ -442,7 +449,7 @@ export default function Filter({
                   setList={setSelectTimeList}
                   isFull={isSelectTimeFull}
                   setIsFull={setIsSelectTimeFull}
-                  limit={9}
+                  limit={2}
                 />
               ) : (
                 <div className={styles.selfTimeSelect}>
@@ -482,7 +489,7 @@ export default function Filter({
                 setList={setClassLevelList}
                 isFull={isClassLevelFull}
                 setIsFull={setIsClassLevelFull}
-                limit={6}
+                limit={2}
               />
             </div>
             <div className={styles.box}>

@@ -57,7 +57,7 @@ export default function HomeFilter({
   const [classDayList, setClassDayList] = useRecoilState(classDayListState);
   const [classWayList, setClassWayList] = useRecoilState(classWayState);
   const [classLevelList, setClassLevelList] = useRecoilState(classLevelState);
-  const [classLevel,setClassLevel] = useRecoilState(classLevelState);
+  const [classLevel, setClassLevel] = useRecoilState(classLevelState);
   const [isClassWayFull, setIsClassWayFull] = useState<boolean>(false);
   const [isClassLevelFull, setIsClassLevelFull] = useState<boolean>(false);
   const [classFee, setClassFee] = useRecoilState(classFeeState);
@@ -156,12 +156,6 @@ export default function HomeFilter({
       setStartHour(parseInt(startTime));
       setEndHour(parseInt(endTime));
     }
-
-    for(var i=0;i<5;i++){
-      if(levelList[i]?.name === classLevelList[0]?.name ){
-       classLevel[0].name = levelList[i].shortName;
-      }
-    }
   }, [
     locationList,
     genreList,
@@ -216,14 +210,28 @@ export default function HomeFilter({
     maxTuition = null;
   }
 
-  const locationValue = locationList.map(item => item.name);
-  const genreListValue = genreList.map(item => item.name);
+  const locationValue =
+    /*locationList.map(item => item.name)*/ locationList[0] === null
+      ? null
+      : locationList[0]?.name;
+  const genreListValue = /*genreList.map(item => item.name)*/ genreList.map(
+    item => item.name,
+  );
   const classDayListValue = classDayList
     .map(item => item.name)
     .filter(item => item !== '');
-  const classTimeValue = selectTimeList.map(item => item.name);
-  const classWayValue = classWayList.map(item => item.name);
-  const classLevelValue = classLevelList.map(item => item.name);
+  const classTimeValue =
+    /*selectTimeList.map(item => item.name)*/ selectTimeList[0] === null
+      ? null
+      : selectTimeList[0]?.name;
+  const classWayValue =
+    /*classWayList.map(item => item.name)*/ classWayList[0] === null
+      ? null
+      : classWayList[0]?.name;
+  const classLevelValue =
+    /*classLevelList.map(item => item.name)*/ classLevelList[0] === null
+      ? null
+      : classLevelList[0]?.name;
   const classFeeValue = classFee === '전체 가격' ? null : classFee;
 
   const onClickinList = () => {
@@ -294,8 +302,8 @@ export default function HomeFilter({
       */
 
     handleHomeFilterOn({
-      location: locationList,
-      genres: genreList,
+      location: locationList[0] === null ? null : locationList[0]?.name,
+      genres: genreList.map(item => item.name),
       days: {
         mon: newClassDayList.includes('월'),
         tue: newClassDayList.includes('화'),
@@ -305,9 +313,15 @@ export default function HomeFilter({
         sat: newClassDayList.includes('토'),
         sun: newClassDayList.includes('일'),
       },
-      time: selectTimeList,
-      method: classWayList,
-      difficulty: classLevelList,
+      time: selectTimeList[0] === null ? null : selectTimeList[0]?.name,
+      method:
+        classWayList[0] === null
+          ? null
+          : changeClassWayToK(classWayList[0]?.name),
+      difficulty:
+        classLevelList[0] === null
+          ? null
+          : changeClassLevelToK(classLevelList[0]?.name),
       minTuition: minTuition,
       maxTuition: maxTuition,
       startHour: startHour,
@@ -387,7 +401,7 @@ export default function HomeFilter({
                     setList={setGenreList}
                     isFull={isGenreFull}
                     setIsFull={setIsGenreFull}
-                    limit={2}
+                    limit={22}
                   />
                 </>
               ) : (
@@ -514,30 +528,30 @@ export default function HomeFilter({
             </div>
           </div>
 
-          <div className={styles.bottom}>     
-              {!isLocationChecked &&
-              !isClassDayChecked &&
-              !isClassFeeChecked &&
-              !isClassLevelChecked &&
-              !isGenreListChecked &&
-              !isClassWayChecked &&
-              !isSelectTimeChecked ? (
-                <button
-                  className={`${buttonStyles.CTA_Large} ${buttonStyles.after} ${fonts.body1_SemiBold}`}
-                >
-                  필터 적용하기
-                </button>
-              ) : (
-                <button
-                  className={`${buttonStyles.CTA_Large} ${buttonStyles.before} ${fonts.body1_SemiBold}`}
-                  onClick={handleSubmit}
-                >
-                  필터 적용하기
-                </button>
-              )}
-            </div>
+          <div className={styles.bottom}>
+            {!isLocationChecked &&
+            !isClassDayChecked &&
+            !isClassFeeChecked &&
+            !isClassLevelChecked &&
+            !isGenreListChecked &&
+            !isClassWayChecked &&
+            !isSelectTimeChecked ? (
+              <button
+                className={`${buttonStyles.CTA_Large} ${buttonStyles.after} ${fonts.body1_SemiBold}`}
+              >
+                필터 적용하기
+              </button>
+            ) : (
+              <button
+                className={`${buttonStyles.CTA_Large} ${buttonStyles.before} ${fonts.body1_SemiBold}`}
+                onClick={handleSubmit}
+              >
+                필터 적용하기
+              </button>
+            )}
           </div>
         </div>
       </div>
+    </div>
   );
 }
