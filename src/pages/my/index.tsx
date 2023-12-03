@@ -252,6 +252,7 @@ export default function MyPage() {
             <FloatingBtn className={styles.floatingBtn} />
           )}
         </button>
+        <Footer />
         {isUploadBoxOpen ? (
           <div className={styles.modalBox}>
             <button
@@ -278,7 +279,6 @@ export default function MyPage() {
           <></>
         )}
       </div>
-      <Footer />
     </>
   );
 }
