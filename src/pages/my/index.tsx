@@ -10,6 +10,7 @@ import FloatingBtnX from '../../../public/icons/floating-btnX.svg';
 import PortfolioBtn from '../../../public/icons/portfolio-upload.svg';
 import ClassBtn from '../../../public/icons/class-upload.svg';
 import BlankImage from '../../../public/icons/blank-image.svg';
+import PencilIcon from '../../../public/icons/pencil-icon.svg';
 import MyPageHeader from '@/components/common/Header/MyPageHeader';
 import { useRecoilValue } from 'recoil';
 import { useMutation } from '@tanstack/react-query';
@@ -22,6 +23,7 @@ import {
 } from '@/apis/my';
 import ReactPlayer from 'react-player';
 import Footer from '@/components/common/Footer';
+import Link from 'next/link';
 
 export default function MyPage() {
   const [isUploadBoxOpen, setIsUploadBoxOpen] = useState<boolean>(false);
@@ -168,6 +170,10 @@ export default function MyPage() {
                 height={100}
               />
             )}
+
+            <Link href="/edit-profile" className={styles.editBtn}>
+              <PencilIcon />
+            </Link>
             <div className={`${styles.genreList} ${fonts.body2_Regular}`}>
               {genres.map((data: any, idx: any) => (
                 <>

@@ -169,6 +169,20 @@
   top: 336px;
 }
 
+.editBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-gray-400);
+  width: 32px;
+  height: 32px;
+  border-radius: 100%;
+  position: absolute;
+  left: 87px;
+  top: 404px;
+  cursor: pointer;
+}
+
 .genreList {
   display: flex;
   justify-content: flex-end;
