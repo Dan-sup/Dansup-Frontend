@@ -244,6 +244,8 @@ export default function SearchFilter({
     /*selectTimeList.map(item => item.name)*/ selectTimeList[0] === null
       ? null
       : selectTimeList[0]?.name;
+  const classSlefTimeValue =
+    startTime !== '' && endTime !== '' ? startTime + '~' + endTime : null;
   const classWayValue =
     /*classWayList.map(item => item.name)*/ classWayList[0] === null
       ? null
@@ -260,6 +262,7 @@ export default function SearchFilter({
     genreListValue,
     classDayListValue,
     classTimeValue,
+    classSlefTimeValue,
     classWayValue,
     classLevelValue,
     classFeeValue,

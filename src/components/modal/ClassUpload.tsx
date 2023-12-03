@@ -265,6 +265,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
 */
     const formData = new FormData();
 
+    /**결제방식 api 연결 전 */
     formData.append(
       'createDanceClassDto',
       new Blob(

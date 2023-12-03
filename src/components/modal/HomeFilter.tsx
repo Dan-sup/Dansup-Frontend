@@ -189,6 +189,7 @@ export default function HomeFilter({
 
   let minTuition: any = null;
   let maxTuition: any = null;
+  let classSelfTime: any = null;
 
   if (classFee === '전체 가격') {
     minTuition = null;
@@ -224,6 +225,8 @@ export default function HomeFilter({
     /*selectTimeList.map(item => item.name)*/ selectTimeList[0] === null
       ? null
       : selectTimeList[0]?.name;
+  const classSlefTimeValue =
+    startTime !== '' && endTime !== '' ? startTime + '~' + endTime : null;
   const classWayValue =
     /*classWayList.map(item => item.name)*/ classWayList[0] === null
       ? null
@@ -251,6 +254,7 @@ export default function HomeFilter({
     genreListValue,
     classDayListValue,
     classTimeValue,
+    classSlefTimeValue,
     classWayValue,
     classLevelValue,
     classFeeValue,
