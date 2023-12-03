@@ -41,6 +41,11 @@
   justify-content: center;
 }
 
+.textBtn {
+  cursor: pointer; /* -> 웹에서만 필요*/
+  color: var(--color-gray-200);
+}
+
 .modalBox {
   position: fixed;
   top: 44px;
