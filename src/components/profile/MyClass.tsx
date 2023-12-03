@@ -11,6 +11,7 @@ import Dot from '../../../public/icons/dot.svg';
 import Modal from '../common/Modal';
 import { closeClassListState } from '@/store/class';
 import { useRecoilState } from 'recoil';
+import Link from 'next/link';
 interface classProps {
   classes: any;
 }
@@ -156,8 +157,11 @@ export default function Class({ classes }: classProps) {
                         </div>
                       </div>
                     </div>
-                    <div
-                      onClick={() => router.push(`/class/${data.danceClassId}`)}
+                    <Link
+                      href={{
+                        pathname: `/class/[classId]`,
+                        query: { classId: data.danceClassId },
+                      }}
                     >
                       {data.videoUrl == '' ? (
                         <div className={styles.classVideoBox}></div>
@@ -227,7 +231,7 @@ export default function Class({ classes }: classProps) {
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </Link>
                   </div>
                   <div className={styles.divider} />
                 </>
