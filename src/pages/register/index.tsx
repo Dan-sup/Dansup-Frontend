@@ -394,7 +394,7 @@ export default function ProfileUpload() {
                   setList={setGenreList}
                   isFull={isGenreFull}
                   setIsFull={setIsGenreFull}
-                  limit={20}
+                  limit={22}
                 />
               </>
             ) : (
