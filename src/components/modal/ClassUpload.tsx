@@ -661,12 +661,14 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
             isOpen={isGenreFull}
             setIsOpen={setIsGenreFull}
             msg="나의 장르는 최대 2개까지 선택 가능합니다."
+            isEdit={false}
           />
 
           <ToastMsg
             isOpen={isHashTagFull}
             setIsOpen={setIsHashTagFull}
             msg=" 해시태그는 최대 3개까지 선택 가능합니다."
+            isEdit={false}
           />
 
           <div className={styles.bottom}>

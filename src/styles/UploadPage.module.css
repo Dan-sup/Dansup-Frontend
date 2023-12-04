@@ -502,13 +502,16 @@
 
 .toastMessageBox {
   position: fixed;
-  bottom: 50px;
+  bottom: 27px;
   display: flex;
   align-items: center;
   width: calc(100% - 36px);
   height: 40px;
   border-radius: 5px;
   background: var(--color-gray-500-card);
+}
+
+.btnToastMessageBox {
   margin-bottom: 75px;
 }
 
