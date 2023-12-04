@@ -31,9 +31,10 @@ export default function Footer() {
   });
 
   useEffect(() => {
-    console.log(user.accessToken);
-    getMyInfoMutation.mutate(user.accessToken);
-  }, [user.accessToken]); //토큰 재발급 구현하면 다시 보자!!!
+    if (user.accessToken !== '') {
+      getMyInfoMutation.mutate(user.accessToken);
+    }
+  }, [user.accessToken, profileImg]); //토큰 재발급 구현하면 다시 보자!!!
 
   const barList = [
     {
@@ -75,39 +76,72 @@ export default function Footer() {
       {barList.map(data => {
         return (
           <Link
-            href={`${user.accessToken == '' ? data.linkB : data.linkA}`}
+            href={`${
+              getMyInfoMutation.isLoading || getMyInfoMutation.isSuccess
+                ? data.linkA
+                : data.linkB
+            }`}
             key={data.id}
             className={styles.button}
           >
-            {user.accessToken == '' ? (
-              <data.iconB
-                className={`${
-                  pathname == data.linkA ? styles.clickedIcon : styles.icon
-                }`}
-              />
-            ) : (
+            {getMyInfoMutation.isLoading || getMyInfoMutation.isSuccess ? (
               <>
-                {profileImg == '' || data.name !== '마이페이지' ? (
-                  <data.iconA
+                {data.name == '마이페이지' ? (
+                  <>
+                    {profileImg !== '' ? (
+                      <img
+                        src={profileImg}
+                        className={`${
+                          pathname == '/my'
+                            ? styles.clickedProfile
+                            : styles.profile
+                        }`}
+                      />
+                    ) : (
+                      <data.iconA
+                        className={`${
+                          pathname == data.linkA
+                            ? styles.clickedIcon
+                            : styles.icon
+                        }`}
+                      />
+                    )}
+                  </>
+                ) : (
+                  <data.iconB
                     className={`${
                       pathname == data.linkA ? styles.clickedIcon : styles.icon
                     }`}
                   />
-                ) : (
-                  <img src={profileImg} className={styles.profile} />
                 )}
+                <div
+                  className={`${
+                    pathname == data.linkA
+                      ? `${styles.clickedIcon} ${typoStyles.caption1_Regular}`
+                      : `${styles.icon} ${typoStyles.caption1_Regular}`
+                  }`}
+                >
+                  {data.name}
+                </div>{' '}
+              </>
+            ) : (
+              <>
+                <data.iconB
+                  className={`${
+                    pathname == data.linkA ? styles.clickedIcon : styles.icon
+                  }`}
+                />
+                <div
+                  className={`${
+                    pathname == data.linkA
+                      ? `${styles.clickedIcon} ${typoStyles.caption1_Regular}`
+                      : `${styles.icon} ${typoStyles.caption1_Regular}`
+                  }`}
+                >
+                  {data.name}
+                </div>
               </>
             )}
-
-            <div
-              className={`${
-                pathname == data.linkA
-                  ? `${styles.clickedIcon} ${typoStyles.caption1_Regular}`
-                  : `${styles.icon} ${typoStyles.caption1_Regular}`
-              }`}
-            >
-              {data.name}
-            </div>
           </Link>
         );
       })}

@@ -32,6 +32,7 @@ import {
   selectTimeListState,
 } from '@/store/filter/homeFilter';
 import { changeClassWayToK, changeClassLevelToK } from '@/utils/filter';
+import ClassTime from '../upload/ClassTime';
 
 interface filterProps {
   isOpen: boolean;
@@ -49,7 +50,6 @@ export default function HomeFilter({
   const [isClickedLocation, setIsClickedLocation] = useRecoilState(
     isClickedLocationState,
   );
-  //Genre 박스 열기
   const [genreList, setGenreList] = useRecoilState(genreListState);
   const [isGenreFull, setIsGenreFull] = useState<boolean>(false);
   const [isClickedGenre, setIsClickedGenre] =
@@ -57,14 +57,20 @@ export default function HomeFilter({
   const [classDayList, setClassDayList] = useRecoilState(classDayListState);
   const [classWayList, setClassWayList] = useRecoilState(classWayState);
   const [classLevelList, setClassLevelList] = useRecoilState(classLevelState);
+  const [classLevel, setClassLevel] = useRecoilState(classLevelState);
   const [isClassWayFull, setIsClassWayFull] = useState<boolean>(false);
   const [isClassLevelFull, setIsClassLevelFull] = useState<boolean>(false);
   const [classFee, setClassFee] = useRecoilState(classFeeState);
 
   //목록 선택
+  const [isSelectWay, setIsSelectWay] = useState<boolean>(true);
   const [selectTimeList, setSelectTimeList] =
     useRecoilState(selectTimeListState);
   const [isSelectTimeFull, setIsSelectTimeFull] = useState<boolean>(false);
+  const [startHour, setStartHour] = useState<number>();
+  const [startTime, setStartTime] = useState<string>('');
+  const [endHour, setEndHour] = useState<number>();
+  const [endTime, setEndTime] = useState<string>('');
 
   //우효성 검사 state (Checked => 형식)
   const [isLocationChecked, setIsLocationChecked] = useState<boolean>(false);
@@ -127,7 +133,7 @@ export default function HomeFilter({
       setIsClassWayChecked(false);
     }
 
-    if (selectTimeList.length !== 0) {
+    if (selectTimeList.length !== 0 || (startTime !== '' && endTime !== '')) {
       setIsSelectTimeChecked(true);
     } else {
       setIsSelectTimeChecked(false);
@@ -138,6 +144,18 @@ export default function HomeFilter({
     } else {
       setIsClassFeeChecked(false);
     }
+
+    if (
+      parseInt(startTime) > 12 &&
+      parseInt(startTime) <= 24 &&
+      parseInt(endTime) < 13
+    ) {
+      setStartHour(parseInt(startTime));
+      setEndHour(parseInt(endTime) + 24);
+    } else {
+      setStartHour(parseInt(startTime));
+      setEndHour(parseInt(endTime));
+    }
   }, [
     locationList,
     genreList,
@@ -146,6 +164,8 @@ export default function HomeFilter({
     classWayList,
     selectTimeList,
     classFee,
+    startTime,
+    endTime,
   ]);
 
   //초기화
@@ -158,6 +178,8 @@ export default function HomeFilter({
     setClassWayList([]);
     setClassLevelList([]);
     setSelectTimeList([]);
+    setStartTime('');
+    setEndTime('');
   };
 
   const router = useRouter();
@@ -167,6 +189,7 @@ export default function HomeFilter({
 
   let minTuition: any = null;
   let maxTuition: any = null;
+  let classSelfTime: any = null;
 
   if (classFee === '전체 가격') {
     minTuition = null;
@@ -188,15 +211,42 @@ export default function HomeFilter({
     maxTuition = null;
   }
 
-  const locationValue = locationList.map(item => item.name);
-  const genreListValue = genreList.map(item => item.name);
+  const locationValue =
+    /*locationList.map(item => item.name)*/ locationList[0] === null
+      ? null
+      : locationList[0]?.name;
+  const genreListValue = /*genreList.map(item => item.name)*/ genreList.map(
+    item => item.name,
+  );
   const classDayListValue = classDayList
     .map(item => item.name)
     .filter(item => item !== '');
-  const classTimeValue = selectTimeList.map(item => item.name);
-  const classWayValue = classWayList.map(item => item.name);
-  const classLevelValue = classLevelList.map(item => item.name);
+  const classTimeValue =
+    /*selectTimeList.map(item => item.name)*/ selectTimeList[0] === null
+      ? null
+      : selectTimeList[0]?.name;
+  const classSlefTimeValue =
+    startTime !== '' && endTime !== '' ? startTime + '~' + endTime : null;
+  const classWayValue =
+    /*classWayList.map(item => item.name)*/ classWayList[0] === null
+      ? null
+      : classWayList[0]?.name;
+  const classLevelValue =
+    /*classLevelList.map(item => item.name)*/ classLevelList[0] === null
+      ? null
+      : classLevelList[0]?.name;
   const classFeeValue = classFee === '전체 가격' ? null : classFee;
+
+  const onClickinList = () => {
+    setIsSelectWay(true);
+    setStartTime('');
+    setEndTime('');
+  };
+
+  const onClickSelf = () => {
+    setIsSelectWay(false);
+    setSelectTimeList([]);
+  };
 
   //HomeFilter에 적용된 값 리스트 -> 필터 바에 넣을 것들
   const valueList = [
@@ -204,6 +254,7 @@ export default function HomeFilter({
     genreListValue,
     classDayListValue,
     classTimeValue,
+    classSlefTimeValue,
     classWayValue,
     classLevelValue,
     classFeeValue,
@@ -255,8 +306,8 @@ export default function HomeFilter({
       */
 
     handleHomeFilterOn({
-      location: locationList,
-      genres: genreList,
+      location: locationList[0] === null ? null : locationList[0]?.name,
+      genres: genreList.map(item => item.name),
       days: {
         mon: newClassDayList.includes('월'),
         tue: newClassDayList.includes('화'),
@@ -266,13 +317,19 @@ export default function HomeFilter({
         sat: newClassDayList.includes('토'),
         sun: newClassDayList.includes('일'),
       },
-      time: selectTimeList,
-      method: classWayList,
-      difficulty: classLevelList,
+      time: selectTimeList[0] === null ? null : selectTimeList[0]?.name,
+      method:
+        classWayList[0] === null
+          ? null
+          : changeClassWayToK(classWayList[0]?.name),
+      difficulty:
+        classLevelList[0] === null
+          ? null
+          : changeClassLevelToK(classLevelList[0]?.name),
       minTuition: minTuition,
       maxTuition: maxTuition,
-      startTime: null,
-      endTime: null,
+      startHour: startHour,
+      endHour: endHour,
     });
 
     closeModal();
@@ -316,7 +373,7 @@ export default function HomeFilter({
                     setList={setLocationList}
                     isFull={isLocationFull}
                     setIsFull={setIsLocationFull}
-                    limit={26}
+                    limit={2}
                   />
                 </>
               ) : (
@@ -348,7 +405,7 @@ export default function HomeFilter({
                     setList={setGenreList}
                     isFull={isGenreFull}
                     setIsFull={setIsGenreFull}
-                    limit={20}
+                    limit={22}
                   />
                 </>
               ) : (
@@ -363,7 +420,9 @@ export default function HomeFilter({
               )}
             </div>
             <div className={styles.box}>
-              <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+              <div
+                className={`${styles.textWithDayBox} ${fonts.body1_SemiBold}`}
+              >
                 수업 요일
               </div>
               <ClassDay list={classDayList} setList={setClassDayList} />
@@ -372,35 +431,77 @@ export default function HomeFilter({
               <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
                 수업 시간
               </div>
-              <DuplicationSelect
-                allList={allTimeSelect}
-                list={selectTimeList}
-                setList={setSelectTimeList}
-                isFull={isSelectTimeFull}
-                setIsFull={setIsSelectTimeFull}
-                limit={9}
-              />
+              <div className={`${styles.selectWayBox} ${fonts.body2_Regular}`}>
+                <div
+                  className={
+                    isSelectWay
+                      ? `${styles.selectWay} ${styles.selectWayLeft} ${styles.selectedWay}`
+                      : `${styles.selectWay} ${styles.selectWayLeft} ${styles.normalWay}`
+                  }
+                  onClick={onClickinList}
+                >
+                  목록에서 선택
+                </div>
+                <div className={`${styles.midLine}`}></div>
+                <div
+                  className={
+                    isSelectWay
+                      ? `${styles.selectWay} ${styles.selectWayRight} ${styles.normalWay}`
+                      : `${styles.selectWay} ${styles.selectWayRight} ${styles.selectedWay}`
+                  }
+                  onClick={onClickSelf}
+                >
+                  직접 선택
+                </div>
+              </div>
+              {isSelectWay ? (
+                <DuplicationSelect
+                  allList={allTimeSelect}
+                  list={selectTimeList}
+                  setList={setSelectTimeList}
+                  isFull={isSelectTimeFull}
+                  setIsFull={setIsSelectTimeFull}
+                  limit={2}
+                />
+              ) : (
+                <div className={styles.selfTimeSelect}>
+                  <ClassTime
+                    startTime={startTime}
+                    setStartTime={setStartTime}
+                    endTime={endTime}
+                    setEndTime={setEndTime}
+                  />
+                </div>
+              )}
             </div>
             <div className={styles.box}>
-              <div className={fonts.body1_SemiBold}>수업 방식</div>
+              <div
+                className={`${styles.textWithClickedBox} ${fonts.body1_SemiBold}`}
+              >
+                수업 방식
+              </div>
               <DuplicationSelect
                 allList={wayList}
                 list={classWayList}
                 setList={setClassWayList}
                 isFull={isClassWayFull}
                 setIsFull={setIsClassWayFull}
-                limit={8}
+                limit={2}
               />
             </div>
             <div className={styles.box}>
-              <div className={fonts.body1_SemiBold}>수업 난이도</div>
+              <div
+                className={`${styles.textWithClickedBox} ${fonts.body1_SemiBold}`}
+              >
+                수업 난이도
+              </div>
               <DuplicationSelect
                 allList={levelList}
                 list={classLevelList}
                 setList={setClassLevelList}
                 isFull={isClassLevelFull}
                 setIsFull={setIsClassLevelFull}
-                limit={6}
+                limit={2}
               />
             </div>
             <div className={styles.box}>
@@ -432,28 +533,26 @@ export default function HomeFilter({
           </div>
 
           <div className={styles.bottom}>
-            <div className={buttonStyles.buttonSpace}>
-              {!isLocationChecked &&
-              !isClassDayChecked &&
-              !isClassFeeChecked &&
-              !isClassLevelChecked &&
-              !isGenreListChecked &&
-              !isClassWayChecked &&
-              !isSelectTimeChecked ? (
-                <button
-                  className={`${buttonStyles.CTA_Large} ${buttonStyles.after} ${fonts.body1_SemiBold}`}
-                >
-                  필터 적용하기
-                </button>
-              ) : (
-                <button
-                  className={`${buttonStyles.CTA_Large} ${buttonStyles.before} ${fonts.body1_SemiBold}`}
-                  onClick={handleSubmit}
-                >
-                  필터 적용하기
-                </button>
-              )}
-            </div>
+            {!isLocationChecked &&
+            !isClassDayChecked &&
+            !isClassFeeChecked &&
+            !isClassLevelChecked &&
+            !isGenreListChecked &&
+            !isClassWayChecked &&
+            !isSelectTimeChecked ? (
+              <button
+                className={`${buttonStyles.CTA_Large} ${buttonStyles.after} ${fonts.body1_SemiBold}`}
+              >
+                필터 적용하기
+              </button>
+            ) : (
+              <button
+                className={`${buttonStyles.CTA_Large} ${buttonStyles.before} ${fonts.body1_SemiBold}`}
+                onClick={handleSubmit}
+              >
+                필터 적용하기
+              </button>
+            )}
           </div>
         </div>
       </div>

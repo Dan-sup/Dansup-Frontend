@@ -6,6 +6,7 @@ import styles from '../styles/components/ClassCard.module.css';
 import { useRouter } from 'next/router';
 import { changeDateForm, changeDayForm } from '@/utils/date';
 import ReactPlayer from 'react-player';
+import Link from 'next/link';
 
 interface ClassCardProps {
   classInfo: any;
@@ -16,9 +17,12 @@ export default function ClassCard({ classInfo }: ClassCardProps) {
 
   return (
     <>
-      <div
+      <Link
+        href={{
+          pathname: `class/[classId]`,
+          query: { classId: classInfo.danceClassId },
+        }}
         className={styles.titleBox}
-        onClick={() => router.push(`class/${classInfo.danceClassId}`)}
       >
         <div className={styles.profileImgBox}>
           {!classInfo.userProfileImage ? (
@@ -41,7 +45,7 @@ export default function ClassCard({ classInfo }: ClassCardProps) {
             {classInfo.userNickname}
           </div>
         </div>
-      </div>
+      </Link>
 
       <ReactPlayer
         url={classInfo?.videoUrl}

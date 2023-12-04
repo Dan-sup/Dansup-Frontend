@@ -97,7 +97,7 @@ export default function ClassDetail() {
         </div>
 
         <div className={styles.kindContainer}>
-          <Kind icon={<PulseIcon />} text={classInfo?.genres[0].genre} />
+          <Kind icon={<PulseIcon />} text={classInfo?.genres[0]?.genre} />
           <Kind
             icon={<LocationIcon />}
             text={classInfo?.location.split(' ')[1]}
