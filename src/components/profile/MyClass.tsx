@@ -6,12 +6,11 @@ import Avatar from '../../../public/icons/ClassCard/avatar.svg';
 import ReactPlayer from 'react-player';
 import { changeDateForm, changeDayForm } from '@/utils/date';
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Dot from '../../../public/icons/dot.svg';
-import Modal from '../common/Modal';
-import { closeClassListState } from '@/store/class';
-import { useRecoilState } from 'recoil';
+import ClassModal from '../common/ClassModal';
 import Link from 'next/link';
+
 interface classProps {
   classes: any;
 }
@@ -23,8 +22,6 @@ export default function Class({ classes }: classProps) {
   const [clickedClass, setClickedClass] = useState<string[]>(['']);
   const [isCloseModalOpen, setIsCloseModalOpen] = useState<boolean[]>([]);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean[]>([]);
-  const [closeClassList, setCloseClassList] =
-    useRecoilState(closeClassListState);
 
   return (
     <div className={styles.container}>
@@ -130,11 +127,12 @@ export default function Class({ classes }: classProps) {
                           {isCloseModalOpen[
                             clickedClass.indexOf(data.title, 0) - 1
                           ] ? (
-                            <Modal
+                            <ClassModal
                               question=" 수업을 마감할까요?"
                               requestion="더 이상 수강인원을 받지 않아요"
                               button="마감하기"
                               closeModal={closeCloseModal}
+                              classNumber={data.danceClassId}
                             />
                           ) : (
                             <></>
@@ -142,11 +140,12 @@ export default function Class({ classes }: classProps) {
                           {isDeleteModalOpen[
                             clickedClass.indexOf(data.title, 0) - 1
                           ] ? (
-                            <Modal
+                            <ClassModal
                               question="수업을 삭제할까요?"
                               requestion="수업을 아예 목록에서 지울게요"
                               button="삭제하기"
                               closeModal={closeDeleteModal}
+                              classNumber={data.danceClassId}
                             />
                           ) : (
                             <></>
@@ -159,7 +158,7 @@ export default function Class({ classes }: classProps) {
                     </div>
                     <Link
                       href={{
-                        pathname: `/class/[classId]`,
+                        pathname: `/my-class/[classId]`,
                         query: { classId: data.danceClassId },
                       }}
                     >

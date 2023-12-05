@@ -5,8 +5,15 @@ import styles from '../../../styles/components/common/MyPageHeader.module.css';
 import fonts from '../../../styles/typography.module.css';
 import Modal from '../Modal';
 import { useRouter } from 'next/router';
+import { userState } from '@/store/user';
+import { useRecoilState } from 'recoil';
+import { useCookies } from 'react-cookie';
+import { useMutation } from '@tanstack/react-query';
+import { logout } from '@/apis/auth';
 
 export default function MyPageHeader() {
+  const [user, setUser] = useRecoilState(userState);
+  const [cookies, setCookie, removeCookie] = useCookies(['refreshToken']);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState<boolean>(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
@@ -37,6 +44,32 @@ export default function MyPageHeader() {
   const onclickBack = () => {
     router.back();
   };
+
+  const logoutMutation = useMutation(logout, {
+    onSuccess: data => {
+      console.log(data);
+      router.push('/');
+    },
+    onError: error => {
+      console.log(error);
+    },
+  });
+
+  const actLogoutModal = () => {
+    {
+      logoutMutation.mutate({
+        accessToken: user.accessToken,
+        refreshToken: user.refreshToken,
+      });
+      setUser({ ...user, accessToken: '', refreshToken: '' });
+      removeCookie('refreshToken', {
+        sameSite: 'strict',
+        path: '/',
+      });
+    }
+  };
+
+  const actDeleteModal = () => {};
 
   return (
     <>
@@ -77,6 +110,7 @@ export default function MyPageHeader() {
               requestion=""
               button="로그아웃"
               closeModal={closeLogoutModal}
+              actModal={actLogoutModal}
             />
           ) : (
             <></>
@@ -87,6 +121,7 @@ export default function MyPageHeader() {
               requestion=""
               button="계정 탈퇴"
               closeModal={closeDeleteModal}
+              actModal={actDeleteModal}
             />
           ) : (
             <></>
