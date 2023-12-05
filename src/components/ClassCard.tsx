@@ -46,16 +46,21 @@ export default function ClassCard({ classInfo }: ClassCardProps) {
           </div>
         </div>
       </Link>
-
-      <ReactPlayer
-        url={classInfo?.videoUrl}
-        muted
-        playing={false}
-        className={styles.video}
-        width="100%"
-        height={210}
-        onClick={() => router.push(`class/${classInfo.danceClassId}`)}
-      />
+      <Link
+        href={{
+          pathname: `class/[classId]`,
+          query: { classId: classInfo.danceClassId },
+        }}
+      >
+        <ReactPlayer
+          url={classInfo?.videoUrl}
+          muted
+          playing={false}
+          className={styles.video}
+          width="100%"
+          height={210}
+        />
+      </Link>
 
       <div className={`${styles.InfoBox} ${typoStyles.body2_Regular}`}>
         <div className={styles.genreBox}>

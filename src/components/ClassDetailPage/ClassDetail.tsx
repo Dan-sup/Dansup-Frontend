@@ -12,6 +12,7 @@ import InfoBox from './InfoBox';
 import DescriptionBox from './DescriptionBox';
 import { useRouter } from 'next/router';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import Link from 'next/link';
 import { getClass } from '@/apis/class';
 import { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
@@ -106,28 +107,32 @@ export default function ClassDetail() {
           <Kind icon={<TrailIcon />} text={classInfo?.difficulty} />
         </div>
 
-        <div
-          className={styles.dancerContainer}
-          onClick={() => router.push(`/dancer-profile/${classInfo?.profileId}`)}
+        <Link
+          href={{
+            pathname: `/dancer-profile/[dancerId]`,
+            query: { dancerId: classInfo?.profileId },
+          }}
         >
-          <div className={styles.dancerBox}>
-            {classInfo?.userProfileImage ? (
-              <img
-                src={classInfo?.userProfileImage}
-                className={styles.dancerImg}
-              />
-            ) : (
-              <AvatarIcon className={styles.dancerImg} />
-            )}
-            <div
-              className={`${styles.dancerName} ${typoStyles.body1_SemiBold}`}
-            >
-              {classInfo?.userNickname}
+          <div className={styles.dancerContainer}>
+            <div className={styles.dancerBox}>
+              {classInfo?.userProfileImage ? (
+                <img
+                  src={classInfo?.userProfileImage}
+                  className={styles.dancerImg}
+                />
+              ) : (
+                <AvatarIcon className={styles.dancerImg} />
+              )}
+              <div
+                className={`${styles.dancerName} ${typoStyles.body1_SemiBold}`}
+              >
+                {classInfo?.userNickname}
+              </div>
             </div>
-          </div>
 
-          <ArrowIcon className={styles.arrowIcon} />
-        </div>
+            <ArrowIcon className={styles.arrowIcon} />
+          </div>
+        </Link>
       </div>
 
       <div className={styles.divider}></div>
