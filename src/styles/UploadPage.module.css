@@ -191,7 +191,8 @@
 }
 
 .sectionTextWidth {
-  width: 230px;
+  width: 131px;
+  line-height: 150%;
 }
 
 .smallTexts {

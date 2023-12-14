@@ -15,7 +15,6 @@ export default function ClassDetailPage() {
       <div className={styles.container}>
         <ClassDetail />
       </div>
-      <Footer />
     </>
   );
 }
