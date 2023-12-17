@@ -229,8 +229,11 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
       setEndHour(parseInt(endTime));
     }
 
-    if (feeWay !== '') {
+    if (feeWay === 'rez' && classLink !== '') {
       setIsPayWayChecked(true);
+    } else if (feeWay === 'spot') {
+      setIsPayWayChecked(true);
+      setClassLink('');
     } else {
       setIsPayWayChecked(false);
     }
@@ -243,6 +246,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
     classDate,
     classWay,
     feeWay,
+    classLink,
   ]);
 
   //api
@@ -632,8 +636,11 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               </div>
               {feeWay == 'rez' ? (
                 <div className={styles.box}>
-                  <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
-                    예약 링크
+                  <div className={styles.row}>
+                    <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                      예약 링크
+                    </div>
+                    <div className={styles.pointText}>*</div>
                   </div>
                   <div
                     className={`${styles.detailText} ${fonts.body2_Regular}`}
