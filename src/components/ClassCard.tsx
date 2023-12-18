@@ -7,6 +7,7 @@ import styles from '../styles/components/ClassCard.module.css';
 import { useRouter } from 'next/router';
 import { changeDateForm, changeDayForm } from '@/utils/date';
 import ReactPlayer from 'react-player';
+import Link from 'next/link';
 
 interface ClassCardProps {
   classInfo: any;

@@ -1,38 +1,20 @@
-import { useRecoilState } from 'recoil';
 import styles from '../../styles/Modal.module.css';
 import fonts from '../../styles/typography.module.css';
-import { userState } from '@/store/user';
-import { useRouter } from 'next/router';
-import { useCookies } from 'react-cookie';
-import { useMutation } from '@tanstack/react-query';
-import { logout } from '@/apis/auth';
 
 interface Modal {
   question: string;
   requestion: string;
   button: string;
   closeModal: () => void;
+  actModal: () => void;
 }
 export default function Modal({
   question,
   requestion,
   button,
   closeModal,
+  actModal,
 }: Modal) {
-  const [user, setUser] = useRecoilState(userState);
-  const [cookies, setCookie, removeCookie] = useCookies(['refreshToken']);
-  const router = useRouter();
-
-  const logoutMutation = useMutation(logout, {
-    onSuccess: data => {
-      console.log(data);
-      router.push('/');
-    },
-    onError: error => {
-      console.log(error);
-    },
-  });
-
   return (
     <div className={`${styles.checkModalContainer} ${styles.paddingContainer}`}>
       <div className={styles.checkModalBody}>
@@ -53,19 +35,7 @@ export default function Modal({
           </button>
           <button
             className={`${styles.button_submit}  ${fonts.body1_SemiBold}`}
-            onClick={() => {
-              if (button == '로그아웃') {
-                logoutMutation.mutate({
-                  accessToken: user.accessToken,
-                  refreshToken: user.refreshToken,
-                });
-                setUser({ ...user, accessToken: '', refreshToken: '' });
-                removeCookie('refreshToken', {
-                  sameSite: 'strict',
-                  path: '/',
-                });
-              }
-            }}
+            onClick={actModal}
           >
             {button}
           </button>

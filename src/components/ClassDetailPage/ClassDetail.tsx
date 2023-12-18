@@ -11,10 +11,12 @@ import Kind from './Kind';
 import InfoBox from './InfoBox';
 import DescriptionBox from './DescriptionBox';
 import { useRouter } from 'next/router';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
+import Link from 'next/link';
 import { getClass } from '@/apis/class';
 import { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
+import Modal from '../common/Modal';
 import {
   changeDateForm,
   changeDateNoDotForm,
@@ -27,6 +29,8 @@ export default function ClassDetail() {
   const router = useRouter();
 
   const [classInfo, setClassInfo] = useState<any>();
+  const [onSite, setOnSite] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     if (!router.isReady) return;
@@ -63,6 +67,26 @@ export default function ClassDetail() {
     },
   });
 
+  useEffect(() => {
+    if (classInfo?.reserveLink === null) {
+      setOnSite(false);
+    } else {
+      setOnSite(true);
+    }
+  });
+
+  const openModal = () => {
+    setIsModalOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    document.body.style.overflow = 'unset';
+  };
+
+  const actModal = () => {};
+
   return (
     <>
       <ReactPlayer
@@ -97,7 +121,7 @@ export default function ClassDetail() {
         </div>
 
         <div className={styles.kindContainer}>
-          <Kind icon={<PulseIcon />} text={classInfo?.genres[0].genre} />
+          <Kind icon={<PulseIcon />} text={classInfo?.genres[0]?.genre} />
           <Kind
             icon={<LocationIcon />}
             text={classInfo?.location.split(' ')[1]}
@@ -106,28 +130,32 @@ export default function ClassDetail() {
           <Kind icon={<TrailIcon />} text={classInfo?.difficulty} />
         </div>
 
-        <div
-          className={styles.dancerContainer}
-          onClick={() => router.push(`/dancer-profile/${classInfo?.profileId}`)}
+        <Link
+          href={{
+            pathname: `/dancer-profile/[dancerId]`,
+            query: { dancerId: classInfo?.profileId },
+          }}
         >
-          <div className={styles.dancerBox}>
-            {classInfo?.userProfileImage ? (
-              <img
-                src={classInfo?.userProfileImage}
-                className={styles.dancerImg}
-              />
-            ) : (
-              <AvatarIcon className={styles.dancerImg} />
-            )}
-            <div
-              className={`${styles.dancerName} ${typoStyles.body1_SemiBold}`}
-            >
-              {classInfo?.userNickname}
+          <div className={styles.dancerContainer}>
+            <div className={styles.dancerBox}>
+              {classInfo?.userProfileImage ? (
+                <img
+                  src={classInfo?.userProfileImage}
+                  className={styles.dancerImg}
+                />
+              ) : (
+                <AvatarIcon className={styles.dancerImg} />
+              )}
+              <div
+                className={`${styles.dancerName} ${typoStyles.body1_SemiBold}`}
+              >
+                {classInfo?.userNickname}
+              </div>
             </div>
-          </div>
 
-          <ArrowIcon className={styles.arrowIcon} />
-        </div>
+            <ArrowIcon className={styles.arrowIcon} />
+          </div>
+        </Link>
       </div>
 
       <div className={styles.divider}></div>
@@ -186,10 +214,32 @@ export default function ClassDetail() {
       </div>
 
       <div className={styles.bottomBtnBox}>
-        <div className={`${styles.bottomBtn} ${typoStyles.body1_SemiBold}`}>
-          예약하러 가기
-        </div>
+        {!onSite ? (
+          <div
+            className={`${styles.bottomBtn} ${styles.after} ${typoStyles.body1_SemiBold}`}
+          >
+            현장결제 수업이에요
+          </div>
+        ) : (
+          <div
+            className={`${styles.bottomBtn} ${styles.before} ${typoStyles.body1_SemiBold}`}
+            onClick={openModal}
+          >
+            예약하러 가기
+          </div>
+        )}
       </div>
+      {isModalOpen ? (
+        <Modal
+          question="수업을 예약하시겠어요?"
+          requestion="예약하기를 누르면 예약 링크로 이동해요"
+          button="예약하기"
+          closeModal={closeModal}
+          actModal={actModal}
+        />
+      ) : (
+        <></>
+      )}
     </>
   );
 }

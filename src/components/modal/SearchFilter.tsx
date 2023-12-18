@@ -4,6 +4,7 @@ import modalStyles from '../../styles/Modal.module.css';
 import buttonStyles from '../../styles/Button.module.css';
 import fonts from '../../styles/typography.module.css';
 import { IList, IDuplicationList } from '@/types/upload';
+import ClassTime from '../upload/ClassTime';
 import DuplicationSelect from '@/components/upload/DuplicationSelect';
 import {
   allLocationList,
@@ -71,6 +72,7 @@ export default function SearchFilter({
   const [classFee, setClassFee] = useRecoilState(classFeeSearchState);
 
   //목록 선택
+  const [isSelectWay, setIsSelectWay] = useState<boolean>(true);
   const [selectTimeList, setSelectTimeList] = useRecoilState(
     selectTimeListSearchState,
   );
@@ -86,6 +88,10 @@ export default function SearchFilter({
   const [isClassWayChecked, setIsClassWayChecked] = useState<boolean>(false);
   const [isSelectTimeChecked, setIsSelectTimeChecked] =
     useState<boolean>(false);
+  const [startHour, setStartHour] = useState<number>();
+  const [startTime, setStartTime] = useState<string>('');
+  const [endHour, setEndHour] = useState<number>();
+  const [endTime, setEndTime] = useState<string>('');
 
   const setSearchFilterValueList = useSetRecoilState<any>(
     homeFilterValueListSearchState,
@@ -104,6 +110,17 @@ export default function SearchFilter({
   //classfee
   const handleChangeClassFee = (e: React.ChangeEvent<HTMLInputElement>) => {
     setClassFee(e.target.value);
+  };
+
+  const onClickinList = () => {
+    setIsSelectWay(true);
+    setStartTime('');
+    setEndTime('');
+  };
+
+  const onClickSelf = () => {
+    setIsSelectWay(false);
+    setSelectTimeList([]);
   };
 
   useEffect(() => {
@@ -137,7 +154,7 @@ export default function SearchFilter({
       setIsClassWayChecked(false);
     }
 
-    if (selectTimeList.length != 0) {
+    if (selectTimeList.length != 0 || (startTime !== '' && endTime !== '')) {
       setIsSelectTimeChecked(true);
     } else {
       setIsSelectTimeChecked(false);
@@ -148,6 +165,18 @@ export default function SearchFilter({
     } else {
       setIsClassFeeChecked(false);
     }
+
+    if (
+      parseInt(startTime) > 12 &&
+      parseInt(startTime) <= 24 &&
+      parseInt(endTime) < 13
+    ) {
+      setStartHour(parseInt(startTime));
+      setEndHour(parseInt(endTime) + 24);
+    } else {
+      setStartHour(parseInt(startTime));
+      setEndHour(parseInt(endTime));
+    }
   }, [
     locationList,
     genreList,
@@ -156,6 +185,8 @@ export default function SearchFilter({
     classWayList,
     selectTimeList,
     classFee,
+    startTime,
+    endTime,
   ]);
 
   //초기화
@@ -167,6 +198,8 @@ export default function SearchFilter({
     setClassFee('전체 가격');
     setClassLevelList([]);
     setSelectTimeList([]);
+    setStartTime('');
+    setEndTime('');
   };
 
   const router = useRouter();
@@ -197,14 +230,30 @@ export default function SearchFilter({
     maxTuition = null;
   }
 
-  const locationValue = locationList.map(item => item.name);
-  const genreListValue = genreList.map(item => item.name);
+  const locationValue =
+    /*locationList.map(item => item.name)*/ locationList[0] === null
+      ? null
+      : locationList[0]?.name;
+  const genreListValue = /*genreList.map(item => item.name)*/ genreList.map(
+    item => item.name,
+  );
   const classDayListValue = classDayList
     .map(item => item.name)
     .filter(item => item !== '');
-  const selectTimeValue = selectTimeList.map(item => item.name);
-  const classWayValue = classWayList.map(item => item.name);
-  const classLevelValue = classLevelList.map(item => item.name);
+  const classTimeValue =
+    /*selectTimeList.map(item => item.name)*/ selectTimeList[0] === null
+      ? null
+      : selectTimeList[0]?.name;
+  const classSlefTimeValue =
+    startTime !== '' && endTime !== '' ? startTime + '~' + endTime : null;
+  const classWayValue =
+    /*classWayList.map(item => item.name)*/ classWayList[0] === null
+      ? null
+      : classWayList[0]?.name;
+  const classLevelValue =
+    /*classLevelList.map(item => item.name)*/ classLevelList[0] === null
+      ? null
+      : classLevelList[0]?.name;
   const classFeeValue = classFee === '전체 가격' ? null : classFee;
 
   //SearchFilter에 적용된 값 리스트 -> 필터 바에 넣을 것들
@@ -212,7 +261,8 @@ export default function SearchFilter({
     locationValue,
     genreListValue,
     classDayListValue,
-    selectTimeValue,
+    classTimeValue,
+    classSlefTimeValue,
     classWayValue,
     classLevelValue,
     classFeeValue,
@@ -249,8 +299,8 @@ export default function SearchFilter({
       */
 
     handleSearchFilterOn({
-      location: locationList,
-      genres: genreList,
+      location: locationList[0] === null ? null : locationList[0]?.name,
+      genres: genreList.map(item => item.name),
       days: {
         mon: newClassDayList.includes('월'),
         tue: newClassDayList.includes('화'),
@@ -260,13 +310,19 @@ export default function SearchFilter({
         sat: newClassDayList.includes('토'),
         sun: newClassDayList.includes('일'),
       },
-      time: selectTimeList,
-      method: classWayList,
-      difficulty: classLevelList,
+      time: selectTimeList[0] === null ? null : selectTimeList[0]?.name,
+      method:
+        classWayList[0] === null
+          ? null
+          : changeClassWayToK(classWayList[0]?.name),
+      difficulty:
+        classLevelList[0] === null
+          ? null
+          : changeClassLevelToK(classLevelList[0]?.name),
       minTuition: minTuition,
       maxTuition: maxTuition,
-      startTime: null,
-      endTime: null,
+      startHour: startHour,
+      endHour: endHour,
     });
 
     closeModal();
@@ -310,7 +366,7 @@ export default function SearchFilter({
                     setList={setLocationList}
                     isFull={isLocationFull}
                     setIsFull={setIsLocationFull}
-                    limit={26}
+                    limit={2}
                   />
                 </>
               ) : (
@@ -342,7 +398,7 @@ export default function SearchFilter({
                     setList={setGenreList}
                     isFull={isGenreFull}
                     setIsFull={setIsGenreFull}
-                    limit={20}
+                    limit={22}
                   />
                 </>
               ) : (
@@ -357,7 +413,9 @@ export default function SearchFilter({
               )}
             </div>
             <div className={styles.box}>
-              <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+              <div
+                className={`${styles.textWithDayBox} ${fonts.body1_SemiBold}`}
+              >
                 수업 요일
               </div>
               <ClassDay list={classDayList} setList={setClassDayList} />
@@ -366,35 +424,77 @@ export default function SearchFilter({
               <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
                 수업 시간
               </div>
-              <DuplicationSelect
-                allList={allTimeSelect}
-                list={selectTimeList}
-                setList={setSelectTimeList}
-                isFull={isSelectTimeFull}
-                setIsFull={setIsSelectTimeFull}
-                limit={9}
-              />
+              <div className={`${styles.selectWayBox} ${fonts.body2_Regular}`}>
+                <div
+                  className={
+                    isSelectWay
+                      ? `${styles.selectWay} ${styles.selectWayLeft} ${styles.selectedWay}`
+                      : `${styles.selectWay} ${styles.selectWayLeft} ${styles.normalWay}`
+                  }
+                  onClick={onClickinList}
+                >
+                  목록에서 선택
+                </div>
+                <div className={`${styles.midLine}`}></div>
+                <div
+                  className={
+                    isSelectWay
+                      ? `${styles.selectWay} ${styles.selectWayRight} ${styles.normalWay}`
+                      : `${styles.selectWay} ${styles.selectWayRight} ${styles.selectedWay}`
+                  }
+                  onClick={onClickSelf}
+                >
+                  직접 선택
+                </div>
+              </div>
+              {isSelectWay ? (
+                <DuplicationSelect
+                  allList={allTimeSelect}
+                  list={selectTimeList}
+                  setList={setSelectTimeList}
+                  isFull={isSelectTimeFull}
+                  setIsFull={setIsSelectTimeFull}
+                  limit={2}
+                />
+              ) : (
+                <div className={styles.selfTimeSelect}>
+                  <ClassTime
+                    startTime={startTime}
+                    setStartTime={setStartTime}
+                    endTime={endTime}
+                    setEndTime={setEndTime}
+                  />
+                </div>
+              )}
             </div>
             <div className={styles.box}>
-              <div className={fonts.body1_SemiBold}>수업 방식</div>
+              <div
+                className={`${styles.textWithClickedBox} ${fonts.body1_SemiBold}`}
+              >
+                수업 방식
+              </div>
               <DuplicationSelect
                 allList={wayList}
                 list={classWayList}
                 setList={setClassWayList}
                 isFull={isClassWayFull}
                 setIsFull={setIsClassWayFull}
-                limit={8}
+                limit={2}
               />
             </div>
             <div className={styles.box}>
-              <div className={fonts.body1_SemiBold}>수업 난이도</div>
+              <div
+                className={`${styles.textWithClickedBox} ${fonts.body1_SemiBold}`}
+              >
+                수업 난이도
+              </div>
               <DuplicationSelect
                 allList={levelList}
                 list={classLevelList}
                 setList={setClassLevelList}
                 isFull={isClassLevelFull}
                 setIsFull={setIsClassLevelFull}
-                limit={6}
+                limit={2}
               />
             </div>
             <div className={styles.box}>

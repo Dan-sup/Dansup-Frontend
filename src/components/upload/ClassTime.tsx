@@ -30,6 +30,8 @@ export default function ClassTime({
         id="startTime"
         data-placeholder="시작시간"
         onChange={startTimeChangeHandler}
+        required
+        aria-required="true"
       />
       <div className={styles.timeText}>~</div>
       <input
@@ -38,6 +40,8 @@ export default function ClassTime({
         id="endTime"
         data-placeholder="종료시간"
         onChange={endTimeChangeHandler}
+        required
+        aria-required="true"
       />
     </div>
   );

@@ -4,6 +4,7 @@ import modalStyles from '../../styles/Modal.module.css';
 import buttonStyles from '../../styles/Button.module.css';
 import fonts from '../../styles/typography.module.css';
 import { IList, IDuplicationList } from '@/types/upload';
+import ClassTime from '../upload/ClassTime';
 import {
   allLocationList,
   allGenreList,
@@ -18,6 +19,7 @@ import Close from '../../../public/icons/close.svg';
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 import { homeFilterState, searchFilterState } from '@/store/filter';
+import { changeClassLevelToK, changeClassWayToK } from '@/utils/filter';
 
 interface filterProps {
   isOpen: boolean;
@@ -49,8 +51,13 @@ export default function Filter({
   const [classFee, setClassFee] = useState<string>('전체 가격');
 
   //목록 선택
+  const [isSelectWay, setIsSelectWay] = useState<boolean>(true);
   const [selectTimeList, setSelectTimeList] = useState<IDuplicationList[]>([]);
   const [isSelectTimeFull, setIsSelectTimeFull] = useState<boolean>(false);
+  const [startHour, setStartHour] = useState<number>();
+  const [startTime, setStartTime] = useState<string>('');
+  const [endHour, setEndHour] = useState<number>();
+  const [endTime, setEndTime] = useState<string>('');
 
   //우효성 검사 state (Checked => 형식)
   const [isLocationChecked, setIsLocationChecked] = useState<boolean>(false);
@@ -76,6 +83,17 @@ export default function Filter({
   //classfee
   const handleChangeClassFee = (e: React.ChangeEvent<HTMLInputElement>) => {
     setClassFee(e.target.value);
+  };
+
+  const onClickinList = () => {
+    setIsSelectWay(true);
+    setStartTime('');
+    setEndTime('');
+  };
+
+  const onClickSelf = () => {
+    setIsSelectWay(false);
+    setSelectTimeList([]);
   };
 
   useEffect(() => {
@@ -227,8 +245,8 @@ export default function Filter({
       */
 
       handleHomeFilterOn({
-        location: locationList,
-        genres: genreList,
+        location: locationList[0] === null ? null : locationList[0]?.name,
+        genres: genreList.map(item => item.name),
         days: {
           mon: newClassDayList.includes('월'),
           tue: newClassDayList.includes('화'),
@@ -238,13 +256,19 @@ export default function Filter({
           sat: newClassDayList.includes('토'),
           sun: newClassDayList.includes('일'),
         },
-        time: selectTimeList,
-        method: classWayList,
-        difficulty: classLevelList,
+        time: selectTimeList[0] === null ? null : selectTimeList[0]?.name,
+        method:
+          classWayList[0] === null
+            ? null
+            : changeClassWayToK(classWayList[0]?.name),
+        difficulty:
+          classLevelList[0] === null
+            ? null
+            : changeClassLevelToK(classLevelList[0]?.name),
         minTuition: minTuition,
         maxTuition: maxTuition,
-        startTime: null,
-        endTime: null,
+        startHour: startHour,
+        endHour: endHour,
       });
 
       closeModal();
@@ -337,7 +361,7 @@ export default function Filter({
                     setList={setLocationList}
                     isFull={isLocationFull}
                     setIsFull={setIsLocationFull}
-                    limit={26}
+                    limit={2}
                   />
                 </>
               ) : (
@@ -369,7 +393,7 @@ export default function Filter({
                     setList={setGenreList}
                     isFull={isGenreFull}
                     setIsFull={setIsGenreFull}
-                    limit={20}
+                    limit={22}
                   />
                 </>
               ) : (
@@ -384,7 +408,9 @@ export default function Filter({
               )}
             </div>
             <div className={styles.box}>
-              <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+              <div
+                className={`${styles.textWithDayBox} ${fonts.body1_SemiBold}`}
+              >
                 수업 요일
               </div>
               <ClassDay list={classDayList} setList={setClassDayList} />
@@ -393,17 +419,55 @@ export default function Filter({
               <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
                 수업 시간
               </div>
-              <DuplicationSelect
-                allList={allTimeSelect}
-                list={selectTimeList}
-                setList={setSelectTimeList}
-                isFull={isSelectTimeFull}
-                setIsFull={setIsSelectTimeFull}
-                limit={9}
-              />
+              <div className={`${styles.selectWayBox} ${fonts.body2_Regular}`}>
+                <div
+                  className={
+                    isSelectWay
+                      ? `${styles.selectWay} ${styles.selectWayLeft} ${styles.selectedWay}`
+                      : `${styles.selectWay} ${styles.selectWayLeft} ${styles.normalWay}`
+                  }
+                  onClick={onClickinList}
+                >
+                  목록에서 선택
+                </div>
+                <div className={`${styles.midLine}`}></div>
+                <div
+                  className={
+                    isSelectWay
+                      ? `${styles.selectWay} ${styles.selectWayRight} ${styles.normalWay}`
+                      : `${styles.selectWay} ${styles.selectWayRight} ${styles.selectedWay}`
+                  }
+                  onClick={onClickSelf}
+                >
+                  직접 선택
+                </div>
+              </div>
+              {isSelectWay ? (
+                <DuplicationSelect
+                  allList={allTimeSelect}
+                  list={selectTimeList}
+                  setList={setSelectTimeList}
+                  isFull={isSelectTimeFull}
+                  setIsFull={setIsSelectTimeFull}
+                  limit={2}
+                />
+              ) : (
+                <div className={styles.selfTimeSelect}>
+                  <ClassTime
+                    startTime={startTime}
+                    setStartTime={setStartTime}
+                    endTime={endTime}
+                    setEndTime={setEndTime}
+                  />
+                </div>
+              )}
             </div>
             <div className={styles.box}>
-              <div className={fonts.body1_SemiBold}>수업 방식</div>
+              <div
+                className={`${styles.textWithClickedBox} ${fonts.body1_SemiBold}`}
+              >
+                수업 방식
+              </div>
               <DuplicationSelect
                 allList={wayList}
                 list={classWayList}
@@ -414,14 +478,18 @@ export default function Filter({
               />
             </div>
             <div className={styles.box}>
-              <div className={fonts.body1_SemiBold}>수업 난이도</div>
+              <div
+                className={`${styles.textWithClickedBox} ${fonts.body1_SemiBold}`}
+              >
+                수업 난이도
+              </div>
               <DuplicationSelect
                 allList={levelList}
                 list={classLevelList}
                 setList={setClassLevelList}
                 isFull={isClassLevelFull}
                 setIsFull={setIsClassLevelFull}
-                limit={6}
+                limit={2}
               />
             </div>
             <div className={styles.box}>

@@ -7,13 +7,11 @@ export const levelList = [
 ];
 
 export const wayList = [
-  { id: 0, name: '정규반', shortName: 'OD', isShort: false },
-  { id: 1, name: '전문반', shortName: 'R', isShort: false },
+  { id: 0, name: '원데이', shortName: 'OD', isShort: false },
+  { id: 1, name: '정규반', shortName: 'R', isShort: false },
   { id: 2, name: '공연반', shortName: 'P', isShort: false },
-  { id: 3, name: '팝업', shortName: 'M', isShort: false },
-  { id: 4, name: '개인레슨', shortName: 'S', isShort: false },
-  { id: 5, name: '세션', shortName: 'S', isShort: false },
-  { id: 6, name: '쉐어', shortName: 'S', isShort: false },
+  { id: 3, name: '전문반', shortName: 'M', isShort: false },
+  { id: 4, name: '세션', shortName: 'S', isShort: false },
 ];
 
 export const classFeeList = [
@@ -86,4 +84,9 @@ export const allTimeSelect = [
   { id: 5, name: '오후-저녁', isShort: false },
   { id: 6, name: '저녁-새벽', isShort: false },
   { id: 7, name: '새벽-오전', isShort: false },
+];
+
+export const feeWayList = [
+  { id: 0, name: '예약 결제', shortName: 'rez', isShort: false },
+  { id: 1, name: '현장 결제', shortName: 'spot', isShort: false },
 ];

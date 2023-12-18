@@ -149,12 +149,18 @@ export default function HomePage() {
             <div className={filterBarStyles.appliedFiltersBox}>
               <div className={filterBarStyles.filterValueListBox}>
                 {homeFilterValueList.map((value: any, idx: any) => (
-                  <div
-                    className={`${filterBarStyles.filterValueBox} ${typoStyles.caption1_Regular}`}
-                    key={idx}
-                  >
-                    {value}
-                  </div>
+                  <>
+                    {value ? (
+                      <div
+                        className={`${filterBarStyles.filterValueBox} ${typoStyles.caption1_Regular}`}
+                        key={idx}
+                      >
+                        {value}
+                      </div>
+                    ) : (
+                      <></>
+                    )}
+                  </>
                 ))}
               </div>
 

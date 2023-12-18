@@ -4,12 +4,12 @@ import Close from '../../../public/icons/close.svg';
 import IndicatorFirst from '../../../public/icons/indicator-first.svg';
 import IndicatorSecond from '../../../public/icons/indicator-second.svg';
 import IndicatorThird from '../../../public/icons/indicator-third.svg';
+import IndicatorFourth from '../../../public/icons/indicator-fourth.svg';
 import fonts from '../../styles/typography.module.css';
 import buttonStyles from '../../styles/Button.module.css';
 import modalStyles from '../../styles/Modal.module.css';
 import styles from '../../styles/UploadPage.module.css';
 import { IList, IDuplicationList } from '@/types/upload';
-import { allGenreList } from '@/data/class-data';
 import DanceGenre from '../upload/DuplicationSelect';
 import DaumPostcode, { Address } from 'react-daum-postcode';
 import HashTag from '../upload/HashTag';
@@ -19,7 +19,12 @@ import ClassDate from '../upload/ClassDate';
 import ClassDay from '../upload/ClassDay';
 import ClassTime from '../upload/ClassTime';
 import ToastMsg from '../upload/ToastMsg';
-import { levelList, wayList } from '@/data/class-data';
+import {
+  levelList,
+  wayList,
+  allGenreList,
+  feeWayList,
+} from '@/data/class-data';
 import { postClassInfo } from '@/apis/my';
 import { useMutation } from '@tanstack/react-query';
 import { useRecoilValue } from 'recoil';
@@ -69,6 +74,9 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const [saturday, setSaturday] = useState<boolean>(false);
   const [sunday, setSunday] = useState<boolean>(false);
 
+  const [feeWay, setFeeWay] = useState<string>('');
+  const [selectFeeWayClickIndex, setSelectFeeWayClickIndex] =
+    useState<number>(2);
   const [video, setVideo] = useState<File | undefined>();
   const [classLink, setClassLink] = useState<string>('');
 
@@ -81,7 +89,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const [isClassFeeChecked, setIsClassFeeChecked] = useState<boolean>(false);
   const [isClassAdmitChecked, setIsClassAdmitChecked] =
     useState<boolean>(false);
-  const [isLinkChecked, setIsLinkChecked] = useState<boolean>(false);
+  const [isPayWayChecked, setIsPayWayChecked] = useState<boolean>(false);
   const [isVideoChecked, setIsVideoChecked] = useState<boolean>(false);
   const [isClassWayChecked, setIsClassWayChecked] = useState<boolean>(false);
 
@@ -181,11 +189,6 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const handleChangeClassLink = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const currentClassLink = e.target.value;
     setClassLink(currentClassLink);
-    if (currentClassLink !== '') {
-      setIsLinkChecked(true);
-    } else {
-      setIsLinkChecked(false);
-    }
   };
 
   //GenreList & ClassLevel check
@@ -225,7 +228,26 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
       setStartHour(parseInt(startTime));
       setEndHour(parseInt(endTime));
     }
-  }, [genreList, classLevel, video, startTime, endTime, classDate, classWay]);
+
+    if (feeWay === 'rez' && classLink !== '') {
+      setIsPayWayChecked(true);
+    } else if (feeWay === 'spot') {
+      setIsPayWayChecked(true);
+      setClassLink('');
+    } else {
+      setIsPayWayChecked(false);
+    }
+  }, [
+    genreList,
+    classLevel,
+    video,
+    startTime,
+    endTime,
+    classDate,
+    classWay,
+    feeWay,
+    classLink,
+  ]);
 
   //api
   const user = useRecoilValue(userState);
@@ -257,6 +279,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
 */
     const formData = new FormData();
 
+    /**결제방식 api 연결 전 */
     formData.append(
       'createDanceClassDto',
       new Blob(
@@ -277,7 +300,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
             difficulty: classLevel,
             endHour: endTime !== '' ? endHour : null,
             endTime: endTime !== '' ? endTime : null,
-            genres: genreList,
+            genres: genreList.map(data => data.name),
             hashtag1:
               hashTagList[1]?.name !== undefined ? hashTagList[1]?.name : null,
             hashtag2:
@@ -287,7 +310,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
             location: location.name,
             maxPeople: classAdmit,
             method: classWay !== '' ? classWay : null,
-            reserveLink: classLink,
+            reserveLink: classLink !== '' ? classLink : null,
             song: classSong !== '' ? classSong : null,
             startHour: startTime !== '' ? startHour : null,
             startTime: startTime !== '' ? startTime : null,
@@ -541,7 +564,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               </div>
             </div>
             <div>
-              <IndicatorSecond />
+              <IndicatorSecond className={styles.sectionIcon} />
               <div className={`${styles.sectionText} ${fonts.head1}`}>
                 수업방식 & 수업날짜를 선택해주세요
               </div>
@@ -598,30 +621,52 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               ) : null}
             </div>
             <div>
-              <IndicatorThird />
+              <IndicatorThird className={styles.sectionIcon} />
+              <div className={`${styles.sectionTextforFee}  ${fonts.head1}`}>
+                수업 결제 방식을 선택해주세요
+              </div>
+              <div className={styles.box}>
+                <Select
+                  list={feeWayList}
+                  votedItem={feeWay}
+                  setVotedItem={setFeeWay}
+                  clickIndex={selectFeeWayClickIndex}
+                  setClickIndex={setSelectFeeWayClickIndex}
+                />
+              </div>
+              {feeWay == 'rez' ? (
+                <div className={styles.box}>
+                  <div className={styles.row}>
+                    <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                      예약 링크
+                    </div>
+                    <div className={styles.pointText}>*</div>
+                  </div>
+                  <div
+                    className={`${styles.detailText} ${fonts.body2_Regular}`}
+                  >
+                    구글폼, 네이버 예약 등 수업 예약 URL을 첨부해주세요
+                  </div>
+                  <Textarea
+                    className={`${styles.input} ${styles.textarea} ${styles.long} ${fonts.body2_Regular}`}
+                    placeholder="https://"
+                    value={classLink}
+                    onChange={handleChangeClassLink}
+                    cacheMeasurements
+                  />
+                </div>
+              ) : (
+                <></>
+              )}
+            </div>
+            <div>
+              <IndicatorFourth className={styles.sectionIcon} />
               <div
                 className={`${styles.sectionText} ${styles.sectionTextWidth} ${fonts.head1}`}
               >
-                수업 소개 영상 & 예약 링크를 업로드해주세요
+                수업 소개 영상을 업로드해주세요
               </div>
-              <div className={styles.box}>
-                <div className={styles.row}>
-                  <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
-                    예약 링크
-                  </div>
-                  <div className={styles.pointText}>*</div>
-                </div>
-                <div className={`${styles.detailText} ${fonts.body2_Regular}`}>
-                  구글폼, 네이버 예약 등 수업 예약 URL을 첨부해주세요
-                </div>
-                <Textarea
-                  className={`${styles.input} ${styles.textarea} ${styles.long} ${fonts.body2_Regular}`}
-                  placeholder="https://"
-                  value={classLink}
-                  onChange={handleChangeClassLink}
-                  cacheMeasurements
-                />
-              </div>
+
               <div className={styles.box}>
                 <UploadVideo
                   isImportant={true}
@@ -637,12 +682,14 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
             isOpen={isGenreFull}
             setIsOpen={setIsGenreFull}
             msg="나의 장르는 최대 2개까지 선택 가능합니다."
+            isEdit={false}
           />
 
           <ToastMsg
             isOpen={isHashTagFull}
             setIsOpen={setIsHashTagFull}
             msg=" 해시태그는 최대 3개까지 선택 가능합니다."
+            isEdit={false}
           />
 
           <div className={styles.bottom}>
@@ -654,7 +701,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               isClassFeeChecked &&
               isClassAdmitChecked &&
               isClassWayChecked &&
-              isLinkChecked &&
+              isPayWayChecked &&
               isVideoChecked ? (
                 <button
                   onClick={handleSubmit}
