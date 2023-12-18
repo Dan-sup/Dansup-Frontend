@@ -58,3 +58,23 @@ export const getMyClass = async (accessToken: any) => {
   });
   return response.data;
 };
+
+//수업 삭제
+export const deleteMyClass = async (info: any) => {
+  const response = await client.delete(`/mypage/class/${info.danceclassId}`, {
+    headers: {
+      Authorization: `Bearer ${info.accessToken}`,
+    },
+  });
+  return response.data;
+};
+
+//수업 마감
+export const closeMyClass = async (info: any) => {
+  const response = await client.put(`/mypage/class/${info.danceclassId}`, {
+    headers: {
+      Authorization: `Bearer ${info.accessToken}`,
+    },
+  });
+  return response.data;
+};

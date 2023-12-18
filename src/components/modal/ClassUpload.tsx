@@ -89,7 +89,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const [isClassFeeChecked, setIsClassFeeChecked] = useState<boolean>(false);
   const [isClassAdmitChecked, setIsClassAdmitChecked] =
     useState<boolean>(false);
-  const [isLinkChecked, setIsLinkChecked] = useState<boolean>(false);
+  const [isPayWayChecked, setIsPayWayChecked] = useState<boolean>(false);
   const [isVideoChecked, setIsVideoChecked] = useState<boolean>(false);
   const [isClassWayChecked, setIsClassWayChecked] = useState<boolean>(false);
 
@@ -189,11 +189,6 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
   const handleChangeClassLink = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const currentClassLink = e.target.value;
     setClassLink(currentClassLink);
-    if (currentClassLink !== '') {
-      setIsLinkChecked(true);
-    } else {
-      setIsLinkChecked(false);
-    }
   };
 
   //GenreList & ClassLevel check
@@ -233,7 +228,26 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
       setStartHour(parseInt(startTime));
       setEndHour(parseInt(endTime));
     }
-  }, [genreList, classLevel, video, startTime, endTime, classDate, classWay]);
+
+    if (feeWay === 'rez' && classLink !== '') {
+      setIsPayWayChecked(true);
+    } else if (feeWay === 'spot') {
+      setIsPayWayChecked(true);
+      setClassLink('');
+    } else {
+      setIsPayWayChecked(false);
+    }
+  }, [
+    genreList,
+    classLevel,
+    video,
+    startTime,
+    endTime,
+    classDate,
+    classWay,
+    feeWay,
+    classLink,
+  ]);
 
   //api
   const user = useRecoilValue(userState);
@@ -296,7 +310,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
             location: location.name,
             maxPeople: classAdmit,
             method: classWay !== '' ? classWay : null,
-            reserveLink: classLink,
+            reserveLink: classLink !== '' ? classLink : null,
             song: classSong !== '' ? classSong : null,
             startHour: startTime !== '' ? startHour : null,
             startTime: startTime !== '' ? startTime : null,
@@ -620,32 +634,39 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
                   setClickIndex={setSelectFeeWayClickIndex}
                 />
               </div>
+              {feeWay == 'rez' ? (
+                <div className={styles.box}>
+                  <div className={styles.row}>
+                    <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
+                      예약 링크
+                    </div>
+                    <div className={styles.pointText}>*</div>
+                  </div>
+                  <div
+                    className={`${styles.detailText} ${fonts.body2_Regular}`}
+                  >
+                    구글폼, 네이버 예약 등 수업 예약 URL을 첨부해주세요
+                  </div>
+                  <Textarea
+                    className={`${styles.input} ${styles.textarea} ${styles.long} ${fonts.body2_Regular}`}
+                    placeholder="https://"
+                    value={classLink}
+                    onChange={handleChangeClassLink}
+                    cacheMeasurements
+                  />
+                </div>
+              ) : (
+                <></>
+              )}
             </div>
             <div>
               <IndicatorFourth className={styles.sectionIcon} />
               <div
                 className={`${styles.sectionText} ${styles.sectionTextWidth} ${fonts.head1}`}
               >
-                수업 소개 영상 & 예약 링크를 업로드해주세요
+                수업 소개 영상을 업로드해주세요
               </div>
-              <div className={styles.box}>
-                <div className={styles.row}>
-                  <div className={`${styles.text} ${fonts.body1_SemiBold}`}>
-                    예약 링크
-                  </div>
-                  <div className={styles.pointText}>*</div>
-                </div>
-                <div className={`${styles.detailText} ${fonts.body2_Regular}`}>
-                  구글폼, 네이버 예약 등 수업 예약 URL을 첨부해주세요
-                </div>
-                <Textarea
-                  className={`${styles.input} ${styles.textarea} ${styles.long} ${fonts.body2_Regular}`}
-                  placeholder="https://"
-                  value={classLink}
-                  onChange={handleChangeClassLink}
-                  cacheMeasurements
-                />
-              </div>
+
               <div className={styles.box}>
                 <UploadVideo
                   isImportant={true}
@@ -680,7 +701,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
               isClassFeeChecked &&
               isClassAdmitChecked &&
               isClassWayChecked &&
-              isLinkChecked &&
+              isPayWayChecked &&
               isVideoChecked ? (
                 <button
                   onClick={handleSubmit}

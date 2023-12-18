@@ -3,12 +3,18 @@ import BackIcon from '../../../../public/icons/back.svg';
 import DotIcon from '../../../../public/icons/dot.svg';
 import styles from '../../../styles/components/common/MyPageHeader.module.css';
 import fonts from '../../../styles/typography.module.css';
-import Modal from '../Modal';
+import ClassModal from '../ClassModal';
+import { useRouter } from 'next/router';
 
-export default function MyPageHeader() {
+interface myPageHeaderProps {
+  classNumber: number;
+}
+
+export default function MyPageHeader({ classNumber }: myPageHeaderProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isCloseModalOpen, setIsCloseModalOpen] = useState<boolean>(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
+  const router = useRouter();
 
   //마감 모달
   const openCloseModal = () => {
@@ -34,11 +40,15 @@ export default function MyPageHeader() {
     document.body.style.overflow = 'unset';
   };
 
+  const onclickBack = () => {
+    router.back();
+  };
+
   return (
     <>
       <div className={styles.classContainer}>
         <div className={styles.containerBtn}>
-          <div className={styles.btn}>
+          <div className={styles.btn} onClick={onclickBack}>
             <BackIcon />
           </div>
           <div
@@ -68,21 +78,23 @@ export default function MyPageHeader() {
             <></>
           )}
           {isCloseModalOpen ? (
-            <Modal
+            <ClassModal
               question=" 수업을 마감할까요?"
               requestion="더 이상 수강인원을 받지 않아요"
               button="마감하기"
               closeModal={closeCloseModal}
+              classNumber={classNumber}
             />
           ) : (
             <></>
           )}
           {isDeleteModalOpen ? (
-            <Modal
+            <ClassModal
               question="수업을 삭제할까요?"
               requestion="수업을 아예 목록에서 지울게요"
               button="삭제하기"
               closeModal={closeDeleteModal}
+              classNumber={classNumber}
             />
           ) : (
             <></>

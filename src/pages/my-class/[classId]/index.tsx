@@ -1,17 +1,20 @@
 import ClassDetail from '@/components/ClassDetailPage/ClassDetail';
 import styles from '../../../styles/ClassDetailPage.module.css';
-import BasicHeader from '@/components/common/Header/BasicHeader';
+import MyPageClassHeader from '../../../components/common/Header/MyPageClassHeader';
 import Footer from '@/components/common/Footer';
+import { useRouter } from 'next/router';
 
 export default function ClassDetailPage() {
+  const router = useRouter();
+  console.log(router.query);
+
   return (
     <>
-      <BasicHeader />
+      <MyPageClassHeader classNumber={Number(router.query.classId)} />
 
       <div className={styles.container}>
         <ClassDetail />
       </div>
-      <Footer />
     </>
   );
 }
