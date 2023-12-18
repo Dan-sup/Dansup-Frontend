@@ -17,10 +17,7 @@ export default function ClassCard({ classInfo }: ClassCardProps) {
 
   return (
     <>
-      <div
-        className={styles.titleBox}
-        onClick={() => router.push(`class/${classInfo.danceClassId}`)}
-      >
+      <div className={styles.titleBox}>
         <div className={styles.leftBox}>
           <div className={styles.profileImgBox}>
             {!classInfo.userProfileImage ? (
@@ -67,7 +64,10 @@ export default function ClassCard({ classInfo }: ClassCardProps) {
           ))}
         </div>
 
-        <div className={`${styles.classTitle} ${typoStyles.head1}`}>
+        <div
+          className={`${styles.classTitle} ${typoStyles.head1}`}
+          onClick={() => router.push(`class/${classInfo.danceClassId}`)}
+        >
           {classInfo.title}
         </div>
 
