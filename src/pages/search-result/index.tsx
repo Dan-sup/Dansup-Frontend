@@ -10,7 +10,7 @@ import typoStyles from '../../styles/typography.module.css';
 import styles from '../../styles/SearchResultPage.module.css';
 import FilterBar from '@/components/FilterBar';
 import filterBarStyles from '../../styles/components/FilterBar.module.css';
-import DancerCard from '@/components/SearchResultPage/DancerCard';
+import DancerCard from '@/components/DancerCard';
 import ClassCard from '@/components/ClassCard';
 import Filter from '@/components/modal/Filter';
 import { useRouter } from 'next/router';
