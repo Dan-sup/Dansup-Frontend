@@ -23,7 +23,7 @@ const NoInfo = dynamic(import('@/components/common/NoInfo'));
 import { useResetFilter } from '@/hooks/useResetFilter';
 import { homeFilterValueListState } from '@/store/filter/homeFilter';
 import Footer from '../components/common/Footer';
-import SelectBar from '@/components/common/SelectBar';
+import SelectBar from '@/components/SelectBar';
 
 export default function HomePage() {
   //const [isFilterOn, setIsFilterOn] = useState<boolean>(false);

@@ -6,7 +6,7 @@ import ClockIcon from '../../../public/icons/ClassDetailPage/clock.svg';
 import TrailIcon from '../../../public/icons/ClassDetailPage/trail.svg';
 import AvatarIcon from '../../../public/icons/ClassDetailPage/avatar.svg';
 import ArrowIcon from '../../../public/icons/ClassDetailPage/arrow-right.svg';
-import Hashtag from './Hashtag';
+import Hashtag from '../common/Hashtag';
 import Kind from './Kind';
 import InfoBox from './InfoBox';
 import DescriptionBox from './DescriptionBox';
