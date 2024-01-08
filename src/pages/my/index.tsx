@@ -150,6 +150,7 @@ export default function MyPage() {
                 muted
                 width="100%"
                 height={386}
+                className={styles.classVideo}
               />
             </div>
           )}

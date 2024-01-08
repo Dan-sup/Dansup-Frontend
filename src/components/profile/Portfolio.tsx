@@ -12,6 +12,8 @@ interface portfolioProps {
 
 export default function Portfolio({ portfolios, video }: portfolioProps) {
   const [isClicked, setIsClicked] = useState<boolean>(false);
+  const [clickedVideo, setClickedVideo] = useState<string[]>(['']);
+  const [isPlaying, setIsPlaying] = useState<boolean[]>([]);
 
   const onClickDropDown = () => {
     setIsClicked(!isClicked);
@@ -72,33 +74,53 @@ export default function Portfolio({ portfolios, video }: portfolioProps) {
       </div>
       <div className={styles.divider} />
       <div className={styles.Part}>
-        <div className={styles.paddingContainer}>
-          {video?.length == 0 ? (
+        <div className={styles.titleContainer}>
+          <div className={`${styles.awardTitle} ${fonts.head2}`}>대표 영상</div>
+        </div>
+        {video?.length == 0 ? (
+          <div className={styles.paddingContainer}>
             <div className={styles.blank}>
               <div className={`${styles.blankText} ${fonts.body2_SemiBold}`}>
                 포트폴리오 영상이 없어요
               </div>
             </div>
-          ) : (
-            <>
-              {video?.map((data: any, idx: any) => (
+          </div>
+        ) : (
+          <div className={styles.gap}>
+            {video?.map((data: any, idx: any) => {
+              const clickPlaying = () => {
+                if (!clickedVideo.includes(data.pvId))
+                  setClickedVideo(prevClickedClass => [
+                    ...prevClickedClass,
+                    data.pvId,
+                  ]);
+                isPlaying[clickedVideo.indexOf(data.pvId, 0) - 1] =
+                  !isPlaying[clickedVideo.indexOf(data.pvId, 0) - 1];
+                setIsPlaying(prevVideo => [...prevVideo]);
+              };
+
+              return (
                 <div key={idx}>
-                  <div className="video">
-                    <ReactPlayer
-                      url={data.url}
-                      muted
-                      playing={false}
-                      className={styles.video}
-                      width="100%"
-                      height={210}
-                      controls
-                    />
+                  <div className={styles.video}>
+                    <div onClick={clickPlaying}>
+                      <ReactPlayer
+                        url={data.url}
+                        muted
+                        playing={
+                          isPlaying[clickedVideo.indexOf(data.pvId, 0) - 1]
+                        }
+                        className={styles.video}
+                        width="100%"
+                        height={210}
+                        controls={false}
+                      />
+                    </div>
                   </div>
                 </div>
-              ))}
-            </>
-          )}
-        </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -35,10 +35,11 @@
   z-index: 1000;
 }
 
-.btn {
-  cursor: pointer; /* -> 웹에서만 필요*/
+.title {
   display: flex;
   justify-content: center;
+  color: var(--color-white);
+  line-height: 150%;
 }
 
 .textBtn {

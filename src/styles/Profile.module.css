@@ -29,6 +29,11 @@
   padding: 0 18px;
 }
 
+.titleContainer {
+  padding: 0 18px;
+  margin: 17px 0 14px 0;
+}
+
 .profilePart {
   width: 100%;
 }
@@ -255,7 +260,13 @@
 .awardTitle {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
   height: 27px;
+}
+
+.editText {
+  color: var(--color-gray-300);
 }
 
 .awardList {
@@ -304,7 +315,19 @@
 
 /*video*/
 .video {
-  margin-bottom: 10px;
+  position: relative;
+  background: var(--color-gray-800-divider);
+  cursor: pointer;
+}
+
+.gap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.classVideo {
+  background: var(--color-gray-800-divider);
 }
 
 /*class*/
@@ -429,4 +452,39 @@
   width: 18px;
   height: 18px;
   cursor: pointer;
+}
+
+.videoDotBox {
+  width: 100%;
+  display: flex;
+  justify-content: right;
+}
+
+.videoDot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  height: 18px;
+  cursor: pointer;
+  padding: 27px 18px 0 0;
+  z-index: 10;
+}
+
+.deleteBox {
+  background: var(--color-gray-500-card);
+  border-radius: 4px;
+  width: 84px;
+  height: 37px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 10;
+  margin: 40px 18px 0 0;
+  right: 0;
+}
+
+.deleteText {
+  color: var(--color-gray-100);
 }
