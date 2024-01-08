@@ -1,7 +1,7 @@
 import styles from '../../styles/components/ClassDetailPage/Hashtag.module.css';
 import typoStyles from '../../styles/typography.module.css';
 
-export interface HashtagProps {
+interface HashtagProps {
   text: string;
 }
 

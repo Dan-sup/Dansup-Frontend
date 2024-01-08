@@ -4,6 +4,7 @@ import styles from '../../../styles/components/common/BasicHeader.module.css';
 import { useRecoilValue } from 'recoil';
 import { userState } from '@/store/user';
 import { useRouter } from 'next/router';
+import TopBar from '../TopBar';
 
 interface BasicHeaderProps {
   type?: string;
@@ -21,7 +22,7 @@ export default function BasicHeader({ type }: BasicHeaderProps) {
   };
 
   return (
-    <div className={styles.container}>
+    <TopBar>
       {type !== 'home' && (
         <div className={styles.btn} onClick={onclickBack}>
           <BackIcon />
@@ -32,6 +33,6 @@ export default function BasicHeader({ type }: BasicHeaderProps) {
           <DansupLogo />
         </div>
       )}
-    </div>
+    </TopBar>
   );
 }

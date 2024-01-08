@@ -1,0 +1,27 @@
+.defaultContainer {
+  background-color: var(--color-main-300);
+  color: var(--color-main-100);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: fit-content;
+
+  margin-right: 6px; /*다른 동일요소와의 간격*/
+  margin-top: 100px; /*나중에 삭제*/
+}
+
+.smallContainer {
+  height: 22px;
+  padding: 0 6px;
+
+  border-radius: 4px;
+}
+
+.bigContainer {
+  height: 29px;
+  padding: 0 8px;
+
+  border-radius: 5px;
+}
