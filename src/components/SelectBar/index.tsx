@@ -5,13 +5,13 @@ import typoStyles from '../../styles/typography.module.css';
 interface SelectBarProps {
   isClassBtnClicked: any;
   isDancerBtnClicked: any;
-  handleBtnClick: any;
+  handleChangeSelectBar: any;
 }
 
 export default function SelectBar({
   isClassBtnClicked,
   isDancerBtnClicked,
-  handleBtnClick,
+  handleChangeSelectBar,
 }: SelectBarProps) {
   return (
     <div className={styles.selectBar}>
@@ -19,7 +19,7 @@ export default function SelectBar({
         className={`${isClassBtnClicked ? styles.clickedBtn : styles.btn} ${
           typoStyles.head2_SemiBold
         }`}
-        onClick={handleBtnClick}
+        onClick={handleChangeSelectBar}
       >
         수업
       </div>
@@ -27,7 +27,7 @@ export default function SelectBar({
         className={`${isDancerBtnClicked ? styles.clickedBtn : styles.btn} ${
           typoStyles.head2_SemiBold
         }`}
-        onClick={handleBtnClick}
+        onClick={handleChangeSelectBar}
       >
         댄서
       </div>

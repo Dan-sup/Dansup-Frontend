@@ -24,13 +24,14 @@ import { useResetFilter } from '@/hooks/useResetFilter';
 import { homeFilterValueListState } from '@/store/filter/homeFilter';
 import Footer from '../components/common/Footer';
 import SelectBar from '@/components/SelectBar';
+import { useSelectBar } from '@/hooks/useSelectBar';
 
 export default function HomePage() {
   //const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
   const [isHomeFilterOn, setIsHomeFilterOn] =
     useRecoilState(isHomeFilterOnState);
-  const [isClassBtnClicked, setIsClassBtnClicked] = useState<boolean>(true);
-  const [isDancerBtnClicked, setIsDancerBtnClicked] = useState<boolean>(false);
+  const { isClassBtnClicked, isDancerBtnClicked, handleChangeSelectBar } =
+    useSelectBar();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   //const [filteredClassList, setfilteredClassList] = useState<object[]>([]);
@@ -90,11 +91,6 @@ export default function HomePage() {
     setIsHomeFilterOn(true);
   };
 
-  const handleBtnClick = () => {
-    setIsClassBtnClicked(!isClassBtnClicked);
-    setIsDancerBtnClicked(!isDancerBtnClicked);
-  };
-
   return (
     <>
       <BasicHeader type="home" />
@@ -118,7 +114,7 @@ export default function HomePage() {
             <SelectBar
               isClassBtnClicked={isClassBtnClicked}
               isDancerBtnClicked={isDancerBtnClicked}
-              handleBtnClick={handleBtnClick}
+              handleChangeSelectBar={handleChangeSelectBar}
             />
 
             <button className={styles.filterIcon} onClick={openModal}>

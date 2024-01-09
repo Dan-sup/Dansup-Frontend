@@ -26,14 +26,15 @@ import { homeFilterValueListSearchState } from '@/store/filter/searchFilter';
 import NoInfo from '@/components/common/NoInfo';
 import Footer from '@/components/common/Footer';
 import SelectBar from '@/components/SelectBar';
+import { useSelectBar } from '@/hooks/useSelectBar';
 
 export default function SearchResultPage() {
   //const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
   const [isSearchFilterOn, setIsSearchFilterOn] = useRecoilState(
     isSearchFilterOnState,
   );
-  const [isClassBtnClicked, setIsClassBtnClicked] = useState<boolean>(true);
-  const [isDancerBtnClicked, setIsDancerBtnClicked] = useState<boolean>(false);
+  const { isClassBtnClicked, isDancerBtnClicked, handleChangeSelectBar } =
+    useSelectBar();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   /*
@@ -131,11 +132,6 @@ export default function SearchResultPage() {
     setIsSearchFilterOn(true);
   };
 
-  const handleBtnClick = () => {
-    setIsClassBtnClicked(!isClassBtnClicked);
-    setIsDancerBtnClicked(!isDancerBtnClicked);
-  };
-
   return (
     <>
       <SearchHeader />
@@ -145,7 +141,7 @@ export default function SearchResultPage() {
           <SelectBar
             isClassBtnClicked={isClassBtnClicked}
             isDancerBtnClicked={isDancerBtnClicked}
-            handleBtnClick={handleBtnClick}
+            handleChangeSelectBar={handleChangeSelectBar}
           />
         </div>
 
