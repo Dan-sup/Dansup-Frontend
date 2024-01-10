@@ -14,10 +14,24 @@ export default function Portfolio({ portfolios, video }: portfolioProps) {
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [clickedVideo, setClickedVideo] = useState<string[]>(['']);
   const [isPlaying, setIsPlaying] = useState<boolean[]>([]);
+  const [duration, setDuration] = useState<number>(0);
+  const [durations, setDurations] = useState<number[]>([]);
+  const [playings, setPlayings] = useState<number[]>([]);
+
+  useEffect(() => {
+    setDurations(prevDuration => [...prevDuration, duration]);
+  }, [duration, clickedVideo]);
 
   const onClickDropDown = () => {
     setIsClicked(!isClicked);
   };
+
+  // formatTime 함수 '분:초' 형태로 리턴
+  function formatTime(seconds: number) {
+    const minutes = Math.floor(seconds / 60);
+    seconds = Math.floor(seconds % 60);
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  }
 
   return (
     <div className={styles.container}>
@@ -102,10 +116,14 @@ export default function Portfolio({ portfolios, video }: portfolioProps) {
               return (
                 <div key={idx}>
                   <div className={styles.video}>
+                    <div
+                      className={`${styles.duration} ${fonts.caption1_Regular}`}
+                    >
+                      {formatTime(playings[idx] * durations[idx + 2])}
+                    </div>
                     <div onClick={clickPlaying}>
                       <ReactPlayer
                         url={data.url}
-                        muted
                         playing={
                           isPlaying[clickedVideo.indexOf(data.pvId, 0) - 1]
                         }
@@ -113,6 +131,11 @@ export default function Portfolio({ portfolios, video }: portfolioProps) {
                         width="100%"
                         height={210}
                         controls={false}
+                        onDuration={setDuration}
+                        onProgress={({ played }) => {
+                          playings[idx] = played;
+                          setPlayings(prevPlaying => [...prevPlaying]);
+                        }}
                       />
                     </div>
                   </div>

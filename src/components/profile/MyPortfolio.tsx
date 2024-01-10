@@ -18,10 +18,24 @@ export default function Portfolio({ portfolios, video }: portfolioProps) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean[]>([]);
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [isPlaying, setIsPlaying] = useState<boolean[]>([]);
+  const [duration, setDuration] = useState<number>(0);
+  const [durations, setDurations] = useState<number[]>([]);
+  const [playings, setPlayings] = useState<number[]>([]);
+
+  useEffect(() => {
+    setDurations(prevDuration => [...prevDuration, duration]);
+  }, [duration, clickedVideo]);
 
   const onClickDropDown = () => {
     setIsClicked(!isClicked);
   };
+
+  // formatTime 함수 '분:초' 형태로 리턴
+  function formatTime(seconds: number) {
+    const minutes = Math.floor(seconds / 60);
+    seconds = Math.floor(seconds % 60);
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  }
 
   return (
     <div className={styles.container}>
@@ -97,8 +111,8 @@ export default function Portfolio({ portfolios, video }: portfolioProps) {
             {video.map((data: any, idx: any) => {
               const clickDot = () => {
                 if (!clickedVideo.includes(data.pvId))
-                  setClickedVideo(prevClickedClass => [
-                    ...prevClickedClass,
+                  setClickedVideo(prevClickedVideo => [
+                    ...prevClickedVideo,
                     data.pvId,
                   ]);
                 isOpen[clickedVideo.indexOf(data.pvId, 0) - 1] =
@@ -108,8 +122,8 @@ export default function Portfolio({ portfolios, video }: portfolioProps) {
 
               const clickPlaying = () => {
                 if (!clickedVideo.includes(data.pvId))
-                  setClickedVideo(prevClickedClass => [
-                    ...prevClickedClass,
+                  setClickedVideo(prevClickedVideo => [
+                    ...prevClickedVideo,
                     data.pvId,
                   ]);
                 isPlaying[clickedVideo.indexOf(data.pvId, 0) - 1] =
@@ -154,10 +168,14 @@ export default function Portfolio({ portfolios, video }: portfolioProps) {
                     ) : (
                       <></>
                     )}
+                    <div
+                      className={`${styles.duration} ${fonts.caption1_Regular}`}
+                    >
+                      {formatTime(playings[idx] * durations[idx + 2])}
+                    </div>
                     <div onClick={clickPlaying}>
                       <ReactPlayer
                         url={data.url}
-                        muted
                         playing={
                           isPlaying[clickedVideo.indexOf(data.pvId, 0) - 1]
                         }
@@ -165,6 +183,11 @@ export default function Portfolio({ portfolios, video }: portfolioProps) {
                         width="100%"
                         height={210}
                         controls={false}
+                        onDuration={setDuration}
+                        onProgress={({ played }) => {
+                          playings[idx] = played;
+                          setPlayings(prevPlaying => [...prevPlaying]);
+                        }}
                       />
                     </div>
                   </div>

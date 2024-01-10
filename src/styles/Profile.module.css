@@ -58,12 +58,14 @@
 }
 
 .floatingBtn {
+  z-index: 10;
   position: fixed;
   bottom: 107px;
   right: 0;
 }
 
 .modalBox {
+  z-index: 10;
   position: fixed;
   bottom: 200px;
   right: 18px;
@@ -466,9 +468,9 @@
   align-items: center;
   position: absolute;
   height: 18px;
+  z-index: 1;
   cursor: pointer;
   padding: 27px 18px 0 0;
-  z-index: 10;
 }
 
 .deleteBox {
@@ -480,11 +482,29 @@
   justify-content: center;
   align-items: center;
   position: absolute;
-  z-index: 10;
+  z-index: 1;
   margin: 40px 18px 0 0;
   right: 0;
 }
 
 .deleteText {
   color: var(--color-gray-100);
+}
+
+.footer {
+  z-index: 10;
+}
+
+.duration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  width: 41px;
+  height: 18px;
+  border-radius: 2px;
+  background: var(--color-gray-500-card);
+  position: absolute;
+  right: 0;
+  margin: 180px 18px 0 0;
 }
