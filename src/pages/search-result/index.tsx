@@ -33,8 +33,7 @@ export default function SearchResultPage() {
   const [isSearchFilterOn, setIsSearchFilterOn] = useRecoilState(
     isSearchFilterOnState,
   );
-  const { isClassBtnClicked, isDancerBtnClicked, handleChangeSelectBar } =
-    useSelectBar();
+  const { selectBarItem, handleChangeSelectBarItem } = useSelectBar();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   /*
@@ -139,9 +138,8 @@ export default function SearchResultPage() {
       <div className={styles.container}>
         <div className={styles.selectBar}>
           <SelectBar
-            isClassBtnClicked={isClassBtnClicked}
-            isDancerBtnClicked={isDancerBtnClicked}
-            handleChangeSelectBar={handleChangeSelectBar}
+            selectBarItem={selectBarItem}
+            handleChangeSelectBarItem={handleChangeSelectBarItem}
           />
         </div>
 
@@ -155,7 +153,7 @@ export default function SearchResultPage() {
               className={`${filterBarStyles.onNumberText} ${typoStyles.body2_Regular}`}
             >
               {' '}
-              {isClassBtnClicked
+              {selectBarItem == '수업'
                 ? !isSearchFilterOn
                   ? typingFilteredClassList.length
                   : bothFilteredClassList.length
@@ -164,7 +162,7 @@ export default function SearchResultPage() {
             건
           </div>
 
-          {isClassBtnClicked && (
+          {selectBarItem == '수업' && (
             <>
               <button
                 className={filterBarStyles.filterIcon}
@@ -181,7 +179,7 @@ export default function SearchResultPage() {
           )}
         </div>
 
-        {isSearchFilterOn && isClassBtnClicked && (
+        {isSearchFilterOn && selectBarItem == '수업' && (
           <div className={filterBarStyles.appliedFiltersBox}>
             <div className={filterBarStyles.filterValueListBox}>
               {searchFilterValueList.map((value: any, idx: any) => (
@@ -208,7 +206,7 @@ export default function SearchResultPage() {
 
         {/* { isClassBtnClicked ? (isFilterOn이 false면 typingFilteredClassList, true면 bothFilteredClassList 보여주기!) : filteredDancerList } -> 중첩 조건문으로! */}
 
-        {isClassBtnClicked ? (
+        {selectBarItem == '수업' ? (
           !isSearchFilterOn ? (
             typingFilteredClassList.length == 0 ? (
               <NoInfo />

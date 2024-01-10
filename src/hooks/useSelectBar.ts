@@ -1,13 +1,11 @@
 import { useState } from 'react';
 
 export const useSelectBar = () => {
-  const [isClassBtnClicked, setIsClassBtnClicked] = useState<boolean>(true);
-  const [isDancerBtnClicked, setIsDancerBtnClicked] = useState<boolean>(false);
+  const [selectBarItem, setSelectBarItem] = useState<string>('수업');
 
-  const handleChangeSelectBar = () => {
-    setIsClassBtnClicked(!isClassBtnClicked);
-    setIsDancerBtnClicked(!isDancerBtnClicked);
+  const handleChangeSelectBarItem = (e: any) => {
+    setSelectBarItem(e.target.textContent);
   };
 
-  return { isClassBtnClicked, isDancerBtnClicked, handleChangeSelectBar };
+  return { selectBarItem, handleChangeSelectBarItem };
 };

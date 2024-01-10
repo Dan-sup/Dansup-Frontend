@@ -30,8 +30,7 @@ export default function HomePage() {
   //const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
   const [isHomeFilterOn, setIsHomeFilterOn] =
     useRecoilState(isHomeFilterOnState);
-  const { isClassBtnClicked, isDancerBtnClicked, handleChangeSelectBar } =
-    useSelectBar();
+  const { selectBarItem, handleChangeSelectBarItem } = useSelectBar();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   //const [filteredClassList, setfilteredClassList] = useState<object[]>([]);
@@ -112,9 +111,8 @@ export default function HomePage() {
         {!isHomeFilterOn ? (
           <div className={styles.selectBar}>
             <SelectBar
-              isClassBtnClicked={isClassBtnClicked}
-              isDancerBtnClicked={isDancerBtnClicked}
-              handleChangeSelectBar={handleChangeSelectBar}
+              selectBarItem={selectBarItem}
+              handleChangeSelectBarItem={handleChangeSelectBarItem}
             />
 
             <button className={styles.filterIcon} onClick={openModal}>

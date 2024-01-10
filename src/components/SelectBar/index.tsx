@@ -1,33 +1,30 @@
-import { useState } from 'react';
 import styles from '../../styles/components/common/SelectBar.module.css';
 import typoStyles from '../../styles/typography.module.css';
 
 interface SelectBarProps {
-  isClassBtnClicked: any;
-  isDancerBtnClicked: any;
-  handleChangeSelectBar: any;
+  selectBarItem: any;
+  handleChangeSelectBarItem: any;
 }
 
 export default function SelectBar({
-  isClassBtnClicked,
-  isDancerBtnClicked,
-  handleChangeSelectBar,
+  selectBarItem,
+  handleChangeSelectBarItem,
 }: SelectBarProps) {
   return (
     <div className={styles.selectBar}>
       <div
-        className={`${isClassBtnClicked ? styles.clickedBtn : styles.btn} ${
-          typoStyles.head2_SemiBold
-        }`}
-        onClick={handleChangeSelectBar}
+        className={`${
+          selectBarItem == '수업' ? styles.clickedBtn : styles.btn
+        } ${typoStyles.head2_SemiBold}`}
+        onClick={handleChangeSelectBarItem}
       >
         수업
       </div>
       <div
-        className={`${isDancerBtnClicked ? styles.clickedBtn : styles.btn} ${
-          typoStyles.head2_SemiBold
-        }`}
-        onClick={handleChangeSelectBar}
+        className={`${
+          selectBarItem == '댄서' ? styles.clickedBtn : styles.btn
+        } ${typoStyles.head2_SemiBold}`}
+        onClick={handleChangeSelectBarItem}
       >
         댄서
       </div>
