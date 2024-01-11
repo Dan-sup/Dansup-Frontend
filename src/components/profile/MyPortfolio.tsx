@@ -171,7 +171,11 @@ export default function Portfolio({ portfolios, video }: portfolioProps) {
                     <div
                       className={`${styles.duration} ${fonts.caption1_Regular}`}
                     >
-                      {formatTime(playings[idx] * durations[idx + 2])}
+                      {playings.length === 0 || durations.length === 0
+                        ? '0:00'
+                        : playings[idx] === 0
+                        ? formatTime(durations[idx + 2])
+                        : formatTime(playings[idx] * durations[idx + 2])}
                     </div>
                     <div onClick={clickPlaying}>
                       <ReactPlayer
