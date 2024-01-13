@@ -11,16 +11,12 @@ interface portfolioProps {
 }
 
 export default function Portfolio({ portfolios, video }: portfolioProps) {
+  const fillIsPlaying = Array.from({ length: video.length }, () => true);
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [clickedVideo, setClickedVideo] = useState<string[]>(['']);
-  const [isPlaying, setIsPlaying] = useState<boolean[]>([]);
-  const [duration, setDuration] = useState<number>(0);
+  const [isPlaying, setIsPlaying] = useState<boolean[]>(fillIsPlaying);
   const [durations, setDurations] = useState<number[]>([]);
   const [playings, setPlayings] = useState<number[]>([]);
-
-  useEffect(() => {
-    setDurations(prevDuration => [...prevDuration, duration]);
-  }, [duration, clickedVideo]);
 
   const onClickDropDown = () => {
     setIsClicked(!isClicked);
@@ -103,14 +99,17 @@ export default function Portfolio({ portfolios, video }: portfolioProps) {
           <div className={styles.gap}>
             {video?.map((data: any, idx: any) => {
               const clickPlaying = () => {
-                if (!clickedVideo.includes(data.pvId))
-                  setClickedVideo(prevClickedClass => [
-                    ...prevClickedClass,
+                if (!clickedVideo.includes(data.pvId)) {
+                  setClickedVideo(prevClickedVideo => [
+                    ...prevClickedVideo,
                     data.pvId,
                   ]);
-                isPlaying[clickedVideo.indexOf(data.pvId, 0) - 1] =
-                  !isPlaying[clickedVideo.indexOf(data.pvId, 0) - 1];
-                setIsPlaying(prevVideo => [...prevVideo]);
+                  setIsPlaying(prevVideo => [...prevVideo, true]);
+                } else {
+                  isPlaying[clickedVideo.indexOf(data.pvId, 0) - 1] =
+                    !isPlaying[clickedVideo.indexOf(data.pvId, 0) - 1];
+                  setIsPlaying(prevVideo => [...prevVideo]);
+                }
               };
 
               return (
@@ -119,7 +118,13 @@ export default function Portfolio({ portfolios, video }: portfolioProps) {
                     <div
                       className={`${styles.duration} ${fonts.caption1_Regular}`}
                     >
-                      {formatTime(playings[idx] * durations[idx + 2])}
+                      {playings.length === 0 || durations.length === 0
+                        ? '0:00'
+                        : playings[data.pvId] === 0
+                        ? formatTime(durations[data.pvId])
+                        : formatTime(
+                            playings[data.pvId] * durations[data.pvId],
+                          )}
                     </div>
                     <div onClick={clickPlaying}>
                       <ReactPlayer
@@ -131,9 +136,12 @@ export default function Portfolio({ portfolios, video }: portfolioProps) {
                         width="100%"
                         height={210}
                         controls={false}
-                        onDuration={setDuration}
+                        onDuration={duration => {
+                          durations[data.pvId] = duration;
+                          setDurations(prevDuration => [...prevDuration]);
+                        }}
                         onProgress={({ played }) => {
-                          playings[idx] = played;
+                          playings[data.pvId] = played;
                           setPlayings(prevPlaying => [...prevPlaying]);
                         }}
                       />

@@ -13,18 +13,14 @@ interface portfolioProps {
 }
 export default function Portfolio({ portfolios, video }: portfolioProps) {
   const fillIsOpen = Array.from({ length: video.length }, () => true);
+  const fillIsPlaying = Array.from({ length: video.length }, () => true);
   const [isOpen, setIsOpen] = useState<boolean[]>(fillIsOpen);
   const [clickedVideo, setClickedVideo] = useState<string[]>(['']);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean[]>([]);
   const [isClicked, setIsClicked] = useState<boolean>(false);
-  const [isPlaying, setIsPlaying] = useState<boolean[]>([]);
-  const [duration, setDuration] = useState<number>(0);
+  const [isPlaying, setIsPlaying] = useState<boolean[]>(fillIsPlaying);
   const [durations, setDurations] = useState<number[]>([]);
   const [playings, setPlayings] = useState<number[]>([]);
-
-  useEffect(() => {
-    setDurations(prevDuration => [...prevDuration, duration]);
-  }, [duration, clickedVideo]);
 
   const onClickDropDown = () => {
     setIsClicked(!isClicked);
@@ -110,25 +106,31 @@ export default function Portfolio({ portfolios, video }: portfolioProps) {
           <div className={styles.gap}>
             {video.map((data: any, idx: any) => {
               const clickDot = () => {
-                if (!clickedVideo.includes(data.pvId))
+                if (!clickedVideo.includes(data.pvId)) {
                   setClickedVideo(prevClickedVideo => [
                     ...prevClickedVideo,
                     data.pvId,
                   ]);
-                isOpen[clickedVideo.indexOf(data.pvId, 0) - 1] =
-                  !isOpen[clickedVideo.indexOf(data.pvId, 0) - 1];
-                setIsOpen(prevVideo => [...prevVideo]);
+                  setIsOpen(prevVideo => [...prevVideo, true]);
+                } else {
+                  isOpen[clickedVideo.indexOf(data.pvId, 0) - 1] =
+                    !isOpen[clickedVideo.indexOf(data.pvId, 0) - 1];
+                  setIsOpen(prevVideo => [...prevVideo]);
+                }
               };
 
               const clickPlaying = () => {
-                if (!clickedVideo.includes(data.pvId))
+                if (!clickedVideo.includes(data.pvId)) {
                   setClickedVideo(prevClickedVideo => [
                     ...prevClickedVideo,
                     data.pvId,
                   ]);
-                isPlaying[clickedVideo.indexOf(data.pvId, 0) - 1] =
-                  !isPlaying[clickedVideo.indexOf(data.pvId, 0) - 1];
-                setIsPlaying(prevVideo => [...prevVideo]);
+                  setIsPlaying(prevVideo => [...prevVideo, true]);
+                } else {
+                  isPlaying[clickedVideo.indexOf(data.pvId, 0) - 1] =
+                    !isPlaying[clickedVideo.indexOf(data.pvId, 0) - 1];
+                  setIsPlaying(prevVideo => [...prevVideo]);
+                }
               };
 
               //삭제 모달
@@ -173,9 +175,11 @@ export default function Portfolio({ portfolios, video }: portfolioProps) {
                     >
                       {playings.length === 0 || durations.length === 0
                         ? '0:00'
-                        : playings[idx] === 0
-                        ? formatTime(durations[idx + 2])
-                        : formatTime(playings[idx] * durations[idx + 2])}
+                        : playings[data.pvId] === 0
+                        ? formatTime(durations[data.pvId])
+                        : formatTime(
+                            playings[data.pvId] * durations[data.pvId],
+                          )}
                     </div>
                     <div onClick={clickPlaying}>
                       <ReactPlayer
@@ -187,9 +191,12 @@ export default function Portfolio({ portfolios, video }: portfolioProps) {
                         width="100%"
                         height={210}
                         controls={false}
-                        onDuration={setDuration}
+                        onDuration={duration => {
+                          durations[data.pvId] = duration;
+                          setDurations(prevDuration => [...prevDuration]);
+                        }}
                         onProgress={({ played }) => {
-                          playings[idx] = played;
+                          playings[data.pvId] = played;
                           setPlayings(prevPlaying => [...prevPlaying]);
                         }}
                       />
