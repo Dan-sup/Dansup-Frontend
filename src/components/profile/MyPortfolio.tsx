@@ -6,6 +6,7 @@ import DropDownAfter from '../../../public/icons/dropdown-after.svg';
 import ReactPlayer from 'react-player';
 import Dot from '../../../public/icons/dot.svg';
 import ClassModal from '../common/ClassModal';
+import Link from 'next/link';
 
 interface portfolioProps {
   portfolios: any;
@@ -40,9 +41,12 @@ export default function Portfolio({ portfolios, video }: portfolioProps) {
           <div className={styles.awardBox}>
             <div className={`${styles.awardTitle} ${fonts.head2}`}>
               공연 및 활동경력
-              <div className={`${styles.editText} ${fonts.caption1_SemiBold}`}>
+              <Link
+                href="/edit-portfolio"
+                className={`${styles.editText} ${fonts.caption1_SemiBold}`}
+              >
                 편집
-              </div>
+              </Link>
             </div>
             <div className={`${styles.awardList} ${fonts.body2_Regular}`}>
               {portfolios.length !== 0 ? (
