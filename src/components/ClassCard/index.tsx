@@ -3,7 +3,7 @@ import AvatarIcon from '../../../public/icons/ClassCard/avatar.svg';
 import DateIcon from '../../../public/icons/date.svg';
 import LocationIcon from '../../../public/icons/location.svg';
 import ScrapIcon from '../../../public/icons/scrap-small.svg';
-import styles from '../../styles/components/ClassCard.module.css';
+import styles from '../../styles/components/ClassCard/ClassCard.module.css';
 import { useRouter } from 'next/router';
 import { changeDateForm, changeDayForm } from '@/utils/date';
 import ReactPlayer from 'react-player';
