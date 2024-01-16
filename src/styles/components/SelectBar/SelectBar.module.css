@@ -13,8 +13,10 @@
 .wideContainer {
   width: 100%;
   justify-content: space-around;
+  border-bottom: 1px solid var(--color-gray-500-card);
 }
 
+/*BtnBox도 디폴트 만들기?*/
 .narrowBtnBox {
   width: 30px;
   height: 49px;
