@@ -16,13 +16,13 @@ export default function ScrapPage() {
         </div>
       </TopBar>
 
-      <div className={styles.selectBar}>
-        <SelectBar
-          selectBarItem={selectBarItem}
-          handleChangeSelectBarItem={handleChangeSelectBarItem}
-          type="wide"
-        />
-      </div>
+      <div className={styles.divider}></div>
+
+      <SelectBar
+        selectBarItem={selectBarItem}
+        handleChangeSelectBarItem={handleChangeSelectBarItem}
+        type="wide"
+      />
 
       <GenreChip text="힙합" size="small" />
       <GenreChip text="코레오" size="big" />

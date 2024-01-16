@@ -2,12 +2,6 @@
   color: var(--color-white);
 }
 
-.selectBar {
-  width: 100%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
+.divider {
   margin-top: 55px;
 }
