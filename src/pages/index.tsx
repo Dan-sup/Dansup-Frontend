@@ -113,6 +113,7 @@ export default function HomePage() {
             <SelectBar
               selectBarItem={selectBarItem}
               handleChangeSelectBarItem={handleChangeSelectBarItem}
+              type="narrow"
             />
 
             <button className={styles.filterIcon} onClick={openModal}>

@@ -140,6 +140,7 @@ export default function SearchResultPage() {
           <SelectBar
             selectBarItem={selectBarItem}
             handleChangeSelectBarItem={handleChangeSelectBarItem}
+            type="narrow"
           />
         </div>
 
