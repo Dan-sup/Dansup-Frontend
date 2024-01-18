@@ -1,4 +1,4 @@
-import ClassDetail from '@/components/ClassDetailPage/ClassDetail';
+import ClassDetail from '@/components/ClassDetail';
 import styles from '../../../styles/ClassDetailPage.module.css';
 import MyPageClassHeader from '../../../components/common/Header/MyPageClassHeader';
 import Footer from '@/components/common/Footer';

@@ -23,11 +23,14 @@ const NoInfo = dynamic(import('@/components/common/NoInfo'));
 import { useResetFilter } from '@/hooks/useResetFilter';
 import { homeFilterValueListState } from '@/store/filter/homeFilter';
 import Footer from '../components/common/Footer';
+import SelectBar from '@/components/SelectBar';
+import { useSelectBar } from '@/hooks/useSelectBar';
 
 export default function HomePage() {
   //const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
   const [isHomeFilterOn, setIsHomeFilterOn] =
     useRecoilState(isHomeFilterOnState);
+  const { selectBarItem, handleChangeSelectBarItem } = useSelectBar();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   //const [filteredClassList, setfilteredClassList] = useState<object[]>([]);
@@ -106,12 +109,12 @@ export default function HomePage() {
 
         {/*<FilterBar isFilterOn={isFilterOn} />*/}
         {!isHomeFilterOn ? (
-          <div className={filterBarStyles.bar}>
-            <div
-              className={`${filterBarStyles.barText} ${typoStyles.body1_SemiBold}`}
-            >
-              최근 업로드 된 수업
-            </div>
+          <div className={styles.selectBar}>
+            <SelectBar
+              selectBarItem={selectBarItem}
+              handleChangeSelectBarItem={handleChangeSelectBarItem}
+              type="narrow"
+            />
 
             <button className={styles.filterIcon} onClick={openModal}>
               <FilterIcon />
@@ -178,7 +181,10 @@ export default function HomePage() {
         {!isHomeFilterOn ? (
           <>
             {classList?.map((classInfo: any, idx: any) => (
-              <ClassCard key={idx} classInfo={classInfo} />
+              <>
+                <ClassCard key={idx} classInfo={classInfo} />
+                <div className={styles.divider} />
+              </>
             ))}
           </>
         ) : filteredClassList.length == 0 ? (
@@ -186,11 +192,15 @@ export default function HomePage() {
         ) : (
           <>
             {filteredClassList.map((classInfo: any, idx: any) => (
-              <ClassCard key={idx} classInfo={classInfo} />
+              <>
+                <ClassCard key={idx} classInfo={classInfo} />
+                <div className={styles.divider} />
+              </>
             ))}
           </>
         )}
       </div>
+
       <Footer />
     </>
   );

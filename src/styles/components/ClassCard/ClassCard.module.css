@@ -1,26 +1,53 @@
-.titleBox {
+.container {
+  position: relative;
+
   width: 100%;
-  height: 75px;
+  height: 271px;
+}
+
+.titleBox {
+  position: absolute;
+
+  width: 100%;
+  height: 52px;
 
   padding: 0 18px;
 
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
-.profileImgBox {
-  width: 42px;
-  height: 42px;
-
-  margin-right: 8px;
+.dancerBox {
+  display: flex;
+  align-items: center;
 }
 
 .profileImg {
-  width: 42px;
-  height: 42px;
+  width: 32.31px;
+  height: 32.31px;
   border-radius: 50%;
 }
 
+.dancerName {
+  color: white;
+
+  margin-left: 9px;
+}
+
+.scrapIconBox {
+  background-color: var(--color-gray-500-card);
+
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*
 .textBox {
   color: white;
 
@@ -32,22 +59,24 @@
   white-space: nowrap;
   overflow-x: scroll;
 }
+*/
 
 .video {
   width: 100%;
-  height: 210px;
-  background: var(--color-gray-800-divider);
+  height: 271px;
 }
 
 .InfoBox {
+  position: absolute;
+  bottom: 0;
+
   width: 100%;
-  height: 46px;
+  /*height: 80px;*/
 
   padding: 0 18px;
 
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
 }
 
 .genreBox {
@@ -70,27 +99,29 @@
   margin-right: 6px;
 }
 
-.rightBox {
+.classTitle {
+  color: white;
+
+  padding: 6px 0;
+  margin: 5px 0;
+}
+
+.bottomLineBox {
   color: var(--color-gray-200);
 
   display: flex;
   align-items: center;
+
+  padding: 3px 0;
 }
 
 .detailBox {
   display: flex;
   align-items: center;
 
-  margin-left: 16px;
+  margin-right: 17px;
 }
 
 .icon {
   margin-right: 4px;
-}
-
-.divider {
-  width: 100%;
-  height: 6px;
-
-  background-color: var(--color-gray-800-divider);
 }

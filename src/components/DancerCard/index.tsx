@@ -1,5 +1,5 @@
 import typoStyles from '../../styles/typography.module.css';
-import styles from '../../styles/components/SearchResultPage/DancerCard.module.css';
+import styles from '../../styles/components/DancerCard/DancerCard.module.css';
 import AvatarIcon from '../../../public/icons/avatar-dancercard.svg';
 import { useState } from 'react';
 import { useRouter } from 'next/router';

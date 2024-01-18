@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import styles from '../styles/components/FilterBar.module.css';
-import typoStyles from '../styles/typography.module.css';
-import FilterIcon from '../../public/icons/filter.svg';
-import Filter from './modal/Filter';
+import styles from '../../styles/components/FilterBar.module.css';
+import typoStyles from '../../styles/typography.module.css';
+import FilterIcon from '../../../public/icons/filter.svg';
+import Filter from '../modal/Filter';
 
 interface FilterBarProps {
   isFilterOn?: boolean;

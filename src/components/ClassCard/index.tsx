@@ -1,12 +1,12 @@
-import typoStyles from '../styles/typography.module.css';
-import AvatarIcon from '../../public/icons/ClassCard/avatar.svg';
-import DateIcon from '../../public/icons/date.svg';
-import LocationIcon from '../../public/icons/location.svg';
-import styles from '../styles/components/ClassCard.module.css';
+import typoStyles from '../../styles/typography.module.css';
+import AvatarIcon from '../../../public/icons/ClassCard/avatar.svg';
+import DateIcon from '../../../public/icons/date.svg';
+import LocationIcon from '../../../public/icons/location.svg';
+import ScrapIcon from '../../../public/icons/scrap-small.svg';
+import styles from '../../styles/components/ClassCard/ClassCard.module.css';
 import { useRouter } from 'next/router';
 import { changeDateForm, changeDayForm } from '@/utils/date';
 import ReactPlayer from 'react-player';
-import Link from 'next/link';
 
 interface ClassCardProps {
   classInfo: any;
@@ -16,15 +16,9 @@ export default function ClassCard({ classInfo }: ClassCardProps) {
   const router = useRouter();
 
   return (
-    <>
-      <Link
-        href={{
-          pathname: `class/[classId]`,
-          query: { classId: classInfo.danceClassId },
-        }}
-        className={styles.titleBox}
-      >
-        <div className={styles.profileImgBox}>
+    <div className={styles.container}>
+      <div className={styles.titleBox}>
+        <div className={styles.dancerBox}>
           {!classInfo.userProfileImage ? (
             <AvatarIcon className={styles.profileImg} />
           ) : (
@@ -33,34 +27,28 @@ export default function ClassCard({ classInfo }: ClassCardProps) {
               className={styles.profileImg}
             />
           )}
-        </div>
 
-        <div className={styles.textBox}>
-          <div className={`${styles.classTitle} ${typoStyles.body1_Regular}`}>
-            {classInfo.title}
-          </div>
           <div
-            className={`${styles.dancerName} ${typoStyles.caption1_Regular}`}
+            className={`${styles.dancerName} ${typoStyles.caption1_SemiBold}`}
           >
             {classInfo.userNickname}
           </div>
         </div>
-      </Link>
-      <Link
-        href={{
-          pathname: `class/[classId]`,
-          query: { classId: classInfo.danceClassId },
-        }}
-      >
-        <ReactPlayer
-          url={classInfo?.videoUrl}
-          muted
-          playing={false}
-          className={styles.video}
-          width="100%"
-          height={210}
-        />
-      </Link>
+
+        <div className={styles.scrapIconBox}>
+          <ScrapIcon />
+        </div>
+      </div>
+
+      <ReactPlayer
+        url={classInfo?.videoUrl}
+        muted
+        playing={false}
+        className={styles.video}
+        width="100%"
+        height={271}
+        onClick={() => router.push(`class/${classInfo.danceClassId}`)}
+      />
 
       <div className={`${styles.InfoBox} ${typoStyles.body2_Regular}`}>
         <div className={styles.genreBox}>
@@ -74,12 +62,19 @@ export default function ClassCard({ classInfo }: ClassCardProps) {
           ))}
         </div>
 
-        <div className={styles.rightBox}>
-          <div className={styles.detailBox}>
+        <div
+          className={`${styles.classTitle} ${typoStyles.head1}`}
+          onClick={() => router.push(`class/${classInfo.danceClassId}`)}
+        >
+          {classInfo.title}
+        </div>
+
+        <div className={styles.bottomLineBox}>
+          <div className={`${styles.detailBox} ${typoStyles.caption1_Regular}`}>
             <LocationIcon className={styles.icon} />
             {classInfo.location.split(' ')[1]}
           </div>
-          <div className={styles.detailBox}>
+          <div className={`${styles.detailBox} ${typoStyles.caption1_Regular}`}>
             <DateIcon className={styles.icon} />
             {classInfo.method}{' '}
             {classInfo.method == '원데이' ? (
@@ -110,8 +105,6 @@ export default function ClassCard({ classInfo }: ClassCardProps) {
           </div>
         </div>
       </div>
-
-      <div className={styles.divider}></div>
-    </>
+    </div>
   );
 }

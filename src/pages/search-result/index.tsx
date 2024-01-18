@@ -10,7 +10,7 @@ import typoStyles from '../../styles/typography.module.css';
 import styles from '../../styles/SearchResultPage.module.css';
 import FilterBar from '@/components/FilterBar';
 import filterBarStyles from '../../styles/components/FilterBar.module.css';
-import DancerCard from '@/components/SearchResultPage/DancerCard';
+import DancerCard from '@/components/DancerCard';
 import ClassCard from '@/components/ClassCard';
 import Filter from '@/components/modal/Filter';
 import { useRouter } from 'next/router';
@@ -25,14 +25,15 @@ import { useResetFilter } from '@/hooks/useResetFilter';
 import { homeFilterValueListSearchState } from '@/store/filter/searchFilter';
 import NoInfo from '@/components/common/NoInfo';
 import Footer from '@/components/common/Footer';
+import SelectBar from '@/components/SelectBar';
+import { useSelectBar } from '@/hooks/useSelectBar';
 
 export default function SearchResultPage() {
   //const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
   const [isSearchFilterOn, setIsSearchFilterOn] = useRecoilState(
     isSearchFilterOnState,
   );
-  const [isClassBtnClicked, setIsClassBtnClicked] = useState<boolean>(true);
-  const [isDancerBtnClicked, setIsDancerBtnClicked] = useState<boolean>(false);
+  const { selectBarItem, handleChangeSelectBarItem } = useSelectBar();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   /*
@@ -130,33 +131,17 @@ export default function SearchResultPage() {
     setIsSearchFilterOn(true);
   };
 
-  const handleBtnClick = () => {
-    setIsClassBtnClicked(!isClassBtnClicked);
-    setIsDancerBtnClicked(!isDancerBtnClicked);
-  };
-
   return (
     <>
       <SearchHeader />
 
       <div className={styles.container}>
         <div className={styles.selectBar}>
-          <div
-            className={`${isClassBtnClicked ? styles.clickedBtn : styles.btn} ${
-              typoStyles.head2_SemiBold
-            }`}
-            onClick={handleBtnClick}
-          >
-            수업
-          </div>
-          <div
-            className={`${
-              isDancerBtnClicked ? styles.clickedBtn : styles.btn
-            } ${typoStyles.head2_SemiBold}`}
-            onClick={handleBtnClick}
-          >
-            댄서
-          </div>
+          <SelectBar
+            selectBarItem={selectBarItem}
+            handleChangeSelectBarItem={handleChangeSelectBarItem}
+            type="narrow"
+          />
         </div>
 
         {/*<FilterBar isFilterOn={isFilterOn} />*/}
@@ -169,7 +154,7 @@ export default function SearchResultPage() {
               className={`${filterBarStyles.onNumberText} ${typoStyles.body2_Regular}`}
             >
               {' '}
-              {isClassBtnClicked
+              {selectBarItem == '수업'
                 ? !isSearchFilterOn
                   ? typingFilteredClassList.length
                   : bothFilteredClassList.length
@@ -178,7 +163,7 @@ export default function SearchResultPage() {
             건
           </div>
 
-          {isClassBtnClicked && (
+          {selectBarItem == '수업' && (
             <>
               <button
                 className={filterBarStyles.filterIcon}
@@ -195,7 +180,7 @@ export default function SearchResultPage() {
           )}
         </div>
 
-        {isSearchFilterOn && isClassBtnClicked && (
+        {isSearchFilterOn && selectBarItem == '수업' && (
           <div className={filterBarStyles.appliedFiltersBox}>
             <div className={filterBarStyles.filterValueListBox}>
               {searchFilterValueList.map((value: any, idx: any) => (
@@ -222,14 +207,17 @@ export default function SearchResultPage() {
 
         {/* { isClassBtnClicked ? (isFilterOn이 false면 typingFilteredClassList, true면 bothFilteredClassList 보여주기!) : filteredDancerList } -> 중첩 조건문으로! */}
 
-        {isClassBtnClicked ? (
+        {selectBarItem == '수업' ? (
           !isSearchFilterOn ? (
             typingFilteredClassList.length == 0 ? (
               <NoInfo />
             ) : (
               <>
                 {typingFilteredClassList.map((classInfo, idx) => (
-                  <ClassCard key={idx} classInfo={classInfo} />
+                  <>
+                    <ClassCard key={idx} classInfo={classInfo} />
+                    <div className={styles.divider} />
+                  </>
                 ))}
               </>
             )
@@ -238,7 +226,10 @@ export default function SearchResultPage() {
           ) : (
             <>
               {bothFilteredClassList.map((classInfo, idx) => (
-                <ClassCard key={idx} classInfo={classInfo} />
+                <>
+                  <ClassCard key={idx} classInfo={classInfo} />
+                  <div className={styles.divider} />
+                </>
               ))}
             </>
           )
@@ -252,6 +243,7 @@ export default function SearchResultPage() {
           </div>
         )}
       </div>
+
       <Footer />
     </>
   );
