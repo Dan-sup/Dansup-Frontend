@@ -41,10 +41,6 @@ export default function MyPageHeader() {
     document.body.style.overflow = 'unset';
   };
 
-  const onclickBack = () => {
-    router.back();
-  };
-
   const logoutMutation = useMutation(logout, {
     onSuccess: data => {
       console.log(data);
@@ -75,9 +71,7 @@ export default function MyPageHeader() {
     <>
       <div className={styles.container}>
         <div className={styles.containerBtn}>
-          <div className={styles.btn} onClick={onclickBack}>
-            <BackIcon />
-          </div>
+          <div className={`${styles.title} ${fonts.head1}`}>마이페이지</div>
           <div
             className={styles.btn}
             onClick={() => {

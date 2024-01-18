@@ -171,6 +171,7 @@ export default function Class({ classes }: classProps) {
                           muted
                           width="100%"
                           height={210}
+                          className={styles.classVideo}
                         />
                       )}
                       <div

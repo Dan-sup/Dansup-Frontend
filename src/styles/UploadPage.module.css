@@ -282,10 +282,43 @@
 }
 
 .video {
+  position: relative;
   width: 100%;
   height: 164px;
   border: none;
   border-radius: 5px;
+}
+
+.playBox {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.play {
+  position: absolute;
+  padding: 0 18px;
+  margin: 66px 0 0 0;
+  z-index: 1;
+}
+
+.durationBox {
+  width: 100%;
+  padding: 0 18px;
+}
+
+.duration {
+  position: absolute;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  width: 41px;
+  height: 18px;
+  border-radius: 2px;
+  background: var(--color-gray-500-card);
+  margin: 134px 30px 0 0;
 }
 
 .videoButton {

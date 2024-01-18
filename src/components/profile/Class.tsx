@@ -30,8 +30,9 @@ export default function Class({ classes }: classProps) {
                     pathname: `/class/[classId]`,
                     query: { classId: data.danceClassId },
                   }}
+                  className={styles.classBox}
                 >
-                  <div className={styles.classBox} key={idx}>
+                  <div key={idx}>
                     <div
                       className={`${styles.classTitleBox} ${styles.paddingContainer}`}
                     >
@@ -73,6 +74,7 @@ export default function Class({ classes }: classProps) {
                         muted
                         width="100%"
                         height={210}
+                        className={styles.classVideo}
                       />
                     )}
                     <div

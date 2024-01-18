@@ -2,7 +2,9 @@ import { useRef, useMemo, useState } from 'react';
 import styles from '../../styles/UploadPage.module.css';
 import fonts from '../../styles/typography.module.css';
 import Plus from '../../../public/icons/plus.svg';
+import Play from '../../../public/icons/play.svg';
 import Dot from '../../../public/icons/dot.svg';
+import ReactPlayer from 'react-player';
 
 interface uploadVideoProps {
   video: File | undefined;
@@ -21,6 +23,9 @@ export default function UploadVideo({
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [isVideo, setIsVideo] = useState<boolean>(false);
   const [fileList, setFileList] = useState<string>('');
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [duration, setDuration] = useState<number>(0);
+  const [playing, setPlaying] = useState<number>(0);
 
   const onClickFileInput = () => {
     fileInputRef.current?.click();
@@ -56,6 +61,17 @@ export default function UploadVideo({
     setIsClicked(!isClicked);
   };
 
+  const clickPlaying = () => {
+    setIsPlaying(!isPlaying);
+  };
+
+  // formatTime 함수 '분:초' 형태로 리턴
+  function formatTime(seconds: number) {
+    const minutes = Math.floor(seconds / 60);
+    seconds = Math.floor(seconds % 60);
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  }
+
   const showVideo = useMemo(() => {
     if (!fileList && fileList == '') {
       return (
@@ -70,8 +86,35 @@ export default function UploadVideo({
         </div>
       );
     }
-    return <video className={styles.video} src={fileList} controls />;
-  }, [fileList]);
+    return (
+      <>
+        <div className={styles.playBox}>
+          <button className={styles.play} onClick={clickPlaying}>
+            <Play />
+          </button>
+        </div>
+        <div className={styles.durationBox}>
+          <div className={`${styles.duration} ${fonts.caption1_Regular}`}>
+            {playing === 0
+              ? formatTime(duration)
+              : formatTime(playing * duration)}
+          </div>
+        </div>
+        <ReactPlayer
+          className={styles.video}
+          url={fileList}
+          width="100%"
+          height={164}
+          controls={false}
+          playing={isPlaying}
+          onDuration={setDuration}
+          onProgress={({ played }) => {
+            setPlaying(played);
+          }}
+        />
+      </>
+    );
+  }, [fileList, isPlaying, playing, duration]);
 
   return (
     <div>

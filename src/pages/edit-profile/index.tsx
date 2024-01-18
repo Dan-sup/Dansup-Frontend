@@ -162,13 +162,21 @@ export default function EditPage() {
                   loop
                   muted
                   width="100%"
+                  className={styles.classVideo}
                 />
               </div>
             )}
           </>
         ) : (
           <div className={styles.backVideoPlayer}>
-            <ReactPlayer url={videoFileList} playing loop muted width="100%" />
+            <ReactPlayer
+              url={videoFileList}
+              playing
+              loop
+              muted
+              width="100%"
+              className={styles.classVideo}
+            />
           </div>
         )}
         <input

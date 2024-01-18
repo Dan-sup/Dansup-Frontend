@@ -150,6 +150,7 @@ export default function MyPage() {
                 muted
                 width="100%"
                 height={386}
+                className={styles.classVideo}
               />
             </div>
           )}
@@ -258,7 +259,9 @@ export default function MyPage() {
             <FloatingBtn className={styles.floatingBtn} />
           )}
         </button>
-        <Footer />
+        <div className={styles.footer}>
+          <Footer />
+        </div>
         {isUploadBoxOpen ? (
           <div className={styles.modalBox}>
             <button
