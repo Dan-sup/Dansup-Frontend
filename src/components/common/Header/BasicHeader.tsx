@@ -22,7 +22,7 @@ export default function BasicHeader({ type }: BasicHeaderProps) {
   };
 
   return (
-    <TopBar>
+    <TopBar color="black">
       {type !== 'home' && (
         <div className={styles.btn} onClick={onclickBack}>
           <BackIcon />
