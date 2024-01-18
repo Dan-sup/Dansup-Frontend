@@ -8,8 +8,7 @@
 
   width: fit-content;
 
-  margin-right: 6px; /*다른 동일요소와의 간격*/
-  margin-top: 100px; /*나중에 삭제*/
+  margin-top: 100px; /*나중에 삭제하기*/
 }
 
 .smallContainer {

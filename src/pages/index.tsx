@@ -181,7 +181,10 @@ export default function HomePage() {
         {!isHomeFilterOn ? (
           <>
             {classList?.map((classInfo: any, idx: any) => (
-              <ClassCard key={idx} classInfo={classInfo} />
+              <>
+                <ClassCard key={idx} classInfo={classInfo} />
+                <div className={styles.divider} />
+              </>
             ))}
           </>
         ) : filteredClassList.length == 0 ? (
@@ -189,11 +192,15 @@ export default function HomePage() {
         ) : (
           <>
             {filteredClassList.map((classInfo: any, idx: any) => (
-              <ClassCard key={idx} classInfo={classInfo} />
+              <>
+                <ClassCard key={idx} classInfo={classInfo} />
+                <div className={styles.divider} />
+              </>
             ))}
           </>
         )}
       </div>
+
       <Footer />
     </>
   );

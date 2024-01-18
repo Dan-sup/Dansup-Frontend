@@ -16,19 +16,17 @@ export default function ClassCard({ classInfo }: ClassCardProps) {
   const router = useRouter();
 
   return (
-    <>
+    <div className={styles.container}>
       <div className={styles.titleBox}>
-        <div className={styles.leftBox}>
-          <div className={styles.profileImgBox}>
-            {!classInfo.userProfileImage ? (
-              <AvatarIcon className={styles.profileImg} />
-            ) : (
-              <img
-                src={classInfo.userProfileImage}
-                className={styles.profileImg}
-              />
-            )}
-          </div>
+        <div className={styles.dancerBox}>
+          {!classInfo.userProfileImage ? (
+            <AvatarIcon className={styles.profileImg} />
+          ) : (
+            <img
+              src={classInfo.userProfileImage}
+              className={styles.profileImg}
+            />
+          )}
 
           <div
             className={`${styles.dancerName} ${typoStyles.caption1_SemiBold}`}
@@ -107,8 +105,6 @@ export default function ClassCard({ classInfo }: ClassCardProps) {
           </div>
         </div>
       </div>
-
-      <div className={styles.divider}></div>
-    </>
+    </div>
   );
 }

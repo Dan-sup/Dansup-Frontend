@@ -214,7 +214,10 @@ export default function SearchResultPage() {
             ) : (
               <>
                 {typingFilteredClassList.map((classInfo, idx) => (
-                  <ClassCard key={idx} classInfo={classInfo} />
+                  <>
+                    <ClassCard key={idx} classInfo={classInfo} />
+                    <div className={styles.divider} />
+                  </>
                 ))}
               </>
             )
@@ -223,7 +226,10 @@ export default function SearchResultPage() {
           ) : (
             <>
               {bothFilteredClassList.map((classInfo, idx) => (
-                <ClassCard key={idx} classInfo={classInfo} />
+                <>
+                  <ClassCard key={idx} classInfo={classInfo} />
+                  <div className={styles.divider} />
+                </>
               ))}
             </>
           )
@@ -237,6 +243,7 @@ export default function SearchResultPage() {
           </div>
         )}
       </div>
+
       <Footer />
     </>
   );
