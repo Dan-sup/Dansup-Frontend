@@ -477,8 +477,8 @@
 .deleteBox {
   background: var(--color-gray-500-card);
   border-radius: 4px;
-  width: 84px;
-  height: 37px;
+  width: 110px;
+  height: 41px;
   display: flex;
   justify-content: center;
   align-items: center;

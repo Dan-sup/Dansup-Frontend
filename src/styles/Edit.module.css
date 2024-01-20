@@ -106,6 +106,7 @@
 
 /*profile-upload: award*/
 .awardBetween {
+  position: relative;
   margin-top: 14px;
 }
 
@@ -170,4 +171,19 @@
   justify-content: flex-start;
   width: 100%;
   margin: 14px 0;
+}
+
+.white {
+  border-bottom: 1px solid var(--color-white);
+}
+
+.awardDelete {
+  display: flex;
+  align-items: center;
+  height: 8px;
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  bottom: 12px;
+  cursor: pointer;
 }

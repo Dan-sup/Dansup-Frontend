@@ -6,6 +6,7 @@ import fonts from '../../styles/typography.module.css';
 import buttonStyles from '../../styles/Button.module.css';
 import BlankImage from '../../../public/icons/blank-image.svg';
 import Plus from '../../../public/icons/plus.svg';
+import Delete from '../../../public/icons/award-delete.svg';
 import { IAwardList, IList, IDuplicationList } from '../../types/upload';
 import { allGenreList } from '@/data/class-data';
 import UploadVideo from '../../components/upload/UploadVideo';
@@ -149,6 +150,11 @@ export default function ProfileUpload() {
     };
 
     setAwardList([...awardList, awardItem]);
+  };
+
+  const deleteAward = (item: IAwardList) => {
+    awardList.splice(awardList.indexOf(item), 1);
+    setAwardList([...awardList]);
   };
 
   const handleChangeDate = (
@@ -427,19 +433,37 @@ export default function ProfileUpload() {
                 key={idx}
               >
                 <input
-                  className={`${styles.input} ${styles.short} ${fonts.body2_Regular}`}
+                  className={
+                    item.date === ''
+                      ? `${styles.input} ${styles.short} ${fonts.body2_Regular}`
+                      : `${styles.input} ${styles.short} ${styles.white} ${fonts.body2_Regular} `
+                  }
                   placeholder="2023/01/01"
                   type="text"
                   value={item.date}
                   onChange={e => handleChangeDate(e, idx)}
                 />
                 <input
-                  className={`${styles.input} ${styles.mid} ${fonts.body2_Regular}`}
+                  className={
+                    item.detail === ''
+                      ? `${styles.input} ${styles.mid} ${fonts.body2_Regular}`
+                      : `${styles.input} ${styles.mid} ${styles.white} ${fonts.body2_Regular}`
+                  }
                   placeholder="ex.OO댄스대회 최우수상"
                   type="text"
                   value={item.detail}
                   onChange={e => handleChangeAward(e, idx)}
                 />
+                {item.date !== '' || item.detail !== '' ? (
+                  <div
+                    onClick={() => deleteAward(item)}
+                    className={styles.awardDelete}
+                  >
+                    <Delete />
+                  </div>
+                ) : (
+                  <></>
+                )}
               </div>
             ))}
             <div

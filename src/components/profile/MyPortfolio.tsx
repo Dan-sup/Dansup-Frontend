@@ -168,7 +168,7 @@ export default function Portfolio({ portfolios, video }: portfolioProps) {
                           onClick={openDeleteModal}
                           className={`${styles.deleteText} ${fonts.body2_SemiBold}`}
                         >
-                          삭제하기
+                          영상 삭제하기
                         </button>
                       </div>
                     ) : (
