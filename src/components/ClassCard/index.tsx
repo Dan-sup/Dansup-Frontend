@@ -47,7 +47,12 @@ export default function ClassCard({ classInfo }: ClassCardProps) {
         className={styles.video}
         width="100%"
         height={271}
-        onClick={() => router.push(`class/${classInfo.danceClassId}`)}
+        onClick={() => {
+          router.push({
+            pathname: `/class/[classId]`,
+            query: { classId: classInfo.danceClassId },
+          });
+        }}
       />
 
       <div className={`${styles.InfoBox} ${typoStyles.body2_Regular}`}>
@@ -64,7 +69,12 @@ export default function ClassCard({ classInfo }: ClassCardProps) {
 
         <div
           className={`${styles.classTitle} ${typoStyles.head1}`}
-          onClick={() => router.push(`class/${classInfo.danceClassId}`)}
+          onClick={() => {
+            router.push({
+              pathname: `/class/[classId]`,
+              query: { classId: classInfo.danceClassId },
+            });
+          }}
         >
           {classInfo.title}
         </div>
