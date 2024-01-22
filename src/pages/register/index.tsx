@@ -351,7 +351,7 @@ export default function ProfileUpload() {
               isImportant={false}
               video={video}
               setVideo={setVideo}
-              title="대표 영상 업로드"
+              title="프로필 배경 영상 업로드"
             />
           </div>
           <div className={styles.box}>

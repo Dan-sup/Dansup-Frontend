@@ -85,7 +85,9 @@ export default function Portfolio({ portfolios, video }: portfolioProps) {
       <div className={styles.divider} />
       <div className={styles.Part}>
         <div className={styles.titleContainer}>
-          <div className={`${styles.awardTitle} ${fonts.head2}`}>대표 영상</div>
+          <div className={`${styles.awardTitle} ${fonts.head2}`}>
+            포트폴리오 영상
+          </div>
         </div>
         {video?.length == 0 ? (
           <div className={styles.paddingContainer}>
