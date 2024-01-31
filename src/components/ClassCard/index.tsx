@@ -6,6 +6,7 @@ import ReactPlayer from 'react-player';
 import ScrapBtn from '../common/ScrapBtn';
 import Location from '../common/Location';
 import Date from '../common/Date';
+import GenreChip from '../common/GenreChip';
 
 interface ClassCardProps {
   classInfo: any;
@@ -50,12 +51,10 @@ export default function ClassCard({ classInfo }: ClassCardProps) {
       <div className={`${styles.InfoBox} ${typoStyles.body2_Regular}`}>
         <div className={styles.genreBox}>
           {classInfo.genres.map((item: any, idx: any) => (
-            <div
-              className={`${styles.genre} ${typoStyles.caption1_Regular}`}
-              key={idx}
-            >
-              {item.genre}
-            </div>
+            <>
+              <GenreChip text={item.genre} size="small" />
+              <div className={styles.genreChipDivider} />
+            </>
           ))}
         </div>
 
