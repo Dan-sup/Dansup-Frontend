@@ -1,12 +1,11 @@
 import typoStyles from '../../styles/typography.module.css';
 import AvatarIcon from '../../../public/icons/ClassCard/avatar.svg';
-import DateIcon from '../../../public/icons/date.svg';
-import LocationIcon from '../../../public/icons/location.svg';
-import ScrapIcon from '../../../public/icons/scrap-small.svg';
 import styles from '../../styles/components/ClassCard/ClassCard.module.css';
 import { useRouter } from 'next/router';
-import { changeDateForm, changeDayForm } from '@/utils/date';
 import ReactPlayer from 'react-player';
+import ScrapBtn from '../common/ScrapBtn';
+import Location from '../common/Location';
+import Date from '../common/Date';
 
 interface ClassCardProps {
   classInfo: any;
@@ -35,9 +34,7 @@ export default function ClassCard({ classInfo }: ClassCardProps) {
           </div>
         </div>
 
-        <div className={styles.scrapIconBox}>
-          <ScrapIcon />
-        </div>
+        <ScrapBtn />
       </div>
 
       <ReactPlayer
@@ -70,39 +67,8 @@ export default function ClassCard({ classInfo }: ClassCardProps) {
         </div>
 
         <div className={styles.bottomLineBox}>
-          <div className={`${styles.detailBox} ${typoStyles.caption1_Regular}`}>
-            <LocationIcon className={styles.icon} />
-            {classInfo.location.split(' ')[1]}
-          </div>
-          <div className={`${styles.detailBox} ${typoStyles.caption1_Regular}`}>
-            <DateIcon className={styles.icon} />
-            {classInfo.method}{' '}
-            {classInfo.method == '원데이' ? (
-              classInfo.date == null ? (
-                <></>
-              ) : (
-                changeDateForm(classInfo.date)
-              )
-            ) : classInfo.mon == false &&
-              classInfo.tue == false &&
-              classInfo.wed == false &&
-              classInfo.thu == false &&
-              classInfo.fri == false &&
-              classInfo.sat == false &&
-              classInfo.sun == false ? (
-              <></>
-            ) : (
-              changeDayForm(
-                classInfo.mon,
-                classInfo.tue,
-                classInfo.wed,
-                classInfo.thu,
-                classInfo.fri,
-                classInfo.sat,
-                classInfo.sun,
-              )
-            )}
-          </div>
+          <Location classInfo={classInfo} />
+          <Date classInfo={classInfo} />
         </div>
       </div>
     </div>

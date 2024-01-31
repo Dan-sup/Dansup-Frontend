@@ -35,18 +35,6 @@
   margin-left: 9px;
 }
 
-.scrapIconBox {
-  background-color: var(--color-gray-500-card);
-
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 /*
 .textBox {
   color: white;
@@ -113,15 +101,4 @@
   align-items: center;
 
   padding: 3px 0;
-}
-
-.detailBox {
-  display: flex;
-  align-items: center;
-
-  margin-right: 17px;
-}
-
-.icon {
-  margin-right: 4px;
 }
