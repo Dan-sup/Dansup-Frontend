@@ -2,23 +2,44 @@
   position: relative;
 
   width: 100%;
-  height: 271px;
+  height: 220px;
 }
 
-.titleBox {
+.scrapBtnBox {
   position: absolute;
+  top: 12px;
+  right: 18px;
+}
 
-  width: 100%;
-  height: 52px;
+/*
+.reactPlayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+*/
 
-  padding: 0 18px;
+.genreBox {
+  position: absolute;
+  bottom: 12px;
+  left: 18px;
 
+  height: 22px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
 
-.dancerBox {
+.genreChipDivider {
+  width: 6px;
+}
+
+.InfoBox {
+  width: 100%;
+  height: 74px;
+
+  padding: 16px 0;
+  padding-left: 18px;
+
   display: flex;
   align-items: center;
 }
@@ -29,10 +50,32 @@
   border-radius: 50%;
 }
 
-.dancerName {
-  color: white;
+.rigthInfoBox {
+  width: 100%;
+  height: 42px;
 
-  margin-left: 9px;
+  margin-left: 8px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.classTitle {
+  color: white;
+}
+
+.bottomLineBox {
+  display: flex;
+  align-items: center;
+}
+
+.dancerName {
+  color: var(--color-gray-200);
+}
+
+.bottomInfoDivider {
+  width: 10px;
 }
 
 /*
@@ -48,47 +91,3 @@
   overflow-x: scroll;
 }
 */
-
-.video {
-  width: 100%;
-  height: 271px;
-}
-
-.InfoBox {
-  position: absolute;
-  bottom: 0;
-
-  width: 100%;
-  /*height: 80px;*/
-
-  padding: 0 18px;
-
-  display: flex;
-  flex-direction: column;
-}
-
-.genreBox {
-  height: 22px;
-  display: flex;
-  align-items: center;
-}
-
-.genreChipDivider {
-  width: 6px;
-}
-
-.classTitle {
-  color: white;
-
-  padding: 6px 0;
-  margin: 5px 0;
-}
-
-.bottomLineBox {
-  color: var(--color-gray-200);
-
-  display: flex;
-  align-items: center;
-
-  padding: 3px 0;
-}

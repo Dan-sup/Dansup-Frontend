@@ -1,6 +1,8 @@
 .container {
   display: flex;
   align-items: center;
+
+  color: var(--color-gray-200);
 }
 
 .icon {
