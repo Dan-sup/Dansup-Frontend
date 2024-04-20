@@ -40,8 +40,20 @@
 ### 6. 마이 페이지
 <img width="641" alt="image" src="https://github.com/Dan-sup/Dansup-Frontend/assets/88028826/302e207e-fa0a-4881-b129-24d907c3ce30">
 
-### 7. 수업 업로드 및 포트폴리오 업로드
+### 7. 포트폴리오 업로드 및 수업 업로드
+#### 포트폴리오 업로드
+<img width="638" alt="image" src="https://github.com/Dan-sup/Dansup-Frontend/assets/88028826/fd6ab712-c9c4-43b9-b30b-ac50093bd46f">
+
+<br />
+
+####수업 업로드
+
 ### 8. 클래스 세부 페이지와 댄서 프로필 페이지
+#### 클래스 세부 페이지
+<img width="580" alt="image" src="https://github.com/Dan-sup/Dansup-Frontend/assets/88028826/d2c02b94-1723-4e1e-9100-854b82999607">
+
+#### 댄서 프로필 페이지
+<img width="667" alt="image" src="https://github.com/Dan-sup/Dansup-Frontend/assets/88028826/df9b6fdf-e350-4063-b77c-6b7b10de6d56">
 
 <br />
 
