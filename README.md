@@ -47,6 +47,8 @@
 <br />
 
 ####수업 업로드
+<img width="1006" alt="image" src="https://github.com/Dan-sup/Dansup-Frontend/assets/88028826/653560d0-dec5-40f7-95ff-37cc395c78bc">
+
 
 ### 8. 클래스 세부 페이지와 댄서 프로필 페이지
 #### 클래스 세부 페이지
