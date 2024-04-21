@@ -26,15 +26,20 @@
 <br />
 
 ## 🚀 주요 기능 
+
 ### 1. 소셜 로그인
+<img width="893" alt="image" src="https://github.com/Dan-sup/Dansup-Frontend/assets/88028826/49620df6-1376-44f8-a27e-d2ef4d8bc7b4">
+
 ### 2. 회원가입
+<img width="885" alt="image" src="https://github.com/Dan-sup/Dansup-Frontend/assets/88028826/a23f6155-28a4-4d86-a82c-50f066fb2215">
+
 ### 3. 필터
 <img width="994" alt="image" src="https://github.com/Dan-sup/Dansup-Frontend/assets/88028826/97c45717-1be2-43f8-9bdc-e35e751a86b4">
 
-### 4. 홈 페이지 및 필터링 적용
+### 4. 홈 페이지 및 필터 적용
 <img width="811" alt="image" src="https://github.com/Dan-sup/Dansup-Frontend/assets/88028826/08c385a8-f742-497f-b867-c473807d0d5c">
 
-### 5. 검색 결과 페이지 및 필터링 적용
+### 5. 검색 결과 페이지 및 필터 적용
 <img width="1007" alt="image" src="https://github.com/Dan-sup/Dansup-Frontend/assets/88028826/6f011df4-e3ee-456f-9d82-6c72b383161f">
 
 ### 6. 마이 페이지
@@ -44,11 +49,8 @@
 #### 포트폴리오 업로드
 <img width="638" alt="image" src="https://github.com/Dan-sup/Dansup-Frontend/assets/88028826/fd6ab712-c9c4-43b9-b30b-ac50093bd46f">
 
-<br />
-
-####수업 업로드
+#### 수업 업로드
 <img width="1006" alt="image" src="https://github.com/Dan-sup/Dansup-Frontend/assets/88028826/653560d0-dec5-40f7-95ff-37cc395c78bc">
-
 
 ### 8. 클래스 세부 페이지와 댄서 프로필 페이지
 #### 클래스 세부 페이지
