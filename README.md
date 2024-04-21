@@ -30,8 +30,12 @@
 ### 1. 소셜 로그인
 <img width="893" alt="image" src="https://github.com/Dan-sup/Dansup-Frontend/assets/88028826/49620df6-1376-44f8-a27e-d2ef4d8bc7b4">
 
+<br />
+
 ### 2. 회원가입
 <img width="885" alt="image" src="https://github.com/Dan-sup/Dansup-Frontend/assets/88028826/a23f6155-28a4-4d86-a82c-50f066fb2215">
+
+<br />
 
 ### 3. 필터
 <img width="994" alt="image" src="https://github.com/Dan-sup/Dansup-Frontend/assets/88028826/97c45717-1be2-43f8-9bdc-e35e751a86b4">
