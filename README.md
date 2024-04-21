@@ -1,16 +1,12 @@
-<div align="center">
-  <img src="https://github.com/Dan-sup/Dansup-Frontend/assets/88028826/09f9b091-2adc-4471-812d-2adedb8b9f38" width="1000"/>
-  <br />
-  <h2>댄서들을 위한 통합 정보 플랫폼 💃</h2>
-  <p>
-      댄서들은 수업 및 댄서 검색, 댄스 영상 기록을 목적으로 sns를 활용하고 있으나, **sns는 댄서에게 최적화된 서비스가 아닙니다.**<br />
-      **Dansup**은 댄서들을 위해 맞춤형 수업 정보 필터링, 수업 업로드, 포트폴리오 생성 등의 기능을 제공합니다.
-  </p>
-</div>
+# Dansup - 댄서들을 위한 통합 정보 플랫폼 💃
+<img src="https://github.com/Dan-sup/Dansup-Frontend/assets/88028826/09f9b091-2adc-4471-812d-2adedb8b9f38" width="1000"/>
 
 <br />
 
 ## 📍 서비스 소개
+댄서들은 수업 및 댄서 검색, 댄스 영상 기록 등을 목적으로 SNS를 활용하고 있으나, **SNS는 댄서들에게 최적화된 서비스가 아닙니다.** <br>
+**Dansup**은 댄서들을 위한 맞춤형 수업 정보 필터링, 수업 및 포트폴리오 업로드 등 다양한 기능을 제공합니다.
+
 <img src="https://github.com/Dan-sup/Dansup-Frontend/assets/88028826/d6b5e1e9-118b-42db-b56a-e981de74cbdf" width="1000"/>
 
 <br />
@@ -22,7 +18,6 @@
 
 - 협업 툴 : <img src="https://img.shields.io/badge/Figma-F24E1E?style=flat-square&logo=Figma&logoColor=white" align="center"/>   <img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white" align="center"/>   <img src="https://img.shields.io/badge/Notion-000000?style=flat-square&logo=Notion&logoColor=white" align="center"/>   <img src="https://img.shields.io/badge/Slack-4A154B?style=flat-square&logo=slack&logoColor=white" align="center"/>
 
-
 <br />
 
 ## 🚀 주요 기능 
@@ -30,12 +25,8 @@
 ### 1. 소셜 로그인
 <img width="893" alt="image" src="https://github.com/Dan-sup/Dansup-Frontend/assets/88028826/49620df6-1376-44f8-a27e-d2ef4d8bc7b4">
 
-<br />
-
 ### 2. 회원가입
 <img width="885" alt="image" src="https://github.com/Dan-sup/Dansup-Frontend/assets/88028826/a23f6155-28a4-4d86-a82c-50f066fb2215">
-
-<br />
 
 ### 3. 필터
 <img width="994" alt="image" src="https://github.com/Dan-sup/Dansup-Frontend/assets/88028826/97c45717-1be2-43f8-9bdc-e35e751a86b4">
@@ -56,8 +47,8 @@
 #### 수업 업로드
 <img width="1006" alt="image" src="https://github.com/Dan-sup/Dansup-Frontend/assets/88028826/653560d0-dec5-40f7-95ff-37cc395c78bc">
 
-### 8. 클래스 세부 페이지와 댄서 프로필 페이지
-#### 클래스 세부 페이지
+### 8. 수업 세부 페이지와 댄서 프로필 페이지
+#### 수업 세부 페이지
 <img width="580" alt="image" src="https://github.com/Dan-sup/Dansup-Frontend/assets/88028826/d2c02b94-1723-4e1e-9100-854b82999607">
 
 #### 댄서 프로필 페이지
