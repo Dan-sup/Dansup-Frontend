@@ -1,10 +1,16 @@
 import dynamic from 'next/dynamic';
 import Bottom from '../components/common/Footer';
 
-const BasicHeader = dynamic(import('@/components/common/Header/BasicHeader'));
 import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { getClassList, getFilteredClassList } from '@/apis/class';
+import { useResetFilter } from '@/hooks/useResetFilter';
+import { useSelectBar } from '@/hooks/useSelectBar';
+import { isHomeFilterOnState } from '@/store/filter';
+import { filteredClassListState } from '@/store/class';
+import { homeFilterValueListState } from '@/store/filter/homeFilter';
 import SearchIcon from '../../public/icons/search.svg';
 import FilterIcon from '../../public/icons/filter.svg';
 import FilterOnIcon from '../../public/icons/filter-on.svg';
@@ -12,19 +18,13 @@ import ResetIcon from '../../public/icons/reset.svg';
 import typoStyles from '../styles/typography.module.css';
 import styles from '../styles/HomePage.module.css';
 import filterBarStyles from '../styles/components/FilterBar.module.css';
+const BasicHeader = dynamic(import('@/components/common/Header/BasicHeader'));
 const FilterBar = dynamic(import('@/components/FilterBar'));
-const ClassCard = dynamic(import('@/components/ClassCard'));
-import { useRouter } from 'next/router';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { isHomeFilterOnState } from '@/store/filter';
-import { filteredClassListState } from '@/store/class';
 const HomeFilter = dynamic(import('@/components/modal/HomeFilter'));
+const ClassCard = dynamic(import('@/components/ClassCard'));
 const NoInfo = dynamic(import('@/components/common/NoInfo'));
-import { useResetFilter } from '@/hooks/useResetFilter';
-import { homeFilterValueListState } from '@/store/filter/homeFilter';
-import Footer from '../components/common/Footer';
 import SelectBar from '@/components/SelectBar';
-import { useSelectBar } from '@/hooks/useSelectBar';
+import Footer from '../components/common/Footer';
 
 export default function HomePage() {
   //const [isFilterOn, setIsFilterOn] = useState<boolean>(false);

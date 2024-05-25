@@ -98,7 +98,7 @@ export default function SearchResultPage() {
 
   //타이핑 검색한 '댄서' 리스트 가져오기 (완료)
   const { data: filteredDancerList } = useQuery(
-    ['classList', typingValue],
+    ['dancerList', typingValue],
     () => getFilteredDancerList(typingValue),
     {
       onSuccess: data => {

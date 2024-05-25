@@ -183,7 +183,7 @@ export default function HomeFilter({
   };
 
   const router = useRouter();
-  const [homeFilter, setHomeFilter] = useRecoilState(homeFilterState);
+  //const [homeFilter, setHomeFilter] = useRecoilState(homeFilterState);
 
   const newClassDayList = classDayList.map(item => item.name);
 
