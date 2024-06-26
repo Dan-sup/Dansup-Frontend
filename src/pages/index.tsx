@@ -109,12 +109,19 @@ export default function HomePage() {
 
         {/*<FilterBar isFilterOn={isFilterOn} />*/}
         {!isHomeFilterOn ? (
-          <div className={styles.selectBar}>
+          <div className={filterBarStyles.bar}>
+            {/*
             <SelectBar
               selectBarItem={selectBarItem}
               handleChangeSelectBarItem={handleChangeSelectBarItem}
               type="narrow"
             />
+            */}
+            <div
+              className={`${filterBarStyles.barText} ${typoStyles.body1_SemiBold}`}
+            >
+              최근 업로드된 수업
+            </div>
 
             <button className={styles.filterIcon} onClick={openModal}>
               <FilterIcon />

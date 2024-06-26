@@ -18,9 +18,11 @@ export default function ClassCard({ classInfo }: ClassCardProps) {
   return (
     <>
       <div className={styles.container}>
+        {/*
         <div className={styles.scrapBtnBox}>
           <ScrapBtn />
         </div>
+        */}
 
         <ReactPlayer
           url={classInfo?.videoUrl}
