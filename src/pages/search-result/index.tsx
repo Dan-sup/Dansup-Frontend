@@ -183,6 +183,7 @@ export default function SearchResultPage() {
         {isSearchFilterOn && selectBarItem == '수업' && (
           <div className={filterBarStyles.appliedFiltersBox}>
             <div className={filterBarStyles.filterValueListBox}>
+              {/*
               {searchFilterValueList.map((value: any, idx: any) => (
                 <div
                   className={`${filterBarStyles.filterValueBox} ${typoStyles.caption1_Regular}`}
@@ -190,6 +191,21 @@ export default function SearchResultPage() {
                 >
                   {value}
                 </div>
+              ))}
+                */}
+              {searchFilterValueList.map((value: any, idx: any) => (
+                <>
+                  {value ? (
+                    <div
+                      className={`${filterBarStyles.filterValueBox} ${typoStyles.caption1_Regular}`}
+                      key={idx}
+                    >
+                      {value}
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                </>
               ))}
             </div>
 
