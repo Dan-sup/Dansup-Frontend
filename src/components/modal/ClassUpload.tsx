@@ -270,6 +270,11 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
 
   const newClassDayList = classDayList.map(item => item.name);
 
+  let trsGenreList = [];
+  for (let x of genreList) {
+    trsGenreList.push({ genre: x.name });
+  }
+
   const handleSubmit = () => {
     /*
     console.log(endTime !== '' ? endHour : null);
@@ -300,7 +305,7 @@ export default function ClassUpload({ isOpen, closeModal }: classUploadProps) {
             difficulty: classLevel,
             endHour: endTime !== '' ? endHour : null,
             endTime: endTime !== '' ? endTime : null,
-            genres: genreList.map(data => data.name),
+            genres: trsGenreList,
             hashtag1:
               hashTagList[1]?.name !== undefined ? hashTagList[1]?.name : null,
             hashtag2:

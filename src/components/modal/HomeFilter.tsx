@@ -262,6 +262,11 @@ export default function HomeFilter({
     .flat()
     .filter(item => item !== null);
 
+  let trsGenreList = [];
+  for (let x of genreList) {
+    trsGenreList.push({ genre: x.name });
+  }
+
   const handleSubmit = () => {
     /*
     console.log(
@@ -307,7 +312,7 @@ export default function HomeFilter({
 
     handleHomeFilterOn({
       location: locationList[0] === null ? null : locationList[0]?.name,
-      genres: genreList.map(item => item.name),
+      genres: trsGenreList,
       days: {
         mon: newClassDayList.includes('월'),
         tue: newClassDayList.includes('화'),
