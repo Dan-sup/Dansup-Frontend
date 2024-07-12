@@ -9,6 +9,8 @@
   align-items: center;
 
   position: fixed;
+
+  z-index: 100; /*헤더가 맨 앞으로 오도록*/
 }
 
 .blackContainer {
