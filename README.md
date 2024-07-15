@@ -1,10 +1,10 @@
 # Dansup - 댄서들을 위한 통합 정보 플랫폼 💃
 <img src="https://github.com/Dan-sup/Dansup-Frontend/assets/88028826/09f9b091-2adc-4471-812d-2adedb8b9f38" width="1000"/>
-<a href="https://youtu.be/OdMnD-1JlZA?feature=shared" target="_blank">📺 시연 영상</a> 
-<br />
 <a href="https://www.dan-sup.com" target="_blank">🌐 배포 사이트</a> 
-
 <br />
+
+## 📺 시연 영상
+👉 <a href="https://youtu.be/OdMnD-1JlZA?feature=shared" target="_blank">보러가기</a> 
 
 ## 📍 서비스 소개
 최근 몇 년 사이에 춤에 대한 사람들의 관심이 나날이 높아지고 있습니다. 춤에 관심 있는 사람들과 댄서들은 수업 및 댄서 검색, 댄스 영상 기록 등을 목적으로 SNS를 활용하고 있으나, **SNS는 댄서들에게 최적화된 서비스가 아닙니다.** <br>
