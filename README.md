@@ -4,7 +4,7 @@
 <br />
 
 ## 📺 시연 영상
-👉 <a href="https://youtu.be/OdMnD-1JlZA?feature=shared" target="_blank">보러가기</a> 
+👉 <a href="https://youtu.be/OdMnD-1JlZA?feature=shared" target="_blank">보러 가기!</a> 
 
 ## 📍 서비스 소개
 최근 몇 년 사이에 춤에 대한 사람들의 관심이 나날이 높아지고 있습니다. 춤에 관심 있는 사람들과 댄서들은 수업 및 댄서 검색, 댄스 영상 기록 등을 목적으로 SNS를 활용하고 있으나, **SNS는 댄서들에게 최적화된 서비스가 아닙니다.** <br>
