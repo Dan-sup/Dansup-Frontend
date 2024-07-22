@@ -26,27 +26,26 @@
 ## 🚀 주요 기능 
 
 ### 1. 소셜 로그인
-<img width="893" alt="image" src="https://github.com/Dan-sup/Dansup-Frontend/assets/88028826/49620df6-1376-44f8-a27e-d2ef4d8bc7b4">  <br>
-(gif)
+![로4](https://github.com/user-attachments/assets/f9ff7f10-5cf8-4bc0-a8b5-b54e7bb9ebc2)
 - 카카오 로그인을 통해 사용자가 더 편리하게 서비스에 로그인할 수 있습니다.
 
 ### 2. 회원 가입
-<img width="885" alt="image" src="https://github.com/Dan-sup/Dansup-Frontend/assets/88028826/a23f6155-28a4-4d86-a82c-50f066fb2215">  <br>
+![회2](https://github.com/user-attachments/assets/7bd38d9d-916a-4eb3-a89b-6b8a390621a0)
 - 서비스를 처음 이용하는 사용자는 자신의 프로필을 작성하는 과정을 거칩니다.  <br>
 - 자신의 댄스 장르, 공연 및 활동 경력 뿐만 아니라 프로필 이미지와 대표 영상을 업로드할 수 있습니다.
 
 ### 3. 원하는 댄스 수업 찾기
 **방법 1. 필터 적용**
-![gif필터](https://github.com/user-attachments/assets/19fa452d-7661-435c-abab-43546fc05554)
+![필4](https://github.com/user-attachments/assets/3e725e73-f1f2-4b95-977c-300aef952e3b)
 - 필터를 적용하여, 원하는 댄스 수업을 쉽고 정확하게 찾을 수 있습니다.
 - 적용한 필터 항목들을 확인할 수 있으며, 초기화 버튼을 통해 초기화가 가능합니다.
 
 **방법 2. 검색어 입력**
-![gif검색](https://github.com/user-attachments/assets/db242673-dc13-4d55-856f-4855f5171bc6)
+![검4](https://github.com/user-attachments/assets/4a4448cf-33c1-4bdc-890f-251fda469527)
 - 검색창에 수업 이름을 입력하여, 원하는 댄스 수업을 찾을 수 있습니다.
 
 **방법 3. 검색어 입력 + 필터 적용**
-![gif검필](https://github.com/user-attachments/assets/6fd32afa-d686-4584-a2d9-125255d8ba64)
+![둘4](https://github.com/user-attachments/assets/cc66d916-d42d-4c28-885a-8519d3fc5213)
 - 검색어 입력 후에, 필터까지 적용하여 원하는 댄스 수업을 더 정확하게 찾을 수 있습니다.
 
 ### 4. 원하는 댄서 찾기
@@ -54,17 +53,16 @@
 - 검색창에 댄서 이름을 입력하여, 원하는 댄서를 찾을 수 있습니다.
 
 ### 5. 마이 페이지
-<img width="641" alt="image" src="https://github.com/Dan-sup/Dansup-Frontend/assets/88028826/302e207e-fa0a-4881-b129-24d907c3ce30">  <br>
-(gif)
+![마4](https://github.com/user-attachments/assets/b9113fac-9797-4b4b-8ba3-a871076d25ed)
 - 나의 정보와 포트폴리오 및 내 수업을 확인할 수 있습니다.
 - 포트폴리오와 수업을 업로드할 수 있습니다.
 
 #### [포트폴리오 업로드]
-<img width="638" alt="image" src="https://github.com/Dan-sup/Dansup-Frontend/assets/88028826/fd6ab712-c9c4-43b9-b30b-ac50093bd46f">  <br>
+![포4](https://github.com/user-attachments/assets/f0e4eecc-79df-40af-b728-acb072313404)
 - 포트폴리오에 올릴 영상을 업로드할 수 있습니다.
 
 #### [수업 업로드]
-<img width="1006" alt="image" src="https://github.com/Dan-sup/Dansup-Frontend/assets/88028826/653560d0-dec5-40f7-95ff-37cc395c78bc">  <br>
+![클720](https://github.com/user-attachments/assets/5d376e3c-55f9-416d-83cf-add432aaeee2)
 - 댄스 수업을 업로드할 수 있습니다.  <br>
 - 원데이, 정규반 등 다양한 방식에 따른 수업을 업로드할 수 있습니다.
 
