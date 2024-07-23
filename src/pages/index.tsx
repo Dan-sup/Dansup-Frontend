@@ -56,19 +56,16 @@ export default function HomePage() {
   //api 로직 가져와서 사용하기
 
   //전체 클래스 리스트
-  const { data: classList } = useQuery(
-    ['classList'],
-    () => getAllClassList(),
-    //{ enabled: !isHomeFilterOn },
-    {
-      onSuccess: data => {
-        console.log(data);
-      },
-      onError: error => {
-        console.log(error);
-      },
+  const { data: classList } = useQuery(['classList'], () => getAllClassList(), {
+    //refetchInterval: 1000,
+    enabled: !isHomeFilterOn,
+    onSuccess: data => {
+      console.log(data);
     },
-  );
+    onError: error => {
+      console.log(error);
+    },
+  });
 
   //필터링된 클래스 리스트
   const { data: filteredClassList } = useQuery(
@@ -78,8 +75,8 @@ export default function HomePage() {
         typingValue: null, //검색어는 없으니 null
         filterValue: homeFilterValue,
       }),
-    //{ enabled: !isHomeFilterOn },
     {
+      enabled: isHomeFilterOn,
       onSuccess: data => {
         console.log(data);
       },

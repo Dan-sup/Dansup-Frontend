@@ -65,6 +65,7 @@ export default function SearchResultPage() {
         filterValue: {},
       }),
     {
+      enabled: !isSearchFilterOn,
       onSuccess: data => {
         console.log(data);
       },
@@ -83,6 +84,7 @@ export default function SearchResultPage() {
         filterValue: searchFilterValue,
       }),
     {
+      enabled: isSearchFilterOn,
       onSuccess: data => {
         console.log(data);
       },
