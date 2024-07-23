@@ -19,7 +19,7 @@ import ClassDay from '@/components/upload/ClassDay';
 import Close from '../../../public/icons/close.svg';
 import { useRouter } from 'next/router';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { searchFilterState } from '@/store/filter';
+import { isSearchFilterOnState } from '@/store/filter';
 import {
   classDayListSearchState,
   classFeeSearchState,
@@ -27,6 +27,7 @@ import {
   classWaySearchState,
   clickedTimeSearchState,
   genreListSearchState,
+  searchFilterValueState,
   searchFilterValueListState,
   isClickedGenreSearchState,
   isClickedLocationSearchState,
@@ -38,14 +39,9 @@ import { changeClassWayToK, changeClassLevelToK } from '@/utils/filter';
 interface filterProps {
   isOpen: boolean;
   closeModal: () => void;
-  handleSearchFilterOn: any;
 }
 
-export default function SearchFilter({
-  isOpen,
-  closeModal,
-  handleSearchFilterOn,
-}: filterProps) {
+export default function SearchFilter({ isOpen, closeModal }: filterProps) {
   const [locationList, setLocationList] = useRecoilState(
     locationListSearchState,
   );
@@ -70,6 +66,10 @@ export default function SearchFilter({
   );
   const [isClassLevelFull, setIsClassLevelFull] = useState<boolean>(false);
   const [classFee, setClassFee] = useRecoilState(classFeeSearchState);
+
+  const setSearchFilterValue = useSetRecoilState(searchFilterValueState);
+
+  const setIsSearchFilterOn = useSetRecoilState(isSearchFilterOnState);
 
   //목록 선택
   const [isSelectWay, setIsSelectWay] = useState<boolean>(true);
@@ -203,7 +203,6 @@ export default function SearchFilter({
   };
 
   const router = useRouter();
-  const [searchFilter, setSearchFilter] = useRecoilState(searchFilterState);
 
   const newClassDayList = classDayList.map(item => item.name);
 
@@ -303,7 +302,7 @@ export default function SearchFilter({
       });
       */
 
-    handleSearchFilterOn({
+    setSearchFilterValue({
       location: locationList[0] === null ? null : locationList[0]?.name,
       genres: trsGenreList,
       days: {
@@ -330,6 +329,7 @@ export default function SearchFilter({
       endHour: endHour,
     });
 
+    setIsSearchFilterOn(true);
     closeModal();
   };
 

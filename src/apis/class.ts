@@ -1,6 +1,6 @@
 import client from './client';
 
-//클래스 리스트 get
+//전체 클래스 리스트 get
 export const getAllClassList = async () => {
   const response = await client.get('/classes');
   return response.data.data;
