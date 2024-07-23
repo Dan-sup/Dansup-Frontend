@@ -56,3 +56,8 @@ export const homeFilterValueListState = atom({
   key: 'homeFilterValueListState',
   default: [],
 });
+
+export const homeFilterValueState = atom({
+  key: 'homeFilterValueState',
+  default: {},
+});

@@ -22,7 +22,7 @@ import {
 } from '@/store/class';
 import SearchFilter from '@/components/modal/SearchFilter';
 import { useResetFilter } from '@/hooks/useResetFilter';
-import { homeFilterValueListSearchState } from '@/store/filter/searchFilter';
+import { searchFilterValueListState } from '@/store/filter/searchFilter';
 import NoInfo from '@/components/common/NoInfo';
 import Footer from '@/components/common/Footer';
 import SelectBar from '@/components/SelectBar';
@@ -51,7 +51,7 @@ export default function SearchResultPage() {
     bothFilteredClassListState,
   );
 
-  const searchFilterValueList = useRecoilValue(homeFilterValueListSearchState);
+  const searchFilterValueList = useRecoilValue(searchFilterValueListState);
 
   const { resetSearchFilter } = useResetFilter();
 

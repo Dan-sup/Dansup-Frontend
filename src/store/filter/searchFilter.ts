@@ -52,7 +52,12 @@ export const selectTimeListSearchState = atom<IDuplicationList[]>({
 });
 
 //SearchFilter에 적용된 값 리스트 -> 필터 바에 넣을 것들
-export const homeFilterValueListSearchState = atom({
-  key: 'homeFilterValueListSearchState',
+export const searchFilterValueListState = atom({
+  key: 'searchFilterValueListState',
   default: [],
+});
+
+export const searchFilterValueState = atom({
+  key: 'searchFilterValueState',
+  default: {},
 });

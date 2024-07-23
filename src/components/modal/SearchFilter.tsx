@@ -27,7 +27,7 @@ import {
   classWaySearchState,
   clickedTimeSearchState,
   genreListSearchState,
-  homeFilterValueListSearchState,
+  searchFilterValueListState,
   isClickedGenreSearchState,
   isClickedLocationSearchState,
   locationListSearchState,
@@ -94,7 +94,7 @@ export default function SearchFilter({
   const [endTime, setEndTime] = useState<string>('');
 
   const setSearchFilterValueList = useSetRecoilState<any>(
-    homeFilterValueListSearchState,
+    searchFilterValueListState,
   );
 
   //location 박스 열기
