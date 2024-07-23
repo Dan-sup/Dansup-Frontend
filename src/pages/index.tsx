@@ -4,13 +4,15 @@ import Bottom from '../components/common/Footer';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { useQuery, useMutation } from '@tanstack/react-query';
-import { getClassList, getFilteredClassList } from '@/apis/class';
+import { useQuery } from '@tanstack/react-query';
+import { getAllClassList, getFilteredClassList } from '@/apis/class';
 import { useResetFilter } from '@/hooks/useResetFilter';
 import { useSelectBar } from '@/hooks/useSelectBar';
 import { isHomeFilterOnState } from '@/store/filter';
-import { filteredClassListState } from '@/store/class';
-import { homeFilterValueListState } from '@/store/filter/homeFilter';
+import {
+  homeFilterValueState,
+  homeFilterValueListState,
+} from '@/store/filter/homeFilter';
 import SearchIcon from '../../public/icons/search.svg';
 import FilterIcon from '../../public/icons/filter.svg';
 import FilterOnIcon from '../../public/icons/filter-on.svg';
@@ -33,11 +35,7 @@ export default function HomePage() {
   const { selectBarItem, handleChangeSelectBarItem } = useSelectBar();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  //const [filteredClassList, setfilteredClassList] = useState<object[]>([]);
-  const [filteredClassList, setfilteredClassList] = useRecoilState(
-    filteredClassListState,
-  );
-
+  const homeFilterValue = useRecoilValue(homeFilterValueState);
   const homeFilterValueList = useRecoilValue(homeFilterValueListState);
 
   const router = useRouter();
@@ -58,37 +56,38 @@ export default function HomePage() {
   //api 로직 가져와서 사용하기
 
   //전체 클래스 리스트
-  const { data: classList } = useQuery(['classList'], () => getClassList(), {
-    onSuccess: data => {
-      //console.log(data);
+  const { data: classList } = useQuery(
+    ['classList'],
+    () => getAllClassList(),
+    //{ enabled: !isHomeFilterOn },
+    {
+      onSuccess: data => {
+        console.log(data);
+      },
+      onError: error => {
+        console.log(error);
+      },
     },
-    onError: error => {
-      console.log(error);
-    },
-  });
+  );
 
   //필터링된 클래스 리스트
-  const getFilteredClassListMutation = useMutation(getFilteredClassList, {
-    onSuccess: data => {
-      //여기로 filteredClassList 오면 사용!
-      console.log(data);
-      setfilteredClassList(data);
+  const { data: filteredClassList } = useQuery(
+    ['classList', homeFilterValue],
+    () =>
+      getFilteredClassList({
+        typingValue: null, //검색어는 없으니 null
+        filterValue: homeFilterValue,
+      }),
+    //{ enabled: !isHomeFilterOn },
+    {
+      onSuccess: data => {
+        console.log(data);
+      },
+      onError: error => {
+        console.log(error);
+      },
     },
-    onError: error => {
-      console.log(error);
-    },
-  });
-
-  const handleHomeFilterOn = (filterValue: any) => {
-    console.log(filterValue);
-
-    getFilteredClassListMutation.mutate({
-      typingValue: null,
-      filterValue: filterValue,
-    });
-
-    setIsHomeFilterOn(true);
-  };
+  );
 
   return (
     <>
@@ -138,7 +137,7 @@ export default function HomePage() {
                   className={`${filterBarStyles.onNumberText} ${typoStyles.body2_Regular}`}
                 >
                   {' '}
-                  {filteredClassList.length}
+                  {filteredClassList?.length}
                 </span>
                 건
               </div>
@@ -178,11 +177,7 @@ export default function HomePage() {
             </div>
           </>
         )}
-        <HomeFilter
-          isOpen={isModalOpen}
-          closeModal={closeModal}
-          handleHomeFilterOn={handleHomeFilterOn}
-        />
+        <HomeFilter isOpen={isModalOpen} closeModal={closeModal} />
 
         {/* isFilterOn이 false면 classList, true면 filteredClassList 보여주기! */}
         {!isHomeFilterOn ? (
@@ -194,11 +189,11 @@ export default function HomePage() {
               </>
             ))}
           </>
-        ) : filteredClassList.length == 0 ? (
+        ) : filteredClassList?.length == 0 ? (
           <NoInfo />
         ) : (
           <>
-            {filteredClassList.map((classInfo: any, idx: any) => (
+            {filteredClassList?.map((classInfo: any, idx: any) => (
               <>
                 <ClassCard key={idx} classInfo={classInfo} />
                 <div className={styles.divider} />
