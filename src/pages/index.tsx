@@ -55,28 +55,17 @@ export default function HomePage() {
 
   //api 로직 가져와서 사용하기
 
-  //전체 클래스 리스트
-  const { data: classList } = useQuery(['classList'], () => getAllClassList(), {
-    //refetchInterval: 1000,
-    enabled: !isHomeFilterOn,
-    onSuccess: data => {
-      console.log(data);
-    },
-    onError: error => {
-      console.log(error);
-    },
-  });
-
-  //필터링된 클래스 리스트
-  const { data: filteredClassList } = useQuery(
-    ['classList', homeFilterValue],
-    () =>
-      getFilteredClassList({
-        typingValue: null, //검색어는 없으니 null
-        filterValue: homeFilterValue,
-      }),
+  //전체 클래스 리스트 / 필터링된 클래스 리스트
+  const { data: classList } = useQuery(
+    !isHomeFilterOn ? ['classList'] : ['classList', homeFilterValue],
+    !isHomeFilterOn
+      ? getAllClassList
+      : () =>
+          getFilteredClassList({
+            typingValue: null,
+            filterValue: homeFilterValue,
+          }),
     {
-      enabled: isHomeFilterOn,
       onSuccess: data => {
         console.log(data);
       },
@@ -134,7 +123,7 @@ export default function HomePage() {
                   className={`${filterBarStyles.onNumberText} ${typoStyles.body2_Regular}`}
                 >
                   {' '}
-                  {filteredClassList?.length}
+                  {classList?.length}
                 </span>
                 건
               </div>
@@ -176,21 +165,11 @@ export default function HomePage() {
         )}
         <HomeFilter isOpen={isModalOpen} closeModal={closeModal} />
 
-        {/* isFilterOn이 false면 classList, true면 filteredClassList 보여주기! */}
-        {!isHomeFilterOn ? (
-          <>
-            {classList?.map((classInfo: any, idx: any) => (
-              <>
-                <ClassCard key={idx} classInfo={classInfo} />
-                <div className={styles.divider} />
-              </>
-            ))}
-          </>
-        ) : filteredClassList?.length == 0 ? (
+        {classList?.length == 0 ? (
           <NoInfo />
         ) : (
           <>
-            {filteredClassList?.map((classInfo: any, idx: any) => (
+            {classList?.map((classInfo: any, idx: any) => (
               <>
                 <ClassCard key={idx} classInfo={classInfo} />
                 <div className={styles.divider} />

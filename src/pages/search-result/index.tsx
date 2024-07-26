@@ -56,35 +56,17 @@ export default function SearchResultPage() {
   const router = useRouter();
   const { typingValue } = router.query;
 
-  //타이핑만 (완료)
-  const { data: typingFilteredClassList } = useQuery(
-    ['classList', typingValue],
+  //타이핑만 / 타이핑,필터 둘다
+  const { data: classList } = useQuery(
+    !isSearchFilterOn
+      ? ['classList', typingValue]
+      : ['classList', searchFilterValue],
     () =>
       getFilteredClassList({
         typingValue: typingValue,
-        filterValue: {},
+        filterValue: !isSearchFilterOn ? {} : searchFilterValue,
       }),
     {
-      enabled: !isSearchFilterOn,
-      onSuccess: data => {
-        console.log(data);
-      },
-      onError: error => {
-        console.log(error);
-      },
-    },
-  );
-
-  //타이핑,필터 둘다 (완료)
-  const { data: bothFilteredClassList } = useQuery(
-    ['classList', searchFilterValue],
-    () =>
-      getFilteredClassList({
-        typingValue: typingValue,
-        filterValue: searchFilterValue,
-      }),
-    {
-      enabled: isSearchFilterOn,
       onSuccess: data => {
         console.log(data);
       },
@@ -132,9 +114,7 @@ export default function SearchResultPage() {
             >
               {' '}
               {selectBarItem == '수업'
-                ? !isSearchFilterOn
-                  ? typingFilteredClassList?.length
-                  : bothFilteredClassList?.length
+                ? classList?.length
                 : filteredDancerList?.length}
             </span>
             건
@@ -197,24 +177,11 @@ export default function SearchResultPage() {
         {/* { isClassBtnClicked ? (isFilterOn이 false면 typingFilteredClassList, true면 bothFilteredClassList 보여주기!) : filteredDancerList } -> 중첩 조건문으로! */}
 
         {selectBarItem == '수업' ? (
-          !isSearchFilterOn ? (
-            typingFilteredClassList?.length == 0 ? (
-              <NoInfo />
-            ) : (
-              <>
-                {typingFilteredClassList?.map((classInfo: any, idx: any) => (
-                  <>
-                    <ClassCard key={idx} classInfo={classInfo} />
-                    <div className={styles.divider} />
-                  </>
-                ))}
-              </>
-            )
-          ) : bothFilteredClassList?.length == 0 ? (
+          classList?.length == 0 ? (
             <NoInfo />
           ) : (
             <>
-              {bothFilteredClassList?.map((classInfo: any, idx: any) => (
+              {classList?.map((classInfo: any, idx: any) => (
                 <>
                   <ClassCard key={idx} classInfo={classInfo} />
                   <div className={styles.divider} />
