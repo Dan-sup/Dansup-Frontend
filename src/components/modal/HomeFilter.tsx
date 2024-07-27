@@ -18,13 +18,14 @@ import ClassDay from '@/components/upload/ClassDay';
 import Close from '../../../public/icons/close.svg';
 import { useRouter } from 'next/router';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { homeFilterState } from '@/store/filter';
+import { isHomeFilterOnState } from '@/store/filter';
 import {
   classDayListState,
   classFeeState,
   classLevelState,
   classWayState,
   genreListState,
+  homeFilterValueState,
   homeFilterValueListState,
   isClickedGenreState,
   isClickedLocationState,
@@ -37,14 +38,9 @@ import ClassTime from '../upload/ClassTime';
 interface filterProps {
   isOpen: boolean;
   closeModal: () => void;
-  handleHomeFilterOn: any;
 }
 
-export default function HomeFilter({
-  isOpen,
-  closeModal,
-  handleHomeFilterOn,
-}: filterProps) {
+export default function HomeFilter({ isOpen, closeModal }: filterProps) {
   const [locationList, setLocationList] = useRecoilState(locationListState);
   const [isLocationFull, setIsLocationFull] = useState<boolean>(false);
   const [isClickedLocation, setIsClickedLocation] = useRecoilState(
@@ -61,6 +57,10 @@ export default function HomeFilter({
   const [isClassWayFull, setIsClassWayFull] = useState<boolean>(false);
   const [isClassLevelFull, setIsClassLevelFull] = useState<boolean>(false);
   const [classFee, setClassFee] = useRecoilState(classFeeState);
+
+  const setHomeFilterValue = useSetRecoilState(homeFilterValueState);
+
+  const setIsHomeFilterOn = useSetRecoilState(isHomeFilterOnState);
 
   //목록 선택
   const [isSelectWay, setIsSelectWay] = useState<boolean>(true);
@@ -183,7 +183,7 @@ export default function HomeFilter({
   };
 
   const router = useRouter();
-  const [homeFilter, setHomeFilter] = useRecoilState(homeFilterState);
+  //const [homeFilter, setHomeFilter] = useRecoilState(homeFilterState);
 
   const newClassDayList = classDayList.map(item => item.name);
 
@@ -262,6 +262,11 @@ export default function HomeFilter({
     .flat()
     .filter(item => item !== null);
 
+  let trsGenreList = [];
+  for (let x of genreList) {
+    trsGenreList.push({ genre: x.name });
+  }
+
   const handleSubmit = () => {
     /*
     console.log(
@@ -305,9 +310,9 @@ export default function HomeFilter({
       });
       */
 
-    handleHomeFilterOn({
+    setHomeFilterValue({
       location: locationList[0] === null ? null : locationList[0]?.name,
-      genres: genreList.map(item => item.name),
+      genres: trsGenreList,
       days: {
         mon: newClassDayList.includes('월'),
         tue: newClassDayList.includes('화'),
@@ -332,6 +337,7 @@ export default function HomeFilter({
       endHour: endHour,
     });
 
+    setIsHomeFilterOn(true);
     closeModal();
   };
 

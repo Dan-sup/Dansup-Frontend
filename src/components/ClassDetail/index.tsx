@@ -28,7 +28,7 @@ import {
 export default function ClassDetail() {
   const router = useRouter();
 
-  const [classInfo, setClassInfo] = useState<any>();
+  const [classInfo, setClassInfo] = useState<any>(); //이거 굳이 왜했지??
   const [onSite, setOnSite] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 

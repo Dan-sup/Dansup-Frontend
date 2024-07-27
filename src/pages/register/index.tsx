@@ -190,13 +190,18 @@ export default function ProfileUpload() {
     },
   });
 
+  let trsGenreList = [];
+  for (let x of genreList) {
+    trsGenreList.push({ genre: x.name });
+  }
+
   const handleSubmit = () => {
     console.log(image || null); //V
     console.log(video || null); //V
     console.log(`@${userId}`); //V
     console.log(dancerName); //V
     console.log(intro !== '' ? intro : null); //V
-    console.log(genreList); //V
+    console.log(trsGenreList); //V
     console.log(hashTagList);
     console.log(
       awardList.filter(filter => filter.date !== '' && filter.detail !== ''),
@@ -221,7 +226,7 @@ export default function ProfileUpload() {
             username: `@${userId}`,
             nickname: dancerName,
             intro: intro !== '' ? intro : null,
-            genres: genreList,
+            genres: trsGenreList,
             hashtag1:
               hashTagList[1]?.name !== undefined
                 ? `#${hashTagList[1]?.name}`

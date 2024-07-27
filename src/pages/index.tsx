@@ -1,10 +1,18 @@
 import dynamic from 'next/dynamic';
 import Bottom from '../components/common/Footer';
 
-const BasicHeader = dynamic(import('@/components/common/Header/BasicHeader'));
 import { useState } from 'react';
-import { useQuery, useMutation } from '@tanstack/react-query';
-import { getClassList, getFilteredClassList } from '@/apis/class';
+import { useRouter } from 'next/router';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { useQuery } from '@tanstack/react-query';
+import { getAllClassList, getFilteredClassList } from '@/apis/class';
+import { useResetFilter } from '@/hooks/useResetFilter';
+import { useSelectBar } from '@/hooks/useSelectBar';
+import { isHomeFilterOnState } from '@/store/filter';
+import {
+  homeFilterValueState,
+  homeFilterValueListState,
+} from '@/store/filter/homeFilter';
 import SearchIcon from '../../public/icons/search.svg';
 import FilterIcon from '../../public/icons/filter.svg';
 import FilterOnIcon from '../../public/icons/filter-on.svg';
@@ -12,19 +20,13 @@ import ResetIcon from '../../public/icons/reset.svg';
 import typoStyles from '../styles/typography.module.css';
 import styles from '../styles/HomePage.module.css';
 import filterBarStyles from '../styles/components/FilterBar.module.css';
+const BasicHeader = dynamic(import('@/components/common/Header/BasicHeader'));
 const FilterBar = dynamic(import('@/components/FilterBar'));
-const ClassCard = dynamic(import('@/components/ClassCard'));
-import { useRouter } from 'next/router';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { isHomeFilterOnState } from '@/store/filter';
-import { filteredClassListState } from '@/store/class';
 const HomeFilter = dynamic(import('@/components/modal/HomeFilter'));
+const ClassCard = dynamic(import('@/components/ClassCard'));
 const NoInfo = dynamic(import('@/components/common/NoInfo'));
-import { useResetFilter } from '@/hooks/useResetFilter';
-import { homeFilterValueListState } from '@/store/filter/homeFilter';
-import Footer from '../components/common/Footer';
 import SelectBar from '@/components/SelectBar';
-import { useSelectBar } from '@/hooks/useSelectBar';
+import Footer from '../components/common/Footer';
 
 export default function HomePage() {
   //const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
@@ -33,11 +35,7 @@ export default function HomePage() {
   const { selectBarItem, handleChangeSelectBarItem } = useSelectBar();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  //const [filteredClassList, setfilteredClassList] = useState<object[]>([]);
-  const [filteredClassList, setfilteredClassList] = useRecoilState(
-    filteredClassListState,
-  );
-
+  const homeFilterValue = useRecoilValue(homeFilterValueState);
   const homeFilterValueList = useRecoilValue(homeFilterValueListState);
 
   const router = useRouter();
@@ -57,38 +55,25 @@ export default function HomePage() {
 
   //api 로직 가져와서 사용하기
 
-  //전체 클래스 리스트
-  const { data: classList } = useQuery(['classList'], () => getClassList(), {
-    onSuccess: data => {
-      //console.log(data);
+  //전체 클래스 리스트 / 필터링된 클래스 리스트
+  const { data: classList } = useQuery(
+    !isHomeFilterOn ? ['classList'] : ['classList', homeFilterValue],
+    !isHomeFilterOn
+      ? getAllClassList
+      : () =>
+          getFilteredClassList({
+            typingValue: null,
+            filterValue: homeFilterValue,
+          }),
+    {
+      onSuccess: data => {
+        console.log(data);
+      },
+      onError: error => {
+        console.log(error);
+      },
     },
-    onError: error => {
-      console.log(error);
-    },
-  });
-
-  //필터링된 클래스 리스트
-  const getFilteredClassListMutation = useMutation(getFilteredClassList, {
-    onSuccess: data => {
-      //여기로 filteredClassList 오면 사용!
-      console.log(data);
-      setfilteredClassList(data);
-    },
-    onError: error => {
-      console.log(error);
-    },
-  });
-
-  const handleHomeFilterOn = (filterValue: any) => {
-    console.log(filterValue);
-
-    getFilteredClassListMutation.mutate({
-      typingValue: null,
-      filterValue: filterValue,
-    });
-
-    setIsHomeFilterOn(true);
-  };
+  );
 
   return (
     <>
@@ -109,12 +94,19 @@ export default function HomePage() {
 
         {/*<FilterBar isFilterOn={isFilterOn} />*/}
         {!isHomeFilterOn ? (
-          <div className={styles.selectBar}>
+          <div className={filterBarStyles.bar}>
+            {/*
             <SelectBar
               selectBarItem={selectBarItem}
               handleChangeSelectBarItem={handleChangeSelectBarItem}
               type="narrow"
             />
+            */}
+            <div
+              className={`${filterBarStyles.barText} ${typoStyles.body1_SemiBold}`}
+            >
+              최근 업로드된 수업
+            </div>
 
             <button className={styles.filterIcon} onClick={openModal}>
               <FilterIcon />
@@ -131,7 +123,7 @@ export default function HomePage() {
                   className={`${filterBarStyles.onNumberText} ${typoStyles.body2_Regular}`}
                 >
                   {' '}
-                  {filteredClassList.length}
+                  {classList?.length}
                 </span>
                 건
               </div>
@@ -171,27 +163,13 @@ export default function HomePage() {
             </div>
           </>
         )}
-        <HomeFilter
-          isOpen={isModalOpen}
-          closeModal={closeModal}
-          handleHomeFilterOn={handleHomeFilterOn}
-        />
+        <HomeFilter isOpen={isModalOpen} closeModal={closeModal} />
 
-        {/* isFilterOn이 false면 classList, true면 filteredClassList 보여주기! */}
-        {!isHomeFilterOn ? (
-          <>
-            {classList?.map((classInfo: any, idx: any) => (
-              <>
-                <ClassCard key={idx} classInfo={classInfo} />
-                <div className={styles.divider} />
-              </>
-            ))}
-          </>
-        ) : filteredClassList.length == 0 ? (
+        {classList?.length == 0 ? (
           <NoInfo />
         ) : (
           <>
-            {filteredClassList.map((classInfo: any, idx: any) => (
+            {classList?.map((classInfo: any, idx: any) => (
               <>
                 <ClassCard key={idx} classInfo={classInfo} />
                 <div className={styles.divider} />

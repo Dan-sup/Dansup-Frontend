@@ -19,7 +19,7 @@ import ClassDay from '@/components/upload/ClassDay';
 import Close from '../../../public/icons/close.svg';
 import { useRouter } from 'next/router';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { searchFilterState } from '@/store/filter';
+import { isSearchFilterOnState } from '@/store/filter';
 import {
   classDayListSearchState,
   classFeeSearchState,
@@ -27,7 +27,8 @@ import {
   classWaySearchState,
   clickedTimeSearchState,
   genreListSearchState,
-  homeFilterValueListSearchState,
+  searchFilterValueState,
+  searchFilterValueListState,
   isClickedGenreSearchState,
   isClickedLocationSearchState,
   locationListSearchState,
@@ -38,14 +39,9 @@ import { changeClassWayToK, changeClassLevelToK } from '@/utils/filter';
 interface filterProps {
   isOpen: boolean;
   closeModal: () => void;
-  handleSearchFilterOn: any;
 }
 
-export default function SearchFilter({
-  isOpen,
-  closeModal,
-  handleSearchFilterOn,
-}: filterProps) {
+export default function SearchFilter({ isOpen, closeModal }: filterProps) {
   const [locationList, setLocationList] = useRecoilState(
     locationListSearchState,
   );
@@ -71,6 +67,10 @@ export default function SearchFilter({
   const [isClassLevelFull, setIsClassLevelFull] = useState<boolean>(false);
   const [classFee, setClassFee] = useRecoilState(classFeeSearchState);
 
+  const setSearchFilterValue = useSetRecoilState(searchFilterValueState);
+
+  const setIsSearchFilterOn = useSetRecoilState(isSearchFilterOnState);
+
   //목록 선택
   const [isSelectWay, setIsSelectWay] = useState<boolean>(true);
   const [selectTimeList, setSelectTimeList] = useRecoilState(
@@ -94,7 +94,7 @@ export default function SearchFilter({
   const [endTime, setEndTime] = useState<string>('');
 
   const setSearchFilterValueList = useSetRecoilState<any>(
-    homeFilterValueListSearchState,
+    searchFilterValueListState,
   );
 
   //location 박스 열기
@@ -203,7 +203,6 @@ export default function SearchFilter({
   };
 
   const router = useRouter();
-  const [searchFilter, setSearchFilter] = useRecoilState(searchFilterState);
 
   const newClassDayList = classDayList.map(item => item.name);
 
@@ -270,6 +269,11 @@ export default function SearchFilter({
     .flat()
     .filter(item => item !== null);
 
+  let trsGenreList = [];
+  for (let x of genreList) {
+    trsGenreList.push({ genre: x.name });
+  }
+
   const handleSubmit = () => {
     setSearchFilterValueList(valueList);
 
@@ -298,9 +302,9 @@ export default function SearchFilter({
       });
       */
 
-    handleSearchFilterOn({
+    setSearchFilterValue({
       location: locationList[0] === null ? null : locationList[0]?.name,
-      genres: genreList.map(item => item.name),
+      genres: trsGenreList,
       days: {
         mon: newClassDayList.includes('월'),
         tue: newClassDayList.includes('화'),
@@ -325,6 +329,7 @@ export default function SearchFilter({
       endHour: endHour,
     });
 
+    setIsSearchFilterOn(true);
     closeModal();
   };
 

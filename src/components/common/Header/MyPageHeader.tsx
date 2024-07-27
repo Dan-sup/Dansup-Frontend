@@ -71,7 +71,7 @@ export default function MyPageHeader() {
     <>
       <div className={styles.container}>
         <div className={styles.containerBtn}>
-          <div className={`${styles.title} ${fonts.head1}`}>마이페이지</div>
+          <div className={`${styles.title} ${fonts.head1}`}></div>
           <div
             className={styles.btn}
             onClick={() => {
